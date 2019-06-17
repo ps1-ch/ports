@@ -1,0 +1,17 @@
+$OpenBSD$
+
+Index: src/gui/sdlmain.cpp
+--- src/gui/sdlmain.cpp.orig
++++ src/gui/sdlmain.cpp
+@@ -291,9 +291,9 @@ void GFX_SetTitle(Bit32s cycles,Bits frameskip,bool pa
+ 	if(cycles != -1) internal_cycles = cycles;
+ 	if(frameskip != -1) internal_frameskip = frameskip;
+ 	if(CPU_CycleAutoAdjust) {
+-		sprintf(title,"DOSBox %s, Cpu speed: max %3d%% cycles, Frameskip %2d, Program: %8s",VERSION,internal_cycles,internal_frameskip,RunningProgram);
++		sprintf(title,"%s",RunningProgram);
+ 	} else {
+-		sprintf(title,"DOSBox %s, Cpu speed: %8d cycles, Frameskip %2d, Program: %8s",VERSION,internal_cycles,internal_frameskip,RunningProgram);
++		sprintf(title,"%s",RunningProgram);
+ 	}
+ 
+ 	if(paused) strcat(title," PAUSED");
