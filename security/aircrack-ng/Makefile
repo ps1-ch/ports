@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.25 2019/05/18 12:13:34 naddy Exp $
+# $OpenBSD: Makefile,v 1.28 2019/10/05 22:33:21 naddy Exp $
 
 COMMENT=		802.11 WEP and WPA-PSK keys cracking program
 DISTNAME=		aircrack-ng-1.5.2
-REVISION=		1
+REVISION=		2
 CATEGORIES=		security
 
 HOMEPAGE=		https://www.aircrack-ng.org/
@@ -10,7 +10,7 @@ HOMEPAGE=		https://www.aircrack-ng.org/
 MAINTAINER=		Benoit Lecocq <benoit@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=   Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB+=		c pthread crypto z pcre
 WANTLIB+=		${COMPILER_LIBCXX} m sqlite3
@@ -33,6 +33,10 @@ LIBTOOL_FLAGS=		--tag=disable-static
 AUTOCONF_VERSION=	2.69
 AUTOMAKE_VERSION=	1.16
 CONFIGURE_STYLE=	autoreconf
+
+# Disable NEON optimizations (arm, aarch64) since clang can't compile the code
+# https://github.com/aircrack-ng/aircrack-ng/issues/1957
+CONFIGURE_ENV+=		ax_cv_neon_cflags=no ax_cv_neon_cxxflags=no
 
 MAKE_ENV+=		SQLITE=true UNSTABLE=true
 MAKE_FLAGS+=		CC=${CC}

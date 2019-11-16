@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.378 2019/05/09 11:50:20 jasper Exp $
+# $OpenBSD: Makefile,v 1.381 2019/11/05 09:13:00 jeremy Exp $
 
      SUBDIR =
      SUBDIR += architect
@@ -77,6 +77,7 @@
      SUBDIR += p5-DBD-SQLite2
      SUBDIR += p5-DBD-Sybase
      SUBDIR += p5-DBD-XBase
+     SUBDIR += p5-DBD-MariaDB
      SUBDIR += p5-DBD-mysql
      SUBDIR += p5-DBD-mysqlPP
      SUBDIR += p5-DBI
@@ -140,7 +141,6 @@
      SUBDIR += pgmodeler
      SUBDIR += pgpool
      SUBDIR += pgtcl
-     SUBDIR += pgworksheet
      SUBDIR += pkglocatedb
      SUBDIR += ports-readmes
      SUBDIR += ports-readmes-dancer
@@ -149,7 +149,6 @@
      SUBDIR += postgresql-previous
      SUBDIR += postgresql-pllua
      SUBDIR += postgresql-plr
-     SUBDIR += postgresql-plv8
      SUBDIR += postgresql_autodoc
      SUBDIR += puppetdb4
      SUBDIR += puppetdb5
@@ -158,7 +157,6 @@
      SUBDIR += py-bsddb3
      SUBDIR += py-bsddb3,python3
      SUBDIR += py-carbon
-     SUBDIR += py-cdb
      SUBDIR += py-flask-sqlalchemy
      SUBDIR += py-influxdb
      SUBDIR += py-influxdb,python3
@@ -177,7 +175,6 @@
      SUBDIR += py-peewee
      SUBDIR += py-peewee,python3
      SUBDIR += py-pg_activity
-     SUBDIR += py-pgsql
      SUBDIR += py-pickleshare
      SUBDIR += py-pickleshare,python3
      SUBDIR += py-psycopg2

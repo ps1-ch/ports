@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.34 2015/02/16 22:57:09 naddy Exp $
+# $OpenBSD: Makefile,v 1.36 2019/07/17 14:46:33 danj Exp $
 
 COMMENT=		Tcl/Tk interface to the MH mail system
 
 DISTNAME=		exmh-2.7.2
-REVISION =		1
+REVISION =		2
 CATEGORIES=     	mail
 
 HOMEPAGE=		http://www.beedub.com/exmh/
 
-MAINTAINER=		Michael Paddon <michael@paddon.org>
-
 # custom BSD-like
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		ftp://ftp.funet.fi/pub/languages/tcl/tcl/exmh/ \
 			ftp://ftp.tcl.tk/pub/tcl/exmh/

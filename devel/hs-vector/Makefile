@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.23 2018/01/22 22:05:07 kili Exp $
+# $OpenBSD: Makefile,v 1.26 2019/09/30 12:27:46 kili Exp $
 
 COMMENT =		Int-indexed arrays
 
@@ -6,22 +6,22 @@ COMMENT =		Int-indexed arrays
 # Please do *not* update without thinking.
 PORTROACH =		ignore:1
 
-DISTNAME =		vector-0.12.0.1
+DISTNAME =		vector-0.12.0.3
 CATEGORIES =		devel
 
 MAINTAINER =		Jim Razmus II <jim@openbsd.org>, \
 			Matthias Kilian <kili@openbsd.org>
 
 # BSD3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/ghc
 
 MODGHC_BUILD =		cabal hackage haddock register
 
-MODGHC_PACKAGE_KEY =	IUGn3M9mkBh8CyXcBnfTR4
+MODGHC_PACKAGE_KEY =	2LEYu9M2i7lERDtz76XG3n
 
-RUN_DEPENDS +=		devel/hs-primitive>=0.5.0.1,<0.7
+RUN_DEPENDS +=		devel/hs-primitive>=0.6,<0.7
 BUILD_DEPENDS +=	${RUN_DEPENDS}
 
 .include <bsd.port.mk>

@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.12 2019/02/26 16:34:48 sebastia Exp $
+# $OpenBSD: Makefile,v 1.15 2019/10/24 20:42:17 sebastia Exp $
 
 COMMENT=		syntax checks for Puppet manifests and templates
 
-DISTNAME=		puppet-syntax-2.4.3
+DISTNAME=		puppet-syntax-2.6.0
 CATEGORIES=		sysutils
 
 MAINTAINER=		Sebastian Reitenbach <sebastia@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		lang/ruby
 

@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.12 2019/02/25 17:54:46 sthen Exp $
+# $OpenBSD: Makefile,v 1.14 2019/11/09 22:31:55 fcambus Exp $
 
 COMMENT=		count lines of code
 
-V=			1.80
+V=			1.84
 DISTNAME=		cloc-${V}
 
 CATEGORIES=		textproc devel
@@ -12,7 +12,7 @@ HOMEPAGE=		https://github.com/AlDanial/cloc
 MAINTAINER=		Joerg Jung <jung@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		https://github.com/AlDanial/cloc/releases/download/${V}/
 

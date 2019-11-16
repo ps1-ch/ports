@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.3 2017/11/02 14:11:08 espie Exp $
+# $OpenBSD: Makefile,v 1.5 2019/10/02 21:11:08 cwen Exp $
 
 COMMENT =		solitaire games
 
 DISTNAME =		ace-1.4
-REVISION =		0
+REVISION =		1
 
 SHARED_LIBS +=  cards                     0.0 # 1.0
 
@@ -12,7 +12,7 @@ CATEGORIES =		games
 HOMEPAGE =		http://www.delorie.com/store/ace/
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += X11 c m png xcb z
 

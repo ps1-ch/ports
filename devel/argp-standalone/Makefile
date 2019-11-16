@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.8 2017/09/29 23:36:03 sthen Exp $
+# $OpenBSD: Makefile,v 1.10 2019/07/12 20:44:03 sthen Exp $
 
 COMMENT=	standalone version of argument parsing functions from GLIBC
 
@@ -8,9 +8,9 @@ REVISION=	3
 CATEGORIES=	devel
 
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-MASTER_SITES=		http://www.lysator.liu.se/~nisse/misc/
+MASTER_SITES=		https://www.lysator.liu.se/~nisse/misc/
 
 SEPARATE_BUILD=		Yes
 AUTOCONF_VERSION=	2.59

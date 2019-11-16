@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.11 2019/06/07 05:44:37 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.17 2019/10/02 15:02:14 rsadowski Exp $
 
 COMMENT=	full suite pictographic icons
 
-VERSION =	5.9.0
+VERSION =	5.11.2
 PKGNAME =	font-awesome-${VERSION}
 DISTNAME =	fontawesome-free-${VERSION}-desktop
 
@@ -16,7 +16,7 @@ MASTER_SITES =	https://github.com/FortAwesome/Font-Awesome/releases/download/${V
 EXTRACT_SUFX =	.zip
 
 # SIL OFL 1.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES =	font
 FONTTYPES =	otf

@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.16 2018/11/26 14:17:13 sebastia Exp $
+# $OpenBSD: Makefile,v 1.18 2019/10/20 08:03:04 ajacoutot Exp $
 
 COMMENT =	manage settings of the gnustep environment
 
-REVISION =	7
+REVISION =	9
 DISTNAME =	SystemPreferences-1.2.0
 CATEGORIES =	sysutils
 SHARED_LIBS =	PreferencePanes 0.0

@@ -1,16 +1,14 @@
-# $OpenBSD: Makefile,v 1.11 2016/03/20 19:56:15 naddy Exp $
+# $OpenBSD: Makefile,v 1.13 2019/11/03 14:07:41 jasper Exp $
 
 COMMENT=	inheritable, overridable class data
 
 MODULES=	cpan
 PKG_ARCH=	*
 DISTNAME=	Class-Data-Inheritable-0.08
-REVISION=	0
+REVISION=	1
 CATEGORIES=	devel
 
-MAINTAINER=	Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # perl
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 .include <bsd.port.mk>

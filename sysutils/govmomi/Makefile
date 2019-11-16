@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.8 2019/02/09 09:53:41 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.10 2019/07/27 09:53:32 ajacoutot Exp $
 
 COMMENT-main=		vSphere CLI built on top of govmomi
 COMMENT-vcsim=		vCenter and ESXi API based simulator
 
-GH_TAGNAME=		v0.20.0
+GH_TAGNAME=		v0.21.0
 GH_ACCOUNT=		vmware
 GH_PROJECT=		govmomi
 
@@ -15,7 +15,7 @@ CATEGORIES=		sysutils
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # Apache-2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB += c pthread
 

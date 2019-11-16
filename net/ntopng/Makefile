@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.18 2019/06/03 16:06:54 sthen Exp $
+# $OpenBSD: Makefile,v 1.20 2019/08/21 13:18:32 sthen Exp $
 
 # built but not actually installed at present; patches are needed for the
 # build so it seems easier to keep the SHARED_LIBS infrastructure here.
@@ -9,6 +9,7 @@ COMMENT=	network traffic probe with web ui and deep packet inspection
 GH_ACCOUNT=	ntop
 GH_PROJECT=	ntopng
 GH_TAGNAME=	3.8
+REVISION=	0
 NDPI_V=		2.6
 DISTFILES=	ntopng-${GH_TAGNAME}.tar.gz ndpi-${NDPI_V}.tar.gz:0
 
@@ -25,7 +26,7 @@ WANTLIB += ${COMPILER_LIBCXX}
 WANTLIB += c crypto curl hiredis json-c m maxminddb mysqlclient
 WANTLIB += pcap radcli rrd sodium sqlite3 ssl z zmq zstd
 
-COMPILER =	base-clang ports-gcc base-gcc
+COMPILER =	base-clang ports-gcc
 
 MASTER_SITES0=	https://github.com/ntop/ndpi/archive/${NDPI_V}/
 

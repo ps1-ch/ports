@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.225 2019/05/21 15:39:57 sthen Exp $
+# $OpenBSD: Makefile,v 1.230 2019/11/11 19:10:45 ajacoutot Exp $
 
 COMMENT-main=	VideoLAN client; multimedia player
 COMMENT-jack=	JACK audio output module for VLC
@@ -10,7 +10,7 @@ PKGNAME-jack=	vlc-jack-${V}
 CATEGORIES=	x11
 MASTER_SITES=	https://download.videolan.org/pub/videolan/vlc/${V}/
 EXTRACT_SUFX=	.tar.xz
-REVISION=	6
+REVISION=	9
 
 SHARED_LIBS=	vlc	3.0 \
 		vlccore	3.0
@@ -20,8 +20,7 @@ HOMEPAGE=	https://www.videolan.org/vlc/
 MAINTAINER=	Brad Smith <brad@comstyle.com>
 
 # LGPLv2.1+ and GPLv2+
-PERMIT_PACKAGE_CDROM=	patents
-PERMIT_PACKAGE_FTP=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB-common=	c dbus-1 iconv idn intl m pthread
 WANTLIB-main=	EGL GL ICE lib/qt4/QtGui QtCore SM SDL SDL_image X11 \
@@ -46,10 +45,11 @@ WANTLIB-jack=	db jack vlccore ${WANTLIB-common}
 
 AUTOCONF_VERSION= 2.69
 AUTOMAKE_VERSION= 1.15
+AUTORECONF =	./bootstrap
 
 MODULES=	x11/qt4
 
-COMPILER =	base-clang ports-gcc base-gcc
+COMPILER =	base-clang ports-gcc
 
 WANTLIB-main += ${COMPILER_LIBCXX}
 
@@ -95,13 +95,11 @@ RUN_DEPENDS-main= devel/desktop-file-utils \
 		x11/gtk+3,-guic
 RUN_DEPENDS-jack= ${BUILD_PKGPATH}
 
-MAKE_ENV=	AUTOCONF_VERSION=${AUTOCONF_VERSION} AUTOMAKE_VERSION=${AUTOMAKE_VERSION}
-
 USE_GMAKE=	Yes
 # Fails to link _pic libs properly resulting in undefined symbols in the live555 plugin
 USE_LIBTOOL=	gnu
 LIBTOOL_FLAGS=	--tag=disable-static
-CONFIGURE_STYLE= gnu
+CONFIGURE_STYLE= autoreconf
 MODGNU_CONFIG_GUESS_DIRS= ${WRKSRC}/autotools
 CONFIGURE_ARGS+=--disable-a52 \
 		--disable-alsa \
@@ -194,14 +192,11 @@ PKG_ARGS+=-Di386=1
 PKG_ARGS+=-Di386=0
 .endif
 
-pre-configure:
-	@cd ${WRKSRC} && env AUTOCONF_VERSION=${AUTOCONF_VERSION} AUTOMAKE_VERSION=${AUTOMAKE_VERSION} \
-	    ./bootstrap
-
 post-install:
-	@find ${PREFIX}/lib/vlc -name '*.la' -print | xargs rm
+	@find ${PREFIX}/lib/vlc -name '*.la' -delete
 
 .include <bsd.port.mk>
+
 .if ${CHOSEN_COMPILER} == "base-clang"
-CXXFLAGS += -std=c++11 -DXXX_CLANG_WORKAROUND=1
+CXXFLAGS+= -DXXX_CLANG_WORKAROUND=1
 .endif

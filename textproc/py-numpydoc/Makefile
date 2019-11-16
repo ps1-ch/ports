@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.9 2019/05/15 12:04:42 kmos Exp $
+# $OpenBSD: Makefile,v 1.11 2019/11/08 22:59:10 kmos Exp $
 
 COMMENT =		Sphinx extension to support docstrings in Numpy format
 
@@ -10,7 +10,7 @@ HOMEPAGE =		https://github.com/numpy/numpydoc
 REVISION =		1
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 
@@ -19,14 +19,11 @@ MODPY_PI =		Yes
 FLAVORS =		python3
 FLAVOR ?=
 
+MODPY_PYTEST =		Yes
+MODPY_PYTEST_ARGS =	numpydoc
+
 RUN_DEPENDS =		graphics/py-matplotlib${MODPY_FLAVOR} \
 			textproc/py-sphinx${MODPY_FLAVOR} \
 			www/py-jinja2${MODPY_FLAVOR}
-
-TEST_DEPENDS =		devel/py-nose${MODPY_FLAVOR}
-
-do-test:
-	cd ${WRKSRC} && \
-		${LOCALBASE}/bin/nosetests${MODPY_BIN_SUFFIX} --first-package-wins
 
 .include <bsd.port.mk>

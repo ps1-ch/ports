@@ -1,15 +1,17 @@
-# $OpenBSD: Makefile,v 1.23 2019/05/12 22:00:52 jca Exp $
+# $OpenBSD: Makefile,v 1.26 2019/11/07 10:08:48 ajacoutot Exp $
 
 COMMENT=	SPICE protocol headers
 
-DISTNAME=	spice-protocol-0.12.14
-REVISION=	0
+DISTNAME=	spice-protocol-0.14.0
+
 CATEGORIES=	devel net
 
 HOMEPAGE=	http://www.spice-space.org/
 
+MAINTAINER=	Antoine Jacoutot <ajacoutot@openbsd.org>
+
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	${HOMEPAGE}/download/releases/
 EXTRACT_SUFX=	.tar.bz2

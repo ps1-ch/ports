@@ -1,20 +1,20 @@
-# $OpenBSD: Makefile,v 1.23 2018/06/27 21:03:42 espie Exp $
+# $OpenBSD: Makefile,v 1.25 2019/08/08 17:11:24 cwen Exp $
 
 USE_WXNEEDED =	Yes
 
 COMMENT =	Nintendo DS emulator
 
 DISTNAME =	desmume-0.9.11
-REVISION =	7
+REVISION =	8
 
 CATEGORIES =	emulators
 
-HOMEPAGE =	http://desmume.org/
+HOMEPAGE =	https://desmume.org/
 
 MAINTAINER =	Anthony J. Bentley <anthony@anjbe.name>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 WANTLIB += agg c m pthread ${LIBCXX} z GL GLU X11 Xcomposite
 WANTLIB += Xcursor Xdamage Xext Xfixes Xi Xinerama Xrandr Xrender
@@ -43,5 +43,9 @@ MODULES =	textproc/intltool
 COMPILER =	base-clang ports-gcc
 
 CONFIGURE_STYLE =	gnu
+
+# Some files needing patches have DOS line endings, removing them.
+post-extract:
+	@cd ${WRKSRC} && perl -i -pe 's/\r$$//' src/MMU_timing.h
 
 .include <bsd.port.mk>

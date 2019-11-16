@@ -1,9 +1,13 @@
-# $OpenBSD: Makefile,v 1.11 2018/11/02 16:41:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.13 2019/10/04 12:45:12 kn Exp $
 
 COMMENT =		lightweight and flexible command-line JSON processor
 
 V =			1.6
 DISTNAME =		jq-$V
+REVISION =		0
+
+# prevent clobbering existing distfile
+DISTFILES =		${DISTNAME}-new{${DISTNAME}}${EXTRACT_SUFX}
 
 SHARED_LIBS +=	jq                        1.0 # 1.4
 
@@ -12,7 +16,7 @@ CATEGORIES =		textproc
 HOMEPAGE =		http://stedolan.github.io/jq/
 
 # MIT (code), CC-BY-3.0 (docs)
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # uses pledge()
 WANTLIB += c m onig

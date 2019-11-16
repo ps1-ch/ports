@@ -1,4 +1,4 @@
-# $OpenBSD: go.port.mk,v 1.22 2019/05/04 21:46:16 sthen Exp $
+# $OpenBSD: go.port.mk,v 1.26 2019/10/06 15:37:15 sthen Exp $
 
 ONLY_FOR_ARCHS ?=	${GO_ARCHS}
 
@@ -11,10 +11,20 @@ MODGO_BUILD_DEPENDS =	lang/go
 BUILD_DEPENDS +=	${MODGO_BUILD_DEPENDS}
 .endif
 
+.if ${MACHINE_ARCH} == "amd64"
+_GOARCH =	amd64
+.elif ${MACHINE_ARCH} == "arm"
+_GOARCH =	arm
+.elif ${MACHINE_ARCH} == "aarch64"
+_GOARCH =	arm64
+.elif ${MACHINE_ARCH} == "i386"
+_GOARCH =	386
+.endif
+
 MODGO_PACKAGE_PATH =	${PREFIX}/go-pkg
-MODGO_PACKAGES =	go-pkg/pkg/openbsd_${MACHINE_ARCH:S/i386/386/}
+MODGO_PACKAGES =	go-pkg/pkg/openbsd_${_GOARCH}
 MODGO_SOURCES =		go-pkg/src
-MODGO_TOOLS =		go-pkg/tool/openbsd_${MACHINE_ARCH:S/i386/386/}
+MODGO_TOOLS =		go-pkg/tool/openbsd_${_GOARCH}
 
 SUBST_VARS +=		MODGO_TOOLS MODGO_PACKAGES MODGO_SOURCES
 
@@ -23,10 +33,15 @@ MODGO_TYPE ?=		bin
 MODGO_WORKSPACE ?=	${WRKDIR}/go
 MODGO_GOCACHE ?=	${WRKDIR}/go-cache
 MODGO_GOPATH ?=		${MODGO_WORKSPACE}:${MODGO_PACKAGE_PATH}
-MAKE_ENV +=		GOCACHE="${MODGO_GOCACHE}" GOPATH="${MODGO_GOPATH}"
+MAKE_ENV +=		GOCACHE="${MODGO_GOCACHE}" GOPATH="${MODGO_GOPATH}" GO111MODULE=off
+# ports are not allowed to fetch from the network at build time; point
+# GOPROXY at an unreachable host so that failures are also visible to
+# developers who don't have PORTS_PRIVSEP and a "deny .. _pbuild" PF rule.
+MAKE_ENV +=		GOPROXY=invalid://ports.should.not.fetch.at.buildtime/
 MODGO_CMD ?=		${SETENV} ${MAKE_ENV} go
 MODGO_BUILD_CMD =	${MODGO_CMD} install ${MODGO_FLAGS}
 MODGO_TEST_CMD =	${MODGO_CMD} test ${MODGO_FLAGS} ${MODGO_TEST_FLAGS}
+MODGO_BINDIR ?=		bin
 
 .if ! empty(MODGO_LDFLAGS)
 MODGO_BUILD_CMD +=	-ldflags="${MODGO_LDFLAGS}"
@@ -57,8 +72,9 @@ MODGO_FLAGS +=		-x
 
 INSTALL_STRIP =
 .if ${MODGO_TYPE:L:Mbin}
-MODGO_INSTALL_TARGET =	${INSTALL_PROGRAM} ${MODGO_WORKSPACE}/bin/* \
-				${PREFIX}/bin;
+MODGO_INSTALL_TARGET =	${INSTALL_PROGRAM_DIR} ${PREFIX}/${MODGO_BINDIR} && \
+			${INSTALL_PROGRAM} ${MODGO_WORKSPACE}/bin/* \
+				${PREFIX}/${MODGO_BINDIR};
 .endif
 
 # Go source files serve the purpose of libraries, so sources should be included

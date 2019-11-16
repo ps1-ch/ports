@@ -1,15 +1,15 @@
-# $OpenBSD: Makefile,v 1.40 2019/05/17 03:31:26 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.42 2019/09/15 14:27:13 ajacoutot Exp $
 
 COMMENT-main=		implementation of the iCalendar protocols and data units
 COMMENT-glib=		GObject wrapper for libical library
 
-V=			3.0.5
+V=			3.0.6
 DISTNAME=		libical-${V}
 
 PKGNAME-main=		${PKGNAME}
 PKGNAME-glib=		libical-glib-${V}
 
-SHARED_LIBS +=  ical                 4.2
+SHARED_LIBS +=  ical                 4.3
 SHARED_LIBS +=  icalss               4.0
 SHARED_LIBS +=  icalvcal             3.0
 SHARED_LIBS +=  ical_cxx             1.0
@@ -23,7 +23,7 @@ HOMEPAGE=		https://libical.github.io/libical/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # dual MPLv2, LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += icui18n icuuc
 WANTLIB-main += ${WANTLIB} ${COMPILER_LIBCXX} m lib/db4/db

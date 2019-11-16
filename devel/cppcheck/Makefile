@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.54 2019/03/05 00:19:27 gsoares Exp $
+# $OpenBSD: Makefile,v 1.56 2019/09/11 03:22:39 jsg Exp $
 
 COMMENT =		C/C++ static checker
 
-DISTNAME =		cppcheck-1.87
+DISTNAME =		cppcheck-1.89
 
 CATEGORIES =		devel
 
@@ -11,7 +11,7 @@ HOMEPAGE =		http://cppcheck.sourceforge.net/
 MAINTAINER =		Gleydson Soares <gsoares@openbsd.org>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		c execinfo m pcre ${COMPILER_LIBCXX}
 
@@ -27,10 +27,10 @@ TEST_TARGET =		test
 TEST_DEPENDS =		${FULLPKGNAME}:${BUILD_PKGPATH}
 
 # -Ilib before PREFIX/include to avoid picking up header from devel/check
-MAKE_FLAGS =		BIN=${PREFIX}/bin SRCDIR=build \
-			CFGDIR=${PREFIX}/share/cppcheck/cfg \
+MAKE_FLAGS =		BIN=${PREFIX}/bin HAVE_RULES=yes \
+			FILESDIR=${PREFIX}/share/cppcheck \
 			CXX="${CXX}" CXXFLAGS="${CXXFLAGS} -std=c++11" \
-			CPPFLAGS="-DHAVE_RULES -DTIXML_USE_STL -Ilib -I${PREFIX}/include" \
+			CPPFLAGS="-DTIXML_USE_STL -Ilib -I${PREFIX}/include" \
 			LDFLAGS="-L${PREFIX}/lib -lpcre -lexecinfo"
 
 MODULES =		lang/python

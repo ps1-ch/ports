@@ -1,11 +1,10 @@
-# $OpenBSD: Makefile,v 1.27 2019/06/04 15:22:32 jca Exp $
+# $OpenBSD: Makefile,v 1.32 2019/11/07 08:36:31 sebastia Exp $
 
 COMMENT =		collection of C++ and CMake utility libraries
 
 GH_ACCOUNT =		puppetlabs
 GH_PROJECT =		leatherman
-GH_TAGNAME =		1.6.0
-REVISION =		1
+GH_TAGNAME =		1.9.0
 
 # N.B.: Upstream doesn't care about ABI, better just bump major on update
 SHARED_LIBS =	leatherman_curl           1.1 # 0.12
@@ -23,7 +22,7 @@ CATEGORIES =		devel
 MAINTAINER =		Sebastian Reitenbach <sebastia@openbsd.org>
 
 # Apachev2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 COMPILER =		base-clang ports-gcc
 MODULES =		devel/cmake lang/python

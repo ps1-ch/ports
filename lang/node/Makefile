@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.78 2019/05/13 22:06:29 abieber Exp $
+# $OpenBSD: Makefile,v 1.81 2019/09/27 02:07:44 abieber Exp $
 
 # XXX:
 # - Needs __ARM_NR_cacheflush (or the like) to work on arm-based ports.
@@ -11,7 +11,7 @@ USE_WXNEEDED =		Yes
 
 COMMENT =		V8 JavaScript for clients and servers
 
-NODE_VERSION =		v10.15.3
+NODE_VERSION =		v10.16.3
 PLEDGE_VER =		1.1.0
 DISTFILES =		node-pledge-{}${PLEDGE_VER}.tar.gz:0 ${DISTNAME}.tar.gz
 
@@ -27,7 +27,7 @@ HOMEPAGE =		http://nodejs.org/
 MAINTAINER =		Aaron Bieber <abieber@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		${HOMEPAGE}dist/${NODE_VERSION}/
 

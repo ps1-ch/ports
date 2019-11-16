@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.140 2019/06/03 16:06:57 sthen Exp $
+# $OpenBSD: Makefile,v 1.142 2019/09/09 11:10:10 robert Exp $
 
 # XXX building this port while a version is already installed on the
 # system will lead to unexpected hidden dependencies!!!
@@ -18,6 +18,8 @@ PKGNAME-bat=		bacula-bat-$V
 PKGNAME-mysql=		bacula-mysql-$V
 PKGNAME-pgsql=		bacula-pgsql-$V
 PKGNAME-sqlite3=	bacula-sqlite3-$V
+
+REVISION-server=	1
 
 CATEGORIES=		sysutils
 
@@ -136,6 +138,8 @@ RUN_DEPENDS-bat=	${RUN_DEPENDS} \
 LIB_DEPENDS-bat=	${LIB_DEPENDS} \
 			x11/qt4 \
 			sysutils/bacula,-main
+
+RUN_DEPENDS-server=	lang/gawk
 
 .include <bsd.port.arch.mk>
 

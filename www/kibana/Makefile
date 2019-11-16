@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.30 2019/05/13 22:08:11 abieber Exp $
+# $OpenBSD: Makefile,v 1.34 2019/11/05 15:35:31 pvk Exp $
 
 COMMENT=	browser based analytics/search interface to ElasticSearch
 
-V =		6.6.1
-REVISION =	0
+V =		7.4.2
 PKGNAME =	kibana-${V}
 DISTNAME =	kibana-oss-${V}-darwin-x86_64
 
@@ -14,26 +13,28 @@ HOMEPAGE =	https://www.elastic.co/products/kibana
 MAINTAINER =	Pavel Korovin <pvk@openbsd.org>
 
 # Apache
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	http://artifacts.elastic.co/downloads/kibana/
 
-RUN_DEPENDS =	lang/node>=10.15.0,<10.16.0
+RUN_DEPENDS =	lang/node
 
 NO_BUILD =	Yes
 NO_TEST =	Yes
 PKG_ARCH =	*
 
+SUBST_TARGETS =	${WRKSRC}/bin/*
 WRKDIST =	${WRKDIR}/kibana-${V}-darwin-x86_64
 
 do-install:
+	${SUBST_CMD} ${SUBST_TARGETS}
 	${INSTALL_DATA_DIR} ${PREFIX}/kibana
 	${INSTALL_DATA_DIR} ${PREFIX}/share/{doc,examples}/kibana/
 	${INSTALL_DATA} ${WRKDIST}/*.txt ${PREFIX}/share/doc/kibana/
 	${INSTALL_DATA} ${WRKDIST}/config/kibana.yml \
 		${PREFIX}/share/examples/kibana/
 	rm -r ${WRKDIST}/*.{orig,txt} ${WRKDIST}/{data,plugins} \
-		${WRKDIST}/{bin/*.orig,config,node}
+		${WRKDIST}/{bin/*.{orig,beforesubst},config,node}
 	find ${WRKDIST} \( -name \*~ -or -name \.*~ \) -print0 | xargs -0 rm
 	cd ${WRKDIST} && cp -R * ${PREFIX}/kibana/
 	${INSTALL_DATA_DIR} ${PREFIX}/kibana/config

@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.45 2019/05/06 16:01:32 danj Exp $
+# $OpenBSD: Makefile,v 1.47 2019/09/30 12:54:32 kili Exp $
 
 COMMENT =		minimalistic text based status bar
 
 DISTNAME =		xmobar-0.24.3
-REVISION =		4
+REVISION =		5
 CATEGORIES =		x11
 HOMEPAGE =		http://projects.haskell.org/xmobar
 
 # BSD3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		X11 Xext Xft Xinerama Xrandr Xrender \
-			Xss c lib/inotify/inotify iconv m pthread \
-			util xml2
+			Xss c charset ffi gmp iconv \
+			lib/inotify/inotify m pthread util xml2
 
 MODULES =		lang/ghc
 
@@ -22,10 +22,7 @@ MODGHC_SETUP_CONF_ARGS += --extra-lib-dirs=${LOCALBASE}/lib/inotify/
 
 
 BUILD_DEPENDS = 	devel/hs-hinotify>=0.3 \
-			devel/hs-mtl>=2.1,<2.3 \
-			devel/hs-parsec>=3.1,<3.2 \
 			devel/hs-regex-compat \
-			devel/hs-stm>=2.3,<2.5 \
 			net/hs-HTTP>=4000.2.4 \
 			x11/hs-X11>=1.6.1 \
 			x11/hs-X11-xft>=0.2,<0.4 \
@@ -33,6 +30,8 @@ BUILD_DEPENDS = 	devel/hs-hinotify>=0.3 \
 			audio/hs-libmpd>=0.9,<0.10
 
 LIB_DEPENDS =		converters/libiconv \
+			devel/gmp \
+			devel/libffi \
 			devel/libinotify \
 			textproc/libxml
 

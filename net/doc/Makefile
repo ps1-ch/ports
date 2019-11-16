@@ -1,13 +1,12 @@
-# $OpenBSD: Makefile,v 1.11 2014/12/05 12:50:09 naddy Exp $
+# $OpenBSD: Makefile,v 1.13 2019/07/17 14:46:33 danj Exp $
 
 COMMENT=	automated domain testing tool
 
 DISTNAME=	doc-2.2.3
 CATEGORIES=    	net
+REVISION=	0
 
-MAINTAINER=	Jakob Schlyter <jakob@openbsd.org>
-
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		ftp://ftp.shub-internet.org/pub/shub/brad/dns/
 

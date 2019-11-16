@@ -1,18 +1,19 @@
-# $OpenBSD: Makefile,v 1.382 2019/06/11 06:01:20 landry Exp $
+# $OpenBSD: Makefile,v 1.404 2019/11/14 16:59:21 landry Exp $
 
 COMMENT =	Mozilla web browser
 ONLY_FOR_ARCHS =	amd64 i386 aarch64
 
 # Don't forget to bump www/firefox-i18n after updates.
 
-MOZILLA_VERSION =	67.0.2
+MOZILLA_VERSION =	70.0.1
 MOZILLA_BRANCH =	release
 MOZILLA_PROJECT =	firefox
 MOZILLA_CODENAME =	browser
+REVISION =	2
 
 WRKDIST =	${WRKDIR}/${MOZILLA_DIST}-${MOZILLA_DIST_VERSION:C/b[0-9]*//}
 HOMEPAGE =	https://www.mozilla.org/firefox/
-SO_VERSION =	84.0
+SO_VERSION =	85.0
 # NOTE: Must bump minor version if any shlib's are removed from the
 # components dir to avoid pkg_add -r issues.
 MOZILLA_LIBS =	mozavcodec mozavutil mozgtk xul clearkey lgpllibs
@@ -20,7 +21,7 @@ MOZILLA_LIBS =	mozavcodec mozavutil mozgtk xul clearkey lgpllibs
 CATEGORIES =	www
 
 # mozilla public license
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 # lots of logic in mozilla.port.mk
 MODULES =	www/mozilla lang/python
@@ -40,7 +41,7 @@ MOZILLA_USE_BUNDLED_CAIRO = Yes
 MOZILLA_USE_BUNDLED_HUNSPELL = Yes
 
 # firefox >= 53 needs rust
-BUILD_DEPENDS +=	lang/rust
+BUILD_DEPENDS +=	lang/rust>=1.34
 # stylo build needs LLVM
 BUILD_DEPENDS +=	devel/llvm
 # 61 requires both versions of python
@@ -48,9 +49,11 @@ BUILD_DEPENDS +=	lang/python/${MODPY_DEFAULT_VERSION_3}
 # 63 requires node because why not #1483595
 BUILD_DEPENDS +=	lang/node
 # 63 requires cbindgen #1478813
-BUILD_DEPENDS +=	devel/cbindgen
-# 67 requires nasm for bundled libav1d
+BUILD_DEPENDS +=	devel/cbindgen>=0.9.1
+.if (${MACHINE_ARCH}==amd64) || (${MACHINE_ARCH}==i386)
+# 67 requires nasm for bundled libdav1d
 BUILD_DEPENDS +=	devel/nasm
+.endif
 
 WANTLIB += X11-xcb Xcursor Xi intl xcb xcb-shm ${COMPILER_LIBCXX}
 
@@ -59,20 +62,16 @@ NO_TEST =	Yes
 
 CONFIGURE_STYLE =	simple
 CONFIGURE_ARGS +=	--prefix=${PREFIX}
-MAKE_ENV +=		BUILD_VERBOSE_LOG="1"
+MAKE_ENV +=		BUILD_VERBOSE_LOG="1" CARGOFLAGS="-j${MAKE_JOBS}"
 
 CONFIGURE_ARGS +=	--enable-release #1386371
-# rust-simd doesn't work with lang/rust>=1.33
-#CONFIGURE_ARGS +=	--enable-rust-simd #1261841
-CONFIGURE_ARGS +=	--enable-webrender=build
-.if ${MACHINE_ARCH} == "i386"
-CONFIGURE_ARGS +=	--disable-debug-symbols
-MAKE_ENV +=		RUSTFLAGS="-C target-cpu=pentium4 --cfg target_feature=\"sse2\""
-DPB_PROPERTIES =	lonesome
-.endif
-CONFIGURE_ARGS +=	--enable-sandbox --enable-content-sandbox
-
+CONFIGURE_ARGS +=	--enable-sandbox
+CONFIGURE_ARGS +=	--with-libclang-path=${LOCALBASE}/lib
 SUBST_VARS +=	LOCALBASE X11BASE
+
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+DEBUG_CONFIGURE_ARGS +=	--enable-debug-symbols \
+			--disable-install-strip
 
 show-commit:
 	@curl -s https://releases.mozilla.org/pub/mozilla.org/firefox/releases/${MOZILLA_VERSION}/SOURCE| awk -F / '/^https:\/\/hg/ {print $$7 }'
@@ -92,12 +91,8 @@ post-install:
 		${PREFIX}/lib/${MOZILLA_PROJECT}/distribution/distribution.ini
 	# install desktop file
 	${INSTALL_DATA_DIR} ${PREFIX}/share/applications/
-	${SUBST_DATA} ${FILESDIR}/${MOZILLA_PROJECT}.desktop \
+	${SUBST_DATA} ${WRKSRC}/taskcluster/docker/firefox-snap/${MOZILLA_PROJECT}.desktop \
 		${PREFIX}/share/applications/${MOZILLA_PROJECT}.desktop
-	# install icon for desktop file
-	${INSTALL_DATA_DIR} ${PREFIX}/share/pixmaps/
-	${INSTALL_DATA} ${PREFIX}/lib/${MOZILLA_PROJECT}/browser/chrome/icons/default/default128.png \
-		${PREFIX}/share/pixmaps/firefox.png
 
 	# link default48.png to default.png to be used by default by non-icccm compliant wm
 	ln ${PREFIX}/lib/${MOZILLA_PROJECT}/browser/chrome/icons/default/default{48,}.png

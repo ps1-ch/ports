@@ -1,9 +1,10 @@
-# $OpenBSD: Makefile,v 1.19 2018/12/24 08:55:20 jsg Exp $
+# $OpenBSD: Makefile,v 1.21 2019/09/30 15:14:50 kurt Exp $
 
 ONLY_FOR_ARCHS=	${GCC4_ARCHS} ${CLANG_ARCHS}
 
 COMMENT=	Device Tree Blobs
 VERSION=	4.20
+REVISION=	0
 DISTNAME=	linux-${VERSION}
 PKGNAME=	dtb-${VERSION:S/-//}
 CATEGORIES=	sysutils
@@ -11,7 +12,7 @@ HOMEPAGE=	https://www.devicetree.org
 MAINTAINER=	Jonathan Gray <jsg@openbsd.org>
 
 # dual GPL/BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	https://cdn.kernel.org/pub/linux/kernel/v4.x/
 EXTRACT_SUFX=	.tar.xz

@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.3 2019/03/08 20:00:42 cwen Exp $
+# $OpenBSD: Makefile,v 1.5 2019/09/22 09:10:55 cwen Exp $
 
 COMMENT =		template and text document library for Qt5
 
 VERSION =		5.1.0
 PKGNAME =		grantlee-qt5-${VERSION}
 DISTNAME =		grantlee-${VERSION}
-REVISION =		1
+REVISION =		2
 
 SHARED_LIBS +=  Grantlee_Templates        0.0 # 5.1
 SHARED_LIBS +=  Grantlee_TextDocument     0.0 # 5.1
@@ -17,7 +17,7 @@ HOMEPAGE =		https://github.com/steveire/grantlee
 MAINTAINER =		KDE porting team <openbsd-kde@googlegroups.com>
 
 # LGPLv2.1
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} Qt5Core Qt5Gui Qt5Script c m
 

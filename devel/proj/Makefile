@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.23 2019/05/29 05:24:25 landry Exp $
+# $OpenBSD: Makefile,v 1.27 2019/11/05 11:58:25 landry Exp $
 
 COMMENT=	cartographic projection utilities
 
-DISTNAME=	proj-6.1.0
+DISTNAME=	proj-6.2.1
 CATEGORIES=	devel geo
-SHARED_LIBS=	proj 11.0 # 15.0
+SHARED_LIBS=	proj 12.1 # 17.1
 
 DISTFILES =	${DISTNAME}${EXTRACT_SUFX} \
 		proj-datumgrid-1.8${EXTRACT_SUFX}
@@ -14,7 +14,7 @@ HOMEPAGE=	http://proj4.org
 MAINTAINER=	Landry Breuil <landry@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		http://download.osgeo.org/proj/
 

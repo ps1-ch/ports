@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.2 2018/12/13 19:53:23 sthen Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/01 19:17:31 cwen Exp $
 
 V =		0.4.8
 COMMENT =	turn-based space empire and galactic conquest computer game
 DISTNAME =	FreeOrion_v${V}_2018-08-23.26f16b0_Source
 PKGNAME =	freeorion-${V}
 CATEGORIES =	games
-REVISION =	0
+REVISION =	1
 
 HOMEPAGE =	https://www.freeorion.org/
 MAINTAINER =	Tom Murphy <openbsd@pertho.net>
 
 #Game: GPLv2+
 #Assets: CC-BY-SA 3.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL GLEW GLU SDL2 boost_atomic-mt
 WANTLIB += boost_chrono-mt boost_date_time-mt boost_filesystem-mt

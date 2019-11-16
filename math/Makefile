@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.163 2019/06/07 08:00:15 jasper Exp $
+# $OpenBSD: Makefile,v 1.169 2019/10/17 19:55:35 rsadowski Exp $
 
      SUBDIR =
      SUBDIR += R
@@ -15,11 +15,13 @@
      SUBDIR += cgal
      SUBDIR += coq
      SUBDIR += dieharder
+     SUBDIR += double-conversion
      SUBDIR += ebc
      SUBDIR += ecm
      SUBDIR += eigen
      SUBDIR += eigen2
      SUBDIR += eigen3
+     SUBDIR += ensmallen
      SUBDIR += fann
      SUBDIR += fftw
      SUBDIR += fftw3
@@ -58,6 +60,7 @@
      SUBDIR += mlpack
      SUBDIR += mlpack,
      SUBDIR += moo
+     SUBDIR += muparser
      SUBDIR += netcdf
      SUBDIR += nlopt
      SUBDIR += nonogram
@@ -101,6 +104,7 @@
      SUBDIR += p5-Math-Spline
      SUBDIR += p5-Math-Symbolic
      SUBDIR += p5-Math-SymbolicX-ParserExtensionFactory
+     SUBDIR += p5-Math-Utils
      SUBDIR += p5-Math-VecStat
      SUBDIR += p5-Number-WithError
      SUBDIR += p5-Set-IntSpan
@@ -117,7 +121,6 @@
      SUBDIR += py-affine,python3
      SUBDIR += py-bottleneck
      SUBDIR += py-bottleneck,python3
-     SUBDIR += py-gnuplot
      SUBDIR += py-graphviz
      SUBDIR += py-graphviz,python3
      SUBDIR += py-mpmath
@@ -131,7 +134,7 @@
      SUBDIR += py-pandas,python3
      SUBDIR += py-patsy
      SUBDIR += py-patsy,python3
-     SUBDIR += py-probstat
+     SUBDIR += py-scikit-learn
      SUBDIR += py-scipy
      SUBDIR += py-scipy,python3
      SUBDIR += py-pysmt

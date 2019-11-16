@@ -1,17 +1,16 @@
-# $OpenBSD: Makefile,v 1.5 2019/02/01 21:23:39 cwen Exp $
+# $OpenBSD: Makefile,v 1.7 2019/09/16 20:23:48 cwen Exp $
 
 COMMENT =	system information tool written in bash
 CATEGORIES =	sysutils misc
-REVISION =	0
 
 GH_ACCOUNT =	dylanaraps
 GH_PROJECT =	neofetch
-GH_TAGNAME =	6.0.0
+GH_TAGNAME =	6.1.0
 
 MAINTAINER =	Charlene Wendling <cwen@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 RUN_DEPENDS =	shells/bash
 

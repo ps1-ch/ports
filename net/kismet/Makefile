@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.48 2019/03/03 23:11:04 sebastia Exp $
+# $OpenBSD: Makefile,v 1.50 2019/09/03 10:50:33 sthen Exp $
 # Much help came from Alexandre Anriot, Robert Nagy, Bernd Ahlers,
 # and, last but not least, Pedro la Peu.
 
@@ -11,15 +11,16 @@ V=		2016-07-R1
 DISTNAME=	kismet-${V}
 PKGNAME=	kismet-${V:S,-,,g}
 CATEGORIES=	net security
+REVISION=	0
 
-HOMEPAGE=	http://www.kismetwireless.net/
+HOMEPAGE=	https://www.kismetwireless.net/
 MASTER_SITES=	${HOMEPAGE}code/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	Sebastian Reitenbach <sebastia@openbsd.org>
 
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 COMPILER =		base-clang ports-gcc base-gcc
 

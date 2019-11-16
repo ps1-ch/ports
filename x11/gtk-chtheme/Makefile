@@ -1,21 +1,19 @@
-# $OpenBSD: Makefile,v 1.20 2017/11/21 00:13:04 naddy Exp $
+# $OpenBSD: Makefile,v 1.22 2019/07/17 14:39:44 danj Exp $
 
 COMMENT=		gtk+-2 theme switcher
 
 DISTNAME=		gtk-chtheme-0.3.1
-REVISION=		11
+REVISION=		12
 CATEGORIES=		x11 graphics
 
 HOMEPAGE=		http://plasmasturm.org/programs/gtk-chtheme/
-
-MAINTAINER=		Vlad Glagolev <stealth@sourcemage.org>
 
 MASTER_SITES=		${HOMEPAGE}
 
 EXTRACT_SUFX=		.tar.bz2
 
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB =  X11 Xau Xcomposite Xcursor Xdamage Xdmcp Xext Xfixes Xi
 WANTLIB += Xinerama Xrandr Xrender atk-1.0 c cairo expat fontconfig

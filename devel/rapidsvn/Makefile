@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.36 2019/05/20 22:15:08 naddy Exp $
+# $OpenBSD: Makefile,v 1.38 2019/07/17 14:49:21 danj Exp $
 
 # XXX doesn't build if already installed
 COMMENT=	graphical subversion client
@@ -6,18 +6,16 @@ COMMENT=	graphical subversion client
 VERSION=	0.12.1
 DISTNAME=	rapidsvn-${VERSION}
 CATEGORIES=	devel
-REVISION=	13
+REVISION=	14
 
 HOMEPAGE=	http://www.rapidsvn.org/
 
 SHARED_LIBS=	svncpp	1.0
 
-MAINTAINER=	Vlad Glagolev <stealth@sourcemage.org>
-
 MASTER_SITES=	${HOMEPAGE}download/release/${VERSION}/
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} ICE SDL2 SM X11 Xcomposite Xcursor
 WANTLIB += Xdamage Xext Xfixes Xi Xinerama Xrandr Xrender Xxf86vm

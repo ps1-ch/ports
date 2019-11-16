@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.34 2019/03/08 20:00:55 cwen Exp $
+# $OpenBSD: Makefile,v 1.36 2019/07/12 20:51:15 sthen Exp $
 
 COMMENT=		Lumina Desktop Environment
 
@@ -15,7 +15,7 @@ HOMEPAGE=		https://lumina-desktop.org/
 MAINTAINER=		Bryan C. Everly <bryan@bceassociates.com>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX}
 WANTLIB += GL Qt5Concurrent Qt5Core Qt5DBus Qt5Gui Qt5Multimedia
@@ -35,7 +35,7 @@ RUN_DEPENDS=		devel/desktop-file-utils \
 			x11/xscreensaver \
 			x11/gtk+3,-guic
 
-LIB_DEPENDS=		print/poppler,,-qt5 \
+LIB_DEPENDS=		print/poppler,-qt5 \
 			x11/qt5/qtmultimedia \
 			x11/qt5/qtsvg \
 			x11/qt5/qtx11extras

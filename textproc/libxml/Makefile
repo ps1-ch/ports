@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.177 2019/05/16 09:36:05 jasper Exp $
+# $OpenBSD: Makefile,v 1.179 2019/11/01 15:37:45 jasper Exp $
 
 COMMENT-main=		XML parsing library
 COMMENT-python=		Python bindings for libxml
 
-VERSION=		2.9.9
+VERSION=		2.9.10
 DISTNAME=		libxml2-${VERSION}
 PKGNAME-main=		libxml-${VERSION}
 PKGNAME-python=		py-libxml-${VERSION}
@@ -14,7 +14,7 @@ MASTER_SITES=		ftp://xmlsoft.org/libxml/
 HOMEPAGE=		http://xmlsoft.org/
 
 # BSD-like
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=		iconv lzma m z
 

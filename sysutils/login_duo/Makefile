@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.25 2019/06/14 00:59:39 jturner Exp $
+# $OpenBSD: Makefile,v 1.27 2019/10/14 00:17:26 jturner Exp $
 
 COMMENT =		two-factor authentication for unix systems
 
-V =			1.11.2
+V =			1.11.3
 PKGNAME =		login_duo-${V}
 DISTNAME =		duo_unix-${V}
 CATEGORIES =		sysutils
@@ -13,7 +13,7 @@ HOMEPAGE =		https://duo.com/docs/loginduo/
 MASTER_SITES =		https://dl.duosecurity.com/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		c crypto ssl
 

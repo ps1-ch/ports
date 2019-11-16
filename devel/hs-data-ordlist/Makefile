@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.4 2018/01/22 21:40:32 kili Exp $
+# $OpenBSD: Makefile,v 1.7 2019/09/30 12:58:08 kili Exp $
 
 COMMENT =		set and multiset operations on ordered lists
 
 DISTNAME =		data-ordlist-0.4.7.0
-REVISION =		2
+REVISION =		4
 CATEGORIES =		devel
 
 # BSD3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/ghc
 
 MODGHC_BUILD =		cabal hackage haddock register
 
-MODGHC_PACKAGE_KEY =	HY9GJ9QjrmJEtSDOUJy6x9
+MODGHC_PACKAGE_KEY =	JijOptHq8X5AysaK6Liyhk
 
 .include <bsd.port.mk>

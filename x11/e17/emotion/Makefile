@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.30 2019/02/28 01:52:38 naddy Exp $
+# $OpenBSD: Makefile,v 1.33 2019/09/07 13:16:47 naddy Exp $
 
 COMMENT =		video (and audio) codec playback library
 
 DISTNAME =		emotion-1.7.10
-REVISION =		11
+REVISION =		13
 
 SHARED_LIBS +=	emotion                   2.0 # 8.10
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB =  ${MODLUA_WANTLIB}
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama Xrandr

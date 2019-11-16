@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.3 2019/04/28 20:51:39 sthen Exp $
+# $OpenBSD: Makefile,v 1.5 2019/07/24 18:21:07 cwen Exp $
 
 COMMENT =	python bytecode disassembler and decompiler
 
 DISTNAME =	pycdc-0.0.20180428
-REVISION =	1
+REVISION =	2
 
 GH_ACCOUNT =	zrax
 GH_PROJECT =	pycdc
@@ -14,7 +14,7 @@ CATEGORIES =	devel
 MAINTAINER =	Remi Pointel <rpointel@openbsd.org>
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	devel/cmake \
 		lang/python

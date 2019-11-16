@@ -1,16 +1,16 @@
-# $OpenBSD: Makefile,v 1.35 2019/05/20 22:15:08 naddy Exp $
+# $OpenBSD: Makefile,v 1.38 2019/10/04 14:42:33 kn Exp $
 
 COMMENT =	user-friendly TeX/LaTeX editor for KDE
 
 CATEGORIES =	editors
 
 DISTNAME =	kile-2.9.92
-REVISION =	0
+REVISION =	1
 
 HOMEPAGE =	https://kile.sourceforge.io
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} KF5Auth KF5Bookmarks KF5Codecs KF5Completion
 WANTLIB += KF5ConfigCore KF5ConfigGui KF5ConfigWidgets KF5CoreAddons
@@ -22,6 +22,9 @@ WANTLIB += KF5WindowSystem KF5XmlGui Qt5Concurrent Qt5Core Qt5DBus
 WANTLIB += Qt5Gui Qt5Network Qt5Script Qt5Widgets Qt5Xml c m poppler
 WANTLIB += poppler-qt5
 
+# dlopen(3)
+WANTLIB += Okular5Core
+
 MASTER_SITES =	${MASTER_SITE_SOURCEFORGE:=kile/}
 EXTRACT_SUFX =	.tar.bz2
 
@@ -30,11 +33,12 @@ MODULES =	devel/kf5 \
 
 BUILD_DEPENDS +=devel/gettext,-tools \
 		devel/kf5/kdoctools \
-		x11/kde-applications/okular \
+		devel/kf5/kinit \
 		x11/kde-applications/kate
 
 RUN_DEPENDS +=	devel/desktop-file-utils \
 		devel/kf5/kdoctools \
+		devel/kf5/kinit \
 		graphics/ImageMagick \
 		misc/shared-mime-info \
 		print/texlive/base \
@@ -54,7 +58,6 @@ LIB_DEPENDS +=	devel/kf5/kauth \
 		devel/kf5/khtml \
 		devel/kf5/ki18n \
 		devel/kf5/kiconthemes \
-		devel/kf5/kinit \
 		devel/kf5/kjs \
 		devel/kf5/kparts \
 		devel/kf5/ktexteditor \
@@ -62,7 +65,7 @@ LIB_DEPENDS +=	devel/kf5/kauth \
 		devel/kf5/kwindowsystem \
 		devel/kf5/kxmlgui \
 		devel/kf5/sonnet \
-		print/poppler,,-qt5 \
+		print/poppler,-qt5 \
 		x11/kde-applications/okular
 
 .include <bsd.port.mk>

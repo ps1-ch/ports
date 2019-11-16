@@ -1,13 +1,12 @@
-# $OpenBSD: Makefile,v 1.61 2018/11/08 20:34:00 naddy Exp $
+# $OpenBSD: Makefile,v 1.64 2019/11/12 06:38:20 jeremy Exp $
 
 COMMENT =		ruby web application server/nginx module
 BROKEN-alpha =		.got subsegment exceeds 64K (size 83312)
 BROKEN-hppa =		rake fails when linking PassengerHelperAgent
 
-PASS_VERSION =		5.1.11
-NGINX_VERSION =		1.12.1
+PASS_VERSION =		6.0.4
+NGINX_VERSION =		1.16.1
 DISTNAME =		passenger-${PASS_VERSION}
-REVISION =		4
 
 CATEGORIES =	www
 DISTFILES =	${DISTNAME}.gem \
@@ -17,11 +16,11 @@ MASTER_SITES0 =	https://nginx.org/download/
 HOMEPAGE =	https://www.phusionpassenger.com/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM = Yes
+PERMIT_PACKAGE = Yes
 
 MODULES =		lang/ruby
 
-CONFIGURE_STYLE =	gem ext
+CONFIGURE_STYLE =	ruby gem ext
 
 WANTLIB =	${MODRUBY_WANTLIB} crypto curl kvm nghttp2 pcre pthread ssl ${COMPILER_LIBCXX} z
 
@@ -47,6 +46,9 @@ SUBST_VARS =		MODRUBY_FLAVOR NGINX_VERSION PASS_VERSION
 pre-configure:
 	${SUBST_CMD} -DRUBY=${RUBY} \
 		-DPASSENGER_ROOT='${PREFIX}/lib/phusion-passenger${GEM_MAN_SUFFIX}' \
+		${WRKSRC}/src/agent/Core/AdminPanelConnector.h \
+		${WRKSRC}/src/agent/Core/ApplicationPool/Options.h \
+		${WRKSRC}/src/agent/Core/SpawningKit/Factory.h \
 		${WRKSRC}/src/nginx_module/config \
 		${WRKSRC}/src/ruby_supportlib/phusion_passenger.rb \
 		${WRKSRC}/src/ruby_supportlib/phusion_passenger/constants.rb \

@@ -1,15 +1,13 @@
-# $OpenBSD: Makefile,v 1.2 2015/07/18 15:46:11 jeremy Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/03 14:07:44 jasper Exp $
 
 COMMENT=		integration with Ubiquiti mFi sensors and devices
 
 DISTNAME=		mfi-0.9.1
-REVISION=		0
+REVISION=		1
 CATEGORIES=		net
 
-MAINTAINER=		Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # MIT
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		lang/ruby
 

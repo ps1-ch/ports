@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.64 2018/09/22 23:12:09 sthen Exp $
+# $OpenBSD: Makefile,v 1.66 2019/09/27 10:52:42 jasper Exp $
 
 COMMENT=	log management solution
 
@@ -6,14 +6,14 @@ V =		3.12.1
 REL =		3.12
 DISTNAME =	syslog-ng-$V
 CATEGORIES =	sysutils
-REVISION =	5
+REVISION =	6
 
 MAINTAINER =	Steven Mestdagh <steven@openbsd.org>
 
-HOMEPAGE =	https://syslog-ng.org/
+HOMEPAGE =	https://syslog-ng.com/
 
 # GPL v2
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 WANTLIB =  GeoIP c crypto curl dbi evtlog glib-2.0 gmodule-2.0
 WANTLIB += gthread-2.0 iconv intl ivykis json-c m nghttp2 pcre pthread
@@ -45,6 +45,7 @@ CONFIGURE_ARGS +=	--disable-tcp-wrapper \
 			--disable-amqp \
 			--disable-stomp \
 			--disable-redis \
+			--disable-riemann \
 			--enable-geoip \
 			--without-libnet \
 			--with-ivykis=system \

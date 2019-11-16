@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.15 2019/04/28 20:51:36 sthen Exp $
+# $OpenBSD: Makefile,v 1.17 2019/11/08 16:59:53 kmos Exp $
 
 COMMENT =		Radix tree implementation for Python
 
@@ -12,10 +12,11 @@ HOMEPAGE =		https://github.com/mjschultz/py-radix/
 MAINTAINER =		Job Snijders <job@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODPY_PI =		Yes
 MODPY_SETUPTOOLS =	Yes
+MODPY_PYTEST =		Yes
 
 FLAVORS=		python3
 FLAVOR?=
@@ -23,10 +24,9 @@ FLAVOR?=
 MODULES =		lang/python
 WANTLIB +=		${MODPY_WANTLIB} pthread
 
-TEST_DEPENDS =		devel/py-nose${MODPY_FLAVOR} \
-			devel/py-coverage${MODPY_FLAVOR}
+TEST_DEPENDS =		devel/py-coverage${MODPY_FLAVOR}
 
-do-test:
-	@cd ${WRKSRC} && ${MODPY_BIN} setup.py nosetests
+# Tests aren't included in pypi tarball for now
+# https://github.com/mjschultz/py-radix/pull/43
 
 .include <bsd.port.mk>

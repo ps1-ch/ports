@@ -1,8 +1,4 @@
-# $OpenBSD: Makefile.inc,v 1.35 2019/06/17 09:12:37 kirby Exp $
-
-GH_TAGNAME ?= 		v7.0.0
-V = 			${GH_TAGNAME:S/v//:S/-server//:S/-testing//:S/-latest//}
-DISTNAME = 		${GH_PROJECT}-${V}
+# $OpenBSD: Makefile.inc,v 1.38 2019/08/02 16:44:41 sthen Exp $
 
 CATEGORIES =		net net/seafile
 
@@ -11,8 +7,9 @@ HOMEPAGE =		https://www.seafile.com/
 MAINTAINER =		Kirill Bychkov <kirby@openbsd.org>
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
-GH_ACCOUNT = 		haiwen
+AUTOCONF_VERSION ?=	2.69
+AUTOMAKE_VERSION ?=	1.15
 
 #.include <bsd.port.mk>

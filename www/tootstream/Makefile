@@ -1,27 +1,26 @@
-# $OpenBSD: Makefile,v 1.2 2019/05/15 12:04:43 kmos Exp $
+# $OpenBSD: Makefile,v 1.5 2019/09/09 21:36:14 kmos Exp $
 
 COMMENT =		CLI for interacting with Mastodon/fediverse instances
 
-MODPY_EGG_VERSION =	0.3.6
+MODPY_EGG_VERSION =	0.3.7
 DISTNAME =		tootstream-${MODPY_EGG_VERSION}
-PKGNAME =		tootstream-${MODPY_EGG_VERSION}
+REVISION =		0
 
 CATEGORIES =		www
 
 HOMEPAGE =		https://www.github.com/magicalraccoon/tootstream
 
-MAINTAINER =		Kurt Mosiejczuk <kurt@cranky.work>
+MAINTAINER =		Kurt Mosiejczuk <kmos@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_SETUPTOOLS =	Yes
 MODPY_PI =		Yes
 MODPY_VERSION =		${MODPY_DEFAULT_VERSION_3}
-MODPY_PYTEST =		Yes
 
-RUN_DEPENDS =		www/py-mastodon.py${MODPY_FLAVOR}=1.3.1 \
+RUN_DEPENDS =		www/py-mastodon.py>=1.4.5,<1.5.0 \
 			devel/py-click${MODPY_FLAVOR} \
 			devel/py-dateutil${MODPY_FLAVOR} \
 			textproc/py-colored${MODPY_FLAVOR} \

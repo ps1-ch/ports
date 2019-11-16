@@ -1,11 +1,10 @@
-# $OpenBSD: Makefile,v 1.19 2019/04/28 20:51:53 sthen Exp $
+# $OpenBSD: Makefile,v 1.22 2019/10/24 13:35:04 pvk Exp $
 
 COMMENT=	manage Elasticsearch indices
 
-MODPY_EGG_VERSION=5.6.0
+MODPY_EGG_VERSION=5.8.1
 DISTNAME=	elasticsearch-curator-${MODPY_EGG_VERSION}
 PKGNAME=	${MODPY_PY_PREFIX}elasticsearch-curator-${MODPY_EGG_VERSION}
-REVISION=	0
 
 CATEGORIES=	sysutils
 
@@ -14,7 +13,7 @@ HOMEPAGE=	https://github.com/elastic/curator
 MAINTAINER=	Pavel Korovin <pvk@openbsd.org>
 
 # Apache 2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	lang/python
 MODPY_PI =	Yes
@@ -22,14 +21,16 @@ MODPY_SETUPTOOLS= Yes
 
 MODPY_VERSION=	${MODPY_DEFAULT_VERSION_3}
 
-RUN_DEPENDS=	devel/py-certifi,python3>=2018.10.15 \
-		devel/py-click,python3>=6.7,<7.0.0 \
-		devel/py-six,python3>=1.11.0 \
-		devel/py-voluptuous,python3>=0.9.3 \
-		net/py-boto3,python3>=1.7.24 \
-		security/py-requests-aws4auth,python3>=0.9 \
-		textproc/py-elasticsearch,python3>=6.1.0,<7.0.0 \
-		textproc/py-yaml,python3>=3.10
+RUN_DEPENDS=	devel/py-certifi${MODPY_FLAVOR}>=2019.9.11 \
+		devel/py-click${MODPY_FLAVOR}>=6.7,<7.0 \
+		devel/py-six${MODPY_FLAVOR}>=1.11.0 \
+		devel/py-voluptuous${MODPY_FLAVOR}>=0.9.3 \
+		net/py-boto3${MODPY_FLAVOR}>=1.9.142 \
+		security/py-requests-aws4auth${MODPY_FLAVOR}>=0.9 \
+		textproc/py-elasticsearch${MODPY_FLAVOR}>=7.0.4,<8.0.0 \
+		textproc/py-yaml${MODPY_FLAVOR}>=3.13 \
+		www/py-requests${MODPY_FLAVOR}>=2.20.0 \
+		www/py-urllib3${MODPY_FLAVOR}>=1.24.2,<1.25
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
 

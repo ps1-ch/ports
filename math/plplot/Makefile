@@ -1,39 +1,34 @@
-# $OpenBSD: Makefile,v 1.64 2019/05/20 22:15:16 naddy Exp $
-
-BROKEN-powerpc = Error: Kind -2 not supported for type INTEGER at (1)
+# $OpenBSD: Makefile,v 1.68 2019/08/22 19:33:42 rsadowski Exp $
 
 COMMENT-main =	advanced 2D and 3D scientific plotting library
 COMMENT-c++ =	C++ interface to plplot
 COMMENT-fortran =	Fortran 77 interface to plplot
 
-VERSION =	5.13.0
+VERSION =	5.15.0
 DISTNAME =	plplot-${VERSION}
 SHARED_LIBS =	csirocsa	4.0	\
 		csironn		0.0	\
-		plplot		15.0	\
-		plplotcxx	13.0	\
-		plplotfortran	0.0	\
+		plplot		16.0	\
+		plplotcxx	14.0	\
+		plplotfortran	1.0	\
 		qsastime	0.0
 
 PKGNAME-main =	${DISTNAME}
 PKGNAME-c++ =	plplot-c++-${VERSION}
 PKGNAME-fortran =	plplot-fortran-${VERSION}
-REVISION-c++ =	2
-REVISION-fortran =	2
-REVISION-main =	3
 
 CATEGORIES =	math graphics
 
 HOMEPAGE =	http://plplot.sourceforge.net/
 
 # LGPL
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 MASTER_SITES =	${MASTER_SITE_SOURCEFORGE:=plplot/}
 
 COMPILER =		base-clang ports-gcc base-gcc
-MODULES =	fortran
-MODFORTRAN_COMPILER = gfortran
+MODULES =		fortran
+MODFORTRAN_COMPILER =	gfortran
 
 BUILD_DEPENDS =	print/ghostscript/gnu-fonts \
 		${MODFORTRAN_BUILD_DEPENDS}
@@ -53,7 +48,6 @@ CONFIGURE_ARGS =	-D ENABLE_ada=OFF \
 			-D ENABLE_lua=OFF \
 			-D ENABLE_ocaml=OFF \
 			-D ENABLE_octave=OFF \
-			-D ENABLE_pdl=OFF \
 			-D ENABLE_python=OFF \
 			-D ENABLE_qt=OFF \
 			-D ENABLE_pyqt4=OFF \
@@ -69,7 +63,7 @@ MULTI_PACKAGES =	-main -c++ -fortran
 
 myWANTLIB += ICE SM X11 Xext cairo glib-2.0
 myWANTLIB += gobject-2.0 m pango-1.0 pangocairo-1.0
-myWANTLIB += qhull intl ltdl
+myWANTLIB += qhull intl ltdl shp
 
 WANTLIB-main =	${myWANTLIB} c pthread
 WANTLIB-c++ =	plplot m ${COMPILER_LIBCXX}
@@ -78,6 +72,7 @@ WANTLIB-fortran = plplot m ${MODFORTRAN_WANTLIB}
 myLIB_DEPENDS =	devel/glib2 \
 		devel/gettext,-runtime \
 		devel/pango \
+		devel/shapelib \
 		graphics/cairo \
 		math/qhull \
 		devel/libtool,-ltdl

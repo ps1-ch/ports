@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2016/04/03 11:21:05 bluhm Exp $
+# $OpenBSD: Makefile,v 1.3 2019/07/26 15:02:07 sthen Exp $
 
-COMMENT = 	engine for Perl providing parallel processing capabilities
+COMMENT =	engine for Perl providing parallel processing capabilities
 
-DISTNAME =	MCE-1.703
+DISTNAME =	MCE-1.843
 HOMEPAGE =	https://github.com/marioroy/mce-perl
 CATEGORIES =	devel
 CPAN_AUTHOR =	MARIOROY
 
 # perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	cpan
 PKG_ARCH =	*

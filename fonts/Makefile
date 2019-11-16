@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.60 2019/06/12 05:48:25 rpointel Exp $
+# $OpenBSD: Makefile,v 1.64 2019/09/28 23:08:34 pamela Exp $
 
      SUBDIR =
      SUBDIR += abyssinica
@@ -11,6 +11,7 @@
      SUBDIR += apl-fonts
      SUBDIR += arabeyes-ttf
      SUBDIR += artwiz-aleczapka
+     SUBDIR += b612-font
      SUBDIR += blockzone
      SUBDIR += cantarell-fonts
      SUBDIR += charis
@@ -62,6 +63,7 @@
      SUBDIR += msctfonts
      SUBDIR += msttcorefonts
      SUBDIR += noto
+     SUBDIR += opendyslexic
      SUBDIR += overpass
      SUBDIR += pkfonts
      SUBDIR += powerline-fonts
@@ -72,6 +74,7 @@
      SUBDIR += ru-ptsans
      SUBDIR += scheherazade
      SUBDIR += sgi-fonts
+     SUBDIR += siji
      SUBDIR += spleen
      SUBDIR += spranq-ecofont-ttf
      SUBDIR += sunscreen
@@ -86,6 +89,7 @@
      SUBDIR += terminus-font,centered_tilde
      SUBDIR += ubuntu-fonts
      SUBDIR += un-fonts
+     SUBDIR += unifont
      SUBDIR += vlgothic
      SUBDIR += work-sans
      SUBDIR += zh-arphicttf

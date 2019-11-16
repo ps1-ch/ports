@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2019/03/08 03:11:18 bentley Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/09 12:19:15 ajacoutot Exp $
 
 COMMENT =	websocket library
 
@@ -12,7 +12,7 @@ CATEGORIES =	www
 HOMEPAGE =	https://tatsuhiro-t.github.io/wslay/
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		https://github.com/tatsuhiro-t/wslay/releases/download/release-$V/
 

@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.69 2019/05/20 22:15:00 naddy Exp $
+# $OpenBSD: Makefile,v 1.71 2019/09/26 13:54:54 sthen Exp $
 
 COMMENT=	free audio editor
 
-V=		2.3.1
-REVISION=	5
+V=		2.3.2
 DISTNAME=	Audacity-${V}
 PKGNAME=	audacity-${V}
 CATEGORIES=	audio
@@ -13,7 +12,7 @@ MASTER_SITES=	https://github.com/audacity/audacity/archive/
 HOMEPAGE=	https://www.audacityteam.org/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=   Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} FLAC FLAC++ ICE SDL2 SM SoundTouch
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama

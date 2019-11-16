@@ -1,26 +1,29 @@
-# $OpenBSD: Makefile,v 1.26 2019/04/15 16:34:21 bcallah Exp $
+# $OpenBSD: Makefile,v 1.29 2019/11/10 21:35:39 bentley Exp $
 
 COMMENT=	cross-platform multimedia library
 
-V=		2.0.9
-REVISION=	0
+V=		2.0.10
 DISTNAME=	SDL2-${V}
 PKGNAME=	sdl2-${V}
 CATEGORIES=	devel
 MASTER_SITES=	https://www.libsdl.org/release/
+REVISION=	0
 
-SHARED_LIBS=	SDL2		0.6	# 0.9
+SHARED_LIBS=	SDL2		0.7	# 0.10
 
 HOMEPAGE=	https://www.libsdl.org/
 
 MAINTAINER=	Thomas Frohwein <thfr@openbsd.org>
 
+DEBUG_PACKAGES=	${BUILD_PACKAGES}
+
 # zlib
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	m pthread sndio usbhid samplerate
-# GL/X11/Xext/Xrender/Xrandr are dlopen'd by SDL
-WANTLIB+=       GL X11 Xau Xdmcp Xext Xrandr Xrender xcb
+# GL/Xau/Xdmcp are dlopen'd by SDL
+WANTLIB+=       GL X11 Xau xcb Xcursor Xdmcp Xext Xfixes Xi Xinerama
+WANTLIB+=	Xrandr Xrender Xss Xxf86vm
 
 LIB_DEPENDS=	audio/libsamplerate
 
@@ -37,10 +40,13 @@ CONFIGURE_ARGS+= --disable-alsa \
 		 --disable-esd \
 		 --disable-ibus \
 		 --disable-jack \
+		 --disable-libsamplerate-shared \
 		 --disable-libudev \
 		 --disable-nas \
 		 --disable-oss \
-		 --disable-pulseaudio
+		 --disable-pulseaudio \
+		 --disable-sndio-shared \
+		 --disable-x11-shared
 # in case devel/usb is installed, don't pick it up.
 CONFIGURE_ENV+= ac_cv_lib_usb_hid_init=no \
 		ac_cv_header_usb_h=no
@@ -49,6 +55,7 @@ CONFIGURE_ENV+= ac_cv_lib_usb_hid_init=no \
 CONFIGURE_ARGS+= --disable-atomic
 .endif
 
+# tests in test subdir, but interactive and not hooked up to build
 NO_TEST=	Yes
 
 .include <bsd.port.mk>

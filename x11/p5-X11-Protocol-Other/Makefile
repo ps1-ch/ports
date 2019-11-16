@@ -1,14 +1,13 @@
-# $OpenBSD: Makefile,v 1.3 2017/05/17 12:53:31 giovanni Exp $
+# $OpenBSD: Makefile,v 1.5 2019/11/08 21:39:56 ajacoutot Exp $
 
 COMMENT =	extras and helpers for X11::Protocol
 
-DISTNAME =	X11-Protocol-Other-30
-REVISION =	0
+DISTNAME =	X11-Protocol-Other-31
 
 CATEGORIES =	x11
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	cpan
 PKG_ARCH =	*

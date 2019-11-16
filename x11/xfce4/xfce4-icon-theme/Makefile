@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.32 2018/07/09 15:09:55 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.34 2019/08/15 07:08:15 landry Exp $
 
 PKG_ARCH=	*
 
@@ -6,10 +6,10 @@ COMMENT=	Xfce4 icon theme
 
 XFCE_ARTWORK=	xfce4-icon-theme
 XFCE_VERSION=	4.4.3
-REVISION=	14
+REVISION=	15
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	textproc/intltool \
 		x11/xfce4

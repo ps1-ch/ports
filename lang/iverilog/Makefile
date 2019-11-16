@@ -1,17 +1,16 @@
-# $OpenBSD: Makefile,v 1.19 2019/03/01 12:47:26 jca Exp $
+# $OpenBSD: Makefile,v 1.21 2019/10/28 08:18:37 bentley Exp $
 
 COMMENT=		Verilog simulation and synthesis tool
 
-V=			10.2
+V=			10.3
 DISTNAME=		verilog-$V
 PKGNAME=		iverilog-$V
 CATEGORIES=		lang devel
-REVISION=		1
 
 HOMEPAGE=		http://iverilog.icarus.com/
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		ftp://ftp.icarus.com/pub/eda/verilog/v10/
 

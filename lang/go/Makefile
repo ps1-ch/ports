@@ -1,13 +1,13 @@
-# $OpenBSD: Makefile,v 1.65 2019/05/07 16:33:42 jsing Exp $
+# $OpenBSD: Makefile,v 1.75 2019/10/24 16:22:07 jsing Exp $
 
 ONLY_FOR_ARCHS =	${GO_ARCHS}
 
-BIN_BOOTSTRAP_GOARCHS =	arm
-BIN_BOOTSTRAP_VERSION = 1.12.1
+BIN_BOOTSTRAP_GOARCHS =	arm arm64
+BIN_BOOTSTRAP_VERSION = 1.13
 
 COMMENT =		Go programming language
 
-VERSION =		1.12.5
+VERSION =		1.13.3
 DISTNAME =		go${VERSION}.src
 PKGNAME =		go-${VERSION}
 PKGSPEC =		go-=${VERSION}
@@ -19,7 +19,7 @@ HOMEPAGE =		https://golang.org/
 MAINTAINER =		Joel Sing <jsing@openbsd.org>
 
 # software: BSD, documentation: CC-BY-3.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		c pthread
 
@@ -44,10 +44,13 @@ GOARCH =		unknown
 GOROOT =		${PREFIX}/go
 GOROOT_BOOTSTRAP =
 
+# sync with go.port.mk
 .if ${MACHINE_ARCH} == "amd64"
 GOARCH =		amd64
 .elif ${MACHINE_ARCH} == "arm"
 GOARCH =		arm
+.elif ${MACHINE_ARCH} == "aarch64"
+GOARCH =		arm64
 .elif ${MACHINE_ARCH} == "i386"
 GOARCH =		386
 .endif
@@ -94,6 +97,9 @@ do-test:
 		ulimit -d $$(ulimit -H -d) -n 256 && \
 		CC="${CC}" \
 		CXX="${CXX}" \
+		GOCACHE=${WRKDIST}/go-cache \
+		GOPATH=${WRKDIR} \
+		HOME=${WRKDIR} \
 		PATH=${WRKDIST}/bin:${PATH} \
 		    /bin/ksh -c "exec 3>&-; exec 4>&-; ./run.bash"
 

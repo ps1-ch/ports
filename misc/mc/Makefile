@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.66 2019/01/30 12:49:47 solene Exp $
+# $OpenBSD: Makefile,v 1.68 2019/07/01 06:52:16 kirby Exp $
 
 COMMENT=		free Norton Commander clone with many useful features
 
-DISTNAME=		mc-4.8.22
+DISTNAME=		mc-4.8.23
 CATEGORIES=		misc
 REVISION=		0
 
@@ -12,21 +12,20 @@ MAINTAINER=		Robert Nagy <robert@openbsd.org>
 
 EXTRACT_SUFX=		.tar.xz
 
-# GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+# GPLv3+
+PERMIT_PACKAGE=		Yes
 
-WANTLIB += c curses iconv intl m pcre pthread glib-2.0 gmodule-2.0 slang
+WANTLIB += c curses iconv intl m pthread glib-2.0 gmodule-2.0 slang
 WANTLIB += crypto ssl z ssh2 util
 
 SEPARATE_BUILD=		Yes
 USE_GMAKE=		Yes
 
-BUILD_DEPENDS=		security/libssh2
 LIB_DEPENDS=		devel/glib2 \
-			devel/libslang
+			devel/libslang \
+			security/libssh2
 RUN_DEPENDS=		archivers/unzip \
 			archivers/zip \
-			security/libssh2 \
 			textproc/gdiff
 
 CONFIGURE_STYLE=	gnu

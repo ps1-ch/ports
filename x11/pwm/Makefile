@@ -1,17 +1,16 @@
-# $OpenBSD: Makefile,v 1.27 2019/05/05 15:15:45 danj Exp $
+# $OpenBSD: Makefile,v 1.29 2019/11/09 17:40:42 bket Exp $
 
 COMMENT=		lightweight window manager with emphasis on usability
 
-DISTNAME=		pwm-20060517
-REVISION=		3
+DISTNAME=		pwm-20070720
 CATEGORIES=		x11
 FIX_EXTRACT_PERMISSIONS=Yes
 
-HOMEPAGE=		http://iki.fi/tuomov/
+HOMEPAGE=		https://tuomov.iki.fi/software/
 MASTER_SITES=		${HOMEPAGE}dl/
 
-# GPL
-PERMIT_PACKAGE_CDROM=	Yes
+# Artistic or GPLv2+
+PERMIT_PACKAGE=	Yes
 WANTLIB=		X11 c m
 
 NO_TEST=		Yes

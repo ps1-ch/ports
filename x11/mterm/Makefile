@@ -1,16 +1,15 @@
-# $OpenBSD: Makefile,v 1.9 2015/02/16 22:57:14 naddy Exp $
+# $OpenBSD: Makefile,v 1.11 2019/07/17 14:39:44 danj Exp $
 
 COMMENT=		dockable program launcher
 
 DISTNAME=		mterm-0.4.2b
 CATEGORIES=		x11
+REVISION=		0
 
 HOMEPAGE=		http://mterm.sourceforge.net/
 
-MAINTAINER=		Nick Nauwelaerts <nick@nauwelaerts.net>
-
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 WANTLIB=		X11 Xext Xpm c 
 
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=mterm/}

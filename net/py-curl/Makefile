@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.44 2019/04/28 20:51:44 sthen Exp $
+# $OpenBSD: Makefile,v 1.46 2019/11/08 21:57:29 kmos Exp $
 
 COMMENT=	Python interface to cURL library
 
@@ -11,7 +11,7 @@ REVISION=	0
 HOMEPAGE=	http://pycurl.sourceforge.net/
 
 # dual: LGPL or MIT-like
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${MODPY_WANTLIB}
 WANTLIB += crypto curl nghttp2 pthread ssl z
@@ -27,6 +27,9 @@ LIB_DEPENDS=	net/curl
 
 SUBST_VARS+=	MODPY_PY_PREFIX
 
+MODPY_PYTEST =		Yes
+MODPY_PYTEST_ARGS =	tests
+
 pre-configure:
 	@${SUBST_CMD} ${WRKSRC}/setup.py
 
@@ -35,12 +38,9 @@ post-install:
 	mv ${PREFIX}/share/doc/${MODPY_PY_PREFIX}curl/examples \
 		${PREFIX}/share/examples/${MODPY_PY_PREFIX}curl/
 
-# tests need more work; some need Bottle and Flaky which are not ported yet
 TEST_DEPENDS=	${BUILD_PKGPATH} \
-		devel/py-nose${MODPY_FLAVOR}
-
-do-test:
-	@cd ${WRKSRC}/tests && nosetests${MODPY_BIN_SUFFIX} -a \!standalone
-	@cd ${WRKSRC}/tests && nosetests${MODPY_BIN_SUFFIX} -a standalone
+		devel/py-flaky${MODPY_FLAVOR} \
+		devel/py-nose${MODPY_FLAVOR} \
+		www/py-bottle${MODPY_FLAVOR}
 
 .include <bsd.port.mk>

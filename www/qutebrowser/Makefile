@@ -1,5 +1,6 @@
-# $OpenBSD: Makefile,v 1.13 2019/04/28 20:52:01 sthen Exp $
+# $OpenBSD: Makefile,v 1.15 2019/09/01 10:58:44 jasper Exp $
 
+BROKEN =		update requires QT5 webengine (not ported)
 COMMENT =		keyboard-focused browser with a minimal GUI
 
 MODPY_EGG_VERSION =	0.11.1
@@ -13,7 +14,7 @@ MAINTAINER =		Jasper Lievisse Adriaanse <jasper@openbsd.org>
 CATEGORIES =		www
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_VERSION =		${MODPY_DEFAULT_VERSION_3}

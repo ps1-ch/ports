@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.80 2019/06/14 10:08:52 sthen Exp $
+# $OpenBSD: Makefile,v 1.85 2019/09/15 12:37:01 sthen Exp $
 
 COMMENT-main=	multithreaded SQL database (client)
 COMMENT-server=	multithreaded SQL database (server)
 COMMENT-tests=	multithreaded SQL database (regression test suite/benchmark)
 
-VERSION=	10.3.15
+VERSION=	10.3.18
 DISTNAME=	mariadb-${VERSION}
 PKGNAME-main=	mariadb-client-${VERSION}
 PKGNAME-server=	mariadb-server-${VERSION}
@@ -25,7 +25,7 @@ HOMEPAGE=	https://mariadb.org/
 MAINTAINER=	Brad Smith <brad@comstyle.com>
 
 # GPLv2 and LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	${COMPILER_LIBCXX} c crypto iconv m pthread ssl z
 WANTLIB-main=	${WANTLIB} curses readline
@@ -117,7 +117,7 @@ LDFLAGS+=	-L${LOCALBASE}/lib
 
 CONFIGURE_ENV=	LDFLAGS="${LDFLAGS}"
 
-.if ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "hppa"
+.if ${MACHINE_ARCH} == "hppa" || ${MACHINE_ARCH} == "powerpc"
 LDFLAGS+=	-latomic
 WANTLIB+=	atomic
 .endif

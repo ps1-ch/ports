@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: Init.pm,v 1.37 2019/05/08 12:59:33 espie Exp $
+# $OpenBSD: Init.pm,v 1.45 2019/11/08 17:53:24 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -40,7 +40,7 @@ sub finalize
 		}
 	}
 	close($fh);
-	return 1;
+	return $core->{status} == 0;
 }
 
 package DPB::Task::WhoAmI;
@@ -61,10 +61,10 @@ sub finalize
 		if ($line =~ m/^root$/) {
 			$core->prop->{iamroot} = 1;
 		} 
+		&{$self->{extra_code}};
 	}
 	close($fh);
-	&{$self->{extra_code}};
-	return 1;
+	return $core->{status} == 0;
 }
 
 package DPB::Job::Init;
@@ -84,6 +84,10 @@ sub finalize
 {
 	my ($self, $core) = @_;
 
+	if ($core->{status} != 0) {
+		return 0;
+	}
+
 	my $prop = $core->prop;
 	$prop->{jobs} //= 1;
 	$prop->{parallel2} //= $prop->{parallel};
@@ -99,22 +103,23 @@ sub finalize
 			}
 		}
 	}
-	$self->{signature}->print_out($core, $self->{logger});
-	if ($self->{signature}->matches($core, $self->{logger})) {
-		if (defined $prop->{squiggles}) {
-			$core->host->{wantsquiggles} = $prop->{squiggles};
-		} elsif ($prop->{jobs} > 3) {
-			$core->host->{wantsquiggles} = 1;
-		} elsif ($prop->{jobs} > 1) {
-			$core->host->{wantsquiggles} = 0.8;
+	if (defined $self->{signature}) {
+		$self->{signature}->print_out($core, $self->{logger});
+		if (!$self->{signature}->matches($core, $self->{logger})) {
+			return 0;
 		}
-		for my $i (1 .. $prop->{jobs}) {
-			$core->clone->mark_ready;
-		}
-		return 1;
-	} else {
-		return 0;
-    	}
+	}
+	if (defined $prop->{squiggles}) {
+		$core->host->{wantsquiggles} = $prop->{squiggles};
+	} elsif ($prop->{jobs} > 3) {
+		$core->host->{wantsquiggles} = 1;
+	} elsif ($prop->{jobs} > 1) {
+		$core->host->{wantsquiggles} = 0.8;
+	}
+	for my $i (1 .. $prop->{jobs}) {
+		$core->clone->mark_ready;
+	}
+	return 1;
 }
 
 # this is a weird one !
@@ -153,7 +158,7 @@ sub alive_hosts
 		if ($c->is_alive) {
 			push(@l, $host.$c->shell->stringize_master_pid);
 		} else {
-			push(@l, $host.'-');
+			push(@l, $c->prop->{socket}.'-');
 		}
 	}
 	return "Hosts: ".join(' ', sort(@l))."\n";
@@ -224,22 +229,29 @@ sub init_cores
 		$state->fatal("configuration error: no job runner");
 	}
 	for my $core (values %$init) {
+		if (defined $core->prop->{socket}) {
+			my $fh = $logger->open('>>',
+			    $logger->logfile("init.".$core->hostname));
+			print {$fh} "Socket name: ", 
+			    $core->prop->{socket}, "\n";
+		}
 		my $job = DPB::Job::Init->new($logger);
 		my $t = DPB::Task::WhoAmI->new;
 		# XXX can't get these before I know who I am
 		$t->{extra_code} = sub {
 		    my $prop = $core->prop;
 		    ($prop->{wrkobjdir}, $prop->{portslockdir}) = 
-			DPB::Vars->get($core->shell, $state->{make}, 
+			DPB::Vars->get($core->shell, $state, 
 			"WRKOBJDIR", "LOCKDIR");
 		};
 		$job->add_tasks($t);
 		if (!defined $core->prop->{jobs}) {
 			$job->add_tasks(DPB::Task::Ncpu->new);
 		}
-		DPB::Signature->add_tasks($job);
-#		$self->add_startup($state, $logger, $core, $job, "/bin/sh",
-#		    $state->ports."/infrastructure/bin/default-dpb-startup");
+		if (!$state->{fetch_only}) {
+			$job->{signature} = DPB::Signature->new($state);
+			$job->{signature}->add_tasks($job);
+		}
 		if (defined $startup) {
 			$self->add_startup($state, $logger, $core, $job, 
 			    split(/\s+/, $startup));

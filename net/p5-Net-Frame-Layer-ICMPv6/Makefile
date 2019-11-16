@@ -1,20 +1,21 @@
-# $OpenBSD: Makefile,v 1.4 2016/03/20 19:56:52 naddy Exp $
+# $OpenBSD: Makefile,v 1.6 2019/09/11 01:58:08 gsoares Exp $
 
 COMMENT=	ICMP v6 layer object
 
 MODULES=	cpan
 PKG_ARCH=	*
-DISTNAME=	Net-Frame-Layer-ICMPv6-1.06
+DISTNAME=	Net-Frame-Layer-ICMPv6-1.11
 CATEGORIES=	net
 
 MAINTAINER=	Gleydson Soares <gsoares@openbsd.org>
 
 # Artistic
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 RUN_DEPENDS=	net/p5-Net-Frame
-BUILD_DEPENDS=	${RUN_DEPENDS}
 
 MODCPAN_EXAMPLES=	Yes
+
+MAKE_ENV=	TEST_POD=yes
 
 .include <bsd.port.mk>

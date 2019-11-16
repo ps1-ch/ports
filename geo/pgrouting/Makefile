@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.24 2018/09/30 11:46:43 landry Exp $
+# $OpenBSD: Makefile,v 1.26 2019/09/23 13:42:02 landry Exp $
 
 COMMENT =	geospatial routing extension for PostgreSQL
 
-V =		2.6.1
+V =		2.6.3
 DISTNAME =	pgrouting-${V}
 MASTER_SITES =	https://github.com/pgRouting/pgrouting/releases/download/v${V}/
 
@@ -13,7 +13,7 @@ HOMEPAGE =	http://pgrouting.org/
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB +=	CGAL boost_system-mt boost_thread-mt gmp m pthread
 WANTLIB +=	boost_atomic-mt boost_chrono-mt boost_date_time-mt ${COMPILER_LIBCXX}

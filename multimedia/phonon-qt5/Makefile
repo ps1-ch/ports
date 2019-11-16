@@ -1,22 +1,22 @@
-# $OpenBSD: Makefile,v 1.5 2019/03/08 20:00:44 cwen Exp $
+# $OpenBSD: Makefile,v 1.7 2019/09/01 18:55:12 rsadowski Exp $
 
 COMMENT =	multimedia layer for Qt5/KDE5
-VERSION =	4.10.1
+VERSION =	4.10.3
 DISTNAME =	phonon-${VERSION}
 PKGNAME =	phonon-qt5-${VERSION}
-REVISION =	0
 
 # XXX major should be tweaked on any update, to unbreak
 # IMPORTED_LINK_INTERFACE_LIBRARIES CMake feature.
-SHARED_LIBS +=	phonon4qt5		2.0
-SHARED_LIBS +=	phonon4qt5experimental	2.0
+SHARED_LIBS +=	phonon4qt5		3.0
+SHARED_LIBS +=	phonon4qt5experimental	3.0
 
 CATEGORIES =	multimedia devel
 HOMEPAGE =	https://phonon.kde.org/
-MAINTAINER =	KDE porting team <openbsd-kde@googlegroups.com>
+
+MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
 
 # LGPL v2.1
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} Qt5Core Qt5DBus Qt5Gui Qt5Widgets
 WANTLIB += m pulse pulse-mainloop-glib
@@ -32,12 +32,12 @@ RUN_DEPENDS =		x11/qt5/qtdeclarative
 PHONON_INCLUDE_DIR =	include/phonon4qt5
 
 # Clashes with the one provided by Qt itself.
-CONFIGURE_ARGS +=	-DPHONON_BUILD_DESIGNER_PLUGIN:Bool=No \
-			-DPHONON_INSTALL_QT_COMPAT_HEADERS=No
+CONFIGURE_ARGS +=	-DPHONON_BUILD_DESIGNER_PLUGIN=OFF \
+			-DPHONON_INSTALL_QT_COMPAT_HEADERS=OFF
 
-CONFIGURE_ARGS +=	-DPHONON_BUILD_PHONON4QT5=Yes \
+CONFIGURE_ARGS +=	-DPHONON_BUILD_PHONON4QT5=ON \
 			-DINCLUDE_INSTALL_DIR=${PHONON_INCLUDE_DIR} \
-			-DPHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT=Yes
+			-DPHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT=ON
 
 SUBST_VARS =		PHONON_INCLUDE_DIR
 

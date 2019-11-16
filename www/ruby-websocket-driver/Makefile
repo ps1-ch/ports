@@ -1,15 +1,14 @@
-# $OpenBSD: Makefile,v 1.4 2018/06/13 22:26:53 jeremy Exp $
+# $OpenBSD: Makefile,v 1.6 2019/11/12 06:48:39 jeremy Exp $
 
 COMMENT =	implementation of the WebSocket protocol for ruby
 
-DISTNAME =	websocket-driver-0.7.0
-REVISION =	0
+DISTNAME =	websocket-driver-0.7.1
 CATEGORIES =	www
 
 HOMEPAGE =	https://github.com/faye/websocket-driver-ruby
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/ruby
 CONFIGURE_STYLE = ruby gem ext

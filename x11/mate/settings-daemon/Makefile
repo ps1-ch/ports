@@ -1,12 +1,12 @@
-# $OpenBSD: Makefile,v 1.15 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.17 2019/10/03 14:37:18 robert Exp $
 
 COMMENT=		MATE settings daemon
-REVISION=		0
 
 MATE_PROJECT=		mate-settings-daemon
+MATE_VERSION=		1.22.1
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += FLAC ICE SM X11 X11-xcb Xcomposite Xcursor Xdamage Xext
 WANTLIB += Xfixes Xi Xinerama Xrandr Xrender Xtst atk-1.0 atk-bridge-2.0

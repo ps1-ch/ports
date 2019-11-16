@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.27 2019/03/09 01:08:46 bcallah Exp $
+# $OpenBSD: Makefile,v 1.29 2019/08/08 16:34:02 bcallah Exp $
 
 COMMENT =	simple, distraction-free writing environment
 
-DISTNAME =	focuswriter-1.7.2
+DISTNAME =	focuswriter-1.7.3
 CATEGORIES =	editors
 EXTRACT_SUFX =	-src.tar.bz2
 
@@ -12,7 +12,7 @@ MASTER_SITES =	${HOMEPAGE}
 MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES +=	devel/qmake \
 		x11/qt5

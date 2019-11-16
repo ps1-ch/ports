@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.49 2018/02/20 16:41:59 bket Exp $
+# $OpenBSD: Makefile,v 1.51 2019/07/17 14:39:42 danj Exp $
 
 COMMENT=	SOCKS client and server
 
 DISTNAME=	dante-1.4.2
+REVISION=	0
 
 CATEGORIES=	security
 
@@ -15,10 +16,8 @@ HOMEPAGE=	https://www.inet.no/dante/
 
 MASTER_SITES=	${HOMEPAGE}/files/
 
-MAINTAINER=     Jakob Schlyter <jakob@openbsd.org>
-
 # BSD/CMU
-PERMIT_PACKAGE_CDROM=Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c m
 

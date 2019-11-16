@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.7 2018/12/27 17:39:35 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.9 2019/07/17 14:39:44 danj Exp $
 ONLY_FOR_ARCHS =	${GO_ARCHS}
 
 COMMENT =	fast and flexible static site generator
 
 DISTNAME =	hugo-0.53
+REVISION =	0
 
 CATEGORIES =	www
 
 HOMEPAGE =	https://gohugo.io/
 
-MAINTAINER =	Kevin Wondratsch <bsd@kwondratsch.com>
-
 #Apache License 2.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=	c pthread
 

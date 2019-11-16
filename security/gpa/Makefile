@@ -1,15 +1,14 @@
-# $OpenBSD: Makefile,v 1.38 2019/05/20 22:15:22 naddy Exp $
+# $OpenBSD: Makefile,v 1.40 2019/07/31 12:47:11 sthen Exp $
 
 COMMENT=	graphical interface for GnuPG
 
-DISTNAME=	gpa-0.9.9
-REVISION=	5
+DISTNAME=	gpa-0.10.0
 CATEGORIES=    	security x11
 
 HOMEPAGE=	https://www.gnupg.org/software/gpa/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender assuan atk-1.0 c cairo fontconfig freetype

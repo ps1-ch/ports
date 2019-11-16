@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.21 2019/05/20 22:15:14 naddy Exp $
+# $OpenBSD: Makefile,v 1.23 2019/07/16 21:29:41 sthen Exp $
 
 # When updating, check that x11/gnome/aisleriot MODGNOME_CPPFLAGS references the
 # proper guile2 includes directory
@@ -6,14 +6,14 @@
 BROKEN-powerpc=		Segmentation fault (core dumped)
 
 COMMENT=		GNU's Ubiquitous Intelligent Language for Extension
-
 # '
-VERSION=		2.2.4
+
+VERSION=		2.2.6
 DISTNAME=		guile-${VERSION}
 PKGNAME=		guile2-${VERSION}
-REVISION=		1
 V=			${VERSION:R}
 SUBST_VARS=		V
+REVISION=		0
 
 CATEGORIES=		lang
 
@@ -22,7 +22,7 @@ HOMEPAGE=		https://www.gnu.org/software/guile/
 SHARED_LIBS +=  guile-2.2            0.2      # 4.1
 
 # GPLv3, LGPLv3
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB += c curses ffi gc gmp iconv intl ltdl m pthread readline
 WANTLIB += unistring

@@ -1,12 +1,12 @@
-# $OpenBSD: Makefile,v 1.23 2018/10/17 14:15:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.26 2019/09/26 21:59:30 sthen Exp $
 
 COMMENT =	CalDAV/CardDav calendar/contacts server
 
-DISTNAME =	davical_1.1.7.orig
-PKGNAME =	davical-1.1.7
+DISTNAME =	davical_1.1.8.orig
+PKGNAME =	davical-1.1.8
 EXTRACT_SUFX =	.tar.xz
 CATEGORIES =	productivity net
-REVISION =	1
+REVISION =	0
 
 HOMEPAGE =	https://www.davical.org/
 MASTER_SITES =	https://www.davical.org/downloads/
@@ -14,7 +14,7 @@ MASTER_SITES =	https://www.davical.org/downloads/
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WRKSRC= 	${WRKDIR}
 MODULES =	lang/php

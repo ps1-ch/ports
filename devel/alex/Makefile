@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.35 2017/11/07 21:57:15 kili Exp $
+# $OpenBSD: Makefile,v 1.38 2019/10/01 17:40:30 kili Exp $
 
 COMMENT =	lexical analyser generator for Haskell
 
@@ -8,18 +8,21 @@ PORTROACH =		ignore:1
 
 DISTNAME =	alex-3.1.7
 CATEGORIES =	devel
+REVISION =	0
 
 HOMEPAGE =	http://www.haskell.org/alex/
 
 # BSD3
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
-WANTLIB =		c iconv m pthread util
+WANTLIB =		c charset ffi gmp iconv m pthread util
 
 MODULES =		lang/ghc
 MODGHC_BUILD =          cabal hackage nort
 
-LIB_DEPENDS =		converters/libiconv
+LIB_DEPENDS =		converters/libiconv \
+			devel/gmp \
+			devel/libffi
 
 # Required for building the documentation:
 USE_GMAKE =		Yes

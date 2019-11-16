@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.129 2019/05/30 12:43:30 jca Exp $
+# $OpenBSD: Makefile,v 1.133 2019/11/11 17:05:01 thfr Exp $
 
 USE_WXNEEDED=	Yes
 
 COMMENT=	cross platform, open source .NET developement framework
 
-V=		5.20.1.19
+V=		5.20.1.34
+REVISION=	0
 
 DISTNAME=	mono-${V}
 
@@ -24,7 +25,7 @@ HOMEPAGE=	http://www.mono-project.com/
 MAINTAINER=	Robert Nagy <robert@openbsd.org>
 
 # GPLv2, LGPL, MIT X11, MPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c iconv m pthread z
 

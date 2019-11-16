@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.7 2019/05/15 12:04:42 kmos Exp $
+# $OpenBSD: Makefile,v 1.9 2019/10/23 12:42:57 sthen Exp $
 
 COMMENT =		http client/server for asyncio
 
@@ -6,10 +6,10 @@ MODPY_EGG_VERSION =	3.5.4
 DISTNAME =		aiohttp-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
 CATEGORIES =		www
-REVISION =		0
+REVISION =		1
 
 # Apache2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${MODPY_WANTLIB} pthread
 
@@ -20,9 +20,10 @@ MODPY_SETUPTOOLS =	Yes
 
 MODPY_VERSION =		${MODPY_DEFAULT_VERSION_3}
 
-# only py-chardet isn't python3 only
-RUN_DEPENDS =		devel/py-async-timeout \
+RUN_DEPENDS =		devel/py-attrs${MODPY_FLAVOR} \
 			textproc/py-chardet${MODPY_FLAVOR} \
+# these are py3 only
+RUN_DEPENDS +=		devel/py-async-timeout \
 			www/py-multidict \
 			www/py-yarl
 TEST_DEPENDS =		devel/py-test${MODPY_FLAVOR} \

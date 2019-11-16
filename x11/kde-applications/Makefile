@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.48 2019/04/15 18:43:35 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.50 2019/11/08 13:44:27 rsadowski Exp $
 
      SUBDIR =
 
@@ -38,13 +38,12 @@
      SUBDIR += klettres
      SUBDIR += kmplot
      SUBDIR += ktouch
-     #SUBDIR += kturtle
-     #SUBDIR += kwordquiz
+     SUBDIR += kturtle
+     SUBDIR += kwordquiz
      SUBDIR += marble
-     #SUBDIR += kwrite
-     #SUBDIR += minuet
+     SUBDIR += minuet
      #SUBDIR += parley
-     #SUBDIR += rocs
+     SUBDIR += rocs
      SUBDIR += step
 
      # games
@@ -87,16 +86,16 @@
      SUBDIR += kubrick
      SUBDIR += lskat
      SUBDIR += palapeli
-     #SUBDIR += picmi (Qt5WebEngineWidgets mssing)
+     SUBDIR += picmi
 
      # graphics
      SUBDIR += gwenview
-     #SUBDIR += kamera
-     #SUBDIR += kcolorchooser
+     SUBDIR += kamera
+     SUBDIR += kcolorchooser
      SUBDIR += kdegraphics-mobipocket
      #SUBDIR += kdegraphics-thumbnailers
-     #SUBDIR += kolourpaint
-     #SUBDIR += kruler
+     SUBDIR += kolourpaint
+     SUBDIR += kruler
      SUBDIR += okular
      SUBDIR += spectacle
      SUBDIR += svgpart
@@ -105,7 +104,7 @@
      SUBDIR += audiocd-kio
      SUBDIR += dragon
      SUBDIR += ffmpegthumbs
-     #SUBDIR += juk
+     SUBDIR += juk
      #SUBDIR += k3b
      #SUBDIR += kamoso
      SUBDIR += kdenlive
@@ -155,7 +154,7 @@
 
      # utilities
      SUBDIR += ark
-     #SUBDIR += filelight
+     SUBDIR += filelight
      #SUBDIR += kbackup
      SUBDIR += kcalc
      #SUBDIR += kcharselect
@@ -165,9 +164,9 @@
      #SUBDIR += kgpg
      #SUBDIR += kteatime
      #SUBDIR += ktimer
-     #SUBDIR += kwalletmanager
+     SUBDIR += kwalletmanager
      #SUBDIR += print-manager
-     #SUBDIR += sweeper
+     SUBDIR += sweeper
 
      # webdev
      #SUBDIR += kimagemapeditor
@@ -197,7 +196,7 @@
      #SUBDIR += akonadi-search
      #SUBDIR += akonadiconsole
      #SUBDIR += baloo-widgets
-     #SUBDIR += grantleetheme
+     SUBDIR += grantleetheme
      #SUBDIR += incidenceeditor
      #SUBDIR += kaccounts-integration
      #SUBDIR += kaccounts-providers

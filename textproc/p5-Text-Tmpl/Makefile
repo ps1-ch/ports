@@ -1,16 +1,14 @@
-# $OpenBSD: Makefile,v 1.18 2016/03/20 19:57:10 naddy Exp $
+# $OpenBSD: Makefile,v 1.20 2019/07/17 14:39:43 danj Exp $
 
 COMMENT=	very fast Perl templating library
 
 MODULES=	cpan
 DISTNAME=	Text-Tmpl-0.33
-REVISION=	2
+REVISION=	3
 CATEGORIES=	textproc
 
-MAINTAINER=	Alex Feinberg <alex@strlen.net>
-
 # Artistic
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c perl
 

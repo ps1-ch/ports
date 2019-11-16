@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.36 2019/05/17 16:19:41 sthen Exp $
+# $OpenBSD: Makefile,v 1.38 2019/11/06 12:45:45 naddy Exp $
 
 COMMENT =	network switch style shell
 
 DISTNAME =	nsh-1.0.20170819
-REVISION =	0
+REVISION =	1
 
 GH_ACCOUNT =	yellowman
 GH_PROJECT =	nsh
@@ -13,7 +13,7 @@ CATEGORIES =	shells net
 HOMEPAGE =	http://www.nmedia.net/nsh/
 
 # 3 & 2 clause BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c curses edit sqlite3
 

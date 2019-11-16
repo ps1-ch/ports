@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.156 2018/12/12 13:34:31 sthen Exp $
+# $OpenBSD: Makefile,v 1.161 2019/10/14 14:11:36 robert Exp $
 
 COMMENT-main =		network and application monitoring - agent
 COMMENT-server =	network and application monitoring - server
 COMMENT-proxy =		network and application monitoring - proxy
 COMMENT-web =		network and application monitoring - web frontend
 
-VERSION =		4.0.0
+VERSION =		4.0.13
 DISTNAME =		zabbix-${VERSION}
 FULLPKGNAME-main =	zabbix-agent-${VERSION}
 FULLPKGPATH-main =	net/zabbix,-main
@@ -15,8 +15,6 @@ FULLPKGPATH-proxy =	net/zabbix,-proxy
 FULLPKGNAME-web =	zabbix-web-${VERSION}
 FULLPKGPATH-web =	net/zabbix,-web
 CATEGORIES =		net
-REVISION-main =		0
-REVISION-web =		0
 
 MAJV =			${VERSION:C/^([0-9]+\.[0-9]+).*/\1/}
 
@@ -25,7 +23,7 @@ HOMEPAGE =		http://www.zabbix.com/
 MAINTAINER =		Robert Nagy <robert@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		${MASTER_SITE_SOURCEFORGE:=zabbix/}
 

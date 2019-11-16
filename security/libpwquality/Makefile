@@ -1,14 +1,13 @@
-# $OpenBSD: Makefile,v 1.15 2019/05/20 22:15:23 naddy Exp $
+# $OpenBSD: Makefile,v 1.18 2019/11/02 14:18:41 ajacoutot Exp $
 
 COMMENT =		library to generate, and check strengh of passwords
 
-V =			1.4.0
+V =			1.4.2
 SUBST_VARS =		V
 GH_PROJECT =		libpwquality
 GH_ACCOUNT =		libpwquality
 GH_TAGNAME =		libpwquality-${V}
 DISTNAME =		libpwquality-${V}
-REVISION =		1
 
 SHARED_LIBS +=  pwquality            1.0      # 1.2
 
@@ -18,7 +17,7 @@ MAINTAINER =		Jasper Lievisse Adriaanse <jasper@openbsd.org>, \
 			Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${MODPY_WANTLIB}
 WANTLIB += c crack iconv intl pthread z
@@ -42,6 +41,6 @@ CONFIGURE_ENV =		LDFLAGS="-L${LOCALBASE}/lib"
 FAKE_FLAGS =		secureconfdir=${PREFIX}/share/examples/libpwquality/
 
 AUTOCONF_VERSION =	2.69
-AUTOMAKE_VERSION =	1.15
+AUTOMAKE_VERSION =	1.16
 
 .include <bsd.port.mk>

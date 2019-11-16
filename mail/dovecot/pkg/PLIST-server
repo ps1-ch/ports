@@ -1,4 +1,4 @@
-@comment $OpenBSD: PLIST-server,v 1.71 2019/05/02 22:06:13 sthen Exp $
+@comment $OpenBSD: PLIST-server,v 1.75 2019/10/14 20:41:44 sthen Exp $
 @conflict dovecot-sqlite-*
 @pkgpath mail/dovecot
 @pkgpath mail/dovecot,-server,bdb
@@ -40,7 +40,6 @@ include/dovecot/auth-cache.h
 include/dovecot/auth-client-connection.h
 include/dovecot/auth-client-interface.h
 include/dovecot/auth-client-private.h
-include/dovecot/auth-client-request.h
 include/dovecot/auth-client.h
 include/dovecot/auth-common.h
 include/dovecot/auth-fields.h
@@ -53,7 +52,6 @@ include/dovecot/auth-request-handler.h
 include/dovecot/auth-request-stats.h
 include/dovecot/auth-request-var-expand.h
 include/dovecot/auth-request.h
-include/dovecot/auth-server-connection.h
 include/dovecot/auth-settings.h
 include/dovecot/auth-stats.h
 include/dovecot/auth-token.h
@@ -319,6 +317,11 @@ include/dovecot/lib-event.h
 include/dovecot/lib-signals.h
 include/dovecot/lib.h
 include/dovecot/llist.h
+include/dovecot/lmtp-client.h
+include/dovecot/lmtp-commands.h
+include/dovecot/lmtp-common.h
+include/dovecot/lmtp-recipient.h
+include/dovecot/lmtp-settings.h
 include/dovecot/log-throttle.h
 include/dovecot/login-common.h
 include/dovecot/login-proxy-state.h
@@ -543,6 +546,7 @@ include/dovecot/sha1.h
 include/dovecot/sha2.h
 include/dovecot/sha3.h
 include/dovecot/shared-storage.h
+include/dovecot/sleep.h
 include/dovecot/smtp-address.h
 include/dovecot/smtp-client-command.h
 include/dovecot/smtp-client-connection.h
@@ -681,6 +685,7 @@ libexec/dovecot/deliver
 @bin libexec/dovecot/doveadm-server
 @bin libexec/dovecot/dovecot-lda
 @bin libexec/dovecot/gdbhelper
+libexec/dovecot/health-check.sh
 @bin libexec/dovecot/imap
 @bin libexec/dovecot/imap-hibernate
 @bin libexec/dovecot/imap-login
@@ -1055,6 +1060,7 @@ share/dovecot/stopwords/stopwords_pt.txt
 share/dovecot/stopwords/stopwords_ro.txt
 share/dovecot/stopwords/stopwords_ru.txt
 share/dovecot/stopwords/stopwords_sv.txt
+share/dovecot/stopwords/stopwords_tr.txt
 share/examples/dovecot/
 share/examples/dovecot/dovecot-openssl.cnf
 @sample /etc/ssl/dovecot-openssl.cnf

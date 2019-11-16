@@ -1,15 +1,13 @@
-# $OpenBSD: Makefile,v 1.15 2018/05/15 11:05:43 espie Exp $
+# $OpenBSD: Makefile,v 1.17 2019/07/17 14:49:20 danj Exp $
 
 COMMENT=	PPM to Pilot bitmap converter
 
 DISTNAME=	ppmtoTbmp-1.1
-REVISION=	3
+REVISION=	4
 CATEGORIES=	converters graphics
 HOMEPAGE=	http://www.isaac.cs.berkeley.edu/pilot/
 
-MAINTAINER=	Josh Rivel <josh@rivels.org>
-
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=		c m netpbm
 

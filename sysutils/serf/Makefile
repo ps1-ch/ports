@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.11 2019/04/16 08:14:43 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.14 2019/10/05 09:03:03 ajacoutot Exp $
 
 COMMENT=		decentralized service discovery and orchestration
 
-GH_TAGNAME=		v0.8.3
+GH_TAGNAME=		v0.8.5
 GH_ACCOUNT=		hashicorp
 GH_PROJECT=		serf
 PKGNAME=		${GH_ACCOUNT}-${DISTNAME}
@@ -15,7 +15,7 @@ HOMEPAGE=		https://www.serfdom.io/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # MPLv2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c pthread
 

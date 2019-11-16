@@ -1,12 +1,11 @@
-# $OpenBSD: Makefile,v 1.6 2019/04/30 07:21:58 bentley Exp $
+# $OpenBSD: Makefile,v 1.8 2019/10/28 08:00:17 bentley Exp $
 
 COMMENT =	framework for Verilog RTL synthesis
 
 GH_ACCOUNT =	YosysHQ
 GH_PROJECT =	yosys
-GH_TAGNAME =	yosys-0.8
+GH_TAGNAME =	yosys-0.9
 DISTNAME =	${GH_TAGNAME}
-REVISION =	2
 
 CATEGORIES =	cad
 
@@ -14,7 +13,7 @@ HOMEPAGE =	http://www.clifford.at/yosys/
 MAINTAINER =	Alessandro De Laurenzis <just22@atlantide.t28.net>
 
 # ISC (yosys), MIT (MiniSat)
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=	${COMPILER_LIBCXX} ${MODTCL_WANTLIB} c m readline ffi
 

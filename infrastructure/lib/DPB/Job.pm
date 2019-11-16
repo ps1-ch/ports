@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: Job.pm,v 1.15 2019/05/19 17:34:18 espie Exp $
+# $OpenBSD: Job.pm,v 1.20 2019/11/08 17:47:01 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -21,7 +21,9 @@ use DPB::Util;
 # a "job" is the actual stuff a core runs at some point.
 # it's mostly an abstract class here... it's organized
 # as a list of tasks, with a finalization routine
+
 package DPB::Task;
+# this is used to gc resources from a task (pipes for instance)
 sub end
 {
 }
@@ -41,15 +43,18 @@ sub name
 sub new
 {
 	my ($class, $code) = @_;
-	bless {code => $code}, $class;
+	return bless {code => $code}, $class;
 }
 
+# TODO this should probably be called exec since we're after the fork
 sub run
 {
 	my ($self, $core) = @_;
 	&{$self->code($core)}($core->shell);
 }
 
+# this is a placeholder in the parent when the task starts
+# TODO gc ? this isn't actually used
 sub process
 {
 	my ($self, $core) = @_;
@@ -148,7 +153,7 @@ sub really_watch
 sub new
 {
 	my ($class, $name) = @_;
-	bless {name => $name, status => ""}, $class;
+	return bless {name => $name, status => ""}, $class;
 }
 
 sub set_status
@@ -198,7 +203,13 @@ sub kill_on_timeout
 	local $> = 0;	# XXX switch to root, we don't know for sure which
 			# user owns the pid (not really an issue)
 	$core->kill(9);
-	return $self->{stuck} = "KILLED: $self->{current} stuck at $msg";
+	return $self->{stuck} = "KILLED: ".$self->killinfo." stuck at $msg";
+}
+
+sub killinfo
+{
+	my $self = shift;
+	return $self->{current};
 }
 
 sub watched

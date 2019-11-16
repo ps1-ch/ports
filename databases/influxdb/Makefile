@@ -1,19 +1,20 @@
-# $OpenBSD: Makefile,v 1.9 2019/05/04 21:46:16 sthen Exp $
+# $OpenBSD: Makefile,v 1.11 2019/11/12 22:05:27 rsadowski Exp $
 
 COMMENT =	time-series datastore for metrics, events, and analytics
 
-V =		1.6.1
+V =		1.6.6
 DISTNAME =	influxdb-${V}
-REVISION =	0
 
 HOMEPAGE =	https://influxdata.com
 # selfhosted because we bundle go deps
-MASTER_SITES =	https://rhaalovely.net/stuff/
+MASTER_SITES =	https://sizeofvoid.org/pub/OpenBSD/distfiles/
 
 CATEGORIES =		databases
 
+MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
+
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/go
 

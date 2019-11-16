@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.28 2019/05/20 22:15:04 naddy Exp $
+# $OpenBSD: Makefile,v 1.31 2019/09/25 12:40:25 bket Exp $
 
 COMMENT =	python powered git gui
 
-MODPY_EGG_VERSION=	3.3
+MODPY_EGG_VERSION=	3.5
 DISTNAME =	${GH_PROJECT}-${MODPY_EGG_VERSION}
 
 GH_ACCOUNT =	git-cola
@@ -16,7 +16,7 @@ HOMEPAGE =	https://git-cola.github.io/
 MAINTAINER =	Bjorn Ketelaars <bket@openbsd.org>
 
 # GPLv2 only
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES =	lang/python
 

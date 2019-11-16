@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.2 2019/05/26 12:47:00 sthen Exp $
+# $OpenBSD: Makefile,v 1.5 2019/08/20 14:11:01 otto Exp $
 
 COMMENT =	optimized HTTP server with support for HTTP/1.x and HTTP/2
 
@@ -10,13 +10,14 @@ CATEGORIES =	www
 
 GH_ACCOUNT =	h2o
 GH_PROJECT =	h2o
-GH_TAGNAME =	v2.2.5
+GH_TAGNAME =	v2.2.6
+REVISION = 	0
 
 HOMEPAGE =	https://h2o.examp1e.net/
 MAINTAINER =	Otto Moerbeek <otto@drijf.net>
 
 # various dep's bundled, all seem to be MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} c crypto m ssl uv z
 
@@ -37,7 +38,8 @@ LIB_DEPENDS =		devel/libuv
 CONFIGURE_ARGS =	-DBUILD_SHARED_LIBS=ON \
 			-DCMAKE_INSTALL_SYSCONFDIR=${SYSCONFDIR}/h2o \
 			-DWITH_BUNDLED_SSL=OFF \
-			-DWITH_MRUBY=ON
+			-DWITH_MRUBY=ON \
+			-DWITH_PICOTLS=OFF
 
 pre-configure:
 	ln -sf ${RUBY} ${WRKDIR}/bin/ruby

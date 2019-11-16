@@ -1,21 +1,17 @@
-# $OpenBSD: Makefile,v 1.36 2019/06/15 07:12:40 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.40 2019/08/13 14:50:12 sthen Exp $
 
 COMMENT =	Qt4-based featureful music player
 
-V =		1.2.3
-DISTNAME =	clementine-${V}
+GH_ACCOUNT =	clementine-player
+GH_PROJECT =	Clementine
+GH_TAGNAME =	1.2.3
 CATEGORIES =	audio x11
-REVISION =	14
+REVISION =	16
 
 HOMEPAGE =	https://clementine-player.org/
 
-MAINTAINER =	Vadim Zhukov <zhuk@openbsd.org>
-MASTER_SITES =	https://github.com/clementine-player/Clementine/archive/
-DISTFILES =	${PKGNAME}.tar.gz{${V}.tar.gz}
-WRKDIST =	${WRKDIR}/Clementine-${V}
-
 # GPLv2/LGPLv2/GFDL
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 WANTLIB =  c m pthread z
 WANTLIB += GL GLU GLEW ICE SM X11 Xext
@@ -32,6 +28,8 @@ WANTLIB += plist
 
 MODULES =		devel/cmake x11/qt4
 COMPILER =		base-clang ports-gcc
+# clementine is originally meant to be build with c++0x, but
+# protobuf>=3.6 wants c++11
 CXXFLAGS +=		-std=c++11
 
 BUILD_DEPENDS =		devel/boost \

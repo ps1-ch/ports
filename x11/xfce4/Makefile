@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.49 2018/12/08 16:48:43 landry Exp $
+# $OpenBSD: Makefile,v 1.51 2019/11/11 18:02:23 landry Exp $
 
      SUBDIR =
      SUBDIR += exo
      SUBDIR += garcon
-     SUBDIR += gtk-xfce-engine
      SUBDIR += libxfce4util
      SUBDIR += libxfce4ui
      SUBDIR += mousepad
@@ -43,8 +42,8 @@
      SUBDIR += xfce4-screensaver
      SUBDIR += xfce4-settings
      SUBDIR += xfce4-smartbookmark
-     SUBDIR += xfce4-systemload
      SUBDIR += xfce4-statusnotifier
+     SUBDIR += xfce4-systemload
      SUBDIR += xfce4-time-out
      SUBDIR += xfce4-taskmanager
      SUBDIR += xfce4-verve

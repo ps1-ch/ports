@@ -1,15 +1,14 @@
-# $OpenBSD: Makefile,v 1.9 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.11 2019/10/03 14:37:24 robert Exp $
 
 COMMENT=		MATE system monitor
 
 MATE_PROJECT=		mate-system-monitor
-MATE_VERSION=		1.22.1
-REVISION=		0
+MATE_VERSION=		1.22.2
 
 CATEGORIES=		sysutils
 
 # GPLv2/LGPLv2/GFDLv1.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} X11 XRes Xau Xcomposite Xcursor
 WANTLIB += Xdamage Xext Xfixes Xi Xinerama Xrandr Xrender atk-1.0

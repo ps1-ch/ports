@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.36 2019/05/20 02:30:22 danj Exp $
+# $OpenBSD: Makefile,v 1.38 2019/07/12 20:51:02 sthen Exp $
 
 COMMENT=		elegant and simple HTTP library for Python
 
 MODPY_EGG_VERSION=	2.22.0
 DISTNAME=		requests-${MODPY_EGG_VERSION}
 PKGNAME=		py-${DISTNAME}
+REVISION=		0
 
 CATEGORIES=		www
 
@@ -13,7 +14,7 @@ HOMEPAGE=		http://python-requests.org/
 MAINTAINER=		Daniel Jakots <obsd@chown.me>
 
 # APLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		lang/python
 

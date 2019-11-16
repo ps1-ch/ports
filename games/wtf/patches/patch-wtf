@@ -1,4 +1,4 @@
-$OpenBSD: patch-wtf,v 1.4 2018/01/28 08:38:28 bcallah Exp $
+$OpenBSD: patch-wtf,v 1.6 2019/08/02 03:01:05 bcallah Exp $
 Index: wtf
 --- wtf.orig
 +++ wtf

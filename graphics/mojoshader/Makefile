@@ -1,14 +1,13 @@
-# $OpenBSD: Makefile,v 1.2 2019/01/06 21:26:03 thfr Exp $
+# $OpenBSD: Makefile,v 1.4 2019/09/19 16:36:07 thfr Exp $
 
 COMMENT =	library to move calls to Direct3D shaders to OpenGL
 
 # HG_CHANGESET and HG_COMMIT must be kept in sync.
-HG_CHANGESET =	1181
-HG_COMMIT = 	b873f3b0f838
+HG_CHANGESET =	1214
+HG_COMMIT = 	5887634ea695
 
 DISTNAME =	mojoshader-${HG_COMMIT}{${HG_COMMIT}}
 PKGNAME =	mojoshader-${HG_CHANGESET}
-REVISION =	0
 CATEGORIES =	graphics
 MASTER_SITES =	https://hg.icculus.org/icculus/mojoshader/archive/
 
@@ -19,7 +18,7 @@ HOMEPAGE =	https://icculus.org/mojoshader/
 MAINTAINER =	Thomas Frohwein <thfr@openbsd.org>
 
 # zlib
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += m
 

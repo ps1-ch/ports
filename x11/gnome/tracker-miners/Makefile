@@ -1,22 +1,22 @@
-# $OpenBSD: Makefile,v 1.15 2019/05/03 07:59:23 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.20 2019/10/19 09:54:09 ajacoutot Exp $
+
+PORTROACH=		skipv:2.2.99.0
 
 COMMENT=		tracker miners and metadata extractors
 
 GNOME_PROJECT=		tracker-miners
-GNOME_VERSION=		2.2.2
+GNOME_VERSION=		2.3.1
 
 SHARED_LIBS +=  tracker-extract           1.1 # 0.0
 
 # GPLv2+ - LGPLv2.1+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
-WANTLIB += FLAC archive c cairo cue exempi exif gexiv2 gif gio-2.0
-WANTLIB += glib-2.0 gmodule-2.0 gobject-2.0 gsf-1 gstaudio-1.0
-WANTLIB += gstbase-1.0 gstpbutils-1.0 gstreamer-1.0 gstvideo-1.0
-WANTLIB += gxps icudata icui18n icuuc intl iptcdata jpeg m osinfo-1.0
-WANTLIB += png poppler-glib pthread tag tag_c tiff totem-plparser
-WANTLIB += tracker-miner-2.0 tracker-sparql-2.0 upower-glib vorbisfile
-WANTLIB += xml2 z
+WANTLIB += FLAC c cue exempi exif gexiv2 gif gio-2.0 glib-2.0
+WANTLIB += gmodule-2.0 gobject-2.0 gsf-1 gstpbutils-1.0 gstreamer-1.0
+WANTLIB += gsttag-1.0 gxps icui18n intl iptcdata jpeg kvm m osinfo-1.0
+WANTLIB += png poppler-glib tiff totem-plparser tracker-miner-2.0
+WANTLIB += tracker-sparql-2.0 upower-glib vorbisfile xml2
 
 COMPILER =		base-clang ports-gcc base-gcc
 
@@ -27,7 +27,6 @@ MODULES=		devel/dconf \
 
 LIB_DEPENDS=		audio/flac \
 			audio/libcue \
-			audio/taglib \
 			devel/libgsf \
 			graphics/giflib \
 			graphics/libexif \

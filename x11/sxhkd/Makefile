@@ -1,15 +1,15 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2017/08/10 13:30:00 jasper Exp $
+# $OpenBSD: Makefile,v 1.3 2019/09/01 14:01:08 jasper Exp $
 
 COMMENT =		simple X hotkey daemon
 
 GH_ACCOUNT =		baskerville
 GH_PROJECT =		sxhkd
-GH_TAGNAME =		0.5.8
+GH_TAGNAME =		0.6.1
 
 CATEGORIES =		x11
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 USE_GMAKE =		Yes
 

@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.37 2019/04/29 00:42:09 jeremy Exp $
+# $OpenBSD: Makefile,v 1.39 2019/07/17 14:39:42 danj Exp $
 
 COMMENT =	powerful webserver security scanner for network
 
 DISTNAME =	arirang-2.03
 CATEGORIES =	security
-REVISION =	5
+REVISION =	6
 FIX_EXTRACT_PERMISSIONS=Yes
 
 MASTER_SITES =	http://monkey.org/~pilot/arirang/ \
@@ -12,10 +12,8 @@ MASTER_SITES =	http://monkey.org/~pilot/arirang/ \
 
 HOMEPAGE =	http://www.monkey.org/~pilot
 
-MAINTAINER =	Jung Lee <moorang@gmail.com>
-
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 CONFIGURE_STYLE =	simple
 CONFIGURE_SCRIPT =	${SETENV} ${MAKE_ENV} ${RUBY} extconf.rb

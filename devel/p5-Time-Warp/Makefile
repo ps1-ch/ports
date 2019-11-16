@@ -1,13 +1,13 @@
-# $OpenBSD: Makefile,v 1.7 2016/03/20 19:56:40 naddy Exp $
+# $OpenBSD: Makefile,v 1.9 2019/10/18 01:06:58 afresh1 Exp $
 
 COMMENT =	control over the flow of time
 
 MODULES =	cpan
-DISTNAME =	Time-Warp-0.52
+DISTNAME =	Time-Warp-0.54
 CATEGORIES =	devel
 
 # same as perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c perl
 

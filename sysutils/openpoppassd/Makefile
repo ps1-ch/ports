@@ -1,19 +1,17 @@
-# $OpenBSD: Makefile,v 1.17 2018/01/11 19:27:10 rpe Exp $
+# $OpenBSD: Makefile,v 1.19 2019/07/17 14:39:43 danj Exp $
 
 COMMENT=		daemon for changing passwords
 
 DISTNAME=		openpoppassd-1.1
-REVISION =		10
+REVISION =		11
 FIX_EXTRACT_PERMISSIONS=Yes
 
 CATEGORIES=		sysutils mail
 
 HOMEPAGE=		http://www.ostc.de/projects.html\#openpoppassd
 
-MAINTAINER=		Hermann Gottschalk <magnum@pestilenz.org>
-
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c
 

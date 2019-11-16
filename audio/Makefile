@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.416 2019/06/06 12:13:16 rapha Exp $
+# $OpenBSD: Makefile,v 1.419 2019/08/14 12:43:52 kmos Exp $
 
      SUBDIR =
      SUBDIR += abcde
@@ -92,6 +92,7 @@
      SUBDIR += libnjb
      SUBDIR += libofa
      SUBDIR += libogg
+     SUBDIR += libopenmpt
      SUBDIR += libopusenc
      SUBDIR += libsamplerate
      SUBDIR += libsidplay
@@ -190,10 +191,11 @@
      SUBDIR += py-audio
      SUBDIR += py-audio,python3
      SUBDIR += py-cddb
+     SUBDIR += py-discid
+     SUBDIR += py-discid,python3
      SUBDIR += py-discogs-client
      SUBDIR += py-discogs-client,python3
      SUBDIR += py-eyed3
-     SUBDIR += py-id3
      SUBDIR += py-last
      SUBDIR += py-last,python3
      SUBDIR += py-mpd
@@ -204,7 +206,6 @@
      SUBDIR += py-mutagen
      SUBDIR += py-mutagen,python3
      SUBDIR += py-ogg
-     SUBDIR += py-tagger
      SUBDIR += py-tagpy
      SUBDIR += py-tagpy,python3
      SUBDIR += py-vorbis

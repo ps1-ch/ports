@@ -1,34 +1,41 @@
-# $OpenBSD: Makefile,v 1.14 2019/03/07 19:35:56 jasper Exp $
+# $OpenBSD: Makefile,v 1.18 2019/11/09 07:02:24 cwen Exp $
 
 COMMENT=		library to handle keyboard descriptions
 
-DISTNAME=		libxkbcommon-0.8.4
+DISTNAME=		libxkbcommon-0.9.1
 SHARED_LIBS +=	xkbcommon            1.5      # unknown
 SHARED_LIBS +=	xkbcommon-x11        1.2      # unknown
 CATEGORIES=		x11 inputmethods
 
-HOMEPAGE=		http://xkbcommon.org/
+HOMEPAGE=		https://xkbcommon.org/
 
 MAINTAINER=		Jasper Lievisse Adriaanse <jasper@openbsd.org>
 
 # All licenses are derivative of the MIT/X11 license, mostly identical other
 # than no-endorsement clauses (e.g. paragraph 4 of The Open Group's license).
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		${HOMEPAGE}/download/
 EXTRACT_SUFX=		.tar.xz
 
-WANTLIB += Xau Xdmcp xcb xcb-xkb
+MODULES =		devel/meson
+
+WANTLIB += xcb xcb-xkb
 
 BUILD_DEPENDS =		devel/bison
 
-CONFIGURE_STYLE=	gnu
-CONFIGURE_ARGS+=	--without-doxygen
-CONFIGURE_ENV +=	YACC=${LOCALBASE}/bin/bison
+CONFIGURE_ARGS +=	-Denable-docs=false \
+			-Denable-wayland=false
 
 TEST_DEPENDS =		devel/bison \
 			shells/bash
 TEST_IS_INTERACTIVE=	x11
+
+# Fix undefined references errors
+.include <bsd.port.arch.mk>
+.if !${PROPERTIES:Mlld}
+CONFIGURE_ENV +=	LDFLAGS="-L${X11BASE}/lib"
+.endif
 
 # XXX: This test still fails
 pre-test:

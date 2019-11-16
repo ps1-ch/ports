@@ -1,4 +1,4 @@
-# $OpenBSD: python.port.mk,v 1.113 2019/05/18 18:56:45 espie Exp $
+# $OpenBSD: python.port.mk,v 1.117 2019/11/07 16:14:09 kmos Exp $
 #
 #	python.port.mk - Xavier Santolaria <xavier@santolaria.net>
 #	This file is in the public domain.
@@ -24,8 +24,8 @@ MODPY_VERSION ?=	${MODPY_DEFAULT_VERSION_2}
 # verify if MODPY_VERSION forced is correct
 .else
 .  if ${MODPY_VERSION} != "2.7" && \
-      ${MODPY_VERSION} != "3.6" && \
-      ${MODPY_VERSION} != "3.7"
+      ${MODPY_VERSION} != "3.7" && \
+      ${MODPY_VERSION} != "3.8"
 ERRORS += "Fatal: unknown or unsupported MODPY_VERSION: ${MODPY_VERSION}"
 .  endif
 .endif
@@ -190,7 +190,7 @@ SUBST_VARS :=	MODPY_PYCACHE MODPY_COMMENT MODPY_ABI3SO MODPY_PYC_MAGIC_TAG \
 		MODPY_PY_PREFIX MODPY_PYOEXTENSION ${SUBST_VARS}
 
 UPDATE_PLIST_ARGS += -S MODPY_BIN_SUFFIX -S MODPY_PYOEXTENSION \
-    -S MODPY_ABI3SO -c MODPY_COMMENT -I MODPY_PYCACHE
+    -I MODPY_ABI3SO -c MODPY_COMMENT -I MODPY_PYCACHE
 
 # set MODPY_BIN for executable scripts
 MODPY_BIN_ADJ =	perl -pi \
@@ -239,10 +239,10 @@ do-test:
 	@${MODPY_TEST_TARGET}
 .  endif
 
-.if make(update-plist) || make(plist)
-.  if defined(FLAVORS) && ${FLAVORS:Mpython3} && !${FLAVOR:Mpython3}
+.  if make(update-plist) || make(plist)
+.    if defined(FLAVORS) && ${FLAVORS:Mpython3} && !${FLAVOR:Mpython3}
 ERRORS += "***\n*** WARNING: running update-plist without FLAVOR=python3\n***\n***"
+.    endif
 .  endif
-.endif
 
 .endif

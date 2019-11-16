@@ -1,8 +1,11 @@
-# $OpenBSD: Makefile,v 1.50 2019/06/01 23:22:41 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.55 2019/09/07 17:48:15 ajacoutot Exp $
 
 COMMENT=		network analysis and security monitoring framework
 
-DISTNAME=		bro-2.6.2
+V=			2.6.4
+DISTNAME=		bro-${V}
+PKGNAME=		zeek-${V}
+REVISION=		0
 
 SHARED_LIBS +=  broccoli                  6.0 # 5.1
 SHARED_LIBS +=  broker                    0.0 # XXX see patch-aux_broker_CMakeLists_txt
@@ -12,12 +15,12 @@ SHARED_LIBS +=  caf_openssl               0.0 # 0.16
 
 CATEGORIES=		net security
 
-HOMEPAGE=		https://www.bro.org/
+HOMEPAGE=		https://www.zeek.org/
 
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM= 	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c crypto m maxminddb pcap pthread ssl z
 WANTLIB += ${COMPILER_LIBCXX} ${MODPY_WANTLIB} lib/libbind/bind

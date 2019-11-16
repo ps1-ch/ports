@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.155 2019/05/31 05:54:14 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.160 2019/09/30 16:05:52 ajacoutot Exp $
 
 COMMENT=		GNU Transport Layer Security library
 
-V=			3.6.8
+V=			3.6.10
 DISTNAME=		gnutls-${V}
 EXTRACT_SUFX=		.tar.xz
 
 CATEGORIES=		security
 
-SHARED_LIBS +=  gnutls               46.1     # 54.0
+SHARED_LIBS +=  gnutls               46.3     # 56.0
 SHARED_LIBS +=  gnutlsxx             29.1     # 29.0
 SHARED_LIBS +=  gnutls-dane          0.0      # 4.1
 
@@ -17,7 +17,7 @@ HOMEPAGE=		http://www.gnutls.org/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2.1+ - GPLv3+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} c crypto event ffi gmp hogweed iconv
 WANTLIB += idn2 intl m nettle p11-kit ssl tasn1 unbound unistring
@@ -55,9 +55,15 @@ CONFIGURE_ARGS +=	--without-tpm
 
 # prevents dependency on devel/autogen
 CONFIGURE_ARGS +=	--enable-local-libopts
+CONFIGURE_ARGS +=	ac_cv_prog_autogen=
+
+LDFLAGS=		-L${LOCALBASE}/lib
+.if ${MACHINE_ARCH:Mi386}
+LDFLAGS+=		-Wl,-z,notext
+.endif
 
 CONFIGURE_ENV=		CPPFLAGS="-I${LOCALBASE}/include" \
-			LDFLAGS="-L${LOCALBASE}/lib"
+			LDFLAGS="${LDFLAGS}"
 
 post-install:
 	${INSTALL_DATA_DIR} ${PREFIX}/share/doc/gnutls

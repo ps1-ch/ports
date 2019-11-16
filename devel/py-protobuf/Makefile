@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.2 2019/04/28 20:51:36 sthen Exp $
+# $OpenBSD: Makefile,v 1.4 2019/09/15 13:25:36 kn Exp $
 
 COMMENT=		Google data interchange format (protocol buffers)
 
-MODPY_EGG_VERSION=	3.5.2
-POST=			1
-DISTNAME=		protobuf-${MODPY_EGG_VERSION}.post${POST}
-PKGNAME=		py-protobuf-${MODPY_EGG_VERSION}pl${POST}
-REVISION=		0
+MODPY_EGG_VERSION=	3.9.1
+DISTNAME=		protobuf-${MODPY_EGG_VERSION}
+PKGNAME=		py-${DISTNAME}
 
 CATEGORIES=		devel
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		lang/python
 

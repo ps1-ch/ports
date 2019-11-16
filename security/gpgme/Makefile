@@ -1,19 +1,19 @@
-# $OpenBSD: Makefile,v 1.51 2019/05/20 22:15:22 naddy Exp $
+# $OpenBSD: Makefile,v 1.56 2019/08/15 18:20:21 phessler Exp $
 
 COMMENT-main =		GnuPG Made Easy
 COMMENT-qt =		Qt bindings for GPGme
 
-VERSION =		1.12.0
+VERSION =		1.13.1
 DISTNAME =		gpgme-${VERSION}
 PKGNAME-main =		gpgme-${VERSION}
 PKGNAME-qt =		gpgme-qt-${VERSION}
-REVISION =		2
+REVISION =		0
 
 CATEGORIES =		security devel
 
-SHARED_LIBS +=  gpgme                21.1     # 32.0
-SHARED_LIBS +=  gpgmepp              0.0      # 14.0
-SHARED_LIBS +=  qgpgme               0.0      # 10.2
+SHARED_LIBS +=  gpgme                22.0     # 33.1
+SHARED_LIBS +=  gpgmepp              0.0      # 16.0
+SHARED_LIBS +=  qgpgme               0.0      # 10.4
 
 HOMEPAGE =		https://www.gnupg.org/software/gpgme/index.html
 
@@ -21,7 +21,7 @@ MASTER_SITES =		${MASTER_SITE_GNUPG:=gpgme/}
 EXTRACT_SUFX =		.tar.bz2
 
 # GPLv2 - LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB = assuan gpg-error iconv intl
 WANTLIB-main = ${WANTLIB} c m
@@ -75,6 +75,5 @@ USE_GMAKE =		Yes
 TEST_DEPENDS +=		security/gnupg2
 pre-build:
 	ln -sf ${LOCALBASE}/bin/gpg2 ${WRKDIR}/bin/gpg
-
 
 .include <bsd.port.mk>

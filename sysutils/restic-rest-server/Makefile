@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.5 2019/03/08 14:04:24 sthen Exp $
+# $OpenBSD: Makefile,v 1.8 2019/09/15 02:04:00 jsing Exp $
 
 COMMENT =	REST backend for the restic backup tool
 
 V =		0.9.7
 DISTNAME =	rest-server-${V}
 PKGNAME =	restic-${DISTNAME}
-REVISION =	3
+REVISION =	4
 
 CATEGORIES =	sysutils
 
 MAINTAINER =	Aaron Bieber <abieber@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c pthread
 

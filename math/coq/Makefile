@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.39 2019/03/23 10:55:51 jca Exp $
+# $OpenBSD: Makefile,v 1.48 2019/10/16 06:40:03 daniel Exp $
 
 COMMENT=		proof assistant based on a typed lambda calculus
 
-V=			8.8.0
+V=			8.10.0
 GH_ACCOUNT =		coq
 GH_PROJECT =		coq
 GH_TAGNAME =		V${V}
@@ -15,29 +15,26 @@ HOMEPAGE=		https://coq.inria.fr/
 MAINTAINER=		Yozo Toda <yozo@v007.vaio.ne.jp>
 
 # LGPL 2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
-WANTLIB += Xrandr Xrender atk-1.0 c cairo fontconfig freetype fribidi
-WANTLIB += gdk-x11-2.0 gdk_pixbuf-2.0 gio-2.0 glib-2.0 gobject-2.0
-WANTLIB += gtksourceview-2.0 gtk-x11-2.0 intl m pango-1.0 pangocairo-1.0
-WANTLIB += pangoft2-1.0 pthread z 
+WANTLIB += atk-1.0 c cairo cairo-gobject fontconfig freetype gdk-3
+WANTLIB += gdk_pixbuf-2.0 gio-2.0 glib-2.0 gobject-2.0 gtk-3 gtksourceview-3.0
+WANTLIB += intl m pango-1.0 pangocairo-1.0 pthread z
 
 MODULES=	lang/ocaml
 
-BUILD_DEPENDS=	x11/lablgtk2 \
-		lang/ocaml-camlp5 \
+BUILD_DEPENDS=	x11/lablgtk3 \
 		math/ocaml-num \
+		shells/bash \
 		sysutils/findlib
-RUN_DEPENDS=	x11/lablgtk2
+RUN_DEPENDS=	x11/lablgtk3
 
 DESTDIRNAME=	COQINSTALLPREFIX
 
 USE_GMAKE=	Yes
 
 CONFIGURE_STYLE= simple
-CONFIGURE_ARGS=	-emacslib ${PREFIX}/share/emacs/site-lisp \
-		-prefix ${PREFIX} \
+CONFIGURE_ARGS=	-prefix ${PREFIX} \
 		-libdir ${PREFIX}/lib/ocaml/coq \
 		-mandir ${PREFIX}/man \
 		-configdir ${SYSCONFDIR}/xdg/coq
@@ -53,6 +50,7 @@ ALL_TARGET=		byte coq documentation \
 INSTALL_TARGET=		install-coq install-byte install-meta
 .endif
 
+TEST_ENV=		VERBOSE=1
 TEST_TARGET=		check
 
 do-build:
@@ -65,7 +63,7 @@ post-install:
 	${INSTALL_DATA_DIR} \
 		${PREFIX}/share/doc/coq/
 	${INSTALL_DATA} \
-		${WRKDIST}/{LICENSE,CREDITS,CHANGES,CONTRIBUTING.md,README.md} \
+		${WRKDIST}/{LICENSE,CREDITS,CONTRIBUTING.md,README.md} \
 		${PREFIX}/share/doc/coq/
 
 .include <bsd.port.mk>

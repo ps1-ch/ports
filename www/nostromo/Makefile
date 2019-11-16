@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.41 2016/04/13 17:35:48 juanfra Exp $
+# $OpenBSD: Makefile,v 1.43 2019/10/25 19:58:41 mglocker Exp $
 
 COMMENT=		simple, fast and secure HTTP server
 
-DISTNAME=		nostromo-1.9.6
+DISTNAME=		nostromo-1.9.7
 CATEGORIES=		www
 MASTER_SITES=		http://www.nazgul.ch/dev/
 
@@ -11,7 +11,7 @@ HOMEPAGE=		http://www.nazgul.ch/dev_nostromo.html
 MAINTAINER=		Marcus Glocker <marcus@nazgul.ch>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=		c crypto ssl
 

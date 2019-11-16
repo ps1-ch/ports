@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.15 2018/03/20 08:29:45 landry Exp $
+# $OpenBSD: Makefile,v 1.17 2019/07/17 14:49:21 danj Exp $
 
 COMMENT=	graphical front-end to the diff program
 
 DISTNAME=	tkdiff-4.2
-REVISION =	1
+REVISION =	2
 CATEGORIES=	devel sysutils
 
 HOMEPAGE=	http://tkdiff.sourceforge.net/
 
-MAINTAINER=	Vlad Glagolev <stealth@sourcemage.org>
-
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=tkdiff/}
 

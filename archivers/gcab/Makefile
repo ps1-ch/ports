@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.4 2018/12/10 08:49:32 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.6 2019/10/19 09:29:09 ajacoutot Exp $
 
 COMMENT=		cabinet file library and tool
 
 GNOME_PROJECT=		gcab
-GNOME_VERSION=		1.2
+GNOME_VERSION=		1.3
 
 SHARED_LIBS +=	gcab-1.0                  1.0 # 0.0.0
 
@@ -12,7 +12,7 @@ CATEGORIES=		archivers devel
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c gio-2.0 glib-2.0 gobject-2.0 intl z
 

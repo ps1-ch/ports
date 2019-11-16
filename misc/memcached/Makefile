@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.46 2019/05/14 16:49:05 giovanni Exp $
+# $OpenBSD: Makefile,v 1.49 2019/09/20 21:40:41 giovanni Exp $
 
 COMMENT=	distributed memory object caching system
 
-DISTNAME=	memcached-1.5.14
+DISTNAME=	memcached-1.5.18
 CATEGORIES=	misc
 
 HOMEPAGE=	https://www.memcached.org/
@@ -10,7 +10,7 @@ HOMEPAGE=	https://www.memcached.org/
 MAINTAINER=	Giovanni Bechis <giovanni@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 # uses pledge()
 WANTLIB += c crypto event pthread ssl

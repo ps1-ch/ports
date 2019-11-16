@@ -1,11 +1,10 @@
-# $OpenBSD: Makefile,v 1.3 2019/05/15 12:04:43 kmos Exp $
+# $OpenBSD: Makefile,v 1.5 2019/07/20 21:58:33 kmos Exp $
 
 COMMENT =		yet another URL library
 
-MODPY_EGG_VERSION =	1.0.0
+MODPY_EGG_VERSION =	1.3.0
 DISTNAME =		yarl-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
-REVISION =		0
 
 CATEGORIES =		www devel
 
@@ -14,7 +13,7 @@ HOMEPAGE =		https://yarl.readthedocs.org
 MAINTAINER =		Joerg Jung <jung@openbsd.org>
 
 # Apache License 2.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 

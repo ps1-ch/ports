@@ -1,17 +1,23 @@
-# $OpenBSD: Makefile,v 1.69 2019/06/10 08:07:50 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.77 2019/11/09 12:19:15 ajacoutot Exp $
 
 NOT_FOR_ARCHS=		${GCC3_ARCHS}
 
 COMMENT-main=		International Components for Unicode
 COMMENT-wwwdata=	ICU data file for use with /var/www chroot jails
 
-VERSION=		64.2
+VERSION=		65.1
 DISTNAME=		icu4c-${VERSION:S/./_/g}-src
 PKGNAME-main=		icu4c-${VERSION}
 PKGNAME-wwwdata=	icu4c-wwwdata-${VERSION}
 
+REVISION-main=		0
+
+# XXX libicudata is not recognized as a SHARED_LIBS by the ports tools because
+# it's missing the '.note.openbsd.ident' section ("-nodefaultlibs -nostdlib" in
+# LDFLAGS); @lib and LIBicudata_VERSION must be added manually;
+# (see ports/infrastructure/lib/OpenBSD/FS2.pm)
 MAJ_V=			${VERSION:R}
-SO_VERSION=		15.0
+SO_VERSION=		17.0
 .for _lib in icudata icui18n icuio icutest icutu icuuc
 SHARED_LIBS+=		${_lib} ${SO_VERSION}
 .endfor
@@ -25,14 +31,14 @@ HOMEPAGE=		http://www.icu-project.org
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # ICU: http://source.icu-project.org/repos/icu/icu/trunk/license.html
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB-main=		c m pthread ${COMPILER_LIBCXX}
 
 COMPILER =		base-clang ports-gcc base-gcc
 
-MASTER_SITES=		http://download.icu-project.org/files/icu4c/${VERSION}/ \
-			${MASTER_SITE_SOURCEFORGE:=icu/}
+MASTER_SITES=		https://github.com/unicode-org/icu/releases/download/release-${VERSION:S/./-/g}/
+
 EXTRACT_SUFX=		.tgz
 
 USE_GMAKE=		Yes

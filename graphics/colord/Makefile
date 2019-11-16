@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.70 2019/03/09 05:46:53 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.72 2019/07/12 20:46:57 sthen Exp $
 
 # XXX newer versions hard depend on gusb and udev...
 PORTROACH=	skipv:1.4.0,1.4.1,1.4.2,1.4.3,1.4.4
@@ -20,13 +20,13 @@ HOMEPAGE=	http://www.freedesktop.org/software/colord/
 MAINTAINER=	Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c ffi gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0 gthread-2.0
 WANTLIB += iconv intl lcms2 m pcre polkit-gobject-1 pthread sqlite3
 WANTLIB += z
 
-MASTER_SITES=	http://www.freedesktop.org/software/colord/releases/
+MASTER_SITES=	https://www.freedesktop.org/software/colord/releases/
 
 MODULES=	devel/dconf \
 		textproc/intltool

@@ -1,11 +1,21 @@
-@comment $OpenBSD: PLIST,v 1.3 2019/06/09 14:13:03 espie Exp $
+@comment $OpenBSD: PLIST,v 1.7 2019/09/25 10:03:19 espie Exp $
 bin/openbsd-wallpaper
+@man man/man1/openbsd-wallpaper.1
 ${BG}/
 ${BG}/AUTHORS
 ${BG}/LICENSE.txt
 ${BG}/README.md
+${BG}/aspect-9:16
 @comment ${BG}/example
 ${LPICS}/
+${LPICS}-large.list
+${LPICS}.list
+${LPICS}/deraadt/
+${LPICS}/deraadt/chobe-0512-162406tdr.jpg
+${LPICS}/deraadt/chobe-0512-165545tdr.jpg
+${LPICS}/deraadt/limestone-0727-120951tdr.jpg
+${LPICS}/deraadt/limestone-0728-073918tdr.jpg
+${LPICS}/deraadt/vietnam-1108-184342tdr.jpg
 ${LPICS}/djm/
 ${LPICS}/djm/20110806_nevada_sunset.jpg
 ${LPICS}/djm/20111002_happy_landings.jpg
@@ -31,6 +41,8 @@ ${LPICS}/espie/autumn-lake.jpg
 ${LPICS}/espie/autumn.jpg
 ${LPICS}/espie/belgrade1.jpg
 ${LPICS}/espie/magic-sunset.jpg
+${LPICS}/espie/norway-sky.jpg
+${LPICS}/espie/norway-sky2.jpg
 ${LPICS}/espie/train+sky.jpg
 ${LPICS}/giovanni/
 ${LPICS}/giovanni/DSCN0547_Vettore.jpg
@@ -41,6 +53,7 @@ ${LPICS}/giovanni/IMG_0617_Spring.jpg
 ${LPICS}/giovanni/IMG_064131_Portugal.jpg
 ${LPICS}/giovanni/IMG_1793_Machu_Picchu.jpg
 ${LPICS}/giovanni/IMG_183607_Sky.jpg
+${LPICS}/giovanni/IMG_2653_Petra.jpg
 ${LPICS}/gonzalo/
 ${LPICS}/gonzalo/3675.jpg
 ${LPICS}/gonzalo/3678.jpg
@@ -144,6 +157,19 @@ ${LPICS}/kirby/IMGP7935.JPG
 ${LPICS}/kirby/IMGP9539.JPG
 ${LPICS}/kirby/imgp1612.jpg
 ${LPICS}/kirby/imgp8977.jpg
+${LPICS}/kristaps/
+${LPICS}/kristaps/common_cuttlefish.JPG
+${LPICS}/kristaps/cratena_peregrina.JPG
+${LPICS}/kristaps/flabellina_affinis_upsidedown.JPG
+${LPICS}/kristaps/green_sea_turtle.JPG
+${LPICS}/kristaps/green_sea_turtle_closeup.JPG
+${LPICS}/kristaps/hawksbill_sea_turtle.JPG
+${LPICS}/kristaps/hawksbill_sea_turtle_moz.JPG
+${LPICS}/kristaps/humpback_whale_calf.jpg
+${LPICS}/kristaps/humpback_whale_calf_closeup.jpg
+${LPICS}/kristaps/octopus_and_comber.JPG
+${LPICS}/kristaps/p29_bw.JPG
+${LPICS}/kristaps/reef_manta_ray.JPG
 ${LPICS}/schwarze/
 ${LPICS}/schwarze/1507_Calgary_BowTower.jpeg
 ${LPICS}/schwarze/1507_Calgary_CenterStr.jpeg
@@ -200,16 +226,24 @@ ${LPICS}/tj/DSC_6154.jpg
 ${LPICS}/tj/DSC_6228.jpg
 ${LPICS}/tj/DSC_6254.jpg
 ${LPICS}/tj/DSC_6315.jpg
+${BG}/larger
 ${BG}/list
-${BG}/mklist
-${BG}/mkrelease
 ${PPICS}/
+${PPICS}-large.list
+${PPICS}.list
+${PPICS}/deraadt/
+${PPICS}/deraadt/limestone-0727-094133tdr.jpg
+${PPICS}/deraadt/limestone-0727-171837tdr.jpg
 ${PPICS}/espie/
 ${PPICS}/espie/IMG_20170818_114024.jpg
 ${PPICS}/espie/IMG_20180403_191952.jpg
 ${PPICS}/espie/angry_sea.jpg
 ${PPICS}/espie/colorful_plants.jpg
 ${PPICS}/espie/hellish_sunset.jpg
+${PPICS}/espie/norway-postcard.jpg
+${PPICS}/espie/norway-sky3.jpg
+${PPICS}/espie/sky-painting.jpg
+${PPICS}/espie/sky-painting2.jpg
 ${PPICS}/espie/snowwave.jpg
 ${PPICS}/espie/sunset_vertical.jpg
 ${PPICS}/gonzalo/
@@ -227,3 +261,4 @@ ${PPICS}/kirby/IMGP1184.jpg
 ${PPICS}/kirby/IMGP3569.JPG
 ${PPICS}/kirby/IMGP3583.JPG
 ${PPICS}/kirby/IMGP3587.JPG
+@comment ${BG}/wallpaper

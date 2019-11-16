@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.7 2015/08/13 20:02:43 zhuk Exp $
+# $OpenBSD: Makefile,v 1.9 2019/07/17 14:49:22 danj Exp $
 
 COMMENT =	free Cyrillic fonts
 PKG_ARCH =	*
 DISTNAME =	ru-ptsans-3.0
 CATEGORIES =	fonts x11
+REVISION =	0
 
-MAINTAINER =	Vadim Zhukov <zhuk@openbsd.org>
 # Original distfile taken from http://www.fontstock.com/public/
 MASTER_SITES =	http://ohvost.ru/distfiles/
 HOMEPAGE =	http://paratype.com/public/
@@ -16,7 +16,7 @@ HOMEPAGE =	http://paratype.com/public/
 # requires
 # Attribution, Notice, ShareAlike, DerivativeRenaming,
 # BundlingWhenSelling
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 NO_BUILD =		Yes
 NO_TEST =		Yes

@@ -1,17 +1,17 @@
-# $OpenBSD: Makefile,v 1.17 2019/05/20 22:15:23 naddy Exp $
+# $OpenBSD: Makefile,v 1.19 2019/07/16 21:29:41 sthen Exp $
 
 COMMENT =		file, shell and text manipulation utilities
 
 DISTNAME =		coreutils-8.31
 CATEGORIES =		sysutils
-REVISION =		0
+REVISION =		1
 
 MAINTAINER =		Brian Callahan <bcallah@openbsd.org>
 
 HOMEPAGE =		https://www.gnu.org/software/coreutils/coreutils.html
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		c iconv intl pthread
 

@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: Config.pm,v 1.80 2019/05/09 11:08:55 espie Exp $
+# $OpenBSD: Config.pm,v 1.87 2019/11/07 16:36:42 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -93,8 +93,8 @@ sub parse_command_line
 		},
 	};
 
-	$state->SUPER_handle_options('acemqrRstuUvh:S:xX:A:B:C:f:F:I:j:J:M:p:P:b:l:L:',
-    "[-acemqrRsuUvx] [-A arch] [-B chroot] [-C plist] [-f m] [-F m]",
+	$state->SUPER_handle_options('acemNqrRstuUvh:S:xX:A:B:C:f:F:I:j:J:M:p:P:b:l:L:',
+    "[-acemNqrRsuUvx] [-A arch] [-B chroot] [-C plist] [-f m] [-F m]",
     "[-I pathlist] [-J p] [-j n] [-p parallel] [-P pathlist] [-h hosts]",
     "[-L logdir] [-l lockdir] [-b log] [-M threshold] [-X pathlist]",
     "[pathlist ...]");
@@ -105,6 +105,7 @@ sub parse_command_line
 		}
 	}
 
+	$state->{roach} = $state->opt('N'); 	# for "new"
     	$state->{chroot} = $state->opt('B');
 	$state->{base_user} = DPB::User->from_uid($<);
 	if (!defined $state->{base_user}) {
@@ -122,8 +123,7 @@ sub parse_command_line
 	($state->{ports}, $state->{localarch},
 	    $state->{distdir}) =
 		DPB::Vars->get(DPB::Host::Localhost->getshell($state), 
-		$state->make,
-		"PORTSDIR", "MACHINE_ARCH", "DISTDIR");
+		$state, "PORTSDIR", "MACHINE_ARCH", "DISTDIR");
     	if (!defined $state->{ports}) {
 		$state->usage("Can't obtain vital information from the ports tree");
 	}
@@ -179,7 +179,7 @@ sub parse_command_line
 	($state->{ports}, $state->{portspath}, $state->{repo}, $state->{localarch},
 	    $state->{distdir}, $state->{localbase}, $backup) =
 		DPB::Vars->get(DPB::Host::Localhost->getshell($state), 
-		$state->make,
+		$state,
 		"PORTSDIR", "PORTSDIR_PATH", "PACKAGE_REPOSITORY", 
 		"MACHINE_ARCH", "DISTDIR", "LOCALBASE", "MASTER_SITE_BACKUP");
 
@@ -214,11 +214,17 @@ sub parse_command_line
 		$state->{logdir} = $state->{subst}->value('LOGDIR');
 	}
 	if ($state->define_present('CONTROL')) {
-		require DPB::External;
-		$state->{external} = DPB::External->server($state);
+		if ($state->{subst}->value('CONTROL') ne '') {
+			require DPB::External;
+			$state->{external} = DPB::External->server($state);
+			die if !defined $state->{external};
+		}
 	} else {
-		$state->{external} = DPB::ExternalStub->new;
+		require DPB::External;
+		$state->{subst}->add('CONTROL', '%L/control-%h-%$');
+		$state->{external} = DPB::External->server($state);
 	}
+	$state->{external} //= DPB::ExternalStub->new;
 	if ($state->{opt}{s}) {
 		$state->{wantsize} = 1;
 	} elsif ($state->define_present('WANTSIZE')) {
@@ -245,6 +251,10 @@ sub parse_command_line
 	if ($state->define_present('LISTING_EXTRA') && 
 	    !defined $state->{opt}{e}) {
 		$state->{opt}{e} = $state->{subst}->value('LISTING_EXTRA');
+	}
+	if ($state->define_present('ROACH') && 
+	    !defined $state->{opt}{N}) {
+	    	$state->{roach} = $state->{subst}->value('ROACH');
 	}
 	if ($state->define_present('LOCKDIR')) {
 		$state->{lockdir} = $state->{subst}->value('LOCKDIR');
@@ -383,6 +393,7 @@ sub parse_config_files
 		small => 120,
 		repair => 1,
 		nochecksum => 1,
+		master_pid => $state->{master_pid},
 	};
 
 	if ($state->{config_files}) {
@@ -463,6 +474,10 @@ sub new
 }
 
 sub receive_commands
+{
+}
+
+sub cleanup
 {
 }
 

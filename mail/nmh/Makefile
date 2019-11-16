@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.44 2018/04/06 11:37:28 pascal Exp $
+# $OpenBSD: Makefile,v 1.46 2019/08/14 05:59:50 bentley Exp $
 
 COMMENT=		new MH mail handling program
 
@@ -10,7 +10,7 @@ HOMEPAGE=		https://www.nongnu.org/nmh/
 MAINTAINER =		Pascal Stumpf <pascal@stumpf.co>
 
 # BSD-like
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=		c crypto curses edit iconv ssl
 
@@ -34,6 +34,8 @@ FLAVOR?=
 CONFIGURE_ENV=		CPPFLAGS="-I${LOCALBASE}/include" \
 			LDFLAGS="-L${LOCALBASE}/lib"
 SEPARATE_BUILD=		Yes
+
+# much use of .fc
 USE_GROFF =		Yes
 
 .if ${FLAVOR:Msasl}

@@ -1,8 +1,4 @@
-# $OpenBSD: Makefile,v 1.228 2019/05/16 20:43:09 ajacoutot Exp $
-
-# Everything is a Freaking GLib/GTK+ problem
-CFLAGS +=		-g
-INSTALL_STRIP=		# empty
+# $OpenBSD: Makefile,v 1.233 2019/11/10 21:44:07 ajacoutot Exp $
 
 COMMENT-main=		multi-platform graphical toolkit
 COMMENT-cups=		gtk+2 CUPS print backend
@@ -13,8 +9,8 @@ GNOME_PROJECT=		gtk+
 PKGNAME-main=		gtk+2-${GNOME_VERSION}
 PKGNAME-cups=		gtk+2-cups-${GNOME_VERSION}
 
-REVISION-main=		5
-REVISION-cups=		1
+REVISION-main=		8
+REVISION-cups=		4
 
 CATEGORIES=		x11 devel
 
@@ -27,7 +23,7 @@ HOMEPAGE=		http://www.gtk.org/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender atk-1.0 cairo expat ffi fontconfig
@@ -46,6 +42,8 @@ MULTI_PACKAGES=		-main -cups
 
 MODULES=		lang/python \
 			x11/gnome
+
+DEBUG_PACKAGES=		${BUILD_PACKAGES}
 
 LIB_DEPENDS-main=	devel/atk \
 			devel/pango \

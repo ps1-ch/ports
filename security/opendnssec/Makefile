@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.17 2019/05/17 12:42:45 pvk Exp $
+# $OpenBSD: Makefile,v 1.20 2019/11/09 10:17:45 pvk Exp $
 
 COMMENT=	open-source turn-key solution for DNSSEC
 
-DISTNAME=	opendnssec-2.1.4
+DISTNAME=	opendnssec-2.1.5
 
 CATEGORIES=	security
 
@@ -11,7 +11,7 @@ HOMEPAGE=	https://www.opendnssec.org/
 MAINTAINER=	Pavel Korovin <pvk@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c crypto iconv ldns lzma m pthread xml2 z
 
@@ -20,7 +20,7 @@ MASTER_SITES=	https://dist.opendnssec.org/source/
 BUILD_DEPENDS=	devel/cunit
 
 LIB_DEPENDS=	converters/libiconv \
-		net/ldns/libldns \
+		net/ldns \
 		textproc/libxml
 
 TEST_DEPENDS=	${BUILD_DEPENDS} \

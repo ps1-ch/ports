@@ -1,14 +1,13 @@
-# $OpenBSD: Makefile,v 1.103 2019/05/20 14:59:37 jca Exp $
+# $OpenBSD: Makefile,v 1.112 2019/10/31 19:54:26 kn Exp $
 
 COMMENT=		libraries to support development of security-enabled apps
 
-VERSION=		3.44
-REVISION=		0
+VERSION=		3.47
 NSPR_VERSION=		4.19
 DISTNAME=		nss-${VERSION}
 
-SO_VERSION=		57.1
-.for _lib in freebl3 nss3 nssckbi nssdbm3 nssutil3 smime3 softokn3 ssl3
+SO_VERSION=		58.2
+.for _lib in freebl3 nss3 nssckbi nssckbi-testlib nssdbm3 nssutil3 smime3 softokn3 ssl3
 SHARED_LIBS+=		${_lib} ${SO_VERSION}
 .endfor
 CATEGORIES=		security
@@ -17,7 +16,7 @@ MAINTAINER=		Landry Breuil <landry@openbsd.org>
 HOMEPAGE=		https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSS
 
 # mozilla public license
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 #for regular releases
 MASTER_SITES=		https://ftp.mozilla.org/pub/mozilla.org/security/nss/releases/${DISTNAME:U:C/[-.]/_/g}_RTM/src/
@@ -26,8 +25,7 @@ LIB_DEPENDS=		databases/sqlite3 \
 			devel/nspr>=${NSPR_VERSION}
 WANTLIB += c pthread z nspr4 plc4 plds4 sqlite3>=22
 
-MAKE_ENV=		BUILD_OPT=1 \
-			LOCALBASE="${LOCALBASE}" \
+MAKE_ENV=		LOCALBASE="${LOCALBASE}" \
 			NSS_SEED_ONLY_DEV_URANDOM=1 \
 			NSS_ENABLE_ECC=1 \
 			NSS_ENABLE_TLS_1_3=1 \
@@ -37,6 +35,10 @@ MAKE_ENV=		BUILD_OPT=1 \
 			XCFLAGS="-I${LOCALBASE}/include ${CFLAGS}" \
 			NSPR_INCLUDE_DIR="${LOCALBASE}/include/nspr" \
 			NSPR_LIB_DIR="${LOCALBASE}/lib"
+
+.if !defined(DEBUG)
+MAKE_ENV+=		BUILD_OPT=1
+.endif
 
 USE_GMAKE=		Yes
 
@@ -63,10 +65,13 @@ do-install:
 	${SUBST_CMD} -m ${BINMODE} -o ${BINOWN} -g ${BINGRP} \
 		-c ${WRKSRC}/pkg/pkg-config/nss-config.in ${PREFIX}/bin/nss-config
 
+TEST_DEPENDS=	shells/bash
+
 do-test:
 	cd ${WRKSRC}/tests && ${SETENV} ${MAKE_ENV} \
 		PATH="${NSSOBJ}/bin:${PATH}" \
-		LD_LIBRARY_PATH="${NSSOBJ}/lib" /bin/sh ./all.sh
+		LD_LIBRARY_PATH="${NSSOBJ}/lib" \
+		${LOCALBASE}/bin/bash ./all.sh
 
 .include <bsd.port.arch.mk>
 

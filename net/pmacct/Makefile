@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.27 2018/05/18 10:52:13 sthen Exp $
+# $OpenBSD: Makefile,v 1.29 2019/08/10 21:28:18 sthen Exp $
 
 COMMENT=	passive IP network monitoring tools: traffic accounting, etc
 
@@ -9,7 +9,7 @@ HOMEPAGE=	http://www.pmacct.net/
 MASTER_SITES=	http://www.pmacct.net/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c jansson m maxminddb pcap pthread sodium sqlite3 z zmq
 
@@ -20,6 +20,9 @@ LIB_DEPENDS+=	databases/sqlite3 \
 		devel/jansson \
 		net/libmaxminddb \
 		net/zeromq
+
+COMPILER=	base-clang ports-gcc
+COMPILER_LANGS=	c
 
 CONFIGURE_STYLE= autoconf no-autoheader
 AUTOCONF_VERSION= 2.69

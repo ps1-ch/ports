@@ -1,9 +1,10 @@
-# $OpenBSD: Makefile,v 1.7 2018/09/25 08:48:59 bentley Exp $
+# $OpenBSD: Makefile,v 1.9 2019/11/11 03:21:55 bentley Exp $
 
 COMMENT =		framebuffer abstraction library for netsurf
 
 NETSURF_PROJECT =	libnsfb
-NETSURF_VERSION =	0.2.0
+NETSURF_VERSION =	0.2.1
+REVISION =		0
 
 CATEGORIES =		graphics
 SHARED_LIBS =		nsfb 0.0 #0.1.4

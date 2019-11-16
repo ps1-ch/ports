@@ -1,19 +1,18 @@
-# $OpenBSD: Makefile,v 1.30 2019/04/28 20:51:54 sthen Exp $
+# $OpenBSD: Makefile,v 1.33 2019/10/07 09:35:11 landry Exp $
 
 COMMENT =	versatile file searching tool
 
 XFCE_GOODIE =	catfish
-XFCE_VERSION =	1.4.7
+XFCE_VERSION =	1.4.10
 MODPY_EGG_VERSION =	${XFCE_VERSION}
 CATEGORIES =	textproc
-REVISION =		0
 
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 
 HOMEPAGE =	https://bluesabre.org/projects/catfish/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	lang/python \
 		x11/xfce4 \

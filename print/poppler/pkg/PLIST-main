@@ -1,4 +1,4 @@
-@comment $OpenBSD: PLIST-main,v 1.32 2019/05/06 21:17:19 kili Exp $
+@comment $OpenBSD: PLIST-main,v 1.34 2019/11/12 22:03:42 kili Exp $
 @conflict poppler-qt-<0.5.4p0
 @pkgpath print/poppler
 include/poppler/
@@ -8,6 +8,9 @@ include/poppler/BuiltinFont.h
 include/poppler/BuiltinFontTables.h
 include/poppler/CMap.h
 include/poppler/CachedFile.h
+include/poppler/CairoFontEngine.h
+include/poppler/CairoOutputDev.h
+include/poppler/CairoRescaleBox.h
 include/poppler/Catalog.h
 include/poppler/CertificateInfo.h
 include/poppler/CharCodeToUnicode.h
@@ -114,7 +117,6 @@ include/poppler/glib/poppler-page.h
 include/poppler/glib/poppler-structure-element.h
 include/poppler/glib/poppler.h
 include/poppler/goo/
-include/poppler/goo/FixedPoint.h
 include/poppler/goo/GooCheckedOps.h
 include/poppler/goo/GooLikely.h
 include/poppler/goo/GooString.h

@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.7 2019/05/28 20:08:35 sthen Exp $
+# $OpenBSD: Makefile,v 1.9 2019/09/27 15:39:44 sthen Exp $
 
 COMMENT=	roundcube plugin: DKIM verification status
 
@@ -13,7 +13,7 @@ CATEGORIES=	mail www
 HOMEPAGE=	https://jve.linuxwall.info/blog/index.php?pages/DKIMSTATUS-plugin-for-roundcube
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 NO_BUILD=	Yes
 NO_TEST=	Yes
@@ -25,7 +25,6 @@ TINSTDIR=	${TRUEPREFIX}/roundcubemail/plugins
 SUBST_VARS=	INSTDIR TINSTDIR
 
 MODULES=	lang/php
-MODPHP_VERSION=	7.3
 
 RUN_DEPENDS=	mail/roundcubemail>=1.1
 

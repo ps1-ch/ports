@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.49 2019/03/08 20:00:45 cwen Exp $
+# $OpenBSD: Makefile,v 1.53 2019/07/12 20:45:57 sthen Exp $
 
 #Qt5Webkit
 USE_WXNEEDED =		Yes
@@ -7,7 +7,7 @@ COMMENT =		cross-platform IDE for use with Qt
 V =			4.8.2
 DISTNAME =		qt-creator-opensource-src-${V}
 PKGNAME =		qt-creator-${V}
-REVISION =		0
+REVISION =		3
 
 SHARED_LIBS +=	Aggregation               0.0 # 0.0
 SHARED_LIBS +=	CPlusPlus                 2.0 # 0.0
@@ -37,7 +37,7 @@ HOMEPAGE =	https://www.qt.io/ide/
 MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
 
 # GPLv3 with the "Qt Company GPL Exception 1.0"
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL Qt5Concurrent Qt5Core Qt5Designer
 WANTLIB += Qt5DesignerComponents Qt5Gui Qt5Help Qt5Network Qt5PrintSupport
@@ -56,7 +56,7 @@ MODQMAKE_ARGS =		QTC_ENABLE_CLANG_LIBTOOLING=Yes \
 			CONFIG+=qbs_enable_project_file_updates
 
 BUILD_DEPENDS =	x11/qt5/qtquickcontrols \
-		lang/clazy \
+		lang/clazy>=1.5 \
 		devel/qbs
 
 RUN_DEPENDS =	${MODGCC4_CPPDEP} \
@@ -76,8 +76,6 @@ LIB_DEPENDS =	devel/llvm \
 		x11/qt5/qttools
 
 PORTHOME =		${WRKDIR}
-
-ALL_TARGET =		all
 
 NO_TEST =		Yes
 

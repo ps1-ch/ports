@@ -1,11 +1,11 @@
-$OpenBSD: patch-runtime_flangrti_CMakeLists_txt,v 1.5 2018/09/26 18:31:46 bcallah Exp $
+$OpenBSD: patch-runtime_flangrti_CMakeLists_txt,v 1.7 2019/11/10 16:50:32 bcallah Exp $
 
 We need -lexecinfo. Use the static version for ease.
 
 Index: runtime/flangrti/CMakeLists.txt
 --- runtime/flangrti/CMakeLists.txt.orig
 +++ runtime/flangrti/CMakeLists.txt
-@@ -108,6 +108,9 @@ find_library( 
+@@ -103,6 +103,9 @@ find_library( 
    HINTS ${CMAKE_BINARY_DIR}/lib)
  target_link_libraries(flangrti_shared ${LIBPGMATH})
  

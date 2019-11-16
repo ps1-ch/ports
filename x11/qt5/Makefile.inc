@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile.inc,v 1.10 2018/01/25 15:02:25 rsadowski Exp $
+# $OpenBSD: Makefile.inc,v 1.12 2019/11/05 10:18:53 rsadowski Exp $
 
 ONLY_FOR_ARCHS =	${GCC4_ARCHS} ${CLANG_ARCHS}
 
@@ -24,7 +24,6 @@ DPB_PROPERTIES +=	nojunk
 
 CATEGORIES +=		x11 x11/qt5 devel
 HOMEPAGE ?=		https://www.qt.io/
-MAINTAINER ?=		KDE porting team <openbsd-kde@googlegroups.com>
 
 # We don't build examples, but provide sources only.
 WANTLIB-examples ?=
@@ -37,7 +36,7 @@ RUN_DEPENDS-examples +=	${BUILD_PKGPATH},-main>=${VERSION:R},<${NEXT_VERSION}
 # Also, many parts have are dual-licensed having either commercial, GPL,
 # Apache 2.0 or other type of license as an alternative option.
 # A few components, including QtWebEngine, are LGPLv3 only, no LGPLv2.1.
-PERMIT_PACKAGE_CDROM ?=	Yes
+PERMIT_PACKAGE ?=	Yes
 
 MASTER_SITES ?=		https://download.qt.io/official_releases/qt/${QT5_DIST_VERSION:R}/${QT5_DIST_VERSION}/submodules/
 DIST_SUBDIR ?=		qt

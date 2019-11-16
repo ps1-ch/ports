@@ -1,17 +1,17 @@
-# $OpenBSD: Makefile,v 1.10 2019/05/01 19:57:07 sthen Exp $
+# $OpenBSD: Makefile,v 1.12 2019/11/08 10:27:56 fcambus Exp $
 
 COMMENT=	.bin/.cue to .iso CD image converter
 
 DISTNAME=	bchunk-1.2.2
 CATEGORIES=	sysutils
-HOMEPAGE=	http://hes.iki.fi/bchunk/
-REVISION=	0
+HOMEPAGE=	http://he.fi/bchunk/
+REVISION=	1
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 WANTLIB=		c
 
-MASTER_SITES=	${HOMEPAGE}
+MASTER_SITES=	http://he.fi/bchunk/
 
 MAKE_FLAGS=	CC="${CC}" CFLAGS="${CFLAGS}" LD="${CC}" LDFLAGS="${LDFLAGS}"
 

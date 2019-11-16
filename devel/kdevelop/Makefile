@@ -1,33 +1,32 @@
-# $OpenBSD: Makefile,v 1.25 2019/06/03 05:19:32 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.32 2019/11/06 14:33:05 rsadowski Exp $
 
 # Qt5Webkit
 USE_WXNEEDED =		Yes
 
 COMMENT =	IDE for C, C++, Python, QML/JavaScript and PHP
 
-VERSION =	5.3.2
+VERSION =	5.4.4
 DISTNAME =	kdevelop-${VERSION}
-REVISION =	0
 
 HOMEPAGE =	https://www.kdevelop.org/
 
-SHARED_LIBS +=  KDevPlatformDebugger      1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformDocumentation 1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformInterfaces    1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformLanguage      1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformOutputView    1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformProject       1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformSerialization 1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformShell         1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformSublime       1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformTests         1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformUtil          1.0 # 5.2
-SHARED_LIBS +=  KDevPlatformVcs           1.0 # 5.2
+SHARED_LIBS +=  KDevPlatformDebugger      2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformDocumentation 2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformInterfaces    2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformLanguage      2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformOutputView    2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformProject       2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformSerialization 2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformShell         2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformSublime       2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformTests         2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformUtil          2.0 # 5.2
+SHARED_LIBS +=  KDevPlatformVcs           2.0 # 5.2
 
 CATEGORIES =	devel x11
 
 # GPLv2+, LGPLv2.1+, GNU FDLv1.2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} Grantlee_Templates KF5Archive KF5Attica
 WANTLIB += KF5Auth KF5Bookmarks KF5Codecs KF5Completion KF5ConfigCore
@@ -53,17 +52,19 @@ MODULES =	devel/kf5 \
 		lang/python
 
 BUILD_DEPENDS =	archivers/gtar \
-		lang/clazy \
 		devel/boost \
+		devel/clang-tools-extra \
 		devel/cppcheck \
 		devel/gettext,-tools \
+		lang/clazy>=1.5 \
 		misc/shared-mime-info
 
-RUN_DEPENDS =	devel/cmake \
+RUN_DEPENDS =	devel/clang-tools-extra \
+		devel/cmake \
 		devel/cppcheck \
 		devel/desktop-file-utils \
 		devel/gmake \
-		lang/clazy \
+		lang/clazy>=1.5 \
 		misc/shared-mime-info \
 		x11/gtk+3,-guic \
 		x11/kde-applications/kate \

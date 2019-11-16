@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.61 2019/05/17 16:45:25 sthen Exp $
+# $OpenBSD: Makefile,v 1.63 2019/10/16 06:51:42 giovanni Exp $
 
 COMMENT=	small and lightweight IDE
 
-DISTNAME =	geany-1.34.1
-REVISION =	0
+DISTNAME =	geany-1.36
 SHARED_LIBS +=  geany                     0.0 # 0.0
 
 CATEGORIES=	devel
@@ -13,7 +12,7 @@ HOMEPAGE=	http://www.geany.org/
 MAINTAINER=	Victor Kukshiev <andrey0bolkonsky@gmail.com>
 
 # GPL + Scintilla License
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	http://download.geany.org/
 EXTRACT_SUFX=	.tar.bz2

@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.92 2019/06/03 16:06:53 sthen Exp $
+# $OpenBSD: Makefile,v 1.95 2019/09/26 22:01:47 sthen Exp $
 
 COMMENT =	auto-discovering network management/monitoring system
 
 GH_ACCOUNT =	librenms
 GH_PROJECT =	librenms
-GH_TAGNAME =	1.52
+GH_TAGNAME =	1.53.1
 DISTFILES =	librenms-${GH_TAGNAME}.tar.gz librenms-vendor-${GH_TAGNAME}.tar.xz:0
 EPOCH =		0
 
@@ -21,7 +21,6 @@ MASTER_SITES0 =	https://spacehopper.org/mirrors/
 
 MODULES =	lang/php \
 		lang/python
-MODPHP_VERSION = 7.3
 MODPY_BUILDDEP = No
 
 # librenms-service.py (currently in beta) will want py3 and the following:

@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.82 2019/05/05 10:17:43 cwen Exp $
+# $OpenBSD: Makefile,v 1.85 2019/11/08 07:47:12 ajacoutot Exp $
 
 COMMENT=		configuration backend system
 
 GNOME_PROJECT=		dconf
-GNOME_VERSION=		0.32.0
+GNOME_VERSION=		0.34.0
 REVISION=		0
 
 SHARED_LIBS +=		dconf        1.2 # 1.0.0
@@ -14,9 +14,9 @@ MAINTAINER=		Jasper Lievisse Adriaanse <jasper@openbsd.org>, \
 			Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB += c gio-2.0 glib-2.0 gobject-2.0 intl
+WANTLIB += c gio-2.0 glib-2.0 gobject-2.0
 
 COMPILER=		base-clang ports-gcc
 

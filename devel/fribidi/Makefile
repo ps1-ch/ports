@@ -1,8 +1,10 @@
-# $OpenBSD: Makefile,v 1.22 2018/07/25 13:46:45 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.28 2019/11/10 21:44:06 ajacoutot Exp $
 
 COMMENT=		library implementing the Unicode Bidirectional Algorithm
 
-V=			1.0.5
+V=			1.0.7
+REVISION=		2
+
 GH_PROJECT=		fribidi
 GH_ACCOUNT=		fribidi
 GH_TAGNAME=		v${V}
@@ -14,11 +16,13 @@ SHARED_LIBS += fribidi                   3.0 # 0.4.0
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2.1+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c
 
 MODULES=		devel/meson
+
+DEBUG_PACKAGES=		${BUILD_PACKAGES}
 
 USE_GMAKE=		Yes
 

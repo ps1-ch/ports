@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.12 2016/05/31 18:30:23 chris Exp $
+# $OpenBSD: Makefile,v 1.14 2019/07/17 14:46:33 danj Exp $
 
 COMMENT=	NetFlow collector
 
 DISTNAME=	flowd-0.9.1.20140828
+REVISION=	0
 
 GH_ACCOUNT=	djmdjm
 GH_PROJECT=	flowd
@@ -11,10 +12,8 @@ GH_COMMIT=	b1040e1b85005d71688775699fdd3e533b1346b8
 CATEGORIES=	net
 HOMEPAGE=	http://www.mindrot.org/projects/flowd/
 
-MAINTAINER=	Jakob Schlyter <jakob@openbsd.org>
-
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=		c
 NO_TEST=		Yes

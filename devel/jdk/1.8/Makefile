@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.43 2019/06/11 00:35:17 kurt Exp $
+# $OpenBSD: Makefile,v 1.47 2019/10/26 17:03:11 kurt Exp $
 
 ONLY_FOR_ARCHS=	i386 amd64
 USE_WXNEEDED=	Yes
@@ -6,8 +6,8 @@ DPB_PROPERTIES=	parallel
 
 COMMENT=	OpenJDK Software Development Kit v${V}
 BASE_VER=	1.8.0
-UPDATE_VER=	212
-BUILD_VER=	b04
+UPDATE_VER=	232
+BUILD_VER=	b09
 BSD_PORT_REL=	1
 V=		${BASE_VER}.${UPDATE_VER}.${BUILD_VER}.${BSD_PORT_REL}
 PKGNAME=	jdk-${V}
@@ -36,7 +36,7 @@ MASTER_SITES2=	${MASTER_SITE_APACHE:=ant/binaries/} \
 MAINTAINER=	Kurt Miller <kurt@openbsd.org>
 
 # GPLv2 w/CLASSPATH exception
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 NO_TEST=	Yes
 

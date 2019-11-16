@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.22 2014/12/10 10:49:11 benoit Exp $
+# $OpenBSD: Makefile,v 1.24 2019/09/17 20:48:38 fcambus Exp $
 
 COMMENT=		C-language sources to HTML converter
 
@@ -6,11 +6,10 @@ DISTNAME=		c2html-0.9.6
 CATEGORIES=		textproc www
 
 # Old versions seem to stay there...
-MASTER_SITES=		http://user.cs.tu-berlin.de/%7Eschintke/x2html/ \
-			${MASTER_SITE_SUNSITE:=apps/www/converters/}
+MASTER_SITES=		${MASTER_SITE_SUNSITE:=apps/www/converters/}
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB =		c
 

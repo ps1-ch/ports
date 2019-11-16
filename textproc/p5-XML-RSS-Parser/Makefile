@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.14 2016/03/20 19:57:11 naddy Exp $
+# $OpenBSD: Makefile,v 1.16 2019/11/03 14:07:46 jasper Exp $
 
 COMMENT=		liberal object-oriented parser for RSS feeds
 
 MODULES=		cpan
 PKG_ARCH=		*
 DISTNAME=		XML-RSS-Parser-4.0
-REVISION=		1
+REVISION=		2
 CATEGORIES=		textproc
 
-MAINTAINER=		Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # Artistic
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 RUN_DEPENDS=		textproc/p5-XML-Elemental>=2.0 \
 	 		devel/p5-Class-XPath>=1.4 \

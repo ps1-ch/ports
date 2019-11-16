@@ -1,15 +1,14 @@
-# $OpenBSD: Makefile,v 1.13 2019/05/17 16:19:38 sthen Exp $
+# $OpenBSD: Makefile,v 1.15 2019/08/22 07:17:06 fcambus Exp $
 
 COMMENT =	text editor inspired by Norton Commander
-DISTNAME =	le-1.16.5
+DISTNAME =	le-1.16.6
 CATEGORIES =	editors
-REVISION =	1
 
 HOMEPAGE =	http://lav.yar.ru/programs.html
 MAINTAINER =	Ivan Ivanov <rambiusparkisanius@gmail.com>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=	${COMPILER_LIBCXX} c curses m
 

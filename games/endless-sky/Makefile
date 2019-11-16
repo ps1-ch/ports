@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.4 2019/05/29 20:30:54 bcallah Exp $
+# $OpenBSD: Makefile,v 1.6 2019/11/09 16:19:08 bcallah Exp $
 
 COMMENT =	space exploration and combat game similar to Escape Velocity
 CATEGORIES =	games x11
 
 GH_ACCOUNT =	endless-sky
 GH_PROJECT =	endless-sky
-GH_TAGNAME =	v0.9.9
+GH_TAGNAME =	v0.9.10
 
 HOMEPAGE =	https://endless-sky.github.io/
 MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # Game: GPLv3+
 # Assets: Combination of CC-BY-SA 4.0, 3.0, and Public Domain
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL GLEW SDL2 c jpeg m mad openal
 WANTLIB += png

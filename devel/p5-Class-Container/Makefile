@@ -1,16 +1,15 @@
-# $OpenBSD: Makefile,v 1.18 2019/01/07 01:57:01 afresh1 Exp $
+# $OpenBSD: Makefile,v 1.20 2019/11/03 14:07:41 jasper Exp $
 
 COMMENT=	validate method/function parameters
 
 MODULES=	cpan
 PKG_ARCH=	*
 DISTNAME=	Class-Container-0.13
+REVISION=	0
 CATEGORIES=	devel
 
-MAINTAINER=	Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # Artistic License
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 BUILD_DEPENDS=	${RUN_DEPENDS}
 RUN_DEPENDS=	devel/p5-Params-Validate>=0.23

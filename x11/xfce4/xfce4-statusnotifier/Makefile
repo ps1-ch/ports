@@ -1,19 +1,18 @@
-# $OpenBSD: Makefile,v 1.2 2019/05/19 18:09:52 landry Exp $
+# $OpenBSD: Makefile,v 1.4 2019/08/15 07:09:59 landry Exp $
 
 COMMENT=	Xfce4 panel area for status notifier items
 
 XFCE_VERSION=	0.2.1
 XFCE_PLUGIN=	statusnotifier
-REVISION=	0
+REVISION=	1
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	x11/xfce4
 MODXFCE_DESKTOP_FILE=	Yes
 MODXFCE_ICON_CACHE=	Yes
 MODXFCE_PURGE_LA =	lib/xfce4/panel/plugins
-MODXFCE_WANTLIB =	xfce4panel-2.0
 
 LIB_DEPENDS+=	x11/libdbusmenu
 

@@ -1,9 +1,10 @@
-# $OpenBSD: Makefile,v 1.26 2018/08/12 22:57:21 jca Exp $
+# $OpenBSD: Makefile,v 1.30 2019/11/08 19:44:31 jca Exp $
 
 COMMENT=	trivial database library
 
 # Keep in sync with the version bundled in net/samba
 DISTNAME=	tdb-1.3.16
+REVISION=	1
 
 SHARED_LIBS+=	tdb	4.3
 
@@ -14,11 +15,12 @@ HOMEPAGE=	https://tdb.samba.org/
 MAINTAINER=	Jeremie Courreges-Anglas <jca@wxcvbn.org>
 
 # LGPLv3+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB += c m pthread util ${MODPY_WANTLIB}
+WANTLIB += c intl m pthread util ${MODPY_WANTLIB}
 
-MASTER_SITES=	https://download.samba.org/pub/tdb/
+MASTER_SITES=	https://filedump.se.rit.edu/pub/distfiles/ \
+		https://download.samba.org/pub/tdb/
 
 MODULES=	lang/python
 MODPY_RUNDEP=	No
@@ -39,5 +41,8 @@ TEST_ENV=	LD_LIBRARY_PATH="${WRKSRC}/bin/default"
 CONFIGURE_STYLE= simple
 CONFIGURE_ARGS= --mandir="${PREFIX}/man" \
 		--disable-rpath
+
+post-install:
+	 ${MODPY_BIN} -m compileall ${WRKINST}/${MODPY_SITEPKG}
 
 .include <bsd.port.mk>

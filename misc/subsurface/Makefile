@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.4 2019/03/08 20:00:49 cwen Exp $
+# $OpenBSD: Makefile,v 1.7 2019/08/05 20:48:17 sthen Exp $
 
 # Qt5Webkit
 USE_WXNEEDED =	Yes
 
 COMMENT =	divelog program for recreational, tech, and free-divers
 
-VER =		4.8.2
+VER =		4.8.5
+REVISION =	0
 PKGNAME =	subsurface-${VER}
 DISTNAME =	Subsurface-${VER}
-REVISION =	0
 
 CATEGORIES =	misc
 HOMEPAGE =	https://subsurface-divelog.org
@@ -16,7 +16,7 @@ MAINTAINER =	Kristaps Dzonsons <kristaps@bsd.lv>
 
 # GPLv2, and LGPLv2.1 for libdivecomputer
 # The content of mobile-widgets/qml/icons/ is Apache 2, but not installed.
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} Grantlee_Templates Qt5Concurrent
 WANTLIB += Qt5Core Qt5Gui Qt5Location Qt5Network Qt5Positioning
@@ -29,16 +29,13 @@ EXTRACT_SUFX =	.tgz
 DISTFILES =	Subsurface-${VER}${EXTRACT_SUFX} \
 		libdivecomputer-subsurface-branch-${VER}${EXTRACT_SUFX}
 
-MODULES +=	devel/cmake \
+# cmake for subsurface, autoconf for libdivecomputer-subsurface
+MODULES +=	gnu \
+		devel/cmake \
 		x11/qt5
 
-AUTOCONF_VERSION =	2.67
-AUTOMAKE_VERSION =	1.11
-
-MODGNU_AUTOCONF_DEPENDS = devel/metaauto \
-	devel/autoconf/${AUTOCONF_VERSION}
-MODGNU_AUTOMAKE_DEPENDS = devel/metaauto \
-	devel/automake/${AUTOMAKE_VERSION}
+AUTOCONF_VERSION =	2.69
+AUTOMAKE_VERSION =	1.16
 
 BUILD_DEPENDS =	${MODGNU_AUTOCONF_DEPENDS} \
 		${MODGNU_AUTOMAKE_DEPENDS} \
@@ -58,28 +55,36 @@ LIB_DEPENDS =	archivers/libzip \
 USE_GMAKE =	Yes
 
 CONFIGURE_ARGS +=	-DNO_DOCS:Bool=ON \
-			-DBTSUPPORT:Bool=OFF \
-			-DMAKE_TESTS:Bool=OFF
+			-DBTSUPPORT:Bool=OFF
 
-# XXX # Tests depend upon wxallowed.
-NO_TEST =	Yes
+# many "undefined reference to `dc_*" when tests are enabled
+CONFIGURE_ARGS +=	-DMAKE_TESTS:Bool=OFF
+NO_TEST =		Yes
 
 post-extract:
 	rmdir ${WRKSRC}/libdivecomputer
 	mv ${WRKDIR}/libdivecomputer-subsurface-branch-${VER} \
 		${WRKSRC}/libdivecomputer
-	rm ${WRKSRC}/libdivecomputer/src/aes.{c,h}
+
+do-gen:
+	${AUTOCONF_ENV} autoreconf -f -i ${WRKSRC}/libdivecomputer
 
 pre-configure:
-	cd ${WRKSRC}/libdivecomputer && mkdir build && \
-	cd build && env AUTOCONF_VERSION=${AUTOCONF_VERSION} \
-	AUTOMAKE_VERSION=${AUTOMAKE_VERSION} autoreconf -f -i .. && \
-	../configure --without-libusb --without-hidapi --without-bluez \
-		--disable-shared --disable-examples --disable-doc \
+	mkdir -p ${WRKSRC}/libdivecomputer/build
+	cd ${WRKSRC}/libdivecomputer/build && ${XXCONFIGURE_ENV} ../configure \
+		--without-libusb \
+		--without-hidapi \
+		--without-bluez \
+		--disable-shared \
+		--disable-examples \
+		--disable-doc \
+		--disable-silent-rules \
 		--prefix=${WRKSRC}/libdivecomputer/built
 
 pre-build:
-	cd ${WRKSRC}/libdivecomputer/build && gmake && gmake install
+	cd ${WRKSRC}/libdivecomputer/build && \
+		${MAKE_PROGRAM} && \
+		${MAKE_PROGRAM} install
 
 post-build:
 	mkdir -p ${WRKBUILD}/Documentation

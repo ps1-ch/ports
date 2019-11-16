@@ -1,16 +1,15 @@
-# $OpenBSD: Makefile,v 1.16 2019/06/15 08:53:32 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.18 2019/10/19 09:42:20 rsadowski Exp $
 
 COMMENT =	Z3 theorem prover
 
-VERSION =	4.8.5
+VERSION =	4.8.6
 
 GH_ACCOUNT =	Z3Prover
 GH_PROJECT =	z3
-GH_TAGNAME =	${GH_PROJECT:U}-${VERSION}
+GH_TAGNAME =	${GH_PROJECT}-${VERSION}
 
 DISTNAME =	${GH_TAGNAME}
 PKGNAME =	${DISTNAME:L}
-REVISION =	0
 
 SHARED_LIBS =	z3			2.0 # 4.8
 
@@ -19,7 +18,7 @@ CATEGORIES =	math
 WANTLIB +=	c m pthread ${COMPILER_LIBCXX}
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # c++11
 COMPILER =	base-clang ports-gcc

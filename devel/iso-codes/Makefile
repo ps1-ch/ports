@@ -1,19 +1,18 @@
-# $OpenBSD: Makefile,v 1.71 2019/05/20 22:15:04 naddy Exp $
+# $OpenBSD: Makefile,v 1.73 2019/11/13 18:23:19 jasper Exp $
 
 COMMENT=	lists of the country, language and currency iso names
 
-V =		4.2
+V =		4.4
 DISTNAME=	iso-codes-iso-codes-$V
 PKGNAME =	iso-codes-$V
 CATEGORIES=	devel
-REVISION =	0
 
 HOMEPAGE=	https://salsa.debian.org/iso-codes-team/iso-codes
 
 MAINTAINER=	Jasper Lievisse Adriaanse <jasper@openbsd.org>
 
 # LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES =	https://salsa.debian.org/iso-codes-team/iso-codes/-/archive/iso-codes-$V/
 

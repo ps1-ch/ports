@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.53 2019/05/08 22:33:32 jca Exp $
+# $OpenBSD: Makefile,v 1.55 2019/07/12 20:44:00 sthen Exp $
 
 COMMENT =	Python interface to MySQL
 
 MODPY_EGG_VERSION = 1.2.5
 DISTNAME =	MySQL-python-${MODPY_EGG_VERSION}
 PKGNAME =	py-mysql-${MODPY_EGG_VERSION}
-REVISION =	5
+REVISION =	6
 
 CATEGORIES =	databases
 
@@ -14,12 +14,11 @@ HOMEPAGE =	https://github.com/farcepest/MySQLdb1
 MAINTAINER =	Benoit Lecocq <benoit@openbsd.org>
 
 # GPL
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 EXTRACT_SUFX =	.zip
 
-WANTLIB +=	crypto m pthread ssl z ${MODPY_WANTLIB}
-WANTLIB +=	lib/mysql/mysqlclient_r
+WANTLIB +=	crypto iconv mariadb m pthread ssl z ${MODPY_WANTLIB}
 
 MODPY_PI =	Yes
 

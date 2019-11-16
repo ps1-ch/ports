@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.20 2019/05/12 15:56:45 naddy Exp $
+# $OpenBSD: Makefile,v 1.22 2019/09/08 10:07:03 ajacoutot Exp $
 
 COMMENT=		C++ bindings for GStreamer
 
 GNOME_PROJECT=		gstreamermm
 GNOME_VERSION=		1.10.0
 PKGNAME=		gstreamer1mm-${GNOME_VERSION}
-REVISION=		2
+REVISION=		3
 
 SHARED_LIBS +=  gstreamermm-1.0      1.1      # 1.0
 
@@ -21,7 +21,6 @@ MODULES=		x11/gnome
 # c++11
 # note that Makefile.inc has "c" as default
 COMPILER_LANGS = c c++
-MODGCC4_ARCHS = *
 
 LIB_DEPENDS=		devel/glib2mm \
 			multimedia/gstreamer1/plugins-base

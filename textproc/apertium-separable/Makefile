@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.2 2019/03/05 05:19:32 bentley Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/11 08:49:10 bentley Exp $
 
 COMMENT =		reorder separable/discontinuous multiwords
 
@@ -12,8 +12,10 @@ HOMEPAGE =		https://www.apertium.org/
 
 MAINTAINER =		Anthony J. Bentley <anthony@anjbe.name>
 
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # uses pledge()
 

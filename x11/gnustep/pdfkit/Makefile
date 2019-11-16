@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.21 2018/11/27 21:46:25 sebastia Exp $
+# $OpenBSD: Makefile,v 1.23 2019/10/20 08:03:04 ajacoutot Exp $
 
 COMMENT =	framework for accessing and rendering PDF content
 
-REVISION =	1
+REVISION =	3
 DISTNAME =	PDFKit-1.0.1
 SHARED_LIBS +=	PDFKit	0.0
 

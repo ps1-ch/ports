@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.19 2018/08/12 22:29:10 jca Exp $
+# $OpenBSD: Makefile,v 1.22 2019/11/08 19:44:31 jca Exp $
 
 COMMENT=	hierarchical memory pool system with destructors
 
 # Keep in sync with the version bundled in net/samba
 DISTNAME=	talloc-2.1.14
 PKGNAME=	lib${DISTNAME}
+REVISION=	0
 
 SHARED_LIBS+=	talloc		1.1
 SHARED_LIBS+=	pytalloc-util	0.1
@@ -16,11 +17,12 @@ HOMEPAGE=	https://talloc.samba.org/
 MAINTAINER=	Jeremie Courreges-Anglas <jca@wxcvbn.org>
 
 # LGPLv3+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB += m pthread util ${MODPY_WANTLIB}
+WANTLIB += intl m pthread util ${MODPY_WANTLIB}
 
-MASTER_SITES=	https://download.samba.org/pub/talloc/
+MASTER_SITES=	https://filedump.se.rit.edu/pub/distfiles/ \
+		https://download.samba.org/pub/talloc/
 
 MODULES=	lang/python
 MODPY_RUNDEP=	No

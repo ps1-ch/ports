@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.6 2015/04/05 13:31:14 sthen Exp $
+# $OpenBSD: Makefile,v 1.9 2019/11/09 12:19:15 ajacoutot Exp $
 
 COMMENT =	PDF creation library
 
@@ -13,7 +13,7 @@ CATEGORIES =	print
 HOMEPAGE =	http://libharu.org/
 
 # ZLIB/PNG
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 AUTOCONF_VERSION =	2.69
 AUTOMAKE_VERSION =	1.14

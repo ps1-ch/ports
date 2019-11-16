@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.11 2018/10/24 14:28:05 sthen Exp $
+# $OpenBSD: Makefile,v 1.13 2019/07/17 14:46:32 danj Exp $
 
 COMMENT =	language for typesetting graphs
 
 DISTNAME =	grap-1.45
-REVISION =	2
+REVISION =	3
 CATEGORIES =	textproc graphics
 
 HOMEPAGE =	http://lunabase.org/~faber/Vault/software/grap/
 
-MAINTAINER =	Hermann Gottschalk <magnum@pestilenz.org>
-
 # BSD
-PERMIT_PACKAGE_CDROM = Yes
+PERMIT_PACKAGE = Yes
 
 MASTER_SITES =		${HOMEPAGE}
 WANTLIB =		c m ${COMPILER_LIBCXX}

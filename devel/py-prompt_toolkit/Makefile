@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.9 2019/05/15 12:04:37 kmos Exp $
+# $OpenBSD: Makefile,v 1.12 2019/11/12 09:59:00 kmos Exp $
 
 # !!! do not update blindly: sysutils/aws-shell requires a specific version
 PORTROACH=		ignore:1
@@ -8,7 +8,7 @@ COMMENT=		python library for building powerful interactive CLI
 MODPY_EGG_VERSION=	1.0.15
 DISTNAME=		prompt_toolkit-${MODPY_EGG_VERSION}
 PKGNAME=		py-${DISTNAME}
-REVISION=		0
+EPOCH=			0
 
 CATEGORIES=		devel
 
@@ -17,7 +17,7 @@ HOMEPAGE=		https://github.com/jonathanslenders/python-prompt-toolkit
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		lang/python
 

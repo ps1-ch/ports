@@ -1,14 +1,13 @@
-# $OpenBSD: Makefile,v 1.4 2016/03/20 19:56:20 naddy Exp $
+# $OpenBSD: Makefile,v 1.6 2019/11/03 14:07:41 jasper Exp $
 
 COMMENT=		generate a size report for all elements in a structure
 
 DISTNAME=		Devel-Size-Report-0.13
+REVISION=		0
 CATEGORIES=		devel
 
-MAINTAINER=		Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # perl
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		cpan
 PKG_ARCH=		*

@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.20 2018/10/24 14:28:01 sthen Exp $
+# $OpenBSD: Makefile,v 1.23 2019/10/17 13:29:53 cwen Exp $
 
 COMMENT-main =		highly accurate Game Boy Color emulator
 COMMENT-qt =		highly accurate Game Boy Color emulator with GUI
@@ -9,7 +9,7 @@ DISTNAME =		gambatte_src-r${REV}
 PKGNAME-main =		gambatte-$V
 PKGNAME-qt =		gambatte-qt-$V
 REVISION-main =		4
-REVISION-qt =		3
+REVISION-qt =		4
 
 MULTI_PACKAGES =	-main -qt
 
@@ -22,11 +22,12 @@ HOMEPAGE =		http://gambatte.sourceforge.net/
 MAINTAINER =		Anthony J. Bentley <anthony@anjbe.name>
 
 # GPLv2 only
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 cWANTLIB =	c m pthread ${COMPILER_LIBCXX} z
-WANTLIB-main =	${cWANTLIB} SDL
-WANTLIB-qt =	${cWANTLIB} GL QtCore QtGui QtOpenGL X11 Xext Xrandr Xv ossaudio usbhid Xi
+WANTLIB-main +=	${cWANTLIB} SDL
+WANTLIB-qt +=	${cWANTLIB} GL QtCore QtGui QtOpenGL X11 Xext Xrandr Xv ossaudio usbhid Xi
+WANTLIB-qt +=	ICE SM Xinerama Xrender fontconfig freetype
 
 COMPILER =		base-clang ports-gcc base-gcc
 
@@ -37,7 +38,8 @@ MODQMAKE_PROJECTS =	gambatte_qt
 SEPARATE_BUILD =	No
 CONFIGURE_STYLE =	qmake specific		# avoid qmake.port.mk add do-build
 
-LIB_DEPENDS-main =	devel/sdl
+LIB_DEPENDS-main =	${MODGCC4_CPPLIBDEP} \
+			devel/sdl
 
 TEST_DEPENDS =		graphics/png
 

@@ -1,10 +1,6 @@
-# $OpenBSD: Makefile,v 1.214 2019/05/16 20:43:09 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.224 2019/11/10 21:44:07 ajacoutot Exp $
 
 # XXX add support for libcloudproviders?
-
-# Everything is a Freaking GLib/GTK+ problem
-CFLAGS +=		-g
-INSTALL_STRIP=		# empty
 
 PORTROACH=		skipv:3.90.0,3.92.1,3.93.0,3.94.0
 
@@ -14,21 +10,22 @@ COMMENT-cloudprint=	gtk+3 Google Cloud Print backend
 COMMENT-guic=		gtk+ icon theme caching utility
 
 GNOME_PROJECT=		gtk+
-GNOME_VERSION=		3.24.8
+GNOME_VERSION=		3.24.12
 
 PKGNAME-main=		gtk+3-${GNOME_VERSION}
 PKGNAME-cups=		gtk+3-cups-${GNOME_VERSION}
 PKGNAME-cloudprint=	gtk+3-cloudprint-${GNOME_VERSION}
 PKGNAME-guic=		gtk-update-icon-cache-${GNOME_VERSION}
 
-REVISION-main=		3
-REVISION-cups=		0
-REVISION-cloudprint=	0
+REVISION-main=		2
+REVISION-cups=		2
+REVISION-cloudprint=	2
+REVISION-guic=		2
 
 CATEGORIES=		x11 devel
 
-SHARED_LIBS +=  gdk-3                2201.1   # 2404.4
-SHARED_LIBS +=  gtk-3                2201.0   # 2404.4
+SHARED_LIBS +=  gdk-3                2201.1   # 2404.8
+SHARED_LIBS +=  gtk-3                2201.0   # 2404.8
 SHARED_LIBS +=  gailutil-3           0.0      # 0.0
 
 HOMEPAGE=		http://www.gtk.org/
@@ -36,7 +33,7 @@ HOMEPAGE=		http://www.gtk.org/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB += ffi gdk_pixbuf-2.0 gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0
 WANTLIB += iconv intl m pcre pthread z
@@ -45,6 +42,8 @@ MULTI_PACKAGES=		-main -cups -cloudprint -guic
 
 MODULES=		devel/dconf \
 			x11/gnome
+
+DEBUG_PACKAGES=		${BUILD_PACKAGES}
 
 LIB_DEPENDS-main=	${LIB_DEPENDS} \
 			devel/pango \
@@ -108,12 +107,13 @@ TEST_IS_INTERACTIVE=	x11
 CONFIGURE_STYLE=	gnu
 CONFIGURE_ARGS=		--disable-libcanberra
 
-# sync with devel/spidermonkey52: colord -> polkit -> spidermonkey52
-# not for mips64el since there seems to be no colord pkg for it
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "amd64" || \
-    ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "hppa" || \
-    ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64" || \
-    ${MACHINE_ARCH} == "mips64"
+# sync with devel/spidermonkey60 (ONLY_FOR_ARCHS):
+# colord -> polkit -> spidermonkey60
+.if ${MACHINE_ARCH} == "aarch64" || ${MACHINE_ARCH} == "alpha" || \
+    ${MACHINE_ARCH} == "amd64" || ${MACHINE_ARCH} == "i386" || \
+    ${MACHINE_ARCH} == "hppa" || ${MACHINE_ARCH} == "mips64el" || \
+    ${MACHINE_ARCH} == "mips64" || ${MACHINE_ARCH} == "powerpc" || \
+    ${MACHINE_ARCH} == "sparc64"
 LIB_DEPENDS-cups +=	graphics/colord
 WANTLIB-cups +=	colordprivate colord lcms2
 .else

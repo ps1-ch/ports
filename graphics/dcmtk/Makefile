@@ -1,9 +1,11 @@
-# $OpenBSD: Makefile,v 1.24 2018/10/24 14:28:05 sthen Exp $
+# $OpenBSD: Makefile,v 1.26 2019/07/12 20:46:57 sthen Exp $
 
 COMMENT=		DICOM toolkit
 
 V =			3.6.3
 DISTNAME=		dcmtk-$V
+REVISION=		0
+
 SHARED_LIBS +=  charls                    0.0 # 3.6
 SHARED_LIBS +=  cmr                       0.0 # 3.6
 SHARED_LIBS +=  dcmdata                   0.0 # 3.6
@@ -30,7 +32,6 @@ SHARED_LIBS +=  ijg16                     0.0 # 3.6
 SHARED_LIBS +=  ijg8                      0.0 # 3.6
 SHARED_LIBS +=  oflog                     0.0 # 3.6
 SHARED_LIBS +=  ofstd                     0.0 # 3.6
-REVISION=		0
 
 CATEGORIES=		graphics
 
@@ -40,7 +41,7 @@ MASTER_SITES=		ftp://dicom.offis.de/pub/dicom/offis/software/dcmtk/dcmtk${V:S/./
 
 # Several ISC and BSDish
 # ftp://dicom.offis.de/pub/dicom/offis/software/dcmtk/dcmtk363/COPYRIGHT
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c crypto jpeg m png pthread ssl ${COMPILER_LIBCXX} tiff
 WANTLIB += xml2 z charset iconv

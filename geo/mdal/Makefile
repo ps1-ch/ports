@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.3 2019/05/29 05:23:27 landry Exp $
+# $OpenBSD: Makefile,v 1.5 2019/10/31 14:45:22 landry Exp $
 
 COMMENT =	mesh data abstration library
 
 GH_ACCOUNT=	lutraconsulting
 GH_PROJECT =	MDAL
-GH_TAGNAME =	0.3.3
+GH_TAGNAME =	0.4.0
 
 PKGNAME =	${GH_PROJECT:L}-${GH_TAGNAME}
 
-SHARED_LIBS =	mdal 0.0
+SHARED_LIBS =	mdal 1.0
 
 CATEGORIES =	geo devel textproc
 
@@ -17,7 +17,7 @@ HOMEPAGE =	http://www.mdal.xyz/
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	devel/cmake
 

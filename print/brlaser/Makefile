@@ -1,19 +1,19 @@
-# $OpenBSD: Makefile,v 1.3 2019/05/19 14:25:10 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.5 2019/09/27 12:49:57 ajacoutot Exp $
 
 COMMENT=	CUPS printer driver for some Brother laser printers
 
 GH_ACCOUNT=	pdewacht
 GH_PROJECT=	brlaser
-GH_TAGNAME=	v5
+GH_TAGNAME=	v6
 
 CATEGORIES=	print
 
 MAINTAINER=	Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM= Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB+=	${COMPILER_LIBCXX} c cups cupsimage m
+WANTLIB+=	${COMPILER_LIBCXX} c cups m
 
 MODULES=	devel/cmake
 

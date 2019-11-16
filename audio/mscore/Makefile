@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.43 2019/05/29 18:52:50 bcallah Exp $
+# $OpenBSD: Makefile,v 1.47 2019/11/05 16:23:11 bcallah Exp $
 
 BROKEN-hppa =	ICE on moc_qtsingleapplication.cxx
 
-V =		3.1
+V =		3.3
 COMMENT =	WYSIWYG music notation software (MuseScore)
 DISTNAME =	MuseScore-${V}.0
 PKGNAME =	musescore-${V}
@@ -13,14 +13,13 @@ HOMEPAGE =	https://musescore.org/
 MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # GPLv2 only
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
-WANTLIB += Qt5Concurrent Qt5Core Qt5Gui Qt5Help Qt5Network
-WANTLIB += Qt5OpenGL Qt5PrintSupport Qt5Qml Qt5Quick Qt5QuickWidgets
-WANTLIB += Qt5Sql Qt5Svg Qt5Test Qt5Widgets
-WANTLIB += Qt5Xml Qt5XmlPatterns c freetype m ogg portaudio pthread
+WANTLIB += ${COMPILER_LIBCXX} Qt5Concurrent Qt5Core Qt5Gui Qt5Help
+WANTLIB += Qt5Network Qt5OpenGL Qt5PrintSupport Qt5Qml Qt5Quick
+WANTLIB += Qt5QuickControls2 Qt5QuickWidgets Qt5Sql Qt5Svg Qt5Test
+WANTLIB += Qt5Widgets Qt5Xml Qt5XmlPatterns c freetype m ogg portaudio
 WANTLIB += sndfile vorbis vorbisfile z
-WANTLIB += ${COMPILER_LIBCXX}
 
 MASTER_SITES =	https://github.com/musescore/MuseScore/releases/download/v${V}/
 
@@ -33,6 +32,7 @@ BUILD_DEPENDS =	audio/lame \
 LIB_DEPENDS =	audio/portaudio-svn \
 		audio/libsndfile>=1.0.25p0 \
 		x11/qt5/qtdeclarative \
+		x11/qt5/qtquickcontrols2 \
 		x11/qt5/qtsvg \
 		x11/qt5/qttools \
 		x11/qt5/qtxmlpatterns

@@ -1,17 +1,17 @@
-# $OpenBSD: Makefile,v 1.23 2018/07/16 05:44:58 landry Exp $
+# $OpenBSD: Makefile,v 1.25 2019/08/16 05:29:38 landry Exp $
 
 COMMENT=	Xfce4 mount device panel plugin
 
 XFCE_VERSION=	1.1.3
 XFCE_PLUGIN=	mount
+REVISION=	1
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	x11/xfce4
 
 MODXFCE_ICON_CACHE=	Yes
-MODXFCE_WANTLIB=	xfce4panel-2.0
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender fribidi atk-1.0 cairo expat fontconfig freetype

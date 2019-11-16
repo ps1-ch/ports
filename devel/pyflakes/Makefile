@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.14 2019/04/28 20:51:39 sthen Exp $
+# $OpenBSD: Makefile,v 1.17 2019/07/31 13:14:27 kmos Exp $
 
 COMMENT =		passive checker of Python programs
 
-MODPY_EGG_VERSION =	1.5.0
+MODPY_EGG_VERSION =	2.1.1
 DISTNAME =		pyflakes-${MODPY_EGG_VERSION}
 
 CATEGORIES =		devel
@@ -12,7 +12,7 @@ HOMEPAGE =		https://github.com/PyCQA/pyflakes
 MAINTAINER =		frantisek holop <minusf@obiit.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 
@@ -24,7 +24,6 @@ FLAVOR ?=
 
 .if ${FLAVOR:Mpython3}
 PKGNAME =		pyflakes${MODPY_MAJOR_VERSION}-${MODPY_EGG_VERSION}
-REVISION =		0
 
 post-install:
 	mv ${PREFIX}/bin/pyflakes ${PREFIX}/bin/pyflakes${MODPY_BIN_SUFFIX}

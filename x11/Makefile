@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.638 2019/05/28 11:33:42 landry Exp $
+# $OpenBSD: Makefile,v 1.646 2019/11/03 11:43:04 jasper Exp $
 
      SUBDIR =
      SUBDIR += 2bwm
@@ -151,10 +151,12 @@
      SUBDIR += klavaro
      SUBDIR += krusader
      SUBDIR += lablgtk2
+     SUBDIR += lablgtk3
      SUBDIR += lemonbar
      SUBDIR += libdbus-c++
      SUBDIR += libdbusmenu
      SUBDIR += libdnd
+     SUBDIR += libfakekey
      SUBDIR += libfm
      SUBDIR += libgdiplus
      SUBDIR += libhandy
@@ -225,10 +227,9 @@
      SUBDIR += podbrowser
      SUBDIR += polkit-qt
      SUBDIR += polkit-qt,qt5
+     SUBDIR += polybar
      SUBDIR += pwm
      SUBDIR += py-gtk2
-     SUBDIR += py-kiwi
-     SUBDIR += py-osd
      SUBDIR += py-pyglet
      SUBDIR += py-qt4
      SUBDIR += py-qt5
@@ -241,12 +242,16 @@
      SUBDIR += py-virtualdisplay,python3
      SUBDIR += py-wxPython
      SUBDIR += py-xcbgen
+     SUBDIR += py-xcbgen,python3
+     SUBDIR += py-xlib
+     SUBDIR += py-xlib,python3
      SUBDIR += qrfcview
      SUBDIR += qt3
      SUBDIR += qt4
      SUBDIR += qt5
      SUBDIR += qt5ct
      SUBDIR += qt5styleplugins
+     SUBDIR += qtfm
      SUBDIR += qwt
      SUBDIR += qwt,qt5
      SUBDIR += qdirstat
@@ -398,6 +403,7 @@
      SUBDIR += xruskb
      SUBDIR += xruskb,motif
      SUBDIR += xscope
+     SUBDIR += xscreenruler
      SUBDIR += xscreensaver
      SUBDIR += xscribble
      SUBDIR += xsel

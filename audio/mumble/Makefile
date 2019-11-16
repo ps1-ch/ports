@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.32 2018/07/10 10:54:23 tb Exp $
+# $OpenBSD: Makefile,v 1.34 2019/08/05 17:42:40 sthen Exp $
 
 COMMENT =		low-latency voice chat client
 
 GH_ACCOUNT =		mumble-voip
 GH_PROJECT =		mumble
 GH_TAGNAME =		1.2.19
-REVISION =		3
+REVISION =		4
 
 CATEGORIES =		audio
 
 HOMEPAGE =		http://www.mumble.info/
 
 # BSD3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=		ICE SM X11 Xext Xi Xinerama Xrender c crypto
 WANTLIB +=		fontconfig freetype lib/qt4/QtDBus lib/qt4/QtGui

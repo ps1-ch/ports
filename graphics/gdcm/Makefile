@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.10 2019/05/09 17:02:30 jasper Exp $
+# $OpenBSD: Makefile,v 1.15 2019/10/25 19:40:08 jasper Exp $
 
 COMMENT =			cross-platform DICOM implementation
 
-DISTNAME =			gdcm-3.0.0
+DISTNAME =			gdcm-3.0.4
 
 SHARED_LIBS +=  gdcmCommon                1.0 # 2.8
 SHARED_LIBS +=  gdcmDICT                  1.0 # 2.8
@@ -23,7 +23,7 @@ HOMEPAGE =			http://gdcm.sourceforge.net/
 MAINTAINER =			Jasper Lievisse Adriaanse <jasper@openbsd.org>
 
 # BSD/Apache2
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 MASTER_SITES =			${MASTER_SITE_SOURCEFORGE:=gdcm/}
 

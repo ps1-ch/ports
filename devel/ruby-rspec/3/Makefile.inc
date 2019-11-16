@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile.inc,v 1.4 2019/04/04 06:21:04 naddy Exp $
+# $OpenBSD: Makefile.inc,v 1.6 2019/07/13 10:59:26 sthen Exp $
 
 PORTROACH =		limit:^3
 
@@ -6,10 +6,8 @@ CATEGORIES ?=		devel
 
 HOMEPAGE ?=		http://rspec.info/
 
-MAINTAINER =		Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # MIT
-PERMIT_PACKAGE_CDROM ?=	Yes
+PERMIT_PACKAGE ?=	Yes
 
 MODULES ?=		lang/ruby
 

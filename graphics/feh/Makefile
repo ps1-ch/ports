@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.96 2019/04/25 02:18:58 bcallah Exp $
+# $OpenBSD: Makefile,v 1.99 2019/07/23 14:22:00 bcallah Exp $
 
 COMMENT=	lightweight image viewer
 
-DISTNAME=	feh-3.1.3
+DISTNAME=	feh-3.2.1
 EXTRACT_SUFX=	.tar.bz2
 CATEGORIES=	graphics
 FIX_EXTRACT_PERMISSIONS=Yes
-REVISION=	1
 
 HOMEPAGE=	https://feh.finalrewind.org/
 MAINTAINER=	Brian Callahan <bcallah@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	Imlib2 X11 Xinerama c curl exif m png
 

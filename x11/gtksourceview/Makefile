@@ -1,6 +1,6 @@
-# $OpenBSD: Makefile,v 1.61 2019/06/13 15:48:55 sthen Exp $
+# $OpenBSD: Makefile,v 1.63 2019/11/08 21:30:37 ajacoutot Exp $
 
-PORTROACH=		limit:^2
+PORTROACH=		limit:^2.0
 
 COMMENT=		text widget that extends GTK2's GtkTextView widget#'
 
@@ -18,7 +18,7 @@ SUBST_VARS=		MAJOR_VERSION
 HOMEPAGE=		http://gtksourceview.sourceforge.net/
 
 # GPLv2/LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama Xrandr
 WANTLIB += Xrender atk-1.0 cairo expat ffi fontconfig freetype fribidi

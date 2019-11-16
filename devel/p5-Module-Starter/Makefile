@@ -1,18 +1,16 @@
-# $OpenBSD: Makefile,v 1.11 2016/03/20 19:56:28 naddy Exp $
+# $OpenBSD: Makefile,v 1.13 2019/07/17 14:49:21 danj Exp $
 
 COMMENT =		simple starter kit for any module
 
 MODULES =		cpan
 PKG_ARCH =		*
 DISTNAME =		Module-Starter-1.54
-REVISION =		2
+REVISION =		3
 CATEGORIES =		devel
 CPAN_AUTHOR =		PETDANCE
 
-MAINTAINER =		James Wright <jamesw@bsdhosting.co.za>
-
 # Perl
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 DOC_DIR =	${PREFIX}/share/doc/p5-Module-Starter/
 

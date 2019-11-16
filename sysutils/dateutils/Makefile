@@ -1,16 +1,16 @@
-# $OpenBSD: Makefile,v 1.2 2015/05/22 11:31:18 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/11 20:58:49 fcambus Exp $
 
 COMMENT =		tools to fiddle with dates and times
 
 DISTNAME =		dateutils-0.2.7
-REVISION =		0
+REVISION =		1
 
 CATEGORIES =		sysutils
 
-HOMEPAGE =		http://www.fresse.org/dateutils/
+HOMEPAGE =		https://www.fresse.org/dateutils/
 
 # BSD 3-clause
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c
 

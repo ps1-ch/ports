@@ -1,20 +1,23 @@
-# $OpenBSD: Makefile,v 1.25 2018/01/09 00:31:05 bluhm Exp $
+# $OpenBSD: Makefile,v 1.27 2019/07/12 21:02:27 sthen Exp $
 
 COMMENT=		grep like tool, aimed at programmers
 
 MODULES=		cpan
 PKG_ARCH=		*
-DISTNAME=		ack-2.22
+V=			3.0.1
+DISTNAME=		ack-v$V
+PKGNAME=		p5-ack-$V
 CPAN_AUTHOR=		PETDANCE
 CATEGORIES=		textproc
 
 HOMEPAGE =		https://beyondgrep.com/
 
 # perl
-PERMIT_PACKAGE_CDROM=   Yes
+PERMIT_PACKAGE=	Yes
 
 RUN_DEPENDS=		devel/p5-File-Next>=1.16
 
 TEST_DEPENDS +=		devel/p5-IO-Tty \
 			shells/bash
+
 .include <bsd.port.mk>

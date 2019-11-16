@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.5 2019/04/28 20:51:42 sthen Exp $
+# $OpenBSD: Makefile,v 1.10 2019/11/13 20:04:26 jasper Exp $
 
 COMMENT =		simple Python interface for Graphviz
 
-MODPY_EGG_VERSION =	0.10.1
+MODPY_EGG_VERSION =	0.13.2
 DISTNAME =		graphviz-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
-REVISION =		0
 
 CATEGORIES =		math
 
 MAINTAINER =		Jasper Lievisse Adriaanse <jasper@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 EXTRACT_SUFX =		.zip
 MODULES =		lang/python

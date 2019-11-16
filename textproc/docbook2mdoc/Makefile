@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.9 2019/05/02 18:50:08 schwarze Exp $
+# $OpenBSD: Makefile,v 1.11 2019/11/11 08:14:18 bentley Exp $
 
 COMMENT =		DocBook to mdoc converter
 
@@ -10,8 +10,10 @@ HOMEPAGE =		https://mandoc.bsd.lv/docbook2mdoc/
 
 MAINTAINER =		Anthony J. Bentley <anthony@anjbe.name>
 
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+
 # ISC
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c
 

@@ -1,12 +1,12 @@
-# $OpenBSD: Makefile,v 1.42 2019/06/03 22:32:23 jca Exp $
+# $OpenBSD: Makefile,v 1.45 2019/11/11 16:11:19 jca Exp $
 
 COMMENT =		authoritative DNS server
 
-DISTNAME =		knot-2.8.1
-REVISION =		1
+DISTNAME =		knot-2.9.0
+REVISION =		0
 
 SHARED_LIBS +=	dnssec               2.0      # .7.0
-SHARED_LIBS +=	knot                 5.0      # .9.0
+SHARED_LIBS +=	knot                 6.0      # .9.0
 SHARED_LIBS +=	zscanner             1.1      # .3.0
 
 CATEGORIES =		net
@@ -16,7 +16,7 @@ HOMEPAGE =		https://www.knot-dns.cz/
 MAINTAINER =		Jeremie Courreges-Anglas <jca@wxcvbn.org>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c curses edit ffi gmp gnutls hogweed iconv idn2 intl
 WANTLIB += lmdb m nettle p11-kit pthread tasn1 unistring urcu
@@ -24,6 +24,8 @@ WANTLIB += urcu-common
 
 MASTER_SITES =		https://secure.nic.cz/files/knot-dns/
 EXTRACT_SUFX =		.tar.xz
+
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
 
 # atomics
 COMPILER =		base-clang ports-gcc

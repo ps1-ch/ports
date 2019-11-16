@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.34 2019/03/08 20:00:47 cwen Exp $
+# $OpenBSD: Makefile,v 1.37 2019/11/10 15:32:55 ajacoutot Exp $
 
 BROKEN-powerpc =	undefined reference to __atomic_fetch_add_8
 BROKEN-i386 =		clang segfault compiling imagebufalgo_pixelmath.cpp
@@ -10,7 +10,7 @@ GH_PROJECT = 		oiio
 V =			1.8.6
 GH_TAGNAME =		Release-$V
 DISTNAME =		openimageio-${V}
-REVISION =		3
+REVISION =		5
 
 SHARED_LIBS +=		OpenImageIO		5.0 # 1.0
 SHARED_LIBS +=  	OpenImageIO_Util	2.0 # 1.5
@@ -22,15 +22,15 @@ HOMEPAGE =		http://www.openimageio.org
 MAINTAINER =		Pascal Stumpf <pascal@stumpf.co>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
-WANTLIB += ${COMPILER_LIBCXX} GL GLEW GLU Half Iex IlmImf IlmThread
-WANTLIB += Imath OpenColorIO Qt5Core Qt5Gui Qt5OpenGL Qt5Widgets
+WANTLIB += ${COMPILER_LIBCXX} ${MODPY_WANTLIB}
+WANTLIB += GL GLEW GLU Half-2_4 Iex-2_4 IlmImf-2_4 IlmThread-2_4
+WANTLIB += Imath-2_4 OpenColorIO Qt5Core Qt5Gui Qt5OpenGL Qt5Widgets
 WANTLIB += avcodec avformat avutil boost_atomic-mt boost_chrono-mt
 WANTLIB += boost_date_time-mt boost_filesystem-mt boost_python-mt
 WANTLIB += boost_system-mt boost_thread-mt bz2 c freetype gif
-WANTLIB += jpeg m openjpeg png raw_r ${MODPY_WANTLIB} swscale tiff webp
-WANTLIB += z
+WANTLIB += jpeg m openjpeg png raw_r swscale tiff webp z
 
 MODULES =		devel/cmake \
 			lang/python \
@@ -45,7 +45,6 @@ LIB_DEPENDS =		devel/boost \
 			graphics/tiff \
 			graphics/libwebp \
 			graphics/glew \
-			graphics/ilmbase \
 			graphics/openexr \
 			graphics/giflib \
 			graphics/opencolorio \
@@ -53,7 +52,8 @@ LIB_DEPENDS =		devel/boost \
 			graphics/libraw
 
 CONFIGURE_ARGS +=	-DUSE_OPENCV=OFF \
-			-DCMAKE_INSTALL_MANDIR="man/man1"
+			-DCMAKE_INSTALL_MANDIR="man/man1" \
+			-DSTOP_ON_WARNING=OFF
 
 CXXFLAGS +=		-pthread
 .if ${MACHINE_ARCH} == "i386"

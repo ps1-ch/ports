@@ -1,10 +1,9 @@
-# $OpenBSD: Makefile,v 1.169 2019/05/08 18:52:17 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.172 2019/11/02 11:10:28 jasper Exp $
 
 COMMENT=		GNOME document viewer
 
 GNOME_PROJECT=		evince
-GNOME_VERSION=		3.32.0
-REVISION=		0
+GNOME_VERSION=		3.34.1
 
 MAJ_V=			3.0
 SUBST_VARS=		MAJ_V
@@ -18,7 +17,7 @@ MAINTAINER=		Jasper Lievisse Adriaanse <jasper@openbsd.org>, \
 			Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} X11 Xcomposite Xcursor Xdamage Xext
 WANTLIB += Xfixes Xi Xinerama Xrandr Xrender atk-1.0 atk-bridge-2.0
@@ -29,7 +28,7 @@ WANTLIB += gstreamer-1.0 gstvideo-1.0 gthread-2.0 gtk-3 harfbuzz
 WANTLIB += iconv intl jpeg lcms2 lzma m openjp2 orc-0.4 pango-1.0
 WANTLIB += pangocairo-1.0 pangoft2-1.0 pcre pixman-1 png poppler
 WANTLIB += poppler-glib secret-1 tiff xcb xcb-render xcb-shm xml2
-WANTLIB += z aspell enchant-2 gspell-1 synctex
+WANTLIB += z aspell enchant-2 gspell-1 synctex 
 
 COMPILER =		base-clang ports-gcc base-gcc
 
@@ -89,8 +88,8 @@ LIB_DEPENDS +=		graphics/djvulibre \
 			x11/gnome/desktop \
 			x11/gnome/nautilus
 WANTLIB += ICE SM avahi-common dbus-1 gmp gs hogweed idn2 nettle
-WANTLIB += p11-kit spectre tasn1 unistring zstd
-WANTLIB += archive bz2 djvulibre gxps kpathsea
+WANTLIB += p11-kit spectre tasn1 unistring zstd b2
+WANTLIB += archive bz2 djvulibre gxps kpathsea charset
 WANTLIB += nautilus-extension crypto lz4 gnome-desktop-3
 
 # XXX not sure that's needed automatic conversion

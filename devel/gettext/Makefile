@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.89 2019/05/20 23:45:47 naddy Exp $
+# $OpenBSD: Makefile,v 1.93 2019/07/20 15:46:48 naddy Exp $
 
 COMMENT-runtime=	GNU gettext runtime libraries and programs
 COMMENT-textstyle=	text styling library
@@ -9,7 +9,9 @@ DISTNAME=		gettext-${VERSION}
 PKGNAME-runtime=	gettext-runtime-${VERSION}
 PKGNAME-textstyle=	libtextstyle-${VERSION}
 PKGNAME-tools=		gettext-tools-${VERSION}
-REVISION-tools=		0
+REVISION-tools=		2
+REVISION-runtime=	0
+REVISION-textstyle=	0
 
 SHARED_LIBS +=  intl                 6.0      # 9.6
 SHARED_LIBS +=  asprintf             1.1      # unknown
@@ -31,7 +33,7 @@ HOMEPAGE=	https://www.gnu.org/software/gettext/
 MAINTAINER=	Christian Weisgerber <naddy@openbsd.org>
 
 # LGPLv2.1, GPLv3
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MULTI_PACKAGES=	-runtime -textstyle -tools
 SUBPACKAGE?=	-runtime
@@ -44,6 +46,8 @@ LIB_DEPENDS=		converters/libiconv
 LIB_DEPENDS-tools=	${BASE_PKGPATH},-runtime \
 			${BASE_PKGPATH},-textstyle
 
+RUN_DEPENDS-tools=	archivers/xz
+
 # on critical path to lang/gcc.  XXX c++ used in libasprintf but seems
 # unused at present; may need to revisit if this changes
 COMPILER =		base-clang base-gcc
@@ -52,6 +56,7 @@ CONFIGURE_STYLE=gnu
 CONFIGURE_ARGS=	--disable-csharp \
 		--disable-java \
 		--disable-acl \
+		--disable-openmp \
 		--with-libiconv-prefix="${LOCALBASE}" \
 		--with-included-gettext \
 		--with-included-libunistring \

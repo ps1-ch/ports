@@ -1,5 +1,5 @@
 #! /usr/bin/perl
-# $OpenBSD: TreeWalker.pm,v 1.11 2018/12/01 15:48:15 espie Exp $
+# $OpenBSD: TreeWalker.pm,v 1.13 2019/11/11 20:44:39 espie Exp $
 #
 # Copyright (c) 2006-2013 Marc Espie <espie@openbsd.org>
 #
@@ -21,6 +21,12 @@ use warnings;
 package TreeWalker;
 use PkgPath;
 
+sub new
+{
+	my ($class, $strict) = @_;
+	return bless { strict => $strict }, $class;
+}
+
 sub subdirlist
 {
 	my ($self, $list) = @_;
@@ -38,19 +44,23 @@ sub dump_dirs
 		$self->parse_dump($fd, $subdirs);
 		close $fd || die $!;
 	} else {
+		my %myenv = ();
+		my $portsdir = $ENV{PORTSDIR};
 		if (defined $subdirs) {
-			$ENV{'SUBDIR'} = $self->subdirlist($subdirs);
-			delete $ENV{'SUBDIRLIST'};
+			$myenv{'SUBDIR'} = $self->subdirlist($subdirs);
 		}
-		$ENV{'NO_IGNORE'} = 'Yes';
-		delete $ENV{'SUBPACKAGE'};
-		delete $ENV{'FLAVOR'};
+		$myenv{'NO_IGNORE'} = 'Yes';
+		$myenv{PORTSDIR} = $portsdir;
 		close STDERR;
 		open STDERR, '>&STDOUT';
-		chdir $ENV{'PORTSDIR'};
-		exec {'make'} ("make", "dump-vars", 'LIBCXX=$${LIBCXX}',
-		    'LIBECXX=$${LIBECXX}', 
+		chdir $portsdir;
+		%ENV = %myenv;
+		my @vars = ('LIBECXX=$${LIBECXX}', 
 		    'COMPILER_LIBCXX=$${COMPILER_LIBCXX}');
+		if (!$self->{strict}) {
+		    push(@vars, "PORTSDIR_PATH=$portsdir");
+		}
+		exec {'make'} ("make", "dump-vars", @vars);
 		die $!;
 	}
 }

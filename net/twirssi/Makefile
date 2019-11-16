@@ -1,16 +1,16 @@
-# $OpenBSD: Makefile,v 1.13 2018/09/04 12:46:19 espie Exp $
+# $OpenBSD: Makefile,v 1.15 2019/07/12 20:48:51 sthen Exp $
 
 COMMENT=	Twitter script for irssi
 
 V=		2.6.3
 DISTNAME=	twirssi-$V
-REVISION=	1
+REVISION=	2
 CATEGORIES=	net
 
 HOMEPAGE=	http://www.twirssi.com/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	http://nerd.hu/distfiles/
 EXTRACT_ONLY=

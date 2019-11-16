@@ -1,12 +1,11 @@
-# $OpenBSD: Makefile,v 1.79 2019/06/11 00:37:09 kurt Exp $
+# $OpenBSD: Makefile,v 1.83 2019/11/01 19:29:31 jeremy Exp $
 
 # Runtime failures on i386 in IO#pos and IO#rewind
 ONLY_FOR_ARCHS = amd64
 
 COMMENT =	pure-Java implementation of the Ruby language
 
-V =		9.2.7.0
-REVISION =	1
+V =		9.2.9.0
 DISTNAME =	jruby-dist-${V}-bin
 PKGNAME =	jruby-${V}
 CATEGORIES =	lang lang/ruby
@@ -19,7 +18,7 @@ HOMEPAGE =	http://www.jruby.org/
 MAINTAINER =	Jeremy Evans <jeremy@openbsd.org>
 
 # EPLv1/GPLv2/LGPLv2.1/Ruby/MIT/BSD/Apache/CPL
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	https://repo1.maven.org/maven2/org/jruby/jruby-dist/${V}/
 MASTER_SITES0 =	https://filedump.se.rit.edu/pub/distfiles/
@@ -73,7 +72,7 @@ do-build:
 		${WRKSRC}/lib/jni/${JFFI_ARCH}
 	cd ${WRKSRC}/lib/ruby/stdlib/ffi/platform && \
 		rm -r !(${FFI_ARCH}|*.ffi)
-	cd ${WRKSRC}/jruby-launcher/ && gmake && mv jruby ../bin
+	cd ${WRKSRC}/jruby-launcher/ && CXX=${CXX} gmake && mv jruby ../bin
 
 do-install:
 	ln -s ${TRUEPREFIX}/jruby/bin/jruby ${PREFIX}/bin/jruby

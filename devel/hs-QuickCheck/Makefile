@@ -1,21 +1,21 @@
-# $OpenBSD: Makefile,v 1.28 2018/01/22 21:40:32 kili Exp $
+# $OpenBSD: Makefile,v 1.31 2019/09/30 12:58:07 kili Exp $
 
 COMMENT =		automatic testing of Haskell programs
 
 DISTNAME =		QuickCheck-2.8.2
-REVISION =		0
+REVISION =		2
 CATEGORIES =		devel
 
 MAINTAINER =		Matthias Kilian <kili@openbsd.org>
 
 # BSD3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/ghc
 
 MODGHC_BUILD =		cabal hackage haddock register
 
-MODGHC_PACKAGE_KEY =	Jgsuiswc1lZAKEXPfsiDSR
+MODGHC_PACKAGE_KEY =	HnXF0X2VHAoBkZ6B5N45ie
 
 RUN_DEPENDS =		devel/hs-old-locale \
 			devel/hs-old-time \

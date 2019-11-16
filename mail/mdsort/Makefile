@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.5 2019/04/22 14:33:07 anton Exp $
+# $OpenBSD: Makefile,v 1.8 2019/09/14 07:34:23 anton Exp $
 
 COMMENT =	maildir sort
 
-V =		3.1.0
+V =		4.2.0
 DISTNAME =	mdsort-${V}
 
 CATEGORIES =	mail
@@ -12,7 +12,7 @@ HOMEPAGE =	https://github.com/mptre/mdsort
 MAINTAINER =	Anton Lindqvist <anton@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # uses pledge()
 WANTLIB +=	c

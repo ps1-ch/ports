@@ -1,27 +1,29 @@
-$OpenBSD: patch-content_public_common_content_features_cc,v 1.4 2019/05/10 21:55:40 robert Exp $
+$OpenBSD: patch-content_public_common_content_features_cc,v 1.7 2019/11/05 22:30:27 robert Exp $
+
+WebUSB is bad and it makes the chrome process spin the CPU anyway
 
 Index: content/public/common/content_features.cc
 --- content/public/common/content_features.cc.orig
 +++ content/public/common/content_features.cc
-@@ -559,7 +559,7 @@ const base::Feature kWebAssemblyThreads {
- };
- 
- // Enable WebAssembly trap handler.
--#if (defined(OS_LINUX) || defined(OS_WIN) || defined(OS_MACOSX)) && \
-+#if (defined(OS_BSD) || defined(OS_LINUX) || defined(OS_WIN) || defined(OS_MACOSX)) && \
-     defined(ARCH_CPU_X86_64)
- const base::Feature kWebAssemblyTrapHandler{"WebAssemblyTrapHandler",
-                                             base::FEATURE_ENABLED_BY_DEFAULT};
-@@ -594,7 +594,7 @@ const base::Feature kWebAuthBle{"WebAuthenticationBle"
+@@ -47,7 +47,7 @@ const base::Feature kAudioServiceLaunchOnStartup{
+ const base::Feature kAudioServiceOutOfProcess{
+   "AudioServiceOutOfProcess",
+ #if defined(OS_WIN) || defined(OS_MACOSX) || \
+-    (defined(OS_LINUX) && !defined(OS_CHROMEOS))
++    (defined(OS_LINUX) && !defined(OS_CHROMEOS)) || defined(OS_BSD)
+       base::FEATURE_ENABLED_BY_DEFAULT
+ #else
+       base::FEATURE_DISABLED_BY_DEFAULT
+@@ -669,7 +669,7 @@ const base::Feature kWebAuthBle{"WebAuthenticationBle"
  // https://w3c.github.io/webauthn
  const base::Feature kWebAuthCable {
    "WebAuthenticationCable",
 -#if !defined(OS_CHROMEOS) && defined(OS_LINUX)
-+#if !defined(OS_CHROMEOS) && (defined(OS_LINUX) || defined(OS_BSD))
++#if (!defined(OS_CHROMEOS) && defined(OS_LINUX)) || defined(OS_BSD)
        base::FEATURE_DISABLED_BY_DEFAULT
  #else
        base::FEATURE_ENABLED_BY_DEFAULT
-@@ -665,7 +665,7 @@ const base::Feature kWebRtcHideLocalIpsWithMdns{
+@@ -711,7 +711,7 @@ const base::Feature kWebRtcHideLocalIpsWithMdns{
  
  // Controls whether the WebUSB API is enabled:
  // https://wicg.github.io/webusb

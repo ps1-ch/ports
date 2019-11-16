@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.16 2019/06/11 00:38:34 kurt Exp $
+# $OpenBSD: Makefile,v 1.22 2019/11/15 06:05:39 rsadowski Exp $
 
 COMMENT=		Python IDE based on IntelliJ IDEA
 
-V=			2019.1.3
-REVISION=		0
+V=			2019.2.4
 DISTNAME=		pycharm-community-${V}
 PKGNAME=		pycharm-${V}
 CATEGORIES=		devel
@@ -13,12 +12,12 @@ HOMEPAGE=		https://www.jetbrains.com/pycharm/
 MAINTAINER =		Rafael Sadowski <rsadowski@openbsd.org>
 
 # Apache v2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		https://download.jetbrains.com/python/
 
 MODULES=		java
-MODJAVA_VER=		1.8+
+MODJAVA_VER=		11
 
 BUILD_DEPENDS=		${MODJAVA_RUN_DEPENDS}
 
@@ -37,11 +36,9 @@ do-build:
 do-install:
 	${INSTALL_DATA_DIR} ${PC}
 	@tar -czf - -C ${WRKDIST} . | tar xzf - -C ${PC}
-	@rm -rf ${PC}/jre
-	@rm -rf ${PC}/jre64
+	@rm -rf ${PC}/jbr
 	@rm -rf ${PC}/plugins/android
 	@rm -rf ${PC}/lib/pty4j-native
-	@rm -rf ${PC}/plugins/gradle/lib/native-platform-{freebsd,linux,osx,windows}*.jar
 	@${SUBST_PROGRAM} ${FILESDIR}/pycharm ${PREFIX}/bin/pycharm
 	@chmod ${BINMODE} ${PREFIX}/bin/pycharm
 	${INSTALL_DATA_DIR} ${PREFIX}/share/applications

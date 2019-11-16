@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.25 2017/09/01 09:41:21 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.27 2019/07/12 20:51:13 sthen Exp $
 
 COMMENT=		fallback theme of the icon theme specification
 
@@ -12,12 +12,12 @@ CATEGORIES=		x11
 
 HOMEPAGE=		http://www.freedesktop.org/Standards/icon-theme-spec
 
-MASTER_SITES=		http://icon-theme.freedesktop.org/releases/
+MASTER_SITES=		https://icon-theme.freedesktop.org/releases/
 
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 CONFIGURE_STYLE= 	gnu
 

@@ -1,15 +1,15 @@
-# $OpenBSD: Makefile,v 1.3 2019/03/04 12:44:49 sebastia Exp $
+# $OpenBSD: Makefile,v 1.5 2019/09/26 06:41:33 sebastia Exp $
 
 COMMENT =	command-line utility for POSIX tar(1) archive files
 
-DISTNAME =	minitar-0.8
+DISTNAME =	minitar-0.9
 CATEGORIES =	archivers
 
 HOMEPAGE =	http://www.github.com/atoulme/minitar
 MAINTAINER =	Sebastian Reitenbach <sebastia@openbsd.org>
 
 # GPLv2/Ruby license
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 MODULES =		lang/ruby
 

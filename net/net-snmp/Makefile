@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.105 2019/06/03 16:06:54 sthen Exp $
+# $OpenBSD: Makefile,v 1.107 2019/10/29 14:49:19 sthen Exp $
 
 COMMENT-main=	extendable SNMP implementation
 COMMENT-tkmib=	graphical SNMP MIB browser
 
 V=		5.8
-REVISION-main=	1
+REVISION-main=	3
+REVISION-tkmib=	0
 
 DISTNAME=	net-snmp-$V
 MULTI_PACKAGES=	-main -tkmib
@@ -15,10 +16,12 @@ PKGNAME-tkmib=	net-snmp-tkmib-${V:S/.rc/rc/}
 FULLPKGPATH-tkmib= net/net-snmp,-tkmib
 FULLPKGNAME-tkmib= net-snmp-tkmib-${V:S/.rc/rc/}
 
-LIBV=		15.1
-.for i in netsnmp netsnmpagent netsnmphelpers netsnmpmibs netsnmptrapd
-SHARED_LIBS +=	$i ${LIBV}
-.endfor
+# N.B. p5 module picks up installed libs in /usr/local
+SHARED_LIBS += netsnmp		15.2
+SHARED_LIBS += netsnmpagent	15.1
+SHARED_LIBS += netsnmphelpers	15.1
+SHARED_LIBS += netsnmpmibs	16.0
+SHARED_LIBS += netsnmptrapd	15.1
 
 CATEGORIES=	net perl5
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=net-snmp/}
@@ -50,6 +53,7 @@ OPENBSD_MIBS=		OPENBSD-SNMPD-CONF
 
 CONFIGURE_STYLE=  gnu
 CONFIGURE_ARGS=   --enable-ipv6 \
+	--enable-blumenthal-aes \
 	--enable-mfd-rewrites \
 	--with-copy-persistent-files="no" \
 	--with-mib-modules="${NET_SNMP_MIB_LIST}" \
@@ -61,7 +65,8 @@ CONFIGURE_ARGS=   --enable-ipv6 \
 	--with-temp-file-pattern=/tmp/snmpdXXXXXXXXXXXX \
 	--with-logfile="/var/log/snmpd" \
 	--with-persistent-directory="/var/net-snmp"
-CONFIGURE_ENV=	ac_cv_IFNET_NEEDS_KERNEL=no
+CONFIGURE_ENV=	ac_cv_IFNET_NEEDS_KERNEL=no \
+		ac_cv_path_LPSTAT_PATH=
 # nlist is in libc, but net-snmp tries to detect it in libelf first.
 # disable to avoid linking that unnecessarily:
 CONFIGURE_ENV+=	ac_cv_lib_elf_nlist=false

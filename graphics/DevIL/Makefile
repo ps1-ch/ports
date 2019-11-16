@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.25 2018/10/24 14:28:05 sthen Exp $
+# $OpenBSD: Makefile,v 1.28 2019/11/10 15:32:55 ajacoutot Exp $
 
 COMMENT=		library for powerful image loading capabilities
 
 DISTNAME=		DevIL-1.7.8
-REVISION=		14
+REVISION=		16
 SHARED_LIBS+=		IL	1.0 # 2.0
 SHARED_LIBS+=		ILU	1.0 # 2.0
 SHARED_LIBS+=		ILUT	1.0 # 2.0
@@ -13,28 +13,27 @@ CATEGORIES=		graphics devel
 HOMEPAGE=		http://openil.sourceforge.net/
 
 # LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=openil/}
 EXTRACT_SUFX=		.zip
 
-WANTLIB += GL GLU Half ICE Iex IexMath IlmImf IlmThread Imath
-WANTLIB += SDL SM X11 X11-xcb Xdamage Xext Xfixes Xi
-WANTLIB += Xmu Xrandr Xrender Xt Xxf86vm c drm glapi glut iconv jasper
-WANTLIB += jpeg lcms m mng png pthread sndio ${COMPILER_LIBCXX}
-WANTLIB += tiff usbhid xcb xcb-dri2 xcb-glx z expat
+WANTLIB += ${COMPILER_LIBCXX} GL GLU Half-2_4 ICE Iex-2_4 IexMath-2_4
+WANTLIB += IlmImf-2_4 IlmThread-2_4 Imath-2_4 SDL SM X11 X11-xcb
+WANTLIB += Xdamage Xext Xfixes Xi Xmu Xrandr Xrender Xt Xxf86vm
+WANTLIB += c drm expat glapi glut iconv jasper jpeg lcms m mng
+WANTLIB += png sndio tiff usbhid xcb xcb-dri2 xcb-dri3 xcb-glx
+WANTLIB += xcb-present xcb-sync xcb-xfixes xshmfence z
 
 COMPILER =		base-clang ports-gcc base-gcc
 
 LIB_DEPENDS=		converters/libiconv \
 			devel/sdl \
 			graphics/freeglut \
-			graphics/ilmbase \
-			graphics/jasper>=2.0.14 \
+			graphics/jasper \
 			graphics/libmng \
 			graphics/lcms \
 			graphics/openexr \
-			graphics/openjpeg \
 			graphics/tiff \
 			graphics/png
 
@@ -56,6 +55,12 @@ WRKDIST=		${WRKDIR}/${DISTNAME:L}
 
 # Too many Linuxisms in testing tools
 NO_TEST=		Yes
+
+# gcc-8's _mm_malloc() uses the AltiVec keyword __vector, so we need
+# to disable it to make it run on macppc G3 machines
+.if ${MACHINE_ARCH:Mpowerpc}
+CONFIGURE_ENV +=	ac_cv_header_mm_malloc_h=
+.endif
 
 post-extract:
 	chmod +x ${WRKSRC}/configure

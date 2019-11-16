@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.4 2019/06/07 08:12:43 jasper Exp $
+# $OpenBSD: Makefile,v 1.10 2019/10/30 14:03:07 jasper Exp $
 
 COMMENT =	fast and secure VPN
 
-V =		0.0.20190601
+V =		0.0.20191012
 DISTNAME =	WireGuard-$V
 PKGNAME =	wireguard-tools-$V
+EPOCH =		0
 
 CATEGORIES =	net security
 
@@ -13,7 +14,7 @@ HOMEPAGE =	https://www.wireguard.com/
 MAINTAINER =	Jasper Lievisse Adriaanse <jasper@openbsd.org>
 
 # GPLv2 only
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c
 

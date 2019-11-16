@@ -1,26 +1,23 @@
-# $OpenBSD: Makefile,v 1.19 2019/01/08 19:18:24 landry Exp $
+# $OpenBSD: Makefile,v 1.22 2019/11/11 20:49:28 landry Exp $
 
 COMMENT=	Xfce4 settings daemon
 
-XFCE_VERSION =	4.12.1
+XFCE_VERSION =	4.14.1
 XFCE_PROJECT=	xfconf
-REVISION =	1
+SHARED_LIBS =	xfconf-0 1.0 # 2.0
 HOMEPAGE =	https://docs.xfce.org/xfce/xfconf/start
-
-PORTROACH=	limitw:1,even
-
-SHARED_LIBS =	xfconf-0 0.1 # 2.0
+REVISION =	0
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	x11/xfce4
-LIB_DEPENDS=	x11/xfce4/libxfce4util>=4.10.0 \
-		x11/dbus-glib
+LIB_DEPENDS=	x11/xfce4/libxfce4util
+BUILD_DEPENDS += devel/gobject-introspection lang/vala
 
 CONFIGURE_ARGS=	--disable-perl-bindings --disable-linker-opts
-
-WANTLIB += c dbus-1 dbus-glib-1 ffi gio-2.0 glib-2.0 gmodule-2.0
+CONFIGURE_ARGS+=--disable-gsettings-backend
+WANTLIB += c ffi gio-2.0 glib-2.0 gmodule-2.0
 WANTLIB += gobject-2.0 gthread-2.0 pcre pthread xfce4util z iconv intl
 
 .include <bsd.port.mk>

@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: PkgPath.pm,v 1.55 2019/05/11 15:31:12 espie Exp $
+# $OpenBSD: PkgPath.pm,v 1.59 2019/11/08 13:06:00 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -247,7 +247,7 @@ sub fix_multi
 # we're always called from values corresponding to the same subdir.
 sub merge_depends
 {
-	my ($class, $h) = @_;
+	my ($class, $h, $ftp_only) = @_;
 
 	$class->fix_multi($h);
 
@@ -265,6 +265,10 @@ sub merge_depends
 				$info->{FDEPENDS}{$f} = $f;
 				bless $info->{FDEPENDS}, "AddDepends";
 			}
+		}
+		if ($ftp_only && defined $info->{PERMIT_PACKAGE}) {
+			$info->{IGNORE} //= AddIgnore->new(
+			    "Package not allowed for ftp");
 		}
 		# XXX don't grab dependencies for IGNOREd stuff
 		next if defined $info->{IGNORE};
@@ -345,11 +349,12 @@ sub break
 {
 
 	my ($self, $why) = @_;
-	if (defined $self->{broken}) {
-		$self->{broken} .= " $why";
-	} else {
-		$self->{broken} = $why;
-	}
+	push @{$self->{broken}}, $why;
 }
 
+sub log_as_built
+{
+	my ($v, $engine) = @_;
+	$engine->log_as_built($v);
+}
 1;

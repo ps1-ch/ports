@@ -1,7 +1,7 @@
-# $OpenBSD: Makefile,v 1.4 2019/03/04 12:51:16 chrisz Exp $
+# $OpenBSD: Makefile,v 1.7 2019/09/26 09:46:10 chrisz Exp $
  
 GH_TAGNAME=	v2.51.2
-REVISION=	1
+REVISION=	4
 
 WRKDIST=	${WRKDIR}/${PKGNAME}/src
 

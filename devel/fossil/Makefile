@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.68 2019/02/22 02:12:13 jturner Exp $
+# $OpenBSD: Makefile,v 1.71 2019/10/07 01:25:17 jturner Exp $
 
 COMMENT =		simple distributed software configuration management
 
-DISTNAME =		fossil-src-2.8
-PKGNAME =		fossil-2.8
+DISTNAME =		fossil-src-2.10
+PKGNAME =		fossil-2.10
 EPOCH =			0
 CATEGORIES =		devel www
 
@@ -13,7 +13,7 @@ HOMEPAGE =		http://fossil-scm.org/
 MASTER_SITES =		http://fossil-scm.org/index.html/uv/
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 FLAVORS=		static
 FLAVOR?=

@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.28 2019/03/19 12:45:39 cwen Exp $
+# $OpenBSD: Makefile,v 1.30 2019/07/12 20:47:08 sthen Exp $
 
 COMMENT=	translate PostScript/PDF graphics to other vector formats
 
-DISTNAME=	pstoedit-3.73
+DISTNAME=	pstoedit-3.74
 SHARED_LIBS=	pstoedit 3.0
 CATEGORIES=	graphics
-REVISION=	0
 
 HOMEPAGE=	http://www.pstoedit.net/
 
 MAINTAINER=	Steven Mestdagh <steven@openbsd.org>
 
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pstoedit/}
 

@@ -1,6 +1,7 @@
-$OpenBSD: patch-source_config_mh-bsd-gcc,v 1.8 2018/12/09 21:00:26 ajacoutot Exp $
+$OpenBSD: patch-source_config_mh-bsd-gcc,v 1.10 2019/10/19 08:44:40 ajacoutot Exp $
 
 Sync with config/mh-linux.
+!!! with 1 exception: LD_SONAME: MIDDLE_SO_TARGET -> FINAL_SO_TARGET
 
 Index: source/config/mh-bsd-gcc
 --- source/config/mh-bsd-gcc.orig

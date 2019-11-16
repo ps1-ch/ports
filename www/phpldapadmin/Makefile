@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.47 2018/10/17 14:15:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.49 2019/09/26 21:59:31 sthen Exp $
 
 COMMENT=	web-based LDAP browser to manage LDAP servers
 
@@ -6,10 +6,10 @@ VERSION=	1.2.3
 DISTNAME=	phpldapadmin-${VERSION}
 CATEGORIES=	www
 HOMEPAGE=	http://phpldapadmin.sourceforge.net/
-REVISION=	6
+REVISION=	7
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=phpldapadmin/}
 EXTRACT_SUFX=	.tgz
@@ -24,7 +24,7 @@ SUBST_VARS=	INSTDIR
 
 MODULES=	lang/php
 RUN_DEPENDS=	lang/php/${MODPHP_VERSION},-ldap \
-		lang/php/${MODPHP_VERSION},-mcrypt
+		security/pecl-mcrypt${MODPHP_FLAVOR}
 
 do-install:
 	${INSTALL_DATA_DIR} ${PREFIX}/phpldapadmin

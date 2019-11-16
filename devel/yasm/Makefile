@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.15 2016/05/13 22:06:29 naddy Exp $
+# $OpenBSD: Makefile,v 1.17 2019/07/12 20:46:04 sthen Exp $
 
 COMMENT=	complete rewrite of the NASM assembler
 
 DISTNAME=	yasm-1.3.0
 REVISION=	1
 CATEGORIES=	devel lang
-MASTER_SITES=	http://www.tortall.net/projects/yasm/releases/
+MASTER_SITES=	https://www.tortall.net/projects/yasm/releases/
 
 MAINTAINER=	Brad Smith <brad@comstyle.com>
 
 HOMEPAGE=	http://yasm.tortall.net/
 
 # BSD and Artistic/LGPLv2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c
 

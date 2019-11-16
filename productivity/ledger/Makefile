@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.25 2018/12/13 19:53:24 sthen Exp $
+# $OpenBSD: Makefile,v 1.27 2019/08/09 16:05:17 cwen Exp $
 
 COMMENT =		command line double-entry accounting ledger
 
 GH_TAGNAME =		v3.1.1
 GH_ACCOUNT =		ledger
 GH_PROJECT =		ledger
-REVISION =		3
+REVISION =		4
 
 SHARED_LIBS +=  ledger                    0.0 # 3.0
 
@@ -16,7 +16,7 @@ HOMEPAGE =		http://www.ledger-cli.org/
 MAINTAINER =		Sergey Bronnikov <estetus@gmail.com>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += boost_date_time-mt boost_filesystem-mt boost_iostreams-mt
 WANTLIB += boost_regex-mt boost_system-mt boost_unit_test_framework-mt

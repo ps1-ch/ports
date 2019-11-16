@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.2 2019/05/20 17:16:56 jasper Exp $
+# $OpenBSD: Makefile,v 1.5 2019/10/25 19:18:30 jasper Exp $
 
 COMMENT =	pipe interface for radare2
 
-MODPY_EGG_VERSION =	1.3.1
+MODPY_EGG_VERSION =	1.4.2
 DISTNAME =	r2pipe-${MODPY_EGG_VERSION}
 PKGNAME =	py-${DISTNAME}
 
@@ -13,7 +13,7 @@ HOMEPAGE =	https://rada.re
 MAINTAINER =	Jasper Lievisse Adriaanse <jasper@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_PI =		Yes

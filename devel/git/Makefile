@@ -1,23 +1,23 @@
-# $OpenBSD: Makefile,v 1.199 2019/05/20 22:15:03 naddy Exp $
+# $OpenBSD: Makefile,v 1.207 2019/11/11 10:12:32 kn Exp $
 
-COMMENT-main =	GIT - Tree History Storage Tool
-COMMENT-svn =	GIT - subversion interoperability tools
-COMMENT-x11 =	GIT - graphical tools
+COMMENT-main =	distributed version control system
+COMMENT-svn =	subversion interoperability tools
+COMMENT-x11 =	graphical tools
 
-V =		2.21.0
+V =		2.24.0
 DISTNAME =	git-${V}
 PKGNAME-main =	${DISTNAME}
 PKGNAME-svn =	git-svn-${V}
 PKGNAME-x11 =	git-x11-${V}
-REVISION-main =	0
 CATEGORIES =	devel
 
 HOMEPAGE =	https://git-scm.com/
 
-MAINTAINER =	Benoit Lecocq <benoit@openbsd.org>
+MAINTAINER =	Benoit Lecocq <benoit@openbsd.org>, \
+		Klemens Nanni <kn@openbsd.org>
 
 # GPLv2 only
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 DOC_DISTFILE =		git-manpages-${V}${EXTRACT_SUFX}
 DISTFILES =		${DISTNAME}${EXTRACT_SUFX} ${DOC_DISTFILE}
@@ -42,14 +42,13 @@ BUILD_DEPENDS =		devel/gettext,-tools \
 
 MULTI_PACKAGES =	-main -svn -x11
 
-WANTLIB-main =		c crypto curl expat iconv intl nghttp2 pthread ssl z
+WANTLIB-main =		c charset crypto curl expat iconv intl nghttp2 pthread \
+			ssl z
 
 RUN_DEPENDS-main =	devel/cvsps \
-			devel/p5-Error \
-			net/rsync
+			devel/p5-Error
 LIB_DEPENDS-main =	devel/gettext,-runtime \
-			net/curl \
-			www/nghttp2
+			net/curl
 
 RUN_DEPENDS-svn =	${BASE_PKGPATH} \
 			devel/subversion,-perl \
@@ -91,6 +90,9 @@ TEST_DEPENDS =		archivers/gtar \
 			archivers/zip \
 			devel/cvsps \
 			devel/subversion,-perl
+
+# ${WRKSRC}/t/t4256/1/mailinfo.c.orig 
+PATCHORIG =		.pat.orig
 
 post-extract:
 	@mkdir -p ${WRKSRC}/doc

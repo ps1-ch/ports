@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.154 2019/06/15 09:46:12 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.162 2019/10/19 10:25:25 ajacoutot Exp $
 
 BROKEN-alpha=	ICE in cupsfilters/image-jpeg.c:316
 BROKEN-hppa=	ICE on filter/pdftopdf/qpdf_pdftopdf.cc:147
 
 COMMENT=	OpenPrinting CUPS filters
 
-DISTNAME=	cups-filters-1.25.0
+DISTNAME=	cups-filters-1.25.11
 
 CATEGORIES=	print
 
@@ -20,13 +20,13 @@ MAINTAINER=	Antoine Jacoutot <ajacoutot@openbsd.org>
 PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} avahi-client avahi-common avahi-glib
-WANTLIB += c cups cupsimage dbus-1 expat ffi fontconfig freetype
-WANTLIB += gio-2.0 glib-2.0 gmodule-2.0 gmp gnutls gobject-2.0
-WANTLIB += hogweed iconv idn2 intl jpeg lcms2 m nettle openjp2
-WANTLIB += p11-kit pcre png poppler poppler-cpp qpdf tasn1 tiff
-WANTLIB += unistring z
+WANTLIB += c cups dbus-1 expat ffi fontconfig freetype gio-2.0
+WANTLIB += glib-2.0 gmodule-2.0 gmp gnutls gobject-2.0 hogweed
+WANTLIB += iconv idn2 intl jpeg lcms2 m nettle openjp2 p11-kit
+WANTLIB += pcre png poppler poppler-cpp qpdf tasn1 tiff unistring
+WANTLIB += z
 
-MASTER_SITES=	http://www.openprinting.org/download/cups-filters/
+MASTER_SITES=	https://www.openprinting.org/download/cups-filters/
 
 # cc1plus: error: unrecognized command line option "-std=c++0x"
 COMPILER =	base-clang ports-gcc

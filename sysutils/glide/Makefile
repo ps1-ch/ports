@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.2 2019/01/02 12:39:03 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.4 2019/07/17 14:39:43 danj Exp $
 
 COMMENT =	package manager for Go
 
@@ -6,17 +6,15 @@ VERSION =	0.13.2
 GH_ACCOUNT =	Masterminds
 GH_PROJECT =	glide
 GH_TAGNAME =	v${VERSION}
+REVISION =	0
 
 CATEGORIES =	sysutils
 
 HOMEPAGE =	https://glide.sh/
 
-MAINTAINER =	Kevin Wondratsch <bsd@kwondratsch.com>
-
 WANTLIB +=	c pthread
-
 #MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/go
 

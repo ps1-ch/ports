@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.87 2018/12/05 20:35:25 naddy Exp $
+# $OpenBSD: Makefile,v 1.89 2019/07/12 20:47:10 sthen Exp $
 
 COMMENT=	tools and library routines for working with TIFF images
 
@@ -7,7 +7,7 @@ SHARED_LIBS=	tiff	40.3	# 9.0
 SHARED_LIBS+=	tiffxx	40.2	# 9.0
 CATEGORIES=	graphics
 
-MASTER_SITES=	http://download.osgeo.org/libtiff/
+MASTER_SITES=	https://download.osgeo.org/libtiff/
 
 HOMEPAGE=	http://www.simplesystems.org/libtiff/
 
@@ -17,7 +17,7 @@ WANTLIB=	c m ${COMPILER_LIBCXX} z jpeg
 COMPILER =		base-clang ports-gcc base-gcc
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 CONFIGURE_STYLE=gnu
 CONFIGURE_ARGS=	--disable-jbig \

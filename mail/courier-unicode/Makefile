@@ -1,11 +1,10 @@
-# $OpenBSD: Makefile,v 1.11 2018/02/25 22:20:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.13 2019/07/12 20:47:25 sthen Exp $
 
 SHARED_LIBS +=  courier-unicode		1.0 # 2.0
 
 COMMENT =		courier unicode library
 
-DISTNAME =		courier-unicode-2.0
-REVISION =		0
+DISTNAME =		courier-unicode-2.1
 
 CATEGORIES =		mail devel
 
@@ -16,7 +15,7 @@ HOMEPAGE =		http://www.courier-mta.org/imap/
 MAINTAINER =		Giovanni Bechis <giovanni@openbsd.org>
 
 # GPLv3
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 COMPILER =		base-clang ports-gcc
 WANTLIB +=		iconv m ${COMPILER_LIBCXX}

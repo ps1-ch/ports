@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.3 2019/03/09 18:14:30 bcallah Exp $
+# $OpenBSD: Makefile,v 1.5 2019/07/14 21:41:19 bcallah Exp $
 
 COMMENT =	ninja-compatible build tool written in C
 
-V =		0.6
+V =		0.7
 DISTNAME =	samurai-$V
 CATEGORIES =	devel
 
@@ -11,7 +11,7 @@ MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 HOMEPAGE =	https://github.com/michaelforney/samurai
 
 # ISC + Apache 2.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c
 

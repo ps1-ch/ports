@@ -1,7 +1,6 @@
-# $OpenBSD: Makefile,v 1.3 2018/04/14 22:53:55 sthen Exp $
+# $OpenBSD: Makefile,v 1.5 2019/10/04 12:49:45 ajacoutot Exp $
 
 PROVIDER=		local
-GH_TAGNAME=		v0.1.0
-REVISION=		1
+GH_TAGNAME=		v1.4.0
 
 .include <bsd.port.mk>

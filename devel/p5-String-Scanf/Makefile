@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.12 2017/12/05 16:25:45 espie Exp $
+# $OpenBSD: Makefile,v 1.14 2019/11/03 14:07:42 jasper Exp $
 
 COMMENT=	Emulates the sscanf() of the C stdio library
 
@@ -6,13 +6,11 @@ MODULES=	cpan
 PKG_ARCH=	*
 VERSION=	2.1
 DISTNAME=	String-Scanf-${VERSION}
-REVISION=	1
+REVISION=	2
 CATEGORIES=	devel perl5
 FIX_EXTRACT_PERMISSIONS=Yes
 
-MAINTAINER=	Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # perl
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 .include <bsd.port.mk>

@@ -1,27 +1,24 @@
-# $OpenBSD: Makefile,v 1.11 2018/10/24 14:28:12 sthen Exp $
+# $OpenBSD: Makefile,v 1.16 2019/11/08 15:59:28 fcambus Exp $
 
 COMMENT=	test tool for slow HTTP reads/posts
 
-DISTNAME =	slowhttptest-1.6
-REVISION =	3
+GH_ACCOUNT=	shekyan
+GH_PROJECT=	slowhttptest
+GH_TAGNAME=	v1.8.1
+REVISION=	0
 
 CATEGORIES=	www security
 
-HOMEPAGE=	https://slowhttptest.googlecode.com/
+MAINTAINER=	Frederic Cambus <fcambus@openbsd.org>
 
 # Apache 2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB += c crypto m ssl ${COMPILER_LIBCXX}
+WANTLIB += c m ssl ${COMPILER_LIBCXX}
 
 COMPILER =		base-clang ports-gcc base-gcc
 
-MASTER_SITES=	${HOMEPAGE}files/
-
 SEPARATE_BUILD=	simple
 CONFIGURE_STYLE=	gnu
-LDFLAGS+=		-lcrypto
-CONFIGURE_ENV=		LDFLAGS="${LDFLAGS}"
-MAKE_FLAGS=		LDFLAGS="${LDFLAGS}"
 
 .include <bsd.port.mk>

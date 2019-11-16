@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.299 2019/05/23 08:52:16 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.303 2019/09/08 10:08:59 ajacoutot Exp $
 
 COMMENT=	movie player supporting many formats
 
-V=		20190520
-FFMPEG_V=	4.1.3
+V=		20190817
+FFMPEG_V=	4.2.1
 DISTNAME=	mplayer-${V}
 REVISION=	0
 CATEGORIES=	x11 multimedia
@@ -15,8 +15,7 @@ HOMEPAGE=	http://www.mplayerhq.hu/
 MAINTAINER=	Brad Smith <brad@comstyle.com>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	patents
-PERMIT_PACKAGE_FTP=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	EGL GL SDL X11 Xext Xinerama Xss Xv Xxf86dga Xxf86vm ass \
 		avcodec avformat avutil bluray bs2b bz2 c cdda_interface \
@@ -25,7 +24,7 @@ WANTLIB=	EGL GL SDL X11 Xext Xinerama Xss Xv Xxf86dga Xxf86vm ass \
 		postproc pthread sndio ssl ${COMPILER_LIBCXX} swscale \
 		swresample util x264 xvidcore z
 
-COMPILER=	base-clang ports-gcc base-gcc
+COMPILER=	base-clang ports-gcc
 COMPILER_LANGS=	c
 
 LIB_DEPENDS=	archivers/bzip2 \

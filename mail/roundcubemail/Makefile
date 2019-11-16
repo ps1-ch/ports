@@ -1,12 +1,11 @@
-# $OpenBSD: Makefile,v 1.141 2019/06/03 16:06:52 sthen Exp $
+# $OpenBSD: Makefile,v 1.145 2019/11/10 12:02:45 sthen Exp $
 
 COMMENT=	imap4 webmail client
 
-V=		1.3.9
+V=		1.4.0
 DISTNAME=	roundcubemail-$V
 PKGNAME=	roundcubemail-${V:S/-rc/rc/}
 EXTRACT_SUFX=	-complete.tar.gz
-REVISION=	0
 
 FIX_EXTRACT_PERMISSIONS= Yes
 
@@ -31,7 +30,6 @@ TINSTDIR=	${TRUEPREFIX}/roundcubemail
 SUBST_VARS=	INSTDIR TINSTDIR MODPHP_BIN
 
 MODULES=	lang/php
-MODPHP_VERSION=	7.3
 
 RUN_DEPENDS=	${MODPHP_PDO_DEPENDS} \
 		lang/php/${MODPHP_VERSION},-pspell \
@@ -59,5 +57,6 @@ do-install:
 	    -name \*.src \) -delete
 	find ${INSTDIR} \( -name \*.png -or -name \*.js -or \
 	    -name \*.css \) -exec chmod -x {} +
+	rm ${INSTDIR}/composer.json
 
 .include <bsd.port.mk>

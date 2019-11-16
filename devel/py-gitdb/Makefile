@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.10 2019/04/28 20:51:33 sthen Exp $
+# $OpenBSD: Makefile,v 1.12 2019/11/08 14:58:48 kmos Exp $
 
 COMMENT=		Git object database
 
@@ -9,7 +9,7 @@ CATEGORIES=		devel
 REVISION=		0
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${MODPY_WANTLIB} pthread
 
@@ -17,14 +17,12 @@ MODULES=		lang/python
 
 MODPY_SETUPTOOLS =	Yes
 MODPY_PI =		Yes
+MODPY_PYTEST =		Yes
+MODPY_PYTEST_ARGS =	gitdb
 
 FLAVORS =		python3
 FLAVOR ?=
 
 RUN_DEPENDS=		devel/py-smmap${MODPY_FLAVOR}>=0.9.0
-
-# tests should be run using nosetests against the appropriate tag of
-# upstream's git repo
-NO_TEST=		Yes
 
 .include <bsd.port.mk>

@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.22 2019/05/20 22:15:26 naddy Exp $
+# $OpenBSD: Makefile,v 1.24 2019/08/10 21:24:31 sthen Exp $
 
 COMMENT =		realtime console web log analyzer
 
@@ -12,7 +12,7 @@ HOMEPAGE =		https://goaccess.io/
 MAINTAINER =		Kirill Bychkov <kirby@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c crypto curses intl maxminddb pthread ssl
 
@@ -20,6 +20,10 @@ MASTER_SITES =		https://tar.goaccess.io/
 
 LIB_DEPENDS =		devel/gettext,-runtime \
 			net/libmaxminddb
+
+# libmaxminddb headers fail with base-gcc
+COMPILER =		base-clang ports-gcc
+COMPILER_LANGS =	c
 
 CONFIGURE_STYLE =	gnu
 CONFIGURE_ARGS =	--enable-geoip=mmdb \

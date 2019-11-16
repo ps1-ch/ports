@@ -1,19 +1,18 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2018/05/07 18:29:00 kn Exp $
+# $OpenBSD: Makefile,v 1.3 2019/07/17 14:39:43 danj Exp $
 
 COMMENT =		the missing terminal file browser for X
 
 V =			1.8
 DISTNAME =		nnn-v${V}
 PKGNAME =		nnn-${V}
+REVISION =		0
 
 CATEGORIES =		sysutils
 
 HOMEPAGE =		https://github.com/jarun/nnn/
 
-MAINTAINER =		Ljuba Nedeljkovic <ljuba.bsd@gmail.com>
-
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		c curses readline
 

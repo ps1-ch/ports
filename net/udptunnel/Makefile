@@ -1,19 +1,17 @@
-# $OpenBSD: Makefile,v 1.8 2013/03/11 11:35:57 espie Exp $
+# $OpenBSD: Makefile,v 1.10 2019/07/17 14:46:34 danj Exp $
 
 COMMENT=	UDP tunnel utility
 
 DISTNAME=	udptunnel-1.1
-REVISION=	0
+REVISION=	1
 CATEGORIES=	net
 
 MASTER_SITES=	${HOMEPAGE}
 
 HOMEPAGE=	http://www.cs.columbia.edu/~lennox/udptunnel/
 
-MAINTAINER=     Jakob Schlyter <jakob@openbsd.org>
-
 # 3-clause BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 WANTLIB=		c
 
 CONFIGURE_STYLE=	gnu

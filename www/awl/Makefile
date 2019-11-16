@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.14 2018/10/17 14:15:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.16 2019/09/26 21:59:30 sthen Exp $
 
 COMMENT =	Andrews web libraries for PHP
 
@@ -7,10 +7,10 @@ PKGNAME =	php-awl-0.59
 EXTRACT_SUFX =	.tar.xz
 CATEGORIES =	www
 PKG_ARCH =	*
-REVISION =	0
+REVISION =	1
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	https://www.davical.org/downloads/
 

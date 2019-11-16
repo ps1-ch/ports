@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.526 2019/06/07 15:02:54 edd Exp $
+# $OpenBSD: Makefile,v 1.539 2019/11/12 15:18:32 bket Exp $
 
      SUBDIR =
      SUBDIR += accountsservice
@@ -13,8 +13,6 @@
      SUBDIR += arm-trusted-firmware
      SUBDIR += augeas
      SUBDIR += autossh
-     SUBDIR += awless
-     SUBDIR += aws-shell
      SUBDIR += awscli
      SUBDIR += backuppc
      SUBDIR += bacula
@@ -217,6 +215,7 @@
      SUBDIR += p5-Rex
      SUBDIR += p5-Schedule-At
      SUBDIR += p5-Set-Crontab
+     SUBDIR += p5-Sys-MemInfo
      SUBDIR += p5-Sys-Syscall
      SUBDIR += p5-Sys-Virt
      SUBDIR += p5-UPS-Nut
@@ -244,12 +243,16 @@
      SUBDIR += py-daemon
      SUBDIR += py-daemonize
      SUBDIR += py-daemonize,python3
+     SUBDIR += py-distro
      SUBDIR += py-elasticsearch-curator
      SUBDIR += py-ghmi
      SUBDIR += py-ghmi,python3
+     SUBDIR += py-joblib
      SUBDIR += py-lockfile
      SUBDIR += py-lockfile,python3
      SUBDIR += py-metlog
+     SUBDIR += py-packaging
+     SUBDIR += py-packaging,python3
      SUBDIR += py-parallel-ssh
      SUBDIR += py-parallel-ssh,python3
      SUBDIR += py-prometheus_client
@@ -264,6 +267,8 @@
      SUBDIR += py-statgrab,python3
      SUBDIR += py-tsk
      SUBDIR += py-tsk,python3
+     SUBDIR += py-vmomi
+     SUBDIR += py-vmomi,python3
      SUBDIR += radiusreport
      SUBDIR += radmind
      SUBDIR += rancid
@@ -276,6 +281,7 @@
      SUBDIR += rdiff-backup
      SUBDIR += reed-alert
      SUBDIR += remotebox
+     SUBDIR += reposync
      SUBDIR += resmon
      SUBDIR += restic
      SUBDIR += restic-rest-server
@@ -316,6 +322,7 @@
      SUBDIR += shunt
      SUBDIR += simple-mtpfs
      SUBDIR += skill
+     SUBDIR += slant
      SUBDIR += sleuthkit
      SUBDIR += smartmontools
      SUBDIR += smbldap-tools
@@ -345,6 +352,7 @@
      SUBDIR += tenshi
      SUBDIR += tentakel
      SUBDIR += terraform
+     SUBDIR += terragrunt
      SUBDIR += testdisk
      SUBDIR += tkdvd
      SUBDIR += tmate
@@ -363,6 +371,7 @@
      SUBDIR += u-boot,aarch64
      SUBDIR += uefitool
      SUBDIR += udfclient
+     SUBDIR += unionfs-fuse
      SUBDIR += upower
      SUBDIR += upobsd
      SUBDIR += upt
@@ -383,10 +392,12 @@
      SUBDIR += xbatt
      SUBDIR += xbattbar
      SUBDIR += xbattmon
+     SUBDIR += xe
      SUBDIR += xjobs
      SUBDIR += xps
      SUBDIR += xstatbar
      SUBDIR += xuvmstat
+     SUBDIR += xxhash
      SUBDIR += yabitrot
      SUBDIR += yank
      SUBDIR += zap

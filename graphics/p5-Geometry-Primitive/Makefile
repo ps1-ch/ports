@@ -1,15 +1,14 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2017/08/04 09:55:58 bluhm Exp $
+# $OpenBSD: Makefile,v 1.3 2019/07/17 14:46:32 danj Exp $
 
 COMMENT =	primitive geometry entities for Perl
 
 DISTNAME =	Geometry-Primitive-0.24
+REVISION =	0
 
 CATEGORIES =	graphics
 
-MAINTAINER =		Matthias Pitzl <pitzl@genua.de>
-
 # Perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		cpan
 RUN_DEPENDS =		devel/p5-Check-ISA>=0.04 \

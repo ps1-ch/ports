@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.41 2019/05/13 12:58:58 solene Exp $
+# $OpenBSD: Makefile,v 1.43 2019/09/16 06:24:18 solene Exp $
 
 # not yet ported to other arches
 ONLY_FOR_ARCHS =	amd64 i386 powerpc
@@ -6,7 +6,7 @@ USE_WXNEEDED =		Yes
 
 COMMENT=		compiler and runtime system for ANSI Common Lisp
 
-V =			1.5.2
+V =			1.5.5
 DISTNAME=		sbcl-${V}-source
 PKGNAME=		sbcl-${V}
 WRKDIST=		${WRKDIR}/sbcl-${V}
@@ -17,7 +17,7 @@ HOMEPAGE=		http://www.sbcl.org/
 MAINTAINER =		Joshua Elsasser <josh@elsasser.org>
 
 # Public domain and BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=sbcl/}
 

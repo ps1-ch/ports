@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.40 2019/06/11 19:28:45 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.42 2019/07/20 16:31:07 naddy Exp $
 
 COMMENT=		addressbook program with mutt support
 
@@ -9,7 +9,7 @@ CATEGORIES=		mail
 HOMEPAGE=		http://abook.sourceforge.net/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c curses iconv intl readline
 
@@ -20,8 +20,7 @@ LIB_DEPENDS=		converters/libiconv \
 
 CONFIGURE_STYLE=	autoreconf
 
-BUILD_DEPENDS=		devel/gettext,-tools \
-			archivers/xz
+BUILD_DEPENDS=		devel/gettext,-tools
 AUTOCONF_VERSION=	2.69
 AUTOMAKE_VERSION=	1.14
 

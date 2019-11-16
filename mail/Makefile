@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.380 2019/06/07 20:17:55 sthen Exp $
+# $OpenBSD: Makefile,v 1.385 2019/09/15 17:23:47 afresh1 Exp $
 
      SUBDIR =
      SUBDIR += abook
@@ -31,6 +31,7 @@
      SUBDIR += cue
      SUBDIR += cyrus-imapd
      SUBDIR += dkimproxy
+     SUBDIR += dma
      SUBDIR += dovecot
      SUBDIR += dovecot-pigeonhole
      SUBDIR += dspam
@@ -113,6 +114,7 @@
      SUBDIR += opendkim
      SUBDIR += opendmarc
      SUBDIR += opensmtpd-extras
+     SUBDIR += opensmtpd-filters
      SUBDIR += osbf-lua
      SUBDIR += p5-Catalyst-Plugin-Email
      SUBDIR += p5-Email-Abstract
@@ -149,6 +151,7 @@
      SUBDIR += p5-MIME-tools
      SUBDIR += p5-Mail-Alias
      SUBDIR += p5-Mail-Audit
+     SUBDIR += p5-Mail-AuthenticationResults
      SUBDIR += p5-Mail-Box
      SUBDIR += p5-Mail-DKIM
      SUBDIR += p5-Mail-DKIM-Iterator

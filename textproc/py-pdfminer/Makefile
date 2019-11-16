@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2017/01/20 09:49:19 feinerer Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/04 09:55:46 feinerer Exp $
 
 COMMENT =	PDF parser and analyzer
 
-MODPY_EGG_VERSION =	20140328
+MODPY_EGG_VERSION =	20191103
 DISTNAME =		pdfminer-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
 
@@ -13,9 +13,11 @@ HOMEPAGE =	http://www.unixuser.org/~euske/python/pdfminer/
 MAINTAINER =		Ingo Feinerer <feinerer@logic.at>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
+MODPY_VERSION =		${MODPY_DEFAULT_VERSION_3}
+MODPY_SETUPTOOLS =	Yes
 MODPY_PI =		Yes
 
 TEST_FLAGS =		PYTHON=${MODPY_BIN}

@@ -1,11 +1,12 @@
-$OpenBSD: patch-nspr_pr_src_linking_prlink_c,v 1.3 2015/03/16 19:39:45 landry Exp $
+$OpenBSD: patch-nspr_pr_src_linking_prlink_c,v 1.5 2019/10/23 19:28:36 landry Exp $
 If dlopen() fails, retry with everything stripped after .so
 https://bugzilla.mozilla.org/show_bug.cgi?id=650772
---- nspr/pr/src/linking/prlink.c.orig	Thu Jan 22 21:44:59 2015
-+++ nspr/pr/src/linking/prlink.c	Mon Mar 16 20:25:03 2015
-@@ -11,6 +11,10 @@
- #include <image.h>
- #endif
+Index: nspr/pr/src/linking/prlink.c
+--- nspr/pr/src/linking/prlink.c.orig
++++ nspr/pr/src/linking/prlink.c
+@@ -7,6 +7,10 @@
+ 
+ #include <string.h>
  
 +#if defined(OPENBSD)
 +#include <limits.h> /* for PATH_MAX */
@@ -14,21 +15,21 @@ https://bugzilla.mozilla.org/show_bug.cgi?id=650772
  #if defined(XP_MACOSX) && defined(USE_MACH_DYLD)
  #include <Carbon/Carbon.h>
  #include <CoreFoundation/CoreFoundation.h>
-@@ -777,6 +781,10 @@ pr_LoadLibraryByPathname(const char *name, PRIntn flag
+@@ -775,6 +779,10 @@ pr_LoadLibraryByPathname(const char *name, PRIntn flag
  #else
-     int dl_flags = 0;
+         int dl_flags = 0;
  #endif
 +#if defined(OPENBSD)
 +    char sname[PATH_MAX];
 +    char *c;
 +#endif
-     void *h = NULL;
+         void *h = NULL;
  
-     if (flags & PR_LD_LAZY) {
-@@ -801,7 +809,18 @@ pr_LoadLibraryByPathname(const char *name, PRIntn flag
+         if (flags & PR_LD_LAZY) {
+@@ -799,7 +807,18 @@ pr_LoadLibraryByPathname(const char *name, PRIntn flag
          }
  #else
-     h = dlopen(name, dl_flags);
+         h = dlopen(name, dl_flags);
 +#if defined(OPENBSD)
 +    /* On OpenBSD, we don't know what can be major.minor in libfoo.so.major.minor */
 +    /* but ld.so is smart enough to open the correct lib when asked for libfoo.so */
@@ -42,17 +43,17 @@ https://bugzilla.mozilla.org/show_bug.cgi?id=650772
  #endif
 +#endif
  #elif defined(USE_HPSHL)
-     int shl_flags = 0;
-     shl_t h;
-@@ -832,7 +851,11 @@ pr_LoadLibraryByPathname(const char *name, PRIntn flag
-         PR_DELETE(lm);
-         goto unlock;
-     }
+         int shl_flags = 0;
+         shl_t h;
+@@ -830,7 +849,11 @@ pr_LoadLibraryByPathname(const char *name, PRIntn flag
+             PR_DELETE(lm);
+             goto unlock;
+         }
 +#if defined(OPENBSD)
-+    lm->name = strdup(sname);
++        lm->name = strdup(sname);
 +#else
-     lm->name = strdup(name);
+         lm->name = strdup(name);
 +#endif
-     lm->dlh = h;
-     lm->next = pr_loadmap;
-     pr_loadmap = lm;
+         lm->dlh = h;
+         lm->next = pr_loadmap;
+         pr_loadmap = lm;

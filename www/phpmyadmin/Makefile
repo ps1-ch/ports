@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.134 2019/04/03 06:49:01 giovanni Exp $
+# $OpenBSD: Makefile,v 1.138 2019/11/02 13:41:07 giovanni Exp $
 
 COMMENT=	tool to handle the administration of MySQL over the web
 
-V=		4.8.5
+V=		4.9.1
 
 PKGNAME=	phpMyAdmin-$V
 DISTNAME=	phpMyAdmin-$V-all-languages
@@ -14,7 +14,7 @@ PORTROACH=	site:https://www.phpmyadmin.net/files/
 MAINTAINER=	Giovanni Bechis <giovanni@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	http://files.phpmyadmin.net/phpMyAdmin/${V}/
 
@@ -28,7 +28,6 @@ SUBST_VARS=	INSTDIR V VARBASE
 
 MODULES=	lang/php
 RUN_DEPENDS=	lang/php/${MODPHP_VERSION},-mysqli \
-		lang/php/${MODPHP_VERSION},-mcrypt \
 		lang/php/${MODPHP_VERSION},-gd
 
 post-extract:

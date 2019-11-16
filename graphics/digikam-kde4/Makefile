@@ -1,4 +1,6 @@
-# $OpenBSD: Makefile,v 1.39 2019/05/20 22:15:12 naddy Exp $
+# $OpenBSD: Makefile,v 1.41 2019/07/12 20:46:57 sthen Exp $
+
+BROKEN=	ninja: multiple rules generate /usr/obj/ports/digikam-kde4-4.13.0/digikam-4.13.0/core/cmake/templates/Info.plist.cmake.in
 
 COMMENT-face =		face detection library for KDE4
 COMMENT-libkipi =	KDE4 image plugins infrastructure
@@ -37,7 +39,7 @@ REVISION-mediawiki =	8
 REVISION-face =		4
 
 # LGPL, GPL and many others
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 SHARED_LIBS =	kipiplugins		0.1
 SHARED_LIBS +=  digikamcore		0.1

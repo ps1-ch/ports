@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.58 2019/05/20 22:15:02 naddy Exp $
+# $OpenBSD: Makefile,v 1.60 2019/07/16 21:29:41 sthen Exp $
 
 COMMENT=	GNU parser generator
 
@@ -6,12 +6,12 @@ DISTNAME=	bison-3.3.2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=bison/}
 EXTRACT_SUFX=	.tar.xz
-REVISION=	0
+REVISION=	1
 
 HOMEPAGE=	https://www.gnu.org/software/bison/
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c iconv intl m
 

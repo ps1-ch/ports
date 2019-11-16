@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.112 2017/11/02 17:52:26 naddy Exp $
+# $OpenBSD: Makefile,v 1.114 2019/07/12 20:48:55 sthen Exp $
 
 COMMENT=	GNU PostScript interpreter
 
@@ -8,7 +8,9 @@ CATEGORIES=	print lang
 SHARED_LIBS=	gs	15.0
 REVISION=	7
 
-MASTER_SITES=	http://downloads.ghostscript.com/public/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ghostscript/}
+
+PORTROACH=	site:https://github.com/ArtifexSoftware/ghostpdl-downloads/releases
 
 HOMEPAGE=	http://www.cs.wisc.edu/~ghost/
 
@@ -23,7 +25,7 @@ SUBST_VARS=	VERSION FLAVOR_STRING
 
 # AGPLv3, except for the included CMap files from Adobe, which may
 # only be redistributed without modifications.
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c iconv ijs m jbig2dec jpeg>=62 lcms2 png>=6 pthread tiff z
 

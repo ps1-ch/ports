@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.3 2019/04/30 19:42:02 fcambus Exp $
+# $OpenBSD: Makefile,v 1.7 2019/10/14 11:56:39 fcambus Exp $
 
 COMMENT =	library for converting ANSI, ASCII, and other formats to PNG
 
-V =		1.1.2
+V =		1.1.5
 DISTNAME =	libansilove-${V}
 
 SHARED_LIBS +=	ansilove	0.0 # 1.1
@@ -14,7 +14,7 @@ HOMEPAGE =	https://www.ansilove.org/
 MAINTAINER =	Frederic Cambus <fcambus@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	https://github.com/ansilove/libansilove/releases/download/${V}/
 

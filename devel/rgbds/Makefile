@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.3 2019/02/20 06:24:30 bentley Exp $
+# $OpenBSD: Makefile,v 1.5 2019/11/01 17:38:04 bentley Exp $
 
 FIX_EXTRACT_PERMISSIONS =	Yes
 
 COMMENT =	Game Boy development system
 
-V =		0.3.8
+V =		0.3.9
 DISTNAME =	rgbds-$V
 
 CATEGORIES =	devel
@@ -14,7 +14,7 @@ HOMEPAGE =	https://rednex.github.io/rgbds/
 MAINTAINER =	Anthony J. Bentley <anthony@anjbe.name>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # uses pledge()
 WANTLIB += c m png z

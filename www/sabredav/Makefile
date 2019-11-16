@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.20 2018/10/17 14:15:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.22 2019/09/26 21:59:31 sthen Exp $
 
 V =		1.8.7
 COMMENT =	php5 WebDAV server
@@ -7,12 +7,12 @@ PKGNAME =	${DISTNAME:L}
 PKG_ARCH =	*
 EXTRACT_SUFX =	.zip
 CATEGORIES =	www
-REVISION =	5
+REVISION =	6
 
 HOMEPAGE =	http://sabre.io/dav/
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		https://github.com/sabre-io/dav/releases/download/$V/
 

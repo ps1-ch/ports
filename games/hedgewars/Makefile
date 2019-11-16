@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.22 2019/03/08 20:00:46 cwen Exp $
+# $OpenBSD: Makefile,v 1.24 2019/09/30 12:52:39 kili Exp $
 
 BROKEN-i386 =		Could NOT find GLEW (missing: GLEW_LIBRARY GLEW_INCLUDE_DIR)
 
@@ -15,7 +15,7 @@ DISTNAME =		hedgewars-src-$V
 PKGNAME-main =		hedgewars-$V
 PKGNAME-server =	hedgewars-server-$V
 REVISION-main =		0
-REVISION-server =	0
+REVISION-server =	1
 
 CATEGORIES =		games
 
@@ -24,7 +24,7 @@ HOMEPAGE =		http://www.hedgewars.org/
 MAINTAINER =		Pascal Stumpf <pascal@stumpf.co>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB-main += ${COMPILER_LIBCXX} Qt5Core Qt5Gui Qt5Network Qt5Widgets
 WANTLIB-main += SDL2 SDL2_image SDL2_mixer SDL2_net SDL2_ttf c ${MODLUA_WANTLIB}
@@ -33,7 +33,7 @@ WANTLIB-main += m physfs png z
 # dlopen()ed; do not remove.
 WANTLIB-main += GL GLU glut
 
-WANTLIB-server += c iconv m
+WANTLIB-server += c ffi gmp iconv m
 
 COMPILER =		base-clang ports-gcc base-gcc
 
@@ -68,7 +68,9 @@ LIB_DEPENDS-main =	devel/sdl2-image \
 			${MODQT5_LIB_DEPENDS} \
 			${MODLUA_LIB_DEPENDS}
 
-LIB_DEPENDS-server =	converters/libiconv
+LIB_DEPENDS-server =	converters/libiconv \
+			devel/gmp \
+			devel/libffi
 
 CONFIGURE_ARGS +=	-DNOVIDEOREC=ON
 

@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.12 2019/05/02 10:20:32 chrisz Exp $
+# $OpenBSD: Makefile,v 1.17 2019/10/03 05:28:31 chrisz Exp $
 
 COMMENT =		OCaml source-based package manager
 
 CATEGORIES =		sysutils devel
 
-V =			2.0.4
+V =			2.0.5
+REVISION =		1
 PKGNAME =		opam-${V}
 DISTNAME =		opam-full-${V}
 
@@ -15,13 +16,14 @@ HOMEPAGE =		https://opam.ocaml.org/
 MAINTAINER =		Christopher Zimmermann <chrisz@openbsd.org>
 
 # LGPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		${COMPILER_LIBCXX} c m
 
-#MODULES =		lang/ocaml
-
-BUILD_DEPENDS =		lang/ocaml
+BUILD_DEPENDS =		lang/ocaml \
+			sysutils/findlib \
+			devel/dune \
+			devel/ocaml-cppo
 
 RUN_DEPENDS =		archivers/unzip \
 			archivers/bzip2 \
@@ -33,19 +35,14 @@ RUN_DEPENDS =		archivers/unzip \
 USE_GMAKE =		Yes
 
 CONFIGURE_ENV +=	CFLAGS="${CFLAGS}" \
-			LDFLAGS="${LDFLAGS}" \
-			CC=cc
-CONFIGURE_STYLE =	gnu autoconf no-autoheader
-AUTOCONF_VERSION =	2.69
+			LDFLAGS="${LDFLAGS}"
+CONFIGURE_STYLE =	gnu
 
 ALL_TARGET =		lib-ext all man #doc requires odoc
 INSTALL_TARGET =	install
 TEST_TARGET =		tests
 
 docdir =		${PREFIX}/share/doc/opam
-
-#pre-configure:
-#	cd ${WRKSRC} && env ${CONFIGURE_ENV} ${GMAKE} compiler
 
 post-install:
 	mv	${PREFIX}/doc/opam-installer \

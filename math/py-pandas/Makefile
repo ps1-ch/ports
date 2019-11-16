@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.7 2019/05/15 12:04:39 kmos Exp $
+# $OpenBSD: Makefile,v 1.10 2019/10/05 16:28:41 kmos Exp $
 
 COMMENT =		data analysis and manipulation library
 
-MODPY_EGG_VERSION =	0.23.4
+MODPY_EGG_VERSION =	0.24.2
+REVISION =		0
 DISTNAME =		pandas-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
-REVISION =		3
 
 CATEGORIES =		math
 
 HOMEPAGE =		https://pandas.pydata.org/
 
 # BSD 3-Clause
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 FLAVORS =		python3
 FLAVOR ?=
@@ -27,7 +27,8 @@ WANTLIB +=		${COMPILER_LIBCXX} m ${MODPY_WANTLIB}
 
 COMPILER =		base-clang ports-gcc base-gcc
 
-BUILD_DEPENDS +=	math/py-numpy${MODPY_FLAVOR}>=1.9.0
+BUILD_DEPENDS +=	lang/cython${MODPY_FLAVOR} \
+			math/py-numpy${MODPY_FLAVOR}>=1.9.0
 
 RUN_DEPENDS +=		devel/py-dateutil${MODPY_FLAVOR}>=2.5.0 \
 			devel/py-tz${MODPY_FLAVOR} \
@@ -39,6 +40,7 @@ TEST_DEPENDS +=		databases/py-mysqlclient${MODPY_FLAVOR} \
 			databases/py-sqlalchemy${MODPY_FLAVOR} \
 			devel/ipython${MODPY_FLAVOR} \
 			devel/py-html5lib${MODPY_FLAVOR} \
+			devel/py-hypothesis${MODPY_FLAVOR} \
 			devel/py-ipykernel${MODPY_FLAVOR} \
 			devel/py-pathlib${MODPY_FLAVOR} \
 			devel/py-xlsxwriter${MODPY_FLAVOR} \
@@ -56,6 +58,8 @@ TEST_DEPENDS +=		databases/py-mysqlclient${MODPY_FLAVOR} \
 
 TEST_ENV +=		TZ=UTC
 
+# XXX tarball does not include all files required for the test suite, as such
+# numerous tests fail.
 do-test:
 	cd ${WRKSRC} && ${MODPY_CMD} build_ext --inplace
 	@${MODPY_TEST_TARGET}

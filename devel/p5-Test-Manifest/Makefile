@@ -1,16 +1,15 @@
-# $OpenBSD: Makefile,v 1.12 2018/08/23 18:37:54 jasper Exp $
+# $OpenBSD: Makefile,v 1.14 2019/11/03 14:07:42 jasper Exp $
 
 COMMENT=		interact with a t/test_manifest file
 
 MODULES=		cpan
 PKG_ARCH=		*
 DISTNAME=		Test-Manifest-2.021
+REVISION=		0
 CATEGORIES=		devel
 
-MAINTAINER=		Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # perl
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MAKE_ENV=		TEST_POD=Yes
 

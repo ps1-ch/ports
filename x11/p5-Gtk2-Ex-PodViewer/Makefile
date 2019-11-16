@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.10 2016/03/20 19:57:24 naddy Exp $
+# $OpenBSD: Makefile,v 1.12 2019/07/17 14:39:44 danj Exp $
 
 COMMENT =		Gtk2 widget for displaying Plain old Documentation (POD)
 
 MODULES =		cpan
 PKG_ARCH =		*
 DISTNAME =		Gtk2-Ex-PodViewer-0.18
-REVISION =		2
+REVISION =		3
 CATEGORIES =		x11
 
-MAINTAINER =		James Wright <jamesw@bsdhosting.co.za>
-
 # Perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # No tests defined for Gtk2::Ex::PodViewer extension.
 NO_TEST =		Yes

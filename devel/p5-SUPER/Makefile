@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.9 2016/03/20 19:56:33 naddy Exp $
+# $OpenBSD: Makefile,v 1.11 2019/08/18 18:43:53 afresh1 Exp $
 
 COMMENT=	module for controlling superclass method dispatch
 
-DISTNAME=	SUPER-1.17
-REVISION=	1
+DISTNAME=	SUPER-1.20190531
 
 CATEGORIES=	devel
 
 # perl
-PERMIT_PACKAGE_CDROM=   Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	cpan
 PKG_ARCH=	*
-BUILD_DEPENDS=	${RUN_DEPENDS}
+
 RUN_DEPENDS=	devel/p5-Sub-Identify
 
 CONFIGURE_STYLE=modbuild

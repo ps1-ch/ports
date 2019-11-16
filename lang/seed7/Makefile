@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.74 2019/06/15 17:19:03 bcallah Exp $
+# $OpenBSD: Makefile,v 1.77 2019/08/28 20:25:24 bcallah Exp $
 
 COMMENT =	high-level, extensible programming language
 
-V =		20190610
+V =		20190819
 DISTNAME =	seed7_05_${V}
 PKGNAME =	seed7-${V}
 
@@ -13,7 +13,7 @@ MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # Interpreter and example programs: GPLv2+
 # Runtime libraries: LGPLv2.1
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += X11 c curses m
 

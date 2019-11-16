@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.600 2019/06/15 14:33:53 robert Exp $
+# $OpenBSD: Makefile,v 1.608 2019/11/05 18:01:51 kn Exp $
 
      SUBDIR =
      SUBDIR += TclXML
@@ -41,6 +41,7 @@
      SUBDIR += elasticsearch
      SUBDIR += enchant
      SUBDIR += enchant2
+     SUBDIR += epubcheck
      SUBDIR += exempi
      SUBDIR += extract_url
      SUBDIR += fcbanner
@@ -60,7 +61,6 @@
      SUBDIR += gtkspell
      SUBDIR += gtkspell3
      SUBDIR += gtranslator
-     SUBDIR += gxml
      SUBDIR += halibut
      SUBDIR += heirloom-doctools
      SUBDIR += hevea
@@ -73,7 +73,6 @@
      SUBDIR += hs-json
      SUBDIR += hs-libxml-sax
      SUBDIR += hs-polyparse
-     SUBDIR += hs-stringsearch
      SUBDIR += hs-wl-pprint-text
      SUBDIR += hs-xml
      SUBDIR += hs-xml-types
@@ -354,8 +353,6 @@
      SUBDIR += pplatex
      SUBDIR += pugixml
      SUBDIR += pup
-     SUBDIR += py-Chart
-     SUBDIR += py-HappyDoc
      SUBDIR += py-ICU
      SUBDIR += py-ICU,python3
      SUBDIR += py-MarkupSafe
@@ -392,14 +389,12 @@
      SUBDIR += py-emoji,python3
      SUBDIR += py-enchant
      SUBDIR += py-enchant,python3
-     SUBDIR += py-epydoc
      SUBDIR += py-feedparser
      SUBDIR += py-feedparser,python3
      SUBDIR += py-humanize
      SUBDIR += py-humanize,python3
      SUBDIR += py-iso8601
      SUBDIR += py-iso8601,python3
-     SUBDIR += py-jaxml
      SUBDIR += py-jellyfish
      SUBDIR += py-jellyfish,python3
      SUBDIR += py-lxml
@@ -439,7 +434,8 @@
      SUBDIR += py-pykwalify,python3
      SUBDIR += py-rdflib
      SUBDIR += py-rdflib,python3
-     SUBDIR += py-rtf
+     SUBDIR += py-recommonmark
+     SUBDIR += py-recommonmark,python3
      SUBDIR += py-ruamel.yaml
      SUBDIR += py-ruamel.yaml,python3
      SUBDIR += py-semver
@@ -454,6 +450,8 @@
      SUBDIR += py-sphinx,python3
      SUBDIR += py-sphinx-intl
      SUBDIR += py-sphinx-intl,python3
+     SUBDIR += py-sphinx-notfound-page
+     SUBDIR += py-sphinx-notfound-page,python3
      SUBDIR += py-sphinx_guzzle_theme
      SUBDIR += py-sphinx_guzzle_theme,python3
      SUBDIR += py-sphinx_rtd_theme
@@ -568,6 +566,7 @@
      SUBDIR += xpdf
      SUBDIR += xxdiff
      SUBDIR += yould
+     SUBDIR += yq
      SUBDIR += zathura
      SUBDIR += zoem
 

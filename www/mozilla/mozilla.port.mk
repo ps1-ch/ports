@@ -1,4 +1,4 @@
-# $OpenBSD: mozilla.port.mk,v 1.124 2019/03/19 19:22:42 landry Exp $
+# $OpenBSD: mozilla.port.mk,v 1.127 2019/09/22 17:19:06 sthen Exp $
 
 # ppc: firefox-esr/thunderbird xpcshell segfaults during startup compilation
 # ppc: seamonkey/firefox - failure to link for atomic ops on 64 bits
@@ -8,7 +8,14 @@
 # seamonkey-2.22/comm-release/mozilla/js/src/vm/Interpreter.cpp:743
 # firefox-25.0/mozilla-release/js/src/builtin/MapObject.cpp:1119
 
+.if ${MACHINE_ARCH} == "i386"
+MAKE_ENV +=		RUSTFLAGS="-C target-cpu=pentium4 --cfg target_feature=\"sse2\""
+# reduce build memory usage:
+CONFIGURE_ARGS +=	--disable-debug-symbols
+DPB_PROPERTIES +=	lonesome
+.else
 DPB_PROPERTIES +=	parallel
+.endif
 
 .for _lib in ${MOZILLA_LIBS}
 SHARED_LIBS +=	${_lib}	${SO_VERSION}
@@ -54,13 +61,13 @@ MODMOZ_BUILD_DEPENDS =	devel/autoconf/2.13 \
 			archivers/zip>=2.3
 
 .if !defined(MOZILLA_USE_BUNDLED_NSS)
-MODMOZ_LIB_DEPENDS +=	security/nss>=3.42
+MODMOZ_LIB_DEPENDS +=	security/nss>=3.45
 MODMOZ_WANTLIB +=	nss3 nssutil3 smime3 ssl3
 CONFIGURE_ARGS +=	--with-system-nss
 .endif
 
 .if !defined(MOZILLA_USE_BUNDLED_NSPR)
-MODMOZ_LIB_DEPENDS +=	devel/nspr>=4.18
+MODMOZ_LIB_DEPENDS +=	devel/nspr>=4.21
 MODMOZ_WANTLIB +=	nspr4 plc4 plds4
 CONFIGURE_ARGS +=	--with-system-nspr
 .endif
@@ -84,7 +91,7 @@ CONFIGURE_ARGS +=	--with-system-hunspell
 
 .if !defined(MOZILLA_USE_BUNDLED_SQLITE)
 MODMOZ_WANTLIB +=	sqlite3
-MODMOZ_LIB_DEPENDS +=	databases/sqlite3>=3.26.0
+MODMOZ_LIB_DEPENDS +=	databases/sqlite3>=3.28
 CONFIGURE_ARGS +=	--enable-system-sqlite
 # hack to build against systemwide sqlite3 (# 546162)
 CONFIGURE_ENV +=	ac_cv_sqlite_secure_delete=yes

@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: State.pm,v 1.25 2019/05/11 15:31:12 espie Exp $
+# $OpenBSD: State.pm,v 1.28 2019/10/22 16:02:08 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -47,7 +47,8 @@ sub init
 	$self->{no_exports} = 1;
 	$self->{heuristics} = DPB::Heuristics->new($self);
 	$self->{make} = $ENV{MAKE} || OpenBSD::Paths->make;
-	$self->{starttime} = time();
+	$self->{starttime} = CORE::time();
+	$self->{master_pid} = $$;
 
 	return $self;
 }
@@ -74,27 +75,28 @@ sub anchor
 sub expand_path
 {
 	my ($self, $path) = @_;
+	return $self->expand_path_with_ports($path, $self->{realports});
+}
+
+sub expand_path_with_ports
+{
+	my ($self, $path, $ports) = @_;
 	$path =~ s/\%L/$self->{logdir}/g;
-	$path =~ s/\%p/$self->{realports}/g;
-	$path =~ s/\%h/DPB::Core::Local->hostname/ge;
+	$path =~ s/\%p/$ports/g;
+	$path =~ s/\%h/DPB::Core::Local->short_hostname/ge;
 	$path =~ s/\%a/$self->{arch}/g;
 	$path =~ s/\%t/$self->{starttime}/g;
 	$path =~ s/\%d/$self->startdate/ge;
 	$path =~ s/\%f/$self->{realdistdir}/g;
+	$path =~ s/\%\$/$self->{master_pid}/g;
 	return $path;
 }
+
 
 sub expand_chrooted_path
 {
 	my ($self, $path) = @_;
-	$path =~ s/\%L/$self->{logdir}/g;
-	$path =~ s/\%p/$self->{ports}/g;
-	$path =~ s/\%h/DPB::Core::Local->hostname/ge;
-	$path =~ s/\%a/$self->{arch}/g;
-	$path =~ s/\%t/$self->{starttime}/g;
-	$path =~ s/\%d/$self->startdate/ge;
-	$path =~ s/\%f/$self->{distdir}/g;
-	return $path;
+	return $self->expand_path_with_ports($path, $self->{ports});
 }
 
 sub interpret_path

@@ -1,12 +1,12 @@
-# $OpenBSD: Makefile,v 1.15 2016/03/20 19:56:48 naddy Exp $
+# $OpenBSD: Makefile,v 1.17 2019/07/26 14:56:31 sthen Exp $
 
 COMMENT =		basic descriptive statistical functions
 
-DISTNAME =		Statistics-Descriptive-3.0612
+DISTNAME =		Statistics-Descriptive-3.0702
 CATEGORIES =		math
 
 # perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		cpan
 PKG_ARCH =		*

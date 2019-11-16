@@ -1,17 +1,17 @@
-# $OpenBSD: Makefile,v 1.5 2019/05/20 20:52:36 sthen Exp $
+# $OpenBSD: Makefile,v 1.7 2019/07/12 20:49:53 sthen Exp $
 
 COMMENT =	instant terminal sharing based on tmux
 
 GH_ACCOUNT =	tmate-io
 GH_PROJECT =	tmate
 GH_TAGNAME =	2.2.1
-REVISION =	1
+REVISION =	2
 CATEGORIES =	sysutils
 
 MAINTAINER =	Wesley MOUEDINE ASSABY <milo974@gmail.com>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c event_core event_extra msgpackc curses ssh util
 

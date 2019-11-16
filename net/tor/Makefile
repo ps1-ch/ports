@@ -1,15 +1,15 @@
-# $OpenBSD: Makefile,v 1.124 2019/05/14 21:10:03 pascal Exp $
+# $OpenBSD: Makefile,v 1.126 2019/09/23 13:52:05 pascal Exp $
 
 COMMENT=	anonymity service using onion routing
 
-DISTNAME=	tor-0.4.0.5
+DISTNAME=	tor-0.4.1.6
 CATEGORIES=	net
 HOMEPAGE=	https://www.torproject.org/
 
 MAINTAINER=	Pascal Stumpf <pascal@stumpf.co>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c crypto event_core event_extra m pthread ssl z
 

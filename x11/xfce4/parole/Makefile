@@ -1,13 +1,13 @@
-# $OpenBSD: Makefile,v 1.50 2019/06/07 18:12:10 landry Exp $
+# $OpenBSD: Makefile,v 1.52 2019/08/15 06:54:53 landry Exp $
 
 COMMENT =	Xfce4 media player
 
-XFCE_VERSION =	1.0.2
+XFCE_VERSION =	1.0.4
 XFCE_GOODIE =	parole
 CATEGORIES +=	audio
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ICE SM X11 X11-xcb Xcomposite Xcursor Xdamage Xext Xfixes Xi
 WANTLIB += Xinerama Xrandr Xrender atk-1.0 atk-bridge-2.0 c cairo

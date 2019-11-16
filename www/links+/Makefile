@@ -1,7 +1,7 @@
-# $OpenBSD: Makefile,v 1.65 2019/05/02 03:01:25 bcallah Exp $
+# $OpenBSD: Makefile,v 1.67 2019/09/15 00:20:10 bcallah Exp $
 
 COMMENT=	graphics and text browser
-VER=		2.19
+VER=		2.20.1
 DISTNAME=	links-${VER}
 PKGNAME=	links+-${VER}
 CATEGORIES=	www
@@ -11,7 +11,7 @@ HOMEPAGE=	http://links.twibright.com/
 MAINTAINER=	Tim Meunier <trondd@kagu-tsuchi.com>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	bz2 c crypto event lzma pthread ssl z
 
@@ -21,7 +21,7 @@ LIB_DEPENDS=	archivers/bzip2 \
 		archivers/xz
 
 CONFIGURE_STYLE= gnu
-CONFIGURE_ARGS+= --with-ssl --without-brotli --without-lzip
+CONFIGURE_ARGS+= --with-ssl --without-brotli --without-lzip --without-zstd
 
 FLAVORS=	no_x11
 FLAVOR?=

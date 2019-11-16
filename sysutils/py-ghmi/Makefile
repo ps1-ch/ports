@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.23 2019/05/09 15:54:25 jasper Exp $
+# $OpenBSD: Makefile,v 1.25 2019/08/06 18:13:36 jasper Exp $
 
 COMMENT =		pure python IPMI protocol library
 
-MODPY_EGG_VERSION =	1.3.0
+MODPY_EGG_VERSION =	1.4.1
 DISTNAME =		pyghmi-${MODPY_EGG_VERSION}
 PKGNAME =		${DISTNAME:S/py/${MODPY_PY_PREFIX}/}
 
@@ -13,7 +13,7 @@ CATEGORIES =		sysutils
 HOMEPAGE =		https://github.com/openstack/pyghmi
 
 # Apache2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_PI =		Yes

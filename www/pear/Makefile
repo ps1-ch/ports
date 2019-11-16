@@ -1,25 +1,25 @@
-# $OpenBSD: Makefile,v 1.26 2018/10/17 14:15:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.28 2019/09/26 21:57:42 sthen Exp $
 
 COMMENT-main=	base classes for common PHP tasks
 COMMENT-utils=	utilities for managing pear extensions
 
-VERSION=	1.10.1
+VERSION=	1.10.9
 DISTNAME=	go-pear-${VERSION}
 PKGNAME=	pear-${VERSION}
+DISTFILES=	go-pear-${VERSION}{go-pear}.phar
 EXTRACT_SUFX=	.phar
 EXTRACT_ONLY=
 PKGNAME-main=	pear-${VERSION}
 PKGNAME-utils=	pear-utils-${VERSION}
-REVISION=	1
 WRKDIST=	${WRKDIR}
 CATEGORIES=	www devel
 
-HOMEPAGE=	http://pear.php.net/
-MASTER_SITES=	https://spacehopper.org/mirrors/
+HOMEPAGE=	https://pear.php.net/
+MASTER_SITES=	https://github.com/pear/pearweb_phars/raw/v${VERSION}/
 
 MAINTAINER=	Robert Nagy <robert@openbsd.org>
 
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MULTI_PACKAGES=		-main -utils
 
@@ -37,7 +37,7 @@ BUILD_DEPENDS=	devel/p5-Expect
 SUBST_VARS=	MODPHP_BIN
 
 do-extract:
-	cp ${FULLDISTDIR}/${DISTFILES} ${WRKSRC}/go-pear.phar
+	cp ${FULLDISTDIR}/go-pear-${VERSION}.phar ${WRKSRC}/go-pear.phar
 
 do-build:
 	cd ${WRKSRC}; perl ${FILESDIR}/run-go-pear ${WRKINST} ${PREFIX} ${MODPHP_BIN}

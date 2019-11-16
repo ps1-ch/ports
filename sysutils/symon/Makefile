@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.77 2018/12/12 13:34:31 sthen Exp $
+# $OpenBSD: Makefile,v 1.79 2019/07/12 20:49:52 sthen Exp $
 
 COMMENT-main=	active host monitoring tool
 COMMENT-mux=	symon data gatherer
@@ -8,15 +8,15 @@ DISTNAME=	symon-$V
 WRKDIST=	${WRKDIR}/symon
 PKGNAME-main=	${DISTNAME}
 FULLPKGNAME-mux= symux-$V
-REVISION-main=	4
-REVISION-mux=	2
+REVISION-main=	5
+REVISION-mux=	3
 
 CATEGORIES=	sysutils net
 
 HOMEPAGE=	http://www.xs4all.nl/~wpd/symon
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB-main=	c
 WANTLIB-mux=	c fontconfig pthread rrd

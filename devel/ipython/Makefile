@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.48 2019/04/28 20:51:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.51 2019/11/12 10:00:28 kmos Exp $
 
 COMMENT=		enhanced interactive Python shell
 
 MODPY_EGG_VERSION =	5.8.0
+REVISION =		1
 DISTNAME=		ipython-${MODPY_EGG_VERSION}
 CATEGORIES=		devel
 
@@ -18,7 +19,7 @@ RUN_DEPENDS =		devel/py-decorator${MODPY_FLAVOR} \
 			devel/py-traitlets${MODPY_FLAVOR}>=4.2 \
 			devel/desktop-file-utils \
 			devel/py-pexpect${MODPY_FLAVOR} \
-			devel/py-prompt_toolkit${MODPY_FLAVOR}>=1.0.4,<2.0.0 \
+			devel/py-prompt_toolkit${MODPY_FLAVOR}>=1.0.4v0,<2.0.0v0 \
 			textproc/py-pygments${MODPY_FLAVOR}
 
 # Note that if you have pdb++ installed, tests will fail.
@@ -35,7 +36,7 @@ TEST_DEPENDS =		${BASE_PKGPATH}=${MODPY_EGG_VERSION} \
 BUILD_DEPENDS +=	www/py-mako${MODPY_FLAVOR}
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODPY_PI =		Yes
 
@@ -50,7 +51,6 @@ RUN_DEPENDS +=		devel/py-backports-shutil-get-terminal-size \
 			devel/py-pathlib2
 TEST_DEPENDS +=		devel/py-mock
 .endif
-REVISION =		0
 
 # Despite the fact that setupbase.py defines paths for examples to
 # be installed into, we still have to do it manually for some reason.

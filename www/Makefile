@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.915 2019/06/15 12:47:22 robert Exp $
+# $OpenBSD: Makefile,v 1.934 2019/11/10 16:56:31 jeremy Exp $
 
      SUBDIR =
      SUBDIR += ajaxterm
@@ -25,6 +25,7 @@
      SUBDIR += cgiparse
      SUBDIR += cgit
      SUBDIR += chromium
+     SUBDIR += chromium,electron
      SUBDIR += cntlm
      SUBDIR += composer
      SUBDIR += cronolog
@@ -34,6 +35,7 @@
      SUBDIR += dokuwiki
      SUBDIR += drupal7
      SUBDIR += drush
+     SUBDIR += e2guardian
      SUBDIR += edbrowse
      SUBDIR += epiphany
      SUBDIR += erl-mochiweb
@@ -201,6 +203,7 @@
      SUBDIR += p5-Data-URIEncode
      SUBDIR += p5-Data-Page-Pageset
      SUBDIR += p5-Drupal-Admin
+     SUBDIR += p5-FCGI
      SUBDIR += p5-FCGI-ProcManager
      SUBDIR += p5-Feed-Find
      SUBDIR += p5-Gravatar-URL
@@ -211,6 +214,7 @@
      SUBDIR += p5-HTML-Clean
      SUBDIR += p5-HTML-Copy
      SUBDIR += p5-HTML-Display
+     SUBDIR += p5-HTML-Escape
      SUBDIR += p5-HTML-FillInForm
      SUBDIR += p5-HTML-Form
      SUBDIR += p5-HTML-FormFu
@@ -253,16 +257,17 @@
      SUBDIR += p5-HTML-Widget
      SUBDIR += p5-HTTP-Async
      SUBDIR += p5-HTTP-Body
-     SUBDIR += p5-HTTP-BrowserDetect
      SUBDIR += p5-HTTP-CookieJar
      SUBDIR += p5-HTTP-Cookies
      SUBDIR += p5-HTTP-DAV
      SUBDIR += p5-HTTP-Daemon
      SUBDIR += p5-HTTP-Date
+     SUBDIR += p5-HTTP-Entity-Parser
      SUBDIR += p5-HTTP-GetImages
      SUBDIR += p5-HTTP-Headers-Fast
      SUBDIR += p5-HTTP-Lite
      SUBDIR += p5-HTTP-Message
+     SUBDIR += p5-HTTP-MultiPartParser
      SUBDIR += p5-HTTP-Negotiate
      SUBDIR += p5-HTTP-Parser-XS
      SUBDIR += p5-HTTP-Proxy
@@ -317,8 +322,9 @@
      SUBDIR += p5-URI-Find
      SUBDIR += p5-W3C-LinkChecker
      SUBDIR += p5-WWW-Bugzilla
-     SUBDIR += p5-WWW-Curl
      SUBDIR += p5-WWW-Ebay
+     SUBDIR += p5-WWW-Form-UrlEncoded
+     SUBDIR += p5-WWW-Form-UrlEncoded-XS
      SUBDIR += p5-WWW-IndexParser
      SUBDIR += p5-WWW-Mechanize
      SUBDIR += p5-WWW-Mechanize-FormFiller
@@ -352,9 +358,6 @@
      SUBDIR += pecl-chroot,php71
      SUBDIR += pecl-chroot,php72
      SUBDIR += pecl-chroot,php73
-     SUBDIR += pecl-geoip,php71
-     SUBDIR += pecl-geoip,php72
-     SUBDIR += pecl-geoip,php73
      SUBDIR += pecl-memcached,php71
      SUBDIR += pecl-memcached,php72
      SUBDIR += pecl-memcached,php73
@@ -374,7 +377,7 @@
      SUBDIR += pecl-raphf,php73
      SUBDIR += pecl-ssh2,php71
      SUBDIR += pecl-ssh2,php72
-     #SUBDIR += pecl-ssh2,php73			# no 7.3 yet
+     SUBDIR += pecl-ssh2,php73
      SUBDIR += pelican
      SUBDIR += perlbal
      SUBDIR += php-markdown
@@ -402,13 +405,12 @@
      SUBDIR += py-bleach
      SUBDIR += py-bleach,python3
      SUBDIR += py-bokeh
-     SUBDIR += py-bokeh,python3
      SUBDIR += py-bottle
      SUBDIR += py-bottle,python3
      SUBDIR += py-cheroot
      SUBDIR += py-cheroot,python3
-     SUBDIR += py-cherrypy2
-     SUBDIR += py-clientform
+     SUBDIR += py-cookies
+     SUBDIR += py-cookies,python3
      SUBDIR += py-django
      SUBDIR += py-feedgenerator
      SUBDIR += py-feedgenerator,python3
@@ -429,7 +431,6 @@
      SUBDIR += py-genshi,python3
      SUBDIR += py-gunicorn
      SUBDIR += py-gunicorn,python3
-     SUBDIR += py-htmltmpl
      SUBDIR += py-http_ece
      SUBDIR += py-http_ece,python3
      SUBDIR += py-httpbin
@@ -449,7 +450,6 @@
      SUBDIR += py-mako
      SUBDIR += py-mako,python3
      SUBDIR += py-mastodon.py
-     SUBDIR += py-mastodon.py,python3
      SUBDIR += py-mechanize
      SUBDIR += py-meld3
      SUBDIR += py-meld3,python3
@@ -475,10 +475,14 @@
      SUBDIR += py-requests-oauthlib,python3
      SUBDIR += py-requests-toolbelt
      SUBDIR += py-requests-toolbelt,python3
+     SUBDIR += py-responses
+     SUBDIR += py-responses,python3
      SUBDIR += py-routes
      SUBDIR += py-selenium
      SUBDIR += py-selenium,python3
      SUBDIR += py-sockjs-tornado
+     SUBDIR += py-soupsieve
+     SUBDIR += py-soupsieve,python3
      SUBDIR += py-tempita
      SUBDIR += py-tempita,python3
      SUBDIR += py-terminado
@@ -498,6 +502,7 @@
      SUBDIR += py-webob
      SUBDIR += py-webob,python3
      SUBDIR += py-webpy
+     SUBDIR += py-webpy,python3
      SUBDIR += py-webtest
      SUBDIR += py-webtest,python3
      SUBDIR += py-werkzeug
@@ -540,6 +545,8 @@
      SUBDIR += ruby-raindrops,ruby25
      SUBDIR += ruby-raindrops,ruby26
      SUBDIR += ruby-sanitize
+     SUBDIR += ruby-sassc,ruby25
+     SUBDIR += ruby-sassc,ruby26
      SUBDIR += ruby-sinatra
      SUBDIR += ruby-thin,ruby25
      SUBDIR += ruby-thin,ruby26
@@ -610,5 +617,6 @@
      SUBDIR += wwwoffle
      SUBDIR += xapian-omega
      SUBDIR += youtube-dl
+     SUBDIR += zola
 
 .include <bsd.port.subdir.mk>

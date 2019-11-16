@@ -1,17 +1,18 @@
-# $OpenBSD: Makefile,v 1.12 2015/11/24 09:11:06 jasper Exp $
+# $OpenBSD: Makefile,v 1.14 2019/07/12 20:51:09 sthen Exp $
 
 COMMENT =		configuration utility for DRI drivers
 
 MODPY_EGG_VERSION =	0.9.1
 DISTNAME =		driconf-${MODPY_EGG_VERSION}
-REVISION=		5
+REVISION=		6
 CATEGORIES =		x11
 
-HOMEPAGE =		http://dri.freedesktop.org/wiki/DriConf
-MASTER_SITES =		https://distfiles.nl/
+HOMEPAGE =		https://dri.freedesktop.org/wiki/DriConf
+MASTER_SITES =		https://people.freedesktop.org/~fxkuehl/driconf/ \
+			https://distfiles.nl/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 RUN_DEPENDS =		x11/py-gtk2

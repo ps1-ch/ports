@@ -1,23 +1,20 @@
-# $OpenBSD: Makefile,v 1.6 2018/06/28 12:22:47 sthen Exp $
+# $OpenBSD: Makefile,v 1.8 2019/09/28 19:33:32 sthen Exp $
 
 PKG_ARCH=	*
 
 COMMENT=	patched fonts with symbols for powerline/airline
 
-V=		0.20151211
-DISTNAME=	powerline-fonts-$V
-REVISION=	0
+GH_ACCOUNT=	powerline
+GH_PROJECT=	fonts
+GH_COMMIT=	e80e3eba9091dac0655a0a77472e10f53e754bb0
+DISTNAME=	powerline-fonts-0.20181111
 
 CATEGORIES=	fonts
 
 HOMEPAGE=	https://powerline.readthedocs.org/en/latest/
 
 # see wrksrc/README.rst - SIL OFL, Apache 2.0, Ubuntu/DejaVu Font Licenses
-PERMIT_PACKAGE_CDROM=	Yes
-
-GH_ACCOUNT=	powerline
-GH_PROJECT=	fonts
-GH_COMMIT=	a44abd0e742ad6e7fd8d8bc4c3cad5155c9f3a92
+PERMIT_PACKAGE=	Yes
 
 NO_BUILD=	Yes
 NO_TEST=	Yes

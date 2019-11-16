@@ -1,19 +1,17 @@
-# $OpenBSD: Makefile,v 1.29 2019/01/02 12:44:06 jca Exp $
+# $OpenBSD: Makefile,v 1.31 2019/07/17 14:49:21 danj Exp $
 
 COMMENT=	cross-platform gettext catalogs (PO-files) editor
 
 DISTNAME=	poedit-1.3.7
-REVISION=	13
+REVISION=	14
 CATEGORIES=	devel
 
 HOMEPAGE=	http://www.poedit.net/
 
-MAINTAINER=	Vlad Glagolev <stealth@sourcemage.org>
-
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=poedit/}
 
 # GPL
-PERMIT_PACKAGE_CDROM=   Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c m pthread ${COMPILER_LIBCXX}
 WANTLIB += wx_baseu-3.0 wx_baseu_net-3.0 wx_baseu_xml-3.0 wx_gtk3u_adv-3.0

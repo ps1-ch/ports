@@ -1,4 +1,6 @@
-# $OpenBSD: Makefile,v 1.86 2019/05/31 05:51:55 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.90 2019/09/19 07:38:14 otto Exp $
+
+ONLY_FOR_ARCHS-md = aarch64 amd64 arm i386 powerpc
 
 COMMENT-main=	free peer-reviewed portable C++ source libraries
 COMMENT-md=	machine-dependent libraries for boost
@@ -9,12 +11,13 @@ VERSION=	1.66.0
 DISTNAME=	boost_${VERSION:S/./_/g}
 PKGNAME-main=	boost-${VERSION}
 PKGNAME-md=	boost-md-${VERSION}
-REVISION-main=	5
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=boost/}
 EXTRACT_SUFX=	.tar.bz2
 FIX_EXTRACT_PERMISSIONS =	Yes
-REVISION-md=	1
+
+REVISION-main=	7
+REVISION-md=	2
 
 SO_VERSION=	9.0
 BOOST_LIBS=	boost_atomic-mt \
@@ -71,7 +74,7 @@ MAINTAINER=	Brad Smith <brad@comstyle.com> \
 		Rafael Sadowski <rsadowski@openbsd.org>
 
 # Boost
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} bz2 c icudata icui18n icuuc m z
 
@@ -94,12 +97,6 @@ WANTLIB-md+=	boost_chrono-mt boost_filesystem-mt boost_system-mt
 WANTLIB-md+=	boost_system boost_thread-mt
 
 .include <bsd.port.arch.mk>
-
-.if !(${MACHINE_ARCH} == "aarch64" || ${MACHINE_ARCH} == "amd64" || \
-      ${MACHINE_ARCH} == "arm" || ${MACHINE_ARCH} == "i386" || \
-      ${MACHINE_ARCH} == "powerpc")
-BUILD_PACKAGES=	${MULTI_PACKAGES:N-md}
-.endif
 
 .if ${PROPERTIES:Mclang}
 TOOLSET=	clang

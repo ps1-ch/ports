@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.69 2018/10/20 11:20:54 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.71 2019/07/12 20:46:56 sthen Exp $
 
 COMMENT=		vector graphics library
 
@@ -17,14 +17,14 @@ HOMEPAGE=		http://cairographics.org/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2.1 / MPL 1.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xau Xdmcp Xext Xrender c expat ffi fontconfig freetype
 WANTLIB += glib-2.0 gobject-2.0 iconv intl lzo2 m pcre pixman-1
 WANTLIB += png pthread xcb xcb-render xcb-shm z
 
-MASTER_SITES=		http://cairographics.org/releases/ \
-			http://cairographics.org/snapshots/
+MASTER_SITES=		https://cairographics.org/releases/ \
+			https://cairographics.org/snapshots/
 
 USE_GMAKE=		Yes
 

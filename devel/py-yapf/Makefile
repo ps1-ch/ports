@@ -1,16 +1,15 @@
-# $OpenBSD: Makefile,v 1.5 2019/04/28 20:51:39 sthen Exp $
+# $OpenBSD: Makefile,v 1.7 2019/08/28 22:29:50 kmos Exp $
 
 COMMENT =	formatter for Python code
 
-MODPY_EGG_VERSION =	0.26.0
+MODPY_EGG_VERSION =	0.28.0
 DISTNAME =	yapf-${MODPY_EGG_VERSION}
 PKGNAME =	py-${DISTNAME}
-REVISION =	0
 
 CATEGORIES =	devel
 
 # Apache v2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/python
 MODPY_SETUPTOOLS =	Yes

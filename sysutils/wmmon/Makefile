@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.22 2018/06/01 14:24:55 sthen Exp $
+# $OpenBSD: Makefile,v 1.24 2019/07/17 14:39:43 danj Exp $
 
 COMMENT=	WindowMaker dock app similar to xload
 
 DISTNAME=	wmmon-1.0b2
-REVISION =	4
+REVISION =	5
 CATEGORIES=	sysutils x11 x11/windowmaker
 
 MASTER_SITES=	https://distfiles.nl/
 
-MAINTAINER=	Vladimir Popov <pva48@mail.ru>
-
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 WANTLIB=		X11 Xext Xpm c kvm xcb
 
 MAKE_FLAGS=	CC="${CC}"

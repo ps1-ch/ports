@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.7 2017/04/15 22:05:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.9 2019/11/11 17:35:50 jca Exp $
 
 COMMENT=	limited problem scanner for C source files
 
 V=		1.3
+REVISION=	0
 
 PKGNAME=	pscan-$V
 DISTNAME=	pscan
@@ -17,7 +18,7 @@ HOMEPAGE=	http://deployingradius.com/pscan/
 MAINTAINER=	Steffen Wendzel <wendzel@hs-worms.de>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	${HOMEPAGE}
 

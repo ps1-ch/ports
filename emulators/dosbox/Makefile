@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.40 2019/01/22 04:31:41 jsg Exp $
+# $OpenBSD: Makefile,v 1.42 2019/08/10 06:28:40 fcambus Exp $
 
 ONLY_FOR_ARCHS=	${GCC4_ARCHS} ${CLANG_ARCHS}
 
 COMMENT=	x86 with DOS emulator targeted at playing games
 
-VERSION=	0.74-2
+VERSION=	0.74-3
 DISTNAME=	dosbox-${VERSION}
 PKGNAME=	dosbox-${VERSION:S/-/./}
 CATEGORIES=	games x11 emulators
@@ -15,7 +15,7 @@ HOMEPAGE=	https://www.dosbox.com/
 MAINTAINER=	Jonathan Gray <jsg@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=   Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += GL SDL SDL_net SDL_sound ${COMPILER_LIBCXX} png X11 c m pthread sndio z
 

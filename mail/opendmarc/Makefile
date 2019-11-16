@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2019/05/24 11:35:02 sthen Exp $
+# $OpenBSD: Makefile,v 1.3 2019/09/27 21:28:14 jasper Exp $
 
 COMMENT=	library and milter for DMARC
 
 DISTNAME=	opendmarc-1.3.2
+REVISION =	0
 
 SHARED_LIBS +=	opendmarc             0.0
 
@@ -13,7 +14,7 @@ HOMEPAGE=	http://www.trusteddomain.org/opendmarc/
 MAINTAINER =	Renaud Allard <renaud@allard.it>
 
 # BSD, Sendmail
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c iconv idn intl milter pthread spf2
 

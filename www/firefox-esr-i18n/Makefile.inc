@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile.inc,v 1.74 2019/05/21 16:52:22 landry Exp $
+# $OpenBSD: Makefile.inc,v 1.80 2019/10/23 19:46:03 landry Exp $
 
 # Unversioned distfiles
 PORTROACH =	ignore:1
@@ -8,7 +8,7 @@ ONLY_FOR_ARCHS =	amd64 i386
 
 PKG_ARCH =	*
 
-FV =		60.7.0
+FV =		68.2.0
 V =		${FV:C/b.$//}
 NAME =		firefox-esr-i18n
 
@@ -19,17 +19,17 @@ HOMEPAGE =	https://wiki.mozilla.org/L10n:Home_Page
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 
 # Mozilla public license
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	https://ftp.mozilla.org/pub/mozilla.org/firefox/releases/${FV}esr/linux-i686/xpi/ \
 		http://releases.mozilla.org/pub/mozilla.org/firefox/releases/${FV}esr/linux-i686/xpi/
 
-LANGUAGES =	ach af an ar as ast az bg bn-BD bn-IN br bs ca cs cy da de dsb el en-GB en-US en-ZA eo \
-		es-AR es-CL es-ES es-MX et eu fa ff fi fr fy-NL ga-IE gd gl gn gu-IN he \
+LANGUAGES =	ach af an ar ast az bg bn br bs ca cs cy da de dsb el en-GB en-US eo \
+		es-AR es-CL es-ES es-MX et eu fa ff fi fr fy-NL ga-IE gd gl gu-IN he \
 		hi-IN hr hsb hu hy-AM id \
-		is it ja kk km kn ko lij lt lv mai mk ml mr ms nb-NO nl nn-NO \
-		or pa-IN pl pt-BR pt-PT rm ro ru si sk sl son sq sr sv-SE \
-		ta te th tr uk uz vi xh zh-CN zh-TW
+		is it ja kk km kn ko lij lt lv mk mr ms nb-NO nl nn-NO \
+		pa-IN pl pt-BR pt-PT rm ro ru si sk sl son sq sr sv-SE \
+		ta te th tr uk vi xh zh-CN zh-TW
 
 BUILD_DEPENDS =	archivers/unzip
 RUN_DEPENDS =	firefox-esr-${FV:S/b/beta/}:www/firefox-esr

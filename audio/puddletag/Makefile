@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.9 2018/06/27 21:03:36 espie Exp $
+# $OpenBSD: Makefile,v 1.11 2019/11/10 16:25:41 kmos Exp $
 
 COMMENT =		spreadsheet-like audio file tagger
 
@@ -11,7 +11,7 @@ CATEGORIES =		audio
 HOMEPAGE =		http://puddletag.net
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		https://github.com/keithgg/puddletag/releases/download/v${MODPY_EGG_VERSION}/
 # kn: Remove with next update
@@ -27,6 +27,7 @@ RUN_DEPENDS =		audio/py-mutagen>=1.14 \
 			devel/py-parsing>=1.5.1 \
 			x11/py-qt4>=4.5
 
+# Author didn't write tests
 NO_TEST =		Yes
 
 post-install:

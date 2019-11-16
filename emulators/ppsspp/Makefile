@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.8 2019/03/19 08:10:32 bentley Exp $
+# $OpenBSD: Makefile,v 1.11 2019/10/30 08:27:56 bentley Exp $
 
 COMMENT =	Sony PlayStation Portable emulator
 
 GH_ACCOUNT =	hrydgard
 GH_PROJECT =	ppsspp
-GH_TAGNAME =	v1.8.0
+GH_TAGNAME =	v1.9.3
 
-GLSLANG =	9983f99e87ab0b6608b236ea59bcf873f90e1435
-PPSSPP_LANG =	18e0d460e187556e9510e2e9b5ae85fa435cefd9
-SPIRV_CROSS =	be7425ef70231ab82930331959ab487d605d0482
+GLSLANG =	f9d08a25fbe17e0677a89d398f4d7f232339c3f9
+PPSSPP_LANG =	bfc3a511f60e84de4d49170e2c442ac36b09cdfd
+SPIRV_CROSS =	a1f7c8dc8ea2f94443951ee27003bffa562c1f13
 ARMIPS =	7885552b208493a6a0f21663770c446c3ba65576
 
 MASTER_SITES0 =	https://github.com/hrydgard/glslang/archive/
@@ -29,7 +29,7 @@ HOMEPAGE =	https://www.ppsspp.org/
 MAINTAINER =	Anthony J. Bentley <anthony@anjbe.name>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 DIST_SUBDIR =	ppsspp
 
@@ -37,7 +37,11 @@ WANTLIB += ${COMPILER_LIBCXX}
 WANTLIB += GL GLEW GLU SDL2 avcodec avformat avutil c m snappy
 WANTLIB += swresample swscale z zip
 
-MODULES =		devel/cmake
+MODULES =		devel/cmake \
+			lang/python
+MODPY_VERSION =		${MODPY_DEFAULT_VERSION_3}
+MODPY_RUNDEP =		No
+
 LIB_DEPENDS =		archivers/snappy \
 			archivers/libzip \
 			devel/sdl2 \

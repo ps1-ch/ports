@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.15 2018/10/17 14:15:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.17 2019/09/26 21:59:31 sthen Exp $
 
 COMMENT =	command line access to most of Drupal
 
 CATEGORIES =	www devel
 
 V=		8.0.3
-REVISION=	3
+REVISION=	4
 DISTNAME=	drush-$V
 EXTRACT_SUFX=	-deps.tar.xz
 
@@ -17,7 +17,7 @@ MASTER_SITES=	https://spacehopper.org/mirrors/
 
 MODULES=	lang/php
 
-PERMIT_PACKAGE_CDROM= Yes
+PERMIT_PACKAGE=	Yes
 
 NO_BUILD=	Yes
 RUN_DEPENDS=	archivers/gtar \

@@ -1,12 +1,12 @@
-# $OpenBSD: Makefile,v 1.21 2019/01/16 12:53:23 bluhm Exp $
+# $OpenBSD: Makefile,v 1.23 2019/07/12 20:49:00 sthen Exp $
 
 COMMENT =	crypto and TLS for C++11
 
-VERSION =	2.9.0
+VERSION =	2.10.0
 DISTNAME =	Botan-${VERSION}
 PKGNAME =	botan2-${VERSION}
 
-SHARED_LIBS =	botan-2		9.0
+SHARED_LIBS =	botan-2		10.0
 
 CATEGORIES =	security
 
@@ -15,7 +15,7 @@ HOMEPAGE =	https://botan.randombit.net/
 MAINTAINER =		Alexander Bluhm <bluhm@openbsd.org>
 
 # BSD 2-Clause
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		${COMPILER_LIBCXX} bz2 c crypto lzma m z
 

@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile.inc,v 1.129 2019/05/20 22:15:15 naddy Exp $
+# $OpenBSD: Makefile.inc,v 1.133 2019/11/11 17:47:41 ajacoutot Exp $
 
 # IMPORTANT!  If you make any changes to the Python ports, be sure
 # to also update files/CHANGES.OpenBSD for your change.  This is a
@@ -40,14 +40,20 @@ MAINTAINER =	Remi Pointel <rpointel@openbsd.org>
 
 # PSF license <http://www.python.org/${VERSION}/license.html>
 # A summary of changes to Python is required to be distributed
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 .if ${VERSION} == "2.7"
-LIB_SUFX =	
 MULTI_PACKAGES =	-main -tests -tools -gdbm -idle -tkinter -bsddb
+DEBUG_PACKAGES ?=	-main -gdbm -tkinter -bsddb
 .else
-LIB_SUFX =		m
 MULTI_PACKAGES =	-main -tests -gdbm -idle -tkinter
+DEBUG_PACKAGES ?=	-main -gdbm -tkinter
+.endif
+
+.if ${VERSION} == "3.7"
+LIB_SUFX =		m
+.else
+LIB_SUFX =	
 .endif
 
 # Python 2.7 lists BSD db 4.6.x as unstable on most architectures (see
@@ -121,7 +127,7 @@ CONFIGURE_ENV += OPT='${CFLAGS} -fPIC' CPPFLAGS='-I${LOCALBASE}/include' \
 		LOCALBASE=${LOCALBASE} X11BASE=${X11BASE}
 MAKE_ENV +=	LOCALBASE=${LOCALBASE} X11BASE=${X11BASE}
 MAKE_FLAGS +=	LD_LIBRARY_PATH=${WRKSRC} PATH="${WRKDIST}:${PORTPATH}"
-MAKE_FLAGS +=	LDFLAGS='-L${WRKSRC}'
+MAKE_FLAGS +=	LDFLAGS='-L${WRKSRC} -L${LOCALBASE}/lib/'
 FAKE_FLAGS +=	RANLIB=:
 
 # Python itself is clean, but some extensions e.g. py-cryptography

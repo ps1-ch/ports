@@ -1,11 +1,10 @@
-# $OpenBSD: Makefile,v 1.4 2019/04/28 20:51:52 sthen Exp $
+# $OpenBSD: Makefile,v 1.6 2019/09/27 05:48:12 rpointel Exp $
 
 COMMENT =	rop gadget finder and binary information tool
 
-MODPY_EGG_VERSION =	1.11.10
+MODPY_EGG_VERSION =	1.12.5
 DISTNAME =	ropper-${MODPY_EGG_VERSION}
 PKGNAME =	py-${DISTNAME}
-REVISION =	1
 
 CATEGORIES =	security
 
@@ -13,8 +12,8 @@ HOMEPAGE =	https://scoding.de/ropper/
 
 MAINTAINER =	Remi Pointel <rpointel@openbsd.org>
 
-# GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+# BSD 3-clauses
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/python
 MODPY_SETUPTOOLS = Yes

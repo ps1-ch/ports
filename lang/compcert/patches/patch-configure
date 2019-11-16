@@ -1,21 +1,97 @@
-$OpenBSD: patch-configure,v 1.4 2019/03/17 03:26:54 bcallah Exp $
+$OpenBSD: patch-configure,v 1.10 2019/10/30 06:08:15 daniel Exp $
 
-Fixup path locations for OpenBSD.
+1) Fixup path locations for OpenBSD
+2) Backport e3f2f8 for coq 8.10.0 release
+3) Add configuration support for macppc and aarch64 on OpenBSD
 
 Index: configure
 --- configure.orig
 +++ configure
-@@ -17,7 +17,8 @@
+@@ -17,7 +17,14 @@
  
  prefix='/usr/local'
  bindir='$(PREFIX)/bin'
 -libdir='$(PREFIX)/lib/compcert'
-+libdir='$(PREFIX)/lib'
-+mandir='$(PREFIX)/man'
++case $(uname) in
++  OpenBSD)
++    libdir='$(PREFIX)/lib'
++    mandir='$(PREFIX)/man';;
++  *)
++    libdir='$(PREFIX)/lib/compcert'
++    mandir='$(PREFIX)/share/man';;
++esac
  coqdevdir='$(PREFIX)/lib/compcert/coq'
  toolprefix=''
  target=''
-@@ -643,14 +644,14 @@ esac
+@@ -38,6 +45,7 @@ Supported targets:
+   ppc-eabi             (PowerPC, EABI with GNU/Unix tools)
+   ppc-eabi-diab        (PowerPC, EABI with Diab tools)
+   ppc-linux            (PowerPC, Linux)
++  ppc-bsd              (PowerPC, BSD)
+   arm-eabi             (ARM, EABI, little endian)
+   arm-linux            (ARM, EABI, little endian)
+   arm-eabihf           (ARM, EABI using hardware FP registers, little endian)
+@@ -56,13 +64,14 @@ Supported targets:
+   rv32-linux           (RISC-V 32 bits, Linux)
+   rv64-linux           (RISC-V 64 bits, Linux)
+   aarch64-linux        (AArch64, i.e. ARMv8 in 64-bit mode, Linux)
++  aarch64-bsd          (AArch64, i.e. ARMv8 in 64-bit mode, BSD)
+   manual               (edit configuration file by hand)
+ 
+ For x86 targets, the "x86_32-" prefix can also be written "ia32-" or "i386-".
+ For x86 targets, the "x86_64-" prefix can also be written "amd64-".
+ For AArch64 targets, the "aarch64-" prefix can also be written "arm64-".
+ 
+-For PowerPC targets, the "ppc-" prefix can be refined into:
++For PowerPC targets, the "ppc-" prefix can also be written "powerpc-" and can be refined into:
+   ppc64-               PowerPC 64 bits
+   e5500-               Freescale e5500 core (PowerPC 64 bit, EREF extensions)
+ 
+@@ -240,7 +249,7 @@ fi
+ if test "$arch" = "powerpc"; then
+ 
+   case "$target" in
+-    eabi|eabi-diab|linux)
++    eabi|eabi-diab|linux|bsd)
+         ;;
+     *)
+         echo "Error: invalid eabi/system '$target' for architecture PowerPC." 1>&2
+@@ -448,6 +457,17 @@ if test "$arch" = "aarch64"; then
+         cprepro_options="-std=c99 -U__GNUC__ -E"
+         libmath="-lm"
+         system="linux";;
++    bsd)
++        abi="standard"
++        casm="${toolprefix}egcc"
++        casm_options="-c"
++        cc="${toolprefix}egcc"
++        clinker="${toolprefix}egcc"
++        clinker_options=""
++        cprepro="${toolprefix}egcc"
++        cprepro_options="-std=c99 -U__GNUC__ -E"
++        libmath="-lm"
++        system="bsd";;
+     *)
+         echo "Error: invalid eabi/system '$target' for architecture AArch64." 1>&2
+         echo "$usage" 1>&2
+@@ -530,14 +550,14 @@ missingtools=false
+ echo "Testing Coq... " | tr -d '\n'
+ coq_ver=$(${COQBIN}coqc -v 2>/dev/null | sed -n -e 's/The Coq Proof Assistant, version \([^ ]*\).*$/\1/p')
+ case "$coq_ver" in
+-  8.7.0|8.7.1|8.7.2|8.8.0|8.8.1|8.8.2|8.9.0|8.9.1|8.10)
++  8.7.0|8.7.1|8.7.2|8.8.0|8.8.1|8.8.2|8.9.0|8.9.1|8.10.0|8.10.1)
+         echo "version $coq_ver -- good!";;
+   ?*)
+         echo "version $coq_ver -- UNSUPPORTED"
+         if $ignore_coq_version; then
+             echo "Warning: this version of Coq is unsupported, proceed at your own risks."
+         else
+-            echo "Error: CompCert requires one of the following Coq versions: 8.10, 8.9.1, 8.9.0, 8.8.2, 8.8.1, 8.8.0, 8.7.2, 8.7.1, 8.7.0"
++            echo "Error: CompCert requires one of the following Coq versions: 8.10.1, 8.10.0, 8.9.1, 8.9.0, 8.8.2, 8.8.1, 8.8.0, 8.7.2, 8.7.1, 8.7.0"
+             missingtools=true
+         fi;;
+   "")
+@@ -671,14 +691,14 @@ esac
  #
  # Generate Makefile.config
  #
@@ -32,3 +108,19 @@ Index: configure
  SHAREDIR=$sharedir
  COQDEVDIR=$coqdevdir
  OCAML_OPT_COMP=$ocaml_opt_comp
+@@ -823,6 +843,7 @@ else
+ 
+ bindirexp=`echo "$bindir" | sed -e "s|\\\$(PREFIX)|$prefix|"`
+ libdirexp=`echo "$libdir" | sed -e "s|\\\$(PREFIX)|$prefix|"`
++mandirexp=`echo "$mandir" | sed -e "s|\\\$(PREFIX)|$prefix|"`
+ coqdevdirexp=`echo "$coqdevdir" | sed -e "s|\\\$(PREFIX)|$prefix|"`
+ 
+ cat <<EOF
+@@ -847,6 +868,7 @@ CompCert configuration:
+     Library files installed in.... $libdirexp
+     Standard headers provided..... $has_standard_headers
+     Standard headers installed in. $libdirexp/include
++    Man pages installed in........ $mandirexp
+ EOF
+ 
+ if $install_coqdev; then

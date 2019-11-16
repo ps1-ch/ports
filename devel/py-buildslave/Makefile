@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.40 2019/05/28 18:54:26 landry Exp $
+# $OpenBSD: Makefile,v 1.44 2019/10/25 16:42:10 landry Exp $
 
 COMMENT=	buildworker for the buildbot CI system
 
-MODPY_EGG_VERSION=	2.3.1
+MODPY_EGG_VERSION=	2.5.0
 DISTNAME=	buildbot-worker-${MODPY_EGG_VERSION}
 
 CATEGORIES=	devel
@@ -12,7 +12,7 @@ HOMEPAGE=	http://buildbot.net/
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODPY_PI =	Yes
 

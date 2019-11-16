@@ -1,35 +1,36 @@
-# $OpenBSD: Makefile,v 1.17 2017/05/10 12:47:56 pea Exp $
+# $OpenBSD: Makefile,v 1.20 2019/11/01 01:15:24 sthen Exp $
 
-GH_ACCOUNT =    imapsync
-GH_PROJECT =    imapsync
+GH_ACCOUNT=	imapsync
+GH_PROJECT=	imapsync
+GH_TAGNAME=	imapsync-1.945
+DISTNAME=	${GH_TAGNAME}
 
 COMMENT=	IMAP synchronization tool
 
-DISTNAME=	imapsync-1.727
 CATEGORIES=	mail
 
 MAINTAINER=	Pierre-Emmanuel Andre <pea@openbsd.org>
 
-# NO_LIMIT
-PERMIT_PACKAGE_CDROM=	Yes
-
-WRKDIST=	${WRKDIR}/imapsync-${DISTNAME}
+# "NO LIMIT PUBLIC LICENSE"; see ./LICENSE
+PERMIT_PACKAGE=	Yes
 
 RUN_DEPENDS=	converters/p5-DateManip \
-		security/p5-IO-Socket-SSL \
-		security/p5-Digest-HMAC \
+		converters/p5-Unicode-String \
+		devel/p5-Data-Uniqid \
+		devel/p5-File-Copy-Recursive \
+		devel/p5-File-Tail \
+		devel/p5-IO-Tee \
+		devel/p5-Parse-RecDescent \
+		devel/p5-Readonly \
+		devel/p5-Test-Pod \
 		mail/p5-Mail-IMAPClient \
 		net/p5-IO-Socket-INET6 \
-		security/p5-IO-Socket-SSL \
-		devel/p5-IO-Tee \
-		converters/p5-Unicode-String \
-		www/p5-URI \
 		security/p5-Authen-NTLM \
-		devel/p5-File-Copy-Recursive \
-		devel/p5-Parse-RecDescent \
-		devel/p5-Test-Pod \
-		devel/p5-Data-Uniqid \
-		devel/p5-Readonly
+		security/p5-Digest-HMAC \
+		security/p5-IO-Socket-SSL \
+		sysutils/p5-Sys-MemInfo \
+		textproc/p5-Regexp-Common \
+		www/p5-URI
 
 NO_BUILD=	Yes
 NO_TEST=	Yes

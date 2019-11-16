@@ -1,10 +1,9 @@
-# $OpenBSD: Makefile,v 1.122 2019/03/28 12:48:09 sthen Exp $
+# $OpenBSD: Makefile,v 1.126 2019/09/29 18:08:55 sthen Exp $
 
 COMMENT-main =		flexible mail transfer agent
 COMMENT-eximon =	X11 monitor tool for Exim MTA
 
-VERSION =		4.92
-REVISION =		1
+VERSION =		4.92.3
 DISTNAME =		exim-${VERSION}
 PKGNAME-main =		exim-${VERSION}
 FULLPKGNAME-eximon =	exim-eximon-${VERSION}
@@ -17,7 +16,7 @@ HOMEPAGE =		https://www.exim.org/
 MAINTAINER =		Renaud Allard <renaud@allard.it>
 
 # GPLv2+, with OpenSSL exemption
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 cWANTLIB =		c m
 WANTLIB-main =		${cWANTLIB} crypto iconv perl pcre spf2 ssl

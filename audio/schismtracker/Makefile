@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.17 2019/05/19 19:13:45 naddy Exp $
+# $OpenBSD: Makefile,v 1.21 2019/08/08 12:54:32 fcambus Exp $
 
 COMMENT =	open-source reimplementation of Impulse Tracker
 
-V =		20181223
+V =		20190805
 DISTNAME =	schismtracker-${V}.source
 PKGNAME =	schismtracker-${V}
 
@@ -13,7 +13,7 @@ HOMEPAGE =	http://schismtracker.org/
 MAINTAINER =	Frederic Cambus <fcambus@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=	SDL X11 Xext Xv c m pthread
 

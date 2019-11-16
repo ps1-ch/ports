@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.92 2019/06/03 16:06:55 sthen Exp $
+# $OpenBSD: Makefile,v 1.98 2019/10/24 11:12:12 sthen Exp $
 
 BROKEN-alpha =	.got subsegment exceeds 64K (size 101480)
 
 COMMENT-main =	graphical network protocol analyzer, Qt user-interface
 COMMENT-text =	network protocol analyzer
 
-V =		3.0.2
+V =		3.0.6
 PORTROACH =	limitw:1,even
 DISTNAME =	wireshark-$V
 PKGNAME-main =	wireshark-$V
@@ -26,22 +26,21 @@ EXTRACT_SUFX =	.tar.xz
 # tools/pidl is GPLv3 or later. See COPYING.
 PERMIT_PACKAGE = Yes
 
-cWANTLIB +=	bcg729 c gcrypt glib-2.0 gmodule-2.0 gnutls gpg-error
-cWANTLIB +=	m pcap spandsp z
+cWANTLIB +=	c gcrypt glib-2.0 gmodule-2.0
+cWANTLIB +=	m pcap z
 
 MAINTAINER =	Stuart Henderson <sthen@openbsd.org>
 
 MULTI_PACKAGES = -text -main
-PSEUDO_FLAVORS = no_x11 no_qt
-# sync with devel/spidermonkey52: qt -> polkit -> mozjs17
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "amd64" || \
-    ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "hppa" || \
-    ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64" || \
-    ${MACHINE_ARCH} == "mips64" || ${MACHINE_ARCH} == "mips64el"
-FLAVOR ?=
+PSEUDO_FLAVORS = no_x11
+
+.if ${MACHINE_ARCH} == "arm"
+# no qt5 -- won't be for m88k/sh either but those are already knocked out by COMPILER
+FLAVOR ?=	no_x11
 .else
-FLAVOR ?=	no_qt
+FLAVOR ?=
 .endif
+
 COMPILER =	base-clang ports-gcc
 
 MODLUA_VERSION = 5.2
@@ -51,17 +50,14 @@ MODLUA_SA =	Yes
 MODLUA_RUNDEP =	No
 MODPY_RUNDEP =	No
 
-WANTLIB-text =	${cWANTLIB} ${MODLUA_WANTLIB}
-WANTLIB-text += cares lz4 maxminddb nghttp2 smi snappy ssh xml2
+WANTLIB-text =	${cWANTLIB} ${MODLUA_WANTLIB} bcg729 cares gnutls
+WANTLIB-text += lz4 maxminddb nghttp2 smi snappy spandsp ssh xml2
 
 WANTLIB-main =	${cWANTLIB} ${COMPILER_LIBCXX}
 WANTLIB-main += wireshark wiretap wscodecs wsutil
-# XXX the above are incorrectly listed as "Extra", cmake internal
-# linkages are done with .so symlinks present, so the soname is wrong
-WANTLIB-main += Qt5Core Qt5Gui Qt5Multimedia Qt5Network Qt5PrintSupport Qt5Widgets
+WANTLIB-main += Qt5Core Qt5Gui Qt5Multimedia Qt5PrintSupport Qt5Widgets
 
-MASTER_SITES =		https://www.wireshark.org/download/src/all-versions/ \
-			https://www.wireshark.org/download/automated/src/
+MASTER_SITES =		https://www.wireshark.org/download/src/all-versions/
 
 WVER =			${V:C/^(...).*/\1/}
 SUBST_VARS =		WVER

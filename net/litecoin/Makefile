@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.4 2019/05/20 04:47:01 naddy Exp $
+# $OpenBSD: Makefile,v 1.7 2019/07/07 16:25:27 ajacoutot Exp $
 
 COMMENT =		P2P payment system
 
 GH_ACCOUNT =		litecoin-project
 GH_PROJECT =		litecoin
 GH_TAGNAME =		v0.17.1
+REVISION =		2
 
 SHARED_LIBS +=  bitcoinconsensus          1.0 # 0.0
 SHARED_LIBS +=  secp256k1                 0.0 # 0.0
@@ -17,7 +18,7 @@ HOMEPAGE =		https://litecoin.org
 MAINTAINER =		Rafael Sadowski <rsadowski@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} boost_chrono-mt boost_filesystem
 WANTLIB += boost_timer-mt boost_unit_test_framework-mt

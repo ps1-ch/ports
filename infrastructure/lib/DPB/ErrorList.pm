@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: ErrorList.pm,v 1.4 2015/06/22 12:18:19 espie Exp $
+# $OpenBSD: ErrorList.pm,v 1.8 2019/11/08 13:06:00 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -19,16 +19,13 @@ use strict;
 use warnings;
 
 # Abstract interface to problems that must be handled asynchronously
+# by the engine
 
+use DPB::Queue;
 # the base class manages a list of issues, and has a basic "recheck"
 # call (template method pattern) that will be specialized.
 package DPB::ErrorList::Base;
-
-sub new
-{
-	my $class = shift;
-	bless [], $class;
-}
+our @ISA = qw(DPB::ListQueue);
 
 sub recheck
 {
@@ -122,6 +119,8 @@ sub stringize
 # NFS overload handling. Doesn't appear that often these days
 # at the end of a succesful build, the packages might not show up
 # directly.   So keep them around
+# TODO also shows up when a directory has been cvs updated and
+# we have package revision bumps.  Can this be automated ? probably
 package DPB::NFSList;
 our @ISA = (qw(DPB::ErrorList::Base));
 
@@ -141,6 +140,7 @@ sub unlock_early
 			delete $h->{$k};
 		} elsif ($sub->{builder}->end_check($w)) {
 			$sub->mark_as_done($w);
+			$w->log_as_built($engine);
 			delete $h->{$k};
 		} else {
 			$okay = 0;

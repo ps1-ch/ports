@@ -1,17 +1,17 @@
-# $OpenBSD: Makefile,v 1.4 2019/05/28 15:05:03 thfr Exp $
+# $OpenBSD: Makefile,v 1.6 2019/09/22 14:46:55 thfr Exp $
 
 # Don't bother on non-mono archs.
 ONLY_FOR_ARCHS =	${MONO_ARCHS}
 
 COMMENT =	script to configure FNA games to run on OpenBSD
-DISTNAME =	fnaify-1.3
+DISTNAME =	fnaify-2.0
 CATEGORIES =	games
 
 HOMEPAGE =	https://www.PlayOnBSD.com
 MAINTAINER =	Thomas Frohwein <thfr@openbsd.org>
 
 # ISC
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	https://mirrors.nycbug.org/pub/distfiles/
 
@@ -38,5 +38,6 @@ do-configure:
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/fnaify ${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/fnaify.1 ${PREFIX}/man/man1/
 
 .include <bsd.port.mk>

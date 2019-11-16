@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.35 2019/03/04 12:51:12 chrisz Exp $
+# $OpenBSD: Makefile,v 1.39 2019/09/26 09:46:09 chrisz Exp $
 
 # build system needs per-arch tweaks and is very unfriendly to
 # bytecode-only builds. powerpc nativecode is currently broken.
@@ -7,6 +7,7 @@ ONLY_FOR_ARCHS = ${OCAML_NATIVE_ARCHS}
 COMMENT=	framework for analysis and transformation of C
 CATEGORIES =	devel lang
 
+REVISION =	1
 DISTNAME =	cil-1.7.3
 EXTRACT_SUFX =	.tar.gz
 MASTER_SITES =	${MASTER_SITE_SOURCEFORGE:=cil/}
@@ -14,7 +15,7 @@ MASTER_SITES =	${MASTER_SITE_SOURCEFORGE:=cil/}
 HOMEPAGE=	https://cil-project.github.io/cil/
 
 # BSD license
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=		c m pthread
 
@@ -33,7 +34,6 @@ CONFIGURE_ARGS =	EXTRAFEATURES="${OURFILES:R}"
 P5SITE =		libdata/perl5/site_perl
 P5INST =		${PREFIX}/${P5SITE}
 SUBST_VARS +=		P5SITE
-GCC =			/usr/bin/gcc# cant use CC in case it's set to cilly
 
 MAKE_FLAGS =		CC="${CC}" MAKE="${MAKE_PROGRAM}"
 

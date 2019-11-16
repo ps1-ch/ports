@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.76 2019/05/20 22:15:12 naddy Exp $
+# $OpenBSD: Makefile,v 1.79 2019/11/07 15:32:55 ajacoutot Exp $
 
 COMMENT =	SVG vector drawing application
 
@@ -12,7 +12,7 @@ HOMEPAGE =	https://www.inkscape.org/
 MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
 
 # GPLv2 and LGPLv2.1
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} ICE Magick++-6.Q16 MagickCore-6.Q16
 WANTLIB += MagickWand-6.Q16 SM X11 Xcomposite Xcursor Xdamage
@@ -31,7 +31,7 @@ WANTLIB += xslt z
 MASTER_SITES =	https://media.inkscape.org/dl/resources/file/
 EXTRACT_SUFX =	.tar.bz2
 
-MODULES=	textproc/intltool \
+MODULES =	textproc/intltool \
 		lang/python \
 		lang/ruby
 
@@ -92,6 +92,7 @@ RM_MANS =	man/el man/fr man/ja man/man1/inkscape.*.1 \
 		man/sk man/zh_TW  man/de
 
 SUBST_VARS +=	RUBY MODRUBY_REV
+
 pre-configure:
 	find ${WRKDIST} -name i18n.py \
 		-exec sed -i 's,python,${MODPY_BIN},' {} +;

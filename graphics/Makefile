@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.480 2019/05/29 11:43:28 espie Exp $
+# $OpenBSD: Makefile,v 1.490 2019/11/10 15:52:42 sthen Exp $
 
      SUBDIR =
      SUBDIR += DevIL
@@ -10,8 +10,8 @@
      SUBDIR += amide
      SUBDIR += animorph
      SUBDIR += ansilove
-     SUBDIR += aqsis
      SUBDIR += argyll
+     SUBDIR += aspect-crop
      SUBDIR += asymptote
      SUBDIR += autopano-sift-c
      SUBDIR += babl
@@ -83,6 +83,7 @@
      SUBDIR += glfw
      SUBDIR += glm
      SUBDIR += glpng
+     SUBDIR += glslang
      SUBDIR += gmt
      SUBDIR += gnofract4d
      SUBDIR += gocr
@@ -103,7 +104,6 @@
      SUBDIR += hugin
      SUBDIR += icoutils
      SUBDIR += iec16022
-     SUBDIR += ilmbase
      SUBDIR += img2pdf
      SUBDIR += imlib2
      SUBDIR += imv
@@ -170,13 +170,14 @@
      SUBDIR += mypaint-brushes
      SUBDIR += netpbm
      SUBDIR += nomacs
+     SUBDIR += ocaml-cairo
+     SUBDIR += ocaml-graphics
      SUBDIR += ocrad
      SUBDIR += openbsd-backgrounds
      SUBDIR += opencolorio
      SUBDIR += opencsg
      SUBDIR += opencv
      SUBDIR += openexr
-     SUBDIR += openexr-viewers
      SUBDIR += openimageio
      SUBDIR += openjp2
      SUBDIR += openjpeg
@@ -230,6 +231,7 @@
      SUBDIR += png
      SUBDIR += png2ico
      SUBDIR += pngcrush
+     SUBDIR += posterazor
      SUBDIR += potrace
      SUBDIR += povray
      SUBDIR += pqiv
@@ -241,6 +243,7 @@
      SUBDIR += py-cycler
      SUBDIR += py-cycler,python3
      SUBDIR += py-dot
+     SUBDIR += py-dot,python3
      SUBDIR += py-pygal
      SUBDIR += py-pygal,python3
      SUBDIR += py-gd
@@ -255,6 +258,8 @@
      SUBDIR += py-qrcode,python3
      SUBDIR += py-sane
      SUBDIR += py-sane,python3
+     SUBDIR += py-seaborn
+     SUBDIR += py-seaborn,python3
      SUBDIR += pycha
      SUBDIR += qimageblitz
      SUBDIR += qiv
@@ -277,6 +282,8 @@
      SUBDIR += simgear
      SUBDIR += simple-scan
      SUBDIR += sk1
+     SUBDIR += spirv-headers
+     SUBDIR += spirv-tools
      SUBDIR += sketch
      SUBDIR += slop
      SUBDIR += sxiv
@@ -289,11 +296,16 @@
      SUBDIR += tkpng
      SUBDIR += ttfautohint
      SUBDIR += ufraw
+     SUBDIR += unwebp
      SUBDIR += vcdimager
      SUBDIR += vid
      SUBDIR += videod
      SUBDIR += viewnior
      SUBDIR += vigra
+     SUBDIR += vulkan-headers
+     SUBDIR += vulkan-loader
+     SUBDIR += vulkan-tools
+     SUBDIR += vulkan-validation-layers
      SUBDIR += waffle
      SUBDIR += wmicons
      SUBDIR += xanim

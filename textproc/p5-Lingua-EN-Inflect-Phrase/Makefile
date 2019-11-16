@@ -1,18 +1,19 @@
-# $OpenBSD: Makefile,v 1.5 2016/03/20 19:57:05 naddy Exp $
+# $OpenBSD: Makefile,v 1.7 2019/10/31 01:12:53 afresh1 Exp $
 
 COMMENT =	inflect short English Phrases
-DISTNAME =	Lingua-EN-Inflect-Phrase-0.18
-REVISION =	0
+DISTNAME =	Lingua-EN-Inflect-Phrase-0.20
 CATEGORIES =	textproc
 
 MAINTAINER =	Andrew Fresh <afresh1@openbsd.org>
 
 # perl_5
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		cpan
 PKG_ARCH =		*
 CONFIGURE_ARGS =	--skipdeps
+
+MAKE_ENV =	TEST_POD=Yes AUTHOR_TESTING=Yes
 
 RUN_DEPENDS = 	textproc/p5-Lingua-EN-FindNumber \
 		textproc/p5-Lingua-EN-Number-IsOrdinal \

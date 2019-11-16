@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.4 2018/03/14 12:35:20 rpointel Exp $
+# $OpenBSD: Makefile,v 1.6 2019/07/22 16:13:08 ajacoutot Exp $
 
 COMMENT =	library to access to storage media devices
 
@@ -17,10 +17,12 @@ MASTER_SITES =	https://github.com/libyal/libsmdev/releases/download/${VERSION}/
 MAINTAINER =	Remi Pointel <rpointel@openbsd.org>
 
 # LGPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =  ${MODPY_WANTLIB}
 WANTLIB += c iconv intl m pthread util
+
+BUILD_DEPENDS +=	devel/gettext,-tools
 
 CONFIGURE_STYLE =	gnu
 CONFIGURE_ARGS +=	--enable-python

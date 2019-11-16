@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.5 2018/06/03 10:54:55 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.7 2019/09/01 15:49:20 naddy Exp $
 
 PKG_ARCH=	*
 
@@ -8,12 +8,10 @@ VERSION=	2.5.3
 PKGNAME=	lohit-fonts-${VERSION}
 CATEGORIES=	fonts x11
 HOMEPAGE=	https://pagure.io/lohit
-REVISION=	1
-
-MAINTAINER=	Christian Weisgerber <naddy@openbsd.org>
+REVISION=	2
 
 # SIL OFL 1.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	https://releases.pagure.org/lohit/
 DIST_SUBDIR=	lohit

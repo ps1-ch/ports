@@ -1,15 +1,14 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2017/07/29 10:06:17 bluhm Exp $
+# $OpenBSD: Makefile,v 1.3 2019/07/17 14:49:21 danj Exp $
 
 COMMENT =	a collection of n-ary tree related modules for Perl
 
 DISTNAME =	Forest-0.10
 CATEGORIES =	devel
 CPAN_AUTHOR =	STEVAN
-
-MAINTAINER =		Matthias Pitzl <pitzl@genua.de>
+REVISION =	0
 
 # Perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		cpan
 RUN_DEPENDS =		devel/p5-Moose>=2.0000 \

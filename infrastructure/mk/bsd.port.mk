@@ -1,6 +1,6 @@
 #-*- mode: Makefile; tab-width: 4; -*-
 # ex:ts=4 sw=4 filetype=make:
-#	$OpenBSD: bsd.port.mk,v 1.1471 2019/06/16 14:27:42 espie Exp $
+#	$OpenBSD: bsd.port.mk,v 1.1497 2019/11/13 15:22:41 espie Exp $
 #
 #	bsd.port.mk - 940820 Jordan K. Hubbard.
 #	This file is in the public domain.
@@ -80,6 +80,10 @@ CLEANDEPENDS ?= No
 BULK ?= Auto
 WRKDIR_LINKNAME ?=
 
+.if ${FETCH_PACKAGES:L} == "yes"
+ERRORS += "Fatal: old syntax for FETCH_PACKAGES, see ports(7)"
+.endif
+
 USE_MFS ?= No
 WRKOBJDIR ?= ${PORTSDIR}/pobj
 WRKOBJDIR_MFS ?= /tmp/pobj
@@ -105,7 +109,8 @@ _ALL_VARIABLES = BUILD_DEPENDS IS_INTERACTIVE \
 	SUBPACKAGE FLAVOR BUILD_PACKAGES DPB_PROPERTIES \
 	MULTI_PACKAGES
 # and stuff needing to be MULTI_PACKAGE'd
-_ALL_VARIABLES_INDEXED = FULLPKGNAME RUN_DEPENDS LIB_DEPENDS IGNORE
+_ALL_VARIABLES_INDEXED = FULLPKGNAME RUN_DEPENDS LIB_DEPENDS IGNORE \
+	PERMIT_PACKAGE
 _ALL_VARIABLES_PER_ARCH =
 
 # consumers of (dump-vars) include sqlports generation and dpb
@@ -114,29 +119,30 @@ _ALL_VARIABLES_PER_ARCH =
 _ALL_VARIABLES += DISTFILES PATCHFILES SUPDISTFILES DIST_SUBDIR MASTER_SITES \
 	MASTER_SITES0 MASTER_SITES1 MASTER_SITES2 MASTER_SITES3 MASTER_SITES4 \
 	MASTER_SITES5 MASTER_SITES6 MASTER_SITES7 MASTER_SITES8 MASTER_SITES9 \
-	CHECKSUM_FILE FETCH_MANUALLY MISSING_FILES \
-	PERMIT_DISTFILES_FTP PERMIT_DISTFILES
+	CHECKSUM_FILE FETCH_MANUALLY MISSING_FILES PERMIT_DISTFILES
 .endif
 .if ${DPB:L:Mtest} || ${DPB:L:Mall}
 _ALL_VARIABLES += NO_TEST TEST_IS_INTERACTIVE TEST_DEPENDS
 .endif
+.if ${DPB:L:Mall} || ${DPB:L:Mroach}
+_ALL_VARIABLES += DISTNAME HOMEPAGE PORTROACH PORTROACH_COMMENT MAINTAINER
+.endif
 .if ${DPB:L:Mall}
-_ALL_VARIABLES += HOMEPAGE DISTNAME \
-	BROKEN COMES_WITH \
+_ALL_VARIABLES += BROKEN COMES_WITH \
 	USE_GMAKE USE_GROFF MODULES FLAVORS \
 	NO_BUILD PSEUDO_FLAVORS \
 	CONFIGURE_STYLE USE_LIBTOOL SEPARATE_BUILD \
 	SHARED_LIBS TARGETS PSEUDO_FLAVOR \
-	MAINTAINER AUTOCONF_VERSION AUTOMAKE_VERSION CONFIGURE_ARGS \
-	GH_ACCOUNT GH_COMMIT GH_PROJECT GH_TAGNAME PORTROACH \
-	PORTROACH_COMMENT MAKEFILE_LIST USE_LLD USE_WXNEEDED COMPILER \
+	AUTOCONF_VERSION AUTOMAKE_VERSION CONFIGURE_ARGS \
+	GH_ACCOUNT GH_COMMIT GH_PROJECT GH_TAGNAME \
+	MAKEFILE_LIST USE_LLD USE_WXNEEDED COMPILER \
 	COMPILER_LANGS COMPILER_LINKS SUBST_VARS UPDATE_PLIST_ARGS \
 	PKGPATHS
 _ALL_VARIABLES_PER_ARCH += BROKEN
 # and stuff needing to be MULTI_PACKAGE'd
 _ALL_VARIABLES_INDEXED += COMMENT PKGNAME \
-	ONLY_FOR_ARCHS NOT_FOR_ARCHS PKGSPEC PKGSTEM PREFIX PERMIT_PACKAGE \
-	PERMIT_PACKAGE_FTP PERMIT_PACKAGE_CDROM WANTLIB CATEGORIES DESCR \
+	ONLY_FOR_ARCHS NOT_FOR_ARCHS PKGSPEC PKGSTEM PREFIX \
+	WANTLIB CATEGORIES DESCR \
 	EPOCH REVISION STATIC_PLIST PKG_ARCH
 .endif
 
@@ -253,7 +259,7 @@ _clean += -f
 .endif
 
 _okay_words = depends work fake -f flavors dist install sub packages package \
-	bulk force plist build all
+	bulk force plist build all test
 .for _w in ${_clean}
 .  if !${_okay_words:M${_w}}
 ERRORS += "Fatal: unknown clean command: ${_w}\n(not in ${_okay_words})"
@@ -305,7 +311,7 @@ _MODULES_DONE =
 .endif
 
 # this only happens if we exit modules without having ever gone
-# thru compiler.port.mk
+# thru compiler.port.mk - update portcheck if changing COMPILER default
 COMPILER ?= base-clang base-gcc gcc3
 COMPILER_LANGS ?= c c++
 .if ${PROPERTIES:Mclang}
@@ -323,7 +329,8 @@ COMPILER_LIBCXX ?= ${LIBCXX}
 
 .for v in PKGREPOSITORY PKGREPOSITORYBASE CDROM_PACKAGES FTP_PACKAGES \
 	SED_PLIST IGNORE_FILES NO_REGRESS REGRESS_IS_INTERACTIVE REGRESS_DEPENDS \
-	PERMIT_DISTFILES_CDROM PLIST_DB
+	PLIST_DB PERMIT_DISTFILES_CDROM PERMIT_DISTFILES_FTP \
+	PERMIT_PACKAGE_CDROM PERMIT_PACKAGE_FTP
 .  if defined($v)
 ERRORS += "Fatal: Variable $v is obsolete, see bsd.port.mk(5)"
 .  endif
@@ -470,44 +477,14 @@ ALL_FAKE_FLAGS += -j${MAKE_JOBS}
 .endif
 
 .for _S in ${MULTI_PACKAGES}
-.  if defined(PERMIT_PACKAGE) || defined(PERMIT_PACKAGE${_S})
 PERMIT_PACKAGE${_S} ?= ${PERMIT_PACKAGE}
-PERMIT_PACKAGE_FTP${_S} = ${PERMIT_PACKAGE${_S}}
-PERMIT_PACKAGE_CDROM${_S} = Unknown
-.  else
-.    if defined(PERMIT_PACKAGE_CDROM)
-PERMIT_PACKAGE_CDROM${_S} ?= ${PERMIT_PACKAGE_CDROM}
-.    endif
-.    if defined(PERMIT_PACKAGE_FTP)
-PERMIT_PACKAGE_FTP${_S} ?= ${PERMIT_PACKAGE_FTP}
-.    endif
-.    if defined(PERMIT_PACKAGE_CDROM${_S}) && ${PERMIT_PACKAGE_CDROM${_S}:L} == "yes"
-PERMIT_PACKAGE_FTP${_S} ?= Yes
-.    endif
-PERMIT_PACKAGE${_S} = ${PERMIT_PACKAGE_FTP${_S}}
-.  endif
-.  if !defined(PERMIT_PACKAGE_FTP${_S})
+.  if !defined(PERMIT_PACKAGE${_S})
 ERRORS += "The licensing info for ${FULLPKGNAME${_S}} is incomplete."
 _BAD_LICENSING = Yes
 .  endif
 .endfor
 
-.if defined(PERMIT_PACKAGE)
-PERMIT_DISTFILES ?= ${PERMIT_PACKAGE}
-PERMIT_PACKAGE_FTP = ${PERMIT_PACKAGE}
-PERMIT_DISTFILES_FTP = ${PERMIT_DISTFILES}
-PERMIT_PACKAGE_CDROM = Unknown
-.else
-.  if defined(PERMIT_PACKAGE_CDROM) && ${PERMIT_PACKAGE_CDROM:L} == "yes"
-PERMIT_PACKAGE_FTP ?= Yes
-PERMIT_DISTFILES_FTP ?= Yes
-.  elif defined(PERMIT_PACKAGE_FTP) && ${PERMIT_PACKAGE_FTP:L} == "yes"
-PERMIT_DISTFILES_FTP ?= Yes
-.  endif
-PERMIT_PACKAGE = ${PERMIT_PACKAGE_FTP}
-PERMIT_DISTFILES = ${PERMIT_DISTFILES_FTP}
-.endif
-.if !defined(PERMIT_PACKAGE_FTP) || !defined(PERMIT_DISTFILES_FTP)
+.if !defined(PERMIT_PACKAGE)
 ERRORS += "The licensing info for ${FULLPKGNAME} is incomplete."
 _BAD_LICENSING = Yes
 .endif
@@ -516,17 +493,12 @@ _BAD_LICENSING = Yes
 ERRORS += "Please notify the OpenBSD port maintainer:"
 ERRORS += "    ${MAINTAINER}"
 PERMIT_PACKAGE = No
-PERMIT_DISTFILES = No
-PERMIT_PACKAGE_CDROM = No
-PERMIT_PACKAGE_FTP = No
-PERMIT_DISTFILES_FTP = No
 .  for _S in ${MULTI_PACKAGES}
-PERMIT_PACKAGE_CDROM${_S} = No
-PERMIT_PACKAGE_FTP${_S} = No
 PERMIT_PACKAGE${_S} = No
-PERMIT_DISTFILES${_S} = No
 .  endfor
 .endif
+
+PERMIT_DISTFILES ?= ${PERMIT_PACKAGE}
 
 .if ${MACHINE_ARCH} != ${ARCH}
 PKG_ARCH ?= ${MACHINE_ARCH},${ARCH}
@@ -879,7 +851,7 @@ MAKE_ENV += NOPIC=${NOPIC}
 .if !empty(FAKEOBJDIR_${PKGPATH})
 WRKINST ?= ${FAKEOBJDIR_${PKGPATH}}/${PKGNAME}${_FLAVOR_EXT2}
 .else
-WRKINST ?= ${WRKDIR}/fake-${ARCH}${_FLAVOR_EXT2}
+WRKINST ?= ${WRKDIR}/fake-${MACHINE_ARCH}${_FLAVOR_EXT2}
 .endif
 
 .if ${SEPARATE_BUILD:L:Mflavored}
@@ -914,6 +886,8 @@ WRKBUILD ?= ${WRKSRC}
 .endif
 WRKCONF ?= ${WRKBUILD}
 
+_WRKDEBUG = ${WRKINST}/debug-pkg
+
 MAKE_FILE ?= Makefile
 ALL_TARGET ?= all
 
@@ -936,11 +910,8 @@ XAUTHORITY ?= ${HOME}/.Xauthority
 
 _PACKAGE_COOKIE_DEPS=${_FAKE_COOKIE}
 
-.for _s in ${BUILD_PACKAGES}
-PKGNAMES += ${FULLPKGNAME${_s}}
-PKGFILES += ${PKGFILE${_s}}
-PKGPATHS += ${FULLPKGPATH${_s}}
-.endfor
+DEBUG_PACKAGES ?=
+DEBUG_CONFIGURE_ARGS ?=
 
 STATIC_PLIST ?= Yes
 .for _s in ${MULTI_PACKAGES}
@@ -958,6 +929,27 @@ ${_v}${_s} ?= ${${_v}}
 .  endfor
 .endfor
 
+# make DEBUG_PACKAGES uniform: automatically strip PKG_ARCH=*
+# from it (so DEBUG_PACKAGES=${BUILD_PACKAGES} works)
+.if !empty(DEBUG_PACKAGES)
+.  for i in ${DEBUG_PACKAGES}
+.    if ${PKG_ARCH$i} == "*"
+DEBUG_PACKAGES := ${DEBUG_PACKAGES:N$i}
+.    endif
+.  endfor
+.endif
+
+.for _s in ${BUILD_PACKAGES}
+PKGNAMES += ${FULLPKGNAME${_s}}
+PKGFILES += ${PKGFILE${_s}}
+PKGPATHS += ${FULLPKGPATH${_s}}
+.  if ${DEBUG_PACKAGES:M${_s}}
+PKGFILES += ${_PKG_REPO}${_DBG_PKGFILE${_s}}
+PKGNAMES += debug-${FULLPKGNAME${_s}}
+#PKGPATHS += debug/${FULLPKGPATH${_s}} # XXX sqlports doesn't like it
+.  endif 
+.endfor
+
 _PACKAGE_LINKS =
 NO_ARCH ?= ${MACHINE_ARCH}/no-arch
 _PKG_REPO = ${PACKAGE_REPOSITORY}/${MACHINE_ARCH}/all/
@@ -967,10 +959,12 @@ PKGFILE = ${_PKG_REPO}${_PKGFILE${SUBPACKAGE}}
 
 .for _S in ${MULTI_PACKAGES}
 _PKGFILE${_S} = ${FULLPKGNAME${_S}}.tgz
+_DBG_PKGFILE${_S} = debug-${_PKGFILE${_S}}
 .  if ${PKG_ARCH${_S}} == "*" && ${NO_ARCH} != ${MACHINE_ARCH}/all
 _PACKAGE_COOKIE${_S} = ${PACKAGE_REPOSITORY}/${NO_ARCH}/${_PKGFILE${_S}}
 .  else
 _PACKAGE_COOKIE${_S} = ${PACKAGE_REPOSITORY}/${MACHINE_ARCH}/all/${_PKGFILE${_S}}
+_DBG_PACKAGE_COOKIE${_S} = ${PACKAGE_REPOSITORY}/${MACHINE_ARCH}/all/${_DBG_PKGFILE${_S}}
 .  endif
 _CACHE_PACKAGE_COOKIES += ${_CACHE_REPO}${_PKGFILE${_S}}
 .endfor
@@ -988,7 +982,22 @@ _PACKAGE_LINKS += ${MACHINE_ARCH}/ftp/${_PKGFILE${_S}} ${MACHINE_ARCH}/all/${_PK
 _PACKAGE_COOKIES += ${_PACKAGE_COOKIES${_S}}
 _PACKAGE_COOKIE += ${_PACKAGE_COOKIE${_S}}
 PKGFILE${_S} = ${_PKG_REPO}${_PKGFILE${_S}}
+.  if ${DEBUG_PACKAGES:M${_S}}
+_PACKAGE_COOKIES += ${_DBG_PACKAGE_COOKIE${_S}}
+.    if ${PERMIT_PACKAGE${_S}:L} == "yes"
+_PACKAGE_COOKIES${_S} += ${PACKAGE_REPOSITORY}/${MACHINE_ARCH}/ftp/${_DBG_PKGFILE${_S}}
+_PACKAGE_LINKS += ${MACHINE_ARCH}/ftp/${_DBG_PKGFILE${_S}} ${MACHINE_ARCH}/all/${_DBG_PKGFILE${_S}}
+.    endif
+.  endif
+
 .endfor
+
+# Make it so disabling debug packages is trivial
+.if !empty(DEBUG_PACKAGES)
+INSTALL_STRIP =
+DEBUG ?= -g
+CONFIGURE_ARGS += ${DEBUG_CONFIGURE_ARGS}
+.endif
 
 .if empty(SUBPACKAGE) || ${SUBPACKAGE} == "-"
 FULLPKGPATH ?= ${PKGPATH}${FLAVOR_EXT:S/-/,/g}
@@ -1099,8 +1108,9 @@ PKG_ARGS${_S} += ${_PKG_ARGS_VERSION}
 .  endif
 
 PKG_ARGS${_S} += ${_substvars${_S}:N-DTRUEPREFIX=*}
-PKG_ARGS${_S} += -DFULLPKGPATH=${FULLPKGPATH${_S}}
 PKG_ARGS${_S} += -DPERMIT_PACKAGE_FTP=${PERMIT_PACKAGE${_S}:Q}
+PKG_ARGS${_S} += -DPERMIT_PACKAGE=${PERMIT_PACKAGE${_S}:Q}
+PKG_ARGS${_S} += -p ${PREFIX${_S}}
 
 SUBST_CMD${_S} = ${_PERLSCRIPT}/pkg_subst ${_substvars${_S}}
 SUBST_CMD${_S} += -i -B ${WRKDIR}
@@ -1165,17 +1175,52 @@ DESCR${_S} ?= ${PKGDIR}/DESCR${_S}
 .endif
 
 
+_EXCLUDE_DEBUG_PLISTS = ${_WRKDEBUG} ${_WRKDEBUG}/Makefile
+
 .for _S in ${MULTI_PACKAGES}
-# Fill out package command, and package dependencies
+PKG_ARGS${_S} += -A'${PKG_ARCH${_S}}'
+
+_create_pkg${_S} = \
+	tmp=${_TMP_REPO}${_PKGFILE${_S}} pkgname=${_PKGFILE${_S}} && \
+	${_PBUILD} ${_PKG_CREATE} -DPORTSDIR="${PORTSDIR}" \
+		$$deps ${PKG_ARGS${_S}} $$tmp && \
+	${_check_lib_depends} $$tmp && \
+	${_register_plist${_S}} $$tmp && \
+	${_checksum_package}
+
+_move_tmp_pkg${_S} = ${_PBUILD} mv ${_TMP_REPO}${_PKGFILE${_S}} ${_PACKAGE_COOKIE${_S}}
+_tmp_pkg${_S} = ${_TMP_REPO}${_PKGFILE${_S}}
+
+.  if ${DEBUG_PACKAGES:M${_S}}
+_DBG_PKG_ARGS${_S} := ${PKG_ARGS${_S}}
+_DBG_PKG_ARGS${_S} += -P${FULLPKGPATH${_S}}:${FULLPKGNAME${_S}}:${FULLPKGNAME${_S}}
+_DBG_PKG_ARGS${_S} += -DCOMMENT="debug info for ${FULLPKGNAME${_S}}"
+_DBG_PKG_ARGS${_S} += -d"-debug info for ${FULLPKGNAME${_S}}"
+# XXX revisit that fullpkgpath later ?
+_DBG_PKG_ARGS${_S} += -DFULLPKGPATH=debug/${FULLPKGPATH${_S}}
+_DBG_PKG_ARGS${_S} += -f ${_WRKDEBUG}/${PLIST${_S}:T}
+_EXCLUDE_DEBUG_PLISTS += ${_WRKDEBUG}/${PLIST${_S}:T}
+_create_pkg${_S} += && \
+	tmp=${_TMP_REPO}${_DBG_PKGFILE${_S}} pkgname=${_DBG_PKGFILE${_S}} && \
+	${_PBUILD} ${_PKG_CREATE} -DPORTSDIR="${PORTSDIR}" \
+		$$deps ${_DBG_PKG_ARGS${_S}} $$tmp && \
+	${_check_lib_depends} $$tmp && \
+	${_dbg_register_plist${_S}} $$tmp && \
+	${_checksum_package}
+_move_tmp_pkg${_S} += && ${_PBUILD} mv ${_TMP_REPO}${_DBG_PKGFILE${_S}} ${_DBG_PACKAGE_COOKIE${_S}}
+_tmp_pkg${_S} += ${_TMP_REPO}${_DBG_PKGFILE${_S}}
+.  endif
+
+# Finish filling out package command, and package dependencies
 PKG_ARGS${_S} += -DCOMMENT=${_COMMENT${_S}:Q} -d ${DESCR${_S}}
-PKG_ARGS${_S} += -f ${PLIST${_S}} -p ${PREFIX${_S}}
+PKG_ARGS${_S} += -f ${PLIST${_S}} 
+PKG_ARGS${_S} += -DFULLPKGPATH=${FULLPKGPATH${_S}}
 .  if defined(MESSAGE${_S}) && !empty(MESSAGE${_S})
 PKG_ARGS${_S} += -M ${MESSAGE${_S}}
 .  endif
 .  if defined(UNMESSAGE${_S}) && !empty(UNMESSAGE${_S})
 PKG_ARGS${_S} += -U ${UNMESSAGE${_S}}
 .  endif
-PKG_ARGS${_S} += -A'${PKG_ARCH${_S}}'
 .  if !defined(_COMMENT${_S})
 ERRORS += "Fatal: Missing comment for ${_S:S/^-$/main package/}."
 .  endif
@@ -1694,7 +1739,7 @@ _LOCKNAME = ${PKGNAME}
 .    if empty(_LOCKS_HELD:M${_i})
 _DO_LOCK = \
 	lock=${_LOCKNAME}; \
-	_LOCKS_HELD="${_LOCKS_HELD} ${_LOCKNAME}"; export _LOCKS_HELD; \
+	export _LOCKS_HELD="${_LOCKS_HELD} ${_LOCKNAME}"; \
 	${_SIMPLE_LOCK}
 .    endif
 .  endfor
@@ -1714,8 +1759,8 @@ _PACKAGE_CHECKSUM_DIR = ${PACKAGE_REPOSITORY}/${MACHINE_ARCH}/cksums
 _do_checksum_package = \
 	install -d ${PACKAGE_REPOSITORY_MODE} ${_PACKAGE_CHECKSUM_DIR} && \
 	cd ${_TMP_REPO} && \
-	cksum -b -a sha256 -- $$pkgname \
-		>${_PACKAGE_CHECKSUM_DIR}/$$(basename $$pkgname .tgz).sha256
+	cksum -b -a ${_CIPHER} -- $$pkgname \
+		>${_PACKAGE_CHECKSUM_DIR}/$$(basename $$pkgname .tgz).${_CIPHER}
 
 .if ${CHECKSUM_PACKAGES:L} == "yes"
 _checksum_package = ${_do_checksum_package}
@@ -1848,8 +1893,10 @@ _CHECK_LIB_DEPENDS += -F pthread
 .for _s in ${MULTI_PACKAGES}
 .  if ${STATIC_PLIST${_s}:L} == "no"
 _register_plist${_s} = :
+_dbg_register_plist${_s} = :
 .  else
 _register_plist${_s} = ${_register_plist}
+_dbg_register_plist${_s} = : 
 .  endif
 .endfor
 
@@ -1918,8 +1965,9 @@ _update_plist = ${_cache_fragment}; \
 	-s BASE_PKGPATH -s LOCALBASE -s LOCALSTATEDIR -s PREFIX \
 	-s RCDIR -s SYSCONFDIR -s X11BASE \
 	-X ${_FAKE_COOKIE} -X ${_INSTALL_PRE_COOKIE} -X ${WRKINST}/.saved_libs
+	
 
-.for _d in ${_FAKE_TREE_LIST}
+.for _d in ${_FAKE_TREE_LIST} ${_EXCLUDE_DEBUG_PLISTS}
 _update_plist += -X ${_d:Q}
 .endfor
 
@@ -1929,6 +1977,13 @@ _update_plist += -L ${WRKINST}/.fake_log \
 _update_plist += `SUBPACKAGE=$i make run-depends-args lib-depends-args` ${PKG_ARGS$i} ${FULLPKGNAME$i}
 .endfor
 
+_build_debug_info = PORTSDIR=${PORTSDIR} ${_PERLSCRIPT}/build-debug-info -P ${_WRKDEBUG} --
+
+.for i in ${BUILD_PACKAGES}
+.  if ${DEBUG_PACKAGES:M$i}
+_build_debug_info += ${PKG_ARGS$i} ${FULLPKGNAME$i}
+.  endif
+.endfor
 
 ###
 ### end of variable setup. Only targets now
@@ -2044,22 +2099,19 @@ ${_PACKAGE_COOKIE${_S}}:
 .  else
 	@${_MAKE} ${_PACKAGE_COOKIE_DEPS}
 # What PACKAGE normally does:
+.  if !empty(DEBUG_PACKAGES)
+	@${_SUDOMAKESYS} _copy-debug-info ${FAKE_SETUP}
+.  endif
 	@${_MAKE} _internal-generate-readmes
 	@${ECHO_MSG} "===>  Building package for ${FULLPKGNAME${_S}}"
 	@${ECHO_MSG} "Create ${_PACKAGE_COOKIE${_S}}"
-	@cd ${.CURDIR} && \
-	tmp=${_TMP_REPO}${_PKGFILE${_S}} pkgname=${_PKGFILE${_S}} permit=${PERMIT_PACKAGE${_S}:L:Q} && \
+	@cd ${.CURDIR} && permit=${PERMIT_PACKAGE${_S}:L:Q} && \
 	if deps=$$(SUBPACKAGE=${_S} wantlib_args=${_pkg_wantlib_args} \
-			${MAKE} print-package-args) && \
-		${_PBUILD} ${_PKG_CREATE} -DPORTSDIR="${PORTSDIR}" \
-			$$deps ${PKG_ARGS${_S}} $$tmp && \
-		${_check_lib_depends} $$tmp && \
-		${_register_plist${_S}} $$tmp && \
-		${_checksum_package} && \
-		${_PBUILD} mv $$tmp ${_PACKAGE_COOKIE${_S}}; then \
+			${MAKE} print-package-args) && ${_create_pkg${_S}}; then \
+			${_move_tmp_pkg${_S}}; \
 		 	exit 0; \
 	else \
-		${_PBUILD} rm -f $$tmp; \
+		${_PBUILD} rm -f ${_tmp_pkg${_S}}; \
 	    exit 1; \
 	fi
 # End of PACKAGE.
@@ -2461,6 +2513,7 @@ update-patches:
 	@toedit=`WRKDIST=${WRKDIST} PATCHDIR=${PATCHDIR} \
 		PATCH_LIST='${PATCH_LIST}' DIFF_ARGS='${DIFF_ARGS}' \
 		DISTORIG=${DISTORIG} PATCHORIG=${PATCHORIG} \
+		WRKOBJDIR=${WRKOBJDIR} \
 		${_PERLSCRIPT}/update-patches`; \
 	if [ -n "$$toedit" ] && [ "${EDIT_PATCHES:L}" != no ]; then \
 		cd ${PATCHDIR} && $${VISUAL:-$${EDITOR:-/usr/bin/vi}} $$toedit; \
@@ -2906,6 +2959,20 @@ ${_FAKE_COOKIE}: ${_BUILD_COOKIE}
 	@${_check_wrkdir} ${WRKDIR} ${_TS_COOKIE} ${WRKDIR_CHANGES_OKAY} 
 	@${_PBUILD} ${_MAKE_COOKIE} $@
 
+_copy-debug-info: ${_FAKE_COOKIE}
+	@mkdir -p ${_WRKDEBUG}
+	@${_build_debug_info}
+	@cd ${PREFIX} && \
+		exec ${SETENV} ${MAKE} -r -f ${_WRKDEBUG}/Makefile \
+			INSTALL_DATA_DIR='${INSTALL_DATA_DIR}' all
+
+show-debug-info:
+	@for i in ${_WRKDEBUG}/*; do \
+		echo "$$i:"; \
+		echo "------------------"; \
+		cat $$i; \
+	done
+
 # XXX this is a separate step that is "always on" and doesn't generate
 # cookies
 _internal-generate-readmes: ${_FAKE_COOKIE}
@@ -3138,7 +3205,7 @@ _internal-clean:
 	${_PFETCH} rm -f ${_CACHE_PACKAGE_COOKIES}
 	rm -f ${_UPDATE_COOKIES} 
 .elif ${_clean:Mpackage}
-	${_PBUILD} rm -f ${_PACKAGE_COOKIES${SUBPACKAGE}}
+	${_PBUILD} rm -f ${_PACKAGE_COOKIES${SUBPACKAGE}} ${_DBG_PACKAGE_COOKIE${SUBPACKAGE}}
 	rm -f ${_UPDATE_COOKIE${SUBPACKAGE}}
 .endif
 .if ${_clean:Mbulk}
@@ -3147,9 +3214,12 @@ _internal-clean:
 .if ${_clean:Mplist}
 .  if !empty(_PLIST_DB)
 .    for _p in ${PKGNAMES}
-	${_PBUILD} rm -f ${_PLIST_DB}/${_p}
+	${_PBUILD} rm -f ${_PLIST_DB}/{debug-,}${_p}
 .    endfor
 .  endif
+.endif
+.if ${_clean:Mtest}
+	${_PBUILD} rm -f ${_TEST_COOKIE}
 .endif
 
 print-build-depends:
@@ -3177,11 +3247,10 @@ full-${_i}-depends:
 
 license-check:
 .for _S in ${BUILD_PACKAGES}
-.  if ${PERMIT_PACKAGE_FTP${_S}:L} == "yes"
+.  if ${PERMIT_PACKAGE${_S}:L} == "yes"
 	@SUBPACKAGE=${_S} PKGPATH=${PKGPATH} ${MAKE} all-dir-depends|${_sort_dependencies}|while read subdir; do \
 		${_flavor_fragment}; \
-		_MASTER_PERMIT=${PERMIT_PACKAGE${_S}:Q}; \
-		export _MASTER_PERMIT; \
+		export _MASTER_PERMIT=${PERMIT_PACKAGE${_S}:Q}; \
 		eval $$toset ${MAKE} _license-check; \
 	done
 .  endif
@@ -3473,6 +3542,10 @@ rebuild:
 	@${_PBUILD} rm -f ${_BUILD_COOKIE}
 	@${_MAKE} build
 
+retest:
+	@${_PBUILD} rm -f ${_TEST_COOKIE}
+	@${_MAKE} test
+
 regen:
 	@${_PBUILD} rm -f ${_GEN_COOKIE}
 	@${_MAKE} gen
@@ -3549,14 +3622,15 @@ _all_phony = ${_recursive_depends_targets} \
 	post-distpatch post-extract post-install \
 	post-patch post-test pre-build pre-configure pre-extract pre-fake \
 	pre-install pre-patch pre-test prepare \
-	print-build-depends print-run-depends rebuild regen reprepare \
+	print-build-depends print-run-depends rebuild regen reprepare retest \
 	test-depends test-depends-list run-depends-list \
     show-required-by subpackage uninstall _print-metadata \
 	run-depends-args lib-depends-args all-lib-depends-args wantlib-args \
 	port-wantlib-args fake-wantlib-args no-wantlib-args no-lib-depends-args \
 	_recurse-show-run-depends show-run-depends \
 	_post-extract-finalize _post-patch-finalize _pre-fake-modules \
-	_gen-finalize _post-install-modules fix-permissions
+	_gen-finalize _post-install-modules fix-permissions \
+	_copy-debug-info show-debug-info
 
 .if defined(_DEBUG_TARGETS)
 .  for _t in ${_all_phony}

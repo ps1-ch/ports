@@ -1,13 +1,9 @@
-# $OpenBSD: Makefile,v 1.13 2019/05/16 20:43:09 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.20 2019/11/10 21:44:07 ajacoutot Exp $
 
 # XXX: PORTROACH is set at the end of this file to override gnome.port.mk
   
 # XXX -Dman-pages=true yet no man page is built
 # XXX add support for libcloudproviders? (-Denable-cloudproviders=true)
-
-# Everything is a Freaking GLib/GTK+ problem
-CFLAGS +=		-g
-INSTALL_STRIP=		# empty
 
 COMMENT-main=		multi-platform graphical toolkit
 COMMENT-cups=		gtk+4 CUPS print backend
@@ -24,7 +20,11 @@ PKGNAME-cloudprint=	gtk+4-cloudprint-${GNOME_VERSION}
 PKGNAME-guic=		gtk4-update-icon-cache-${GNOME_VERSION}
 PKGNAME-media=		gtk+4-media-${GNOME_VERSION}
 
-REVISION-main=		3
+REVISION-main=		6
+REVISION-cups=		3
+REVISION-cloudprint=	2
+REVISION-guic=		2
+REVISION-media=		2
 
 CATEGORIES=		x11 devel
 
@@ -35,7 +35,7 @@ HOMEPAGE=		http://www.gtk.org/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender epoxy fontconfig freetype gio-2.0
@@ -53,6 +53,8 @@ MODGNOME_TOOLS=		docbook gobject-introspection gtk-update-icon-cache \
 
 MODPY_VERSION=		${MODPY_DEFAULT_VERSION_3}
 MODPY_RUNDEP=		No
+
+DEBUG_PACKAGES=		${BUILD_PACKAGES}
 
 BUILD_DEPENDS=		www/sassc
 
@@ -123,12 +125,13 @@ CONFIGURE_ARGS=		-Dwayland-backend=false \
 			-Dvulkan=no \
 			-Dman-pages=true
 
-# sync with devel/spidermonkey52: colord -> polkit -> spidermonkey52
-# not for mips64el since there seems to be no colord pkg for it
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "amd64" || \
-    ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "hppa" || \
-    ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64" || \
-    ${MACHINE_ARCH} == "mips64"
+# sync with devel/spidermonkey60 (ONLY_FOR_ARCHS):
+# colord -> polkit -> spidermonkey60
+.if ${MACHINE_ARCH} == "aarch64" || ${MACHINE_ARCH} == "alpha" || \
+    ${MACHINE_ARCH} == "amd64" || ${MACHINE_ARCH} == "i386" || \
+    ${MACHINE_ARCH} == "hppa" || ${MACHINE_ARCH} == "mips64el" || \
+    ${MACHINE_ARCH} == "mips64" || ${MACHINE_ARCH} == "powerpc" || \
+    ${MACHINE_ARCH} == "sparc64"
 LIB_DEPENDS-cups +=	graphics/colord
 WANTLIB-cups +=	colord
 .else

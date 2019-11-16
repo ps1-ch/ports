@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.39 2018/02/15 08:45:48 tb Exp $
+# $OpenBSD: Makefile,v 1.41 2019/07/12 20:48:43 sthen Exp $
 
 COMMENT-main=	packet filter statistics visualization
 COMMENT-daemon=	pfstat daemon
@@ -9,13 +9,12 @@ PKGNAME-main=	${DISTNAME}
 PKGNAME-daemon=	${DISTNAME:S/-/d-/}
 CATEGORIES=	net
 MASTER_SITES=	http://www.benzedrine.ch/
-REVISION-daemon=3
-REVISION-main=	2
+REVISION=	4
 
 HOMEPAGE=	http://www.benzedrine.ch/pfstat.html
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 BUILD_DEPENDS=		graphics/gd
 

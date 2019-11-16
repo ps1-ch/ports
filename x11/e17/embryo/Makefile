@@ -1,14 +1,15 @@
-# $OpenBSD: Makefile,v 1.23 2016/09/13 19:15:03 naddy Exp $
+# $OpenBSD: Makefile,v 1.25 2019/09/07 13:16:47 naddy Exp $
 
 COMMENT =		C like scripting language used in E17
 
 DISTNAME =		embryo-1.7.10
 EPOCH =			2
+REVISION =		0
 
 SHARED_LIBS +=	embryo               4.0      # 8.10
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c eina iconv m pthread
 

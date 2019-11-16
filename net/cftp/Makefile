@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.10 2019/05/17 16:19:40 sthen Exp $
+# $OpenBSD: Makefile,v 1.12 2019/07/17 14:46:33 danj Exp $
 
 COMMENT=	full screen FTP client
 
 DISTNAME=	cftp-0.12
-REVISION=	3
+REVISION=	4
 CATEGORIES=	net
 
 HOMEPAGE=	http://nih.at/cftp/
 
-MAINTAINER=	Josh Rivel <josh@rivels.org>
-
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c curses
 

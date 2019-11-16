@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.141 2019/05/20 22:15:18 naddy Exp $
+# $OpenBSD: Makefile,v 1.143 2019/08/19 06:04:23 ajacoutot Exp $
 
 COMMENT=	multimedia decoding library
 
 DISTNAME=	xine-lib-1.2.9
-REVISION=	2
+REVISION=	3
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=xine/}
 EXTRACT_SUFX=	.tar.xz
@@ -15,8 +15,7 @@ HOMEPAGE=	https://www.xine-project.org/
 MAINTAINER=	Brad Smith <brad@comstyle.com>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	patents
-PERMIT_PACKAGE_FTP=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} FLAC GL GLU ICE SDL SM X11 X11-xcb
 WANTLIB += Xau Xdamage Xdmcp Xext Xfixes Xinerama Xv XvMCW Xxf86vm
@@ -32,7 +31,7 @@ WANTLIB += z
 XINEAPI_REV=	2.7
 SUBST_VARS+=	XINEAPI_REV
 
-COMPILER=	base-clang ports-gcc base-gcc
+COMPILER=	base-clang ports-gcc
 COMPILER_LANGS=	c
 
 BUILD_DEPENDS=	textproc/xmlto

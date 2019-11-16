@@ -1,22 +1,23 @@
-# $OpenBSD: Makefile,v 1.56 2018/06/27 21:03:55 espie Exp $
+# $OpenBSD: Makefile,v 1.59 2019/11/14 17:29:29 fcambus Exp $
 
 COMMENT=	CAD drawing program for X11
 
 # print/transfig usually needs to be in-sync
-DISTNAME=	xfig-3.2.6
-REVISION=	1
+DISTNAME=	xfig-3.2.7b
+REVISION=	0
 CATEGORIES=	graphics x11
 
 HOMEPAGE=	http://mcj.sourceforge.net/
 
 # MIT
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xaw3d Xpm Xt c jpeg m png
 
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mcj/}
 EXTRACT_SUFX=	.tar.xz
 
+BUILD_DEPENDS=	print/transfig
 LIB_DEPENDS=	graphics/jpeg \
 		graphics/png \
 		x11/Xaw3d>=1.6

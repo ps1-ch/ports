@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile.inc,v 1.13 2018/11/17 13:29:17 juanfra Exp $
+# $OpenBSD: Makefile.inc,v 1.15 2019/08/06 18:19:51 juanfra Exp $
 
 COMMENT=	practical and portable Scheme system
 
-V=		5.0.0
+V=		5.1.0
 DISTNAME=	chicken-${V}
 
 MAINTAINER=	Timo Myyra <timo.myyra@bittivirhe.fi>
@@ -13,7 +13,7 @@ HOMEPAGE=	https://www.call-cc.org/
 MASTER_SITES=	https://code.call-cc.org/releases/${V:C/^([0-9]+\.[0-9]+\.[0-9]+).*/\1/}/
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c m pthread
 
@@ -27,7 +27,7 @@ MAKE_FILE=	GNUmakefile
 
 FAKE_FLAGS=	PREFIX=${TRUEPREFIX}
 
-BINARYVERSION=	9
+BINARYVERSION=	11
 SUBST_VARS+=	BINARYVERSION
 
 # Based on param.h:MACHINE_STACK_GROWS_UP

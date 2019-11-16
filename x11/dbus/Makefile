@@ -1,4 +1,7 @@
-# $OpenBSD: Makefile,v 1.159 2019/06/15 09:59:57 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.162 2019/11/10 21:44:07 ajacoutot Exp $
+
+# XXX merge on next major update
+# https://gitlab.freedesktop.org/dbus/dbus/merge_requests/124/diffs
 
 PORTROACH=		limitw:1,even
 DPB_PROPERTIES=		parallel
@@ -12,6 +15,9 @@ EPOCH-main=		0
 
 PKGNAME-main=		${DISTNAME}
 PKGNAME-suid=		dbus-daemon-launch-helper-${V}
+
+REVISION-main=		0
+REVISION-suid=		0
 
 SHARED_LIBS +=  dbus-1               11.2     # 22.10
 
@@ -32,7 +38,9 @@ WANTLIB-suid +=	${WANTLIB} dbus-1
 
 MULTI_PACKAGES=		-main -suid
 
-MASTER_SITES=		http://dbus.freedesktop.org/releases/dbus/
+DEBUG_PACKAGES=		${BUILD_PACKAGES}
+
+MASTER_SITES=		https://dbus.freedesktop.org/releases/dbus/
 
 USE_GMAKE=		Yes
 

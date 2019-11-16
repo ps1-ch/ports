@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.14 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.17 2019/10/03 14:36:25 robert Exp $
 
 COMMENT=		the MATE window manager
 REVISION=		0
@@ -6,12 +6,12 @@ REVISION=		0
 SHARED_LIBS +=  marco-private             1.0 # 1.0
 
 MATE_PROJECT=		marco
-MATE_VERSION=		1.22.1
+MATE_VERSION=		1.22.3
 
 CATEGORIES=		x11
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ICE SM X11 X11-xcb Xcomposite Xcursor Xdamage Xext Xfixes Xi
 WANTLIB += Xinerama Xrandr Xrender atk-1.0 atk-bridge-2.0 c cairo

@@ -1,8 +1,7 @@
-# $OpenBSD: Makefile,v 1.35 2019/05/17 16:45:26 sthen Exp $
+# $OpenBSD: Makefile,v 1.37 2019/10/14 09:19:11 jsg Exp $
 
 COMMENT=	collection of various tools for scummvm
-V=		2.0.0
-REVISION=	4
+V=		2.1.0
 DISTNAME=	scummvm-tools-${V}
 CATEGORIES=	games
 MASTER_SITES=	http://www.scummvm.org/frs/scummvm-tools/${V}/
@@ -12,7 +11,7 @@ HOMEPAGE=	http://www.scummvm.org/
 MAINTAINER=	Jonathan Gray <jsg@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} FLAC c freetype iconv m mad ogg
 WANTLIB += png vorbis vorbisenc vorbisfile wx_baseu-3.0 wx_baseu_net-3.0
@@ -49,7 +48,7 @@ do-install:
 	${INSTALL_PROGRAM} \
 		${WRKBUILD}/scummvm-tools \
 		${WRKBUILD}/scummvm-tools-cli \
-		${WRKBUILD}/de{cine,kyra,scumm,sword2,gob,riven} \
+		${WRKBUILD}/de{cine,gob,kyra,prince,scumm,sword2} \
 		${WRKBUILD}/extract_mohawk \
 		${WRKBUILD}/construct_mohawk \
 		${WRKBUILD}/gob_loadcalc \

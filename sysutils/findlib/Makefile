@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.35 2019/03/04 12:51:16 chrisz Exp $
+# $OpenBSD: Makefile,v 1.39 2019/09/26 09:46:11 chrisz Exp $
 
 COMMENT=	OCaml package manager
 CATEGORIES=	sysutils
-DISTNAME=	findlib-1.8.0
+DISTNAME=	findlib-1.8.1
+REVISION=	1
 
 MASTER_SITES=	http://download.camlcity.org/download/
 
@@ -10,13 +11,13 @@ MAINTAINER=	Anil Madhavapeddy <avsm@openbsd.org>
 HOMEPAGE=	http://projects.camlcity.org/projects/findlib.html
 
 # MIT/X11
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES+=		x11/tk
 
 WANTLIB +=		c m
 RUN_DEPENDS +=		lang/ocaml
-BUILD_DEPENDS +=	lang/ocaml,-graphics
+BUILD_DEPENDS +=	lang/ocaml
 
 CONFIGURE_STYLE=simple
 CONFIGURE_ARGS= -no-custom \

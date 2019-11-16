@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.58 2019/05/05 05:07:45 bentley Exp $
+# $OpenBSD: Makefile,v 1.60 2019/08/12 21:47:23 naddy Exp $
 
 COMMENT=	free lossless audio codec
 
-DISTNAME=	flac-1.3.2
-REVISION =	2
+DISTNAME=	flac-1.3.3
 CATEGORIES=	audio archivers
 HOMEPAGE=	https://www.xiph.org/flac/
-SHARED_LIBS +=  FLAC                 10.0     # 11.0
+SHARED_LIBS +=  FLAC                 11.0     # 11.0
 SHARED_LIBS +=  FLAC++               9.0      # 9.0
 
 MAINTAINER=	Christian Weisgerber <naddy@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	https://downloads.xiph.org/releases/flac/ \
 		https://ftp.osuosl.org/pub/xiph/releases/flac/
@@ -20,7 +19,7 @@ EXTRACT_SUFX=	.tar.xz
 
 WANTLIB=	c iconv m ogg ${COMPILER_LIBCXX}
 
-COMPILER =		base-clang ports-gcc base-gcc
+COMPILER =	base-clang ports-gcc base-gcc
 
 LIB_DEPENDS=	audio/libogg converters/libiconv
 
@@ -37,7 +36,6 @@ CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
 		LDFLAGS="-L${LOCALBASE}/lib"
 
 post-install:
-	cd ${PREFIX}/share/doc && mv ${DISTNAME} flac
 	${SUBST_CMD} ${PREFIX}/man/man1/flac.1
 	rm ${PREFIX}/man/man1/flac.1.beforesubst
 

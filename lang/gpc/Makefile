@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.4 2019/04/15 17:07:43 bcallah Exp $
+# $OpenBSD: Makefile,v 1.6 2019/08/10 19:41:07 naddy Exp $
 
 # Should work on all other archs.
 NOT_FOR_ARCHS =	aarch64 m88k
 
 COMMENT =	GNU Pascal compiler
 DISTNAME =	gpc-20070904
-REVISION =	2
+REVISION =	3
 CATEGORIES =	lang
 
 HOMEPAGE =	https://www.gnu-pascal.de/gpc/h-index.html
 MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c gmp mpfr
 

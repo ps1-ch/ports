@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.55 2019/05/20 22:15:26 naddy Exp $
+# $OpenBSD: Makefile,v 1.58 2019/10/28 06:29:45 gonzalo Exp $
 
 BROKEN-alpha =	MetalinkParserStateV4Impl.cc:219:1: internal compiler error: Segmentation fault
 
 COMMENT =		lightweight multi-protocol & multi-source download utility
-V =			1.34.0
+V =			1.35.0
 DISTNAME =		aria2-${V}
 CATEGORIES =		www
 HOMEPAGE =		https://aria2.github.io/
-REVISION =		0
 
 MAINTAINER =		Gonzalo L. R. <gonzalo@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		https://github.com/aria2/aria2/releases/download/release-${V}/
 

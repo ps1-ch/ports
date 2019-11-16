@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.546 2019/05/14 07:06:34 rpointel Exp $
+# $OpenBSD: Makefile,v 1.554 2019/10/31 06:21:33 bentley Exp $
 
      SUBDIR =
      SUBDIR += ADMsnmp
@@ -8,6 +8,7 @@
      SUBDIR += aide
      SUBDIR += aircrack-ng
      SUBDIR += amap
+     SUBDIR += angrop
      SUBDIR += apg
      SUBDIR += argon2
      SUBDIR += arirang
@@ -141,6 +142,7 @@
      SUBDIR += lynis
      SUBDIR += mcrypt
      SUBDIR += mhash
+     SUBDIR += minisign
      SUBDIR += nbaudit
      SUBDIR += netpgp
      SUBDIR += nfsshell
@@ -157,6 +159,7 @@
      SUBDIR += opensc
      SUBDIR += openssl
      SUBDIR += ophcrack
+     SUBDIR += opm
      SUBDIR += opmsg
      SUBDIR += origami
      SUBDIR += ossec-hids
@@ -188,8 +191,8 @@
      SUBDIR += p5-Crypt-DES-EDE3
      SUBDIR += p5-Crypt-DSA
      SUBDIR += p5-Crypt-Eksblowfish
-     SUBDIR += p5-Crypt-GpgME
      SUBDIR += p5-Crypt-IDEA
+     SUBDIR += p5-Crypt-LE
      SUBDIR += p5-Crypt-OpenSSL-Bignum
      SUBDIR += p5-Crypt-OpenSSL-DSA
      SUBDIR += p5-Crypt-OpenSSL-EC
@@ -198,6 +201,7 @@
      SUBDIR += p5-Crypt-OpenSSL-RSA
      SUBDIR += p5-Crypt-OpenSSL-Random
      SUBDIR += p5-Crypt-OpenSSL-X509
+     SUBDIR += p5-Crypt-PKCS10
      SUBDIR += p5-Crypt-PasswdMD5
      SUBDIR += p5-Crypt-RC4
      SUBDIR += p5-Crypt-RC5
@@ -271,7 +275,6 @@
      SUBDIR += py-M2Crypto,python3
      SUBDIR += py-PyNaCl
      SUBDIR += py-PyNaCl,python3
-     SUBDIR += py-Rijndael
      SUBDIR += py-aes
      SUBDIR += py-aes,python3
      SUBDIR += py-artifacts
@@ -284,8 +287,6 @@
      SUBDIR += py-axolotl-curve25519,python3
      SUBDIR += py-bcrypt
      SUBDIR += py-bcrypt,python3
-     SUBDIR += py-crack
-     SUBDIR += py-cryptkit
      SUBDIR += py-cryptodome
      SUBDIR += py-cryptodome,python3
      SUBDIR += py-cryptography
@@ -324,6 +325,7 @@
      SUBDIR += py-pgpdump,python3
      SUBDIR += py-potr
      SUBDIR += py-potr,python3
+     SUBDIR += py-pysha3
      SUBDIR += py-requests-aws4auth
      SUBDIR += py-requests-aws4auth,python3
      SUBDIR += py-ropper
@@ -374,6 +376,7 @@
      SUBDIR += smbsniff
      SUBDIR += smtpscan
      SUBDIR += smurflog
+     SUBDIR += sn0int
      SUBDIR += snort2pf
      SUBDIR += softhsm
      SUBDIR += softhsm2

@@ -1,33 +1,31 @@
-# $OpenBSD: Makefile,v 1.10 2019/04/28 20:51:58 sthen Exp $
+# $OpenBSD: Makefile,v 1.14 2019/08/21 19:36:47 naddy Exp $
 
 COMMENT =	HTML/XML parser that supports invalid markup
 
-MODPY_EGG_VERSION =	4.6.3
+MODPY_EGG_VERSION =	4.7.1
 DISTNAME =	beautifulsoup4-${MODPY_EGG_VERSION}
 PKGNAME =	py-${DISTNAME}
 REVISION =	0
 
 CATEGORIES =	www
 
-HOMEPAGE =	http://www.crummy.com/software/BeautifulSoup/
-MAINTAINER =	frantisek holop <minusf@obiit.org>
+HOMEPAGE =	https://www.crummy.com/software/BeautifulSoup/
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
-
-MASTER_SITES =	${HOMEPAGE}bs4/download/4.6/
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/python
-
-TEST_DEPENDS =	devel/py-html5lib${MODPY_FLAVOR} \
-		textproc/py-lxml${MODPY_FLAVOR}
 
 FLAVORS =	python3
 FLAVOR ?=
 
 MODPY_SETUPTOOLS =	Yes
+MODPY_PI =		Yes
+MODPY_PYTEST =		Yes
+MODPY_PYTEST_ARGS =	lib/bs4
 
-do-test: fake
-	cd ${WRKINST}${MODPY_SITEPKG} && ${MODPY_BIN} -m unittest discover -s bs4
+RUN_DEPENDS =	www/py-soupsieve${MODPY_FLAVOR}
+TEST_DEPENDS =	devel/py-html5lib${MODPY_FLAVOR} \
+		textproc/py-lxml${MODPY_FLAVOR}
 
 .include <bsd.port.mk>

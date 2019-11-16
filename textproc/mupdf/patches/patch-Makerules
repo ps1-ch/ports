@@ -1,10 +1,11 @@
-$OpenBSD: patch-Makerules,v 1.20 2019/04/19 16:52:31 semarie Exp $
+$OpenBSD: patch-Makerules,v 1.22 2019/07/30 13:41:14 sthen Exp $
+
 Index: Makerules
 --- Makerules.orig
 +++ Makerules
 @@ -24,8 +24,8 @@ ifeq ($(build),debug)
    CFLAGS += -pipe -g
-   LDFLAGS += -g $(LDREMOVEUNREACH)
+   LDFLAGS += -g
  else ifeq ($(build),release)
 -  CFLAGS += -pipe -O2 -DNDEBUG -fomit-frame-pointer
 -  LDFLAGS += $(LDREMOVEUNREACH) -Wl,-s

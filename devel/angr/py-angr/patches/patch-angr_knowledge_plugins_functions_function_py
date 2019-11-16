@@ -1,0 +1,29 @@
+$OpenBSD: patch-angr_knowledge_plugins_functions_function_py,v 1.3 2019/11/10 09:29:32 kn Exp $
+
+Drop itanium_demangler dependency
+
+Index: angr/knowledge_plugins/functions/function.py
+--- angr/knowledge_plugins/functions/function.py.orig
++++ angr/knowledge_plugins/functions/function.py
+@@ -6,8 +6,6 @@ import itertools
+ from collections import defaultdict
+ from typing import Union
+ 
+-from itanium_demangler import parse
+-
+ from cle.backends.symbol import Symbol
+ from archinfo.arch_arm import get_real_address_if_arm
+ import claripy
+@@ -1272,10 +1270,12 @@ class Function(Serializable):
+     @property
+     def demangled_name(self):
+ 
++        """
+         if self.name[0:2] == "_Z":
+             ast = parse(self.name)
+             if ast:
+                 return ast.__str__()
++        """
+         return self.name
+ 
+     def copy(self):

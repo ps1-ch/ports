@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: Tty.pm,v 1.7 2019/05/08 09:10:54 espie Exp $
+# $OpenBSD: Tty.pm,v 1.13 2019/11/08 10:26:09 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -20,10 +20,11 @@ use warnings;
 
 use DPB::MiniCurses;
 
+# subclass of Reporter that's specifically used to report on a tty
+
 package DPB::Reporter::Tty;
 our @ISA = qw(DPB::MiniCurses DPB::Reporter DPB::Limiter);
 
-my $extra = '';
 sub handle_window
 {
 	my $self = shift;
@@ -41,13 +42,16 @@ sub set_sig_handlers
 
 sub filter
 {
-	'report';
+	'report_tty';
 }
 
-sub make_singleton
+sub create
 {
 	my ($class, $state) = @_;
-	my $self = $class->SUPER::make_singleton($state);
+	my $self = $class->SUPER::create($state);
+	$self->{record} = $state->{log_user}->open('>>', $state->{record})
+	    if defined $state->{record};
+	$self->{extra} = '';	# for myprint
 	$self->create_terminal;
 	$self->set_sig_handlers;
 	# no cursor, to avoid flickering
@@ -66,14 +70,18 @@ sub report
 	    sub {
 		my $msg = "";
 		for my $prod (@{$self->{producers}}) {
-			$msg.= $prod->report;
-		}
-		$msg .= $extra;
-		if ($msg ne $self->{msg} || $self->{continued}) {
-			if (defined $self->{record}) {
-				print {$self->{record}} "@@@", time(), "\n";
-				print {$self->{record}} $msg;
+			my $r = $prod->report_tty($self->{state});
+			if (defined $r) {
+				$msg.= $r;
 			}
+		}
+		$msg .= $self->{extra};
+		if ($msg ne $self->{msg} || $self->{continued}) {
+			# The "record" output is used by dpb-replay, 
+			# so it's just each new display prefixed with 
+			# a timestamp
+			print {$self->{record}} "@@@", CORE::time(), "\n", $msg
+			    if defined $self->{record};
 			$self->{continued} = 0;
 			my $method = $self->{write};
 			$self->$method($msg);
@@ -87,7 +95,7 @@ sub myprint
 	my $self = shift;
 	for my $string (@_) {
 		$string =~ s/^\t/       /gm; # XXX dirty hack for warn
-		$extra .= $string;
+		$self->{extra} .= $string;
 	}
 }
 

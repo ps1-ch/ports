@@ -1,0 +1,10 @@
+$OpenBSD: README,v 1.2 2019/08/03 08:41:41 ajacoutot Exp $
+
++-----------------------------------------------------------------------
+| Running ${PKGSTEM} on OpenBSD
++-----------------------------------------------------------------------
+
+dma
+===
+Retry is handled via cron, for example this crontab entry.
+*/30	*	*	*	*	${PREFIX}/sbin/dma -q

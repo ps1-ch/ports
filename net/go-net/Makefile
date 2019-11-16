@@ -1,17 +1,16 @@
-# $OpenBSD: Makefile,v 1.11 2019/04/24 16:26:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.13 2019/09/12 18:52:16 jsing Exp $
 
 COMMENT =	Go supplementary network libraries
-DISTNAME =	go-net-20190226
+DISTNAME =	go-net-20190904
 GH_ACCOUNT =	golang
 GH_PROJECT =	net
-GH_COMMIT =	fe579d43d83210096a79b46dcca0e3721058393a
+GH_COMMIT =	ba9fcec4b297b415637633c5a6e8fa592e4a16c3
 CATEGORIES =	net www devel
-REVISION =	0
 
 HOMEPAGE =	https://godoc.org/golang.org/x/net/
 
 # BSD
-PERMIT_PACKAGE_CDROM =Yes
+PERMIT_PACKAGE =Yes
 
 WANTLIB =	c pthread
 
@@ -44,7 +43,6 @@ _SUBPKGS =	bpf \
 		icmp \
 		idna \
 		internal/iana \
-		internal/nettest \
 		internal/socket \
 		internal/socks \
 		internal/sockstest \

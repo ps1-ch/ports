@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.36 2018/06/13 22:26:52 jeremy Exp $
+# $OpenBSD: Makefile,v 1.38 2019/11/12 06:40:03 jeremy Exp $
 
 COMMENT=	Ruby interface to some common LDAP libraries
 
-PKGNAME=	ldap-0.9.19
-REVISION =	0
+PKGNAME=	ldap-0.9.20
 DISTNAME=	ruby-${PKGNAME}
 CATEGORIES=	databases
 
@@ -12,7 +11,7 @@ HOMEPAGE=	https://github.com/alexey-chebotar/ruby-ldap
 MAINTAINER=	Jeremy Evans <jeremy@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		lang/ruby
 

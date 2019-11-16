@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.10 2019/05/15 12:04:40 kmos Exp $
+# $OpenBSD: Makefile,v 1.12 2019/08/03 17:08:45 kmos Exp $
 
 COMMENT =		synchronize calendars and contacts
 
 MODPY_EGG_VERSION =	0.16.7
 DISTNAME =		vdirsyncer-${MODPY_EGG_VERSION}
-REVISION =		1
+REVISION =		2
 
 CATEGORIES =		productivity
 
@@ -13,7 +13,7 @@ HOMEPAGE =		https://vdirsyncer.pimutils.org/
 MAINTAINER =		Remi Locherer <remi@openbsd.org>
 
 # BSD3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 

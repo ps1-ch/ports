@@ -1,23 +1,20 @@
-# $OpenBSD: Makefile,v 1.14 2019/04/24 16:26:58 sthen Exp $
+# $OpenBSD: Makefile,v 1.17 2019/09/30 13:00:55 kili Exp $
 
 COMMENT =		basic types for representing XML
 
 DISTNAME =		xml-types-0.3.6
-REVISION =		5
+REVISION =		7
 CATEGORIES =		textproc
 
 HOMEPAGE =		https://john-millikin.com/software/haskell-xml/
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/ghc
 
 MODGHC_BUILD =		cabal hackage haddock register
 
-MODGHC_PACKAGE_KEY =	KBWVauU3pnf3clHxqFFRXL
-
-RUN_DEPENDS =		devel/hs-text
-BUILD_DEPENDS =		${RUN_DEPENDS}
+MODGHC_PACKAGE_KEY =	56MQ2lbfiw31ognZ51DOah
 
 .include <bsd.port.mk>

@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.2 2019/02/12 17:17:24 kn Exp $
+# $OpenBSD: Makefile,v 1.4 2019/09/26 14:55:22 sthen Exp $
 
 COMMENT =		hierarchical schematic capture program
 
-DISTNAME =		xschem-2.8.2
+DISTNAME =		xschem-2.9.2
 
 CATEGORIES =		cad
 
@@ -11,7 +11,7 @@ HOMEPAGE =		http://repo.hu/projects/xschem/
 MAINTAINER =		Hannu Vuolasaho <vuokkosetae@gmail.com>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		${MODTK_WANTLIB} X11 X11-xcb Xpm Xrender
 WANTLIB +=		c cairo m xcb xcb-render
@@ -41,6 +41,6 @@ FAKE_FLAGS =		MANDIR="${DESTDIR}${PREFIX}/man" \
 NO_TEST =		Yes
 
 pre-configure:
-	${MODTCL_WISH_ADJ} ${WRKSRC}/src/xschem.tcl ${WRKSRC}/utile/utile.tcl
+	${MODTCL_WISH_ADJ} ${WRKSRC}/src/utile/utile.tcl
 
 .include <bsd.port.mk>

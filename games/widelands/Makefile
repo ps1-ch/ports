@@ -1,10 +1,9 @@
-# $OpenBSD: Makefile,v 1.24 2019/05/20 22:15:11 naddy Exp $
+# $OpenBSD: Makefile,v 1.28 2019/09/09 04:42:10 rsadowski Exp $
 
 COMMENT=	economic and military simulation game
-BROKEN-sparc64=	generates 240Mb log with 'terminate called recursively'
 
-V=		19
-DISTNAME= 	widelands-build${V}-src
+V =		20
+DISTNAME = 	widelands-build${V}
 PKGNAME=	widelands-0.${V}
 CATEGORIES=	games
 EXTRACT_SUFX=	.tar.bz2
@@ -14,10 +13,10 @@ HOMEPAGE=	https://wl.widelands.org/
 MASTER_SITES =	https://launchpad.net/widelands/build${V}/build${V}/+download/
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL GLEW SDL2 SDL2_image SDL2_mixer
-WANTLIB += SDL2_net SDL2_ttf boost_regex-mt boost_unit_test_framework-mt
+WANTLIB += SDL2_ttf boost_regex-mt boost_unit_test_framework-mt boost_system-mt
 WANTLIB += c execinfo iconv icuuc intl m png z
 
 # c++11
@@ -29,7 +28,6 @@ LIB_DEPENDS =	devel/boost \
 		devel/libexecinfo \
 		devel/sdl2-image \
 		devel/sdl2-mixer \
-		devel/sdl2-net \
 		devel/sdl2-ttf \
 		graphics/png \
 		graphics/glew \
@@ -42,12 +40,11 @@ MODULES =	devel/cmake \
 MODPY_RUNDEP=	No
 
 CONFIGURE_ARGS =	-DWL_INSTALL_DATADIR=${PREFIX}/share/widelands \
-			-DWL_INSTALL_BASEDIR=${PREFIX}/share/widelands
+			-DWL_INSTALL_BASEDIR=${PREFIX}/share/widelands \
+			-DCMAKE_DISABLE_FIND_PACKAGE_Doxygen=ON
 
-CONFIGURE_ENV =	CXXFLAGS="${CXXFLAGS} -I${LOCALBASE}/include \
-			-I${X11BASE}/include" \
-		LDFLAGS="${LDFLAGS} -lexecinfo -lintl -liconv \
-			-L${LOCALBASE}/lib"
+CONFIGURE_ENV =	LDFLAGS="${LDFLAGS} -lGL -lexecinfo -lintl -liconv \
+			-L${LOCALBASE}/lib -L${X11BASE}/lib"
 
 NO_TEST=	Yes
 

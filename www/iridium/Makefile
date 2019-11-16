@@ -1,18 +1,18 @@
-# $OpenBSD: Makefile,v 1.93 2019/06/13 17:07:04 sthen Exp $
+# $OpenBSD: Makefile,v 1.97 2019/11/10 13:37:48 robert Exp $
 
 .include <bsd.port.arch.mk>
 
 USE_WXNEEDED=		Yes
 
-DPB_PROPERTIES=		parallel
+DPB_PROPERTIES=		parallel parallel2
 .if ${MACHINE_ARCH} == "i386"
-DPB_PROPERTIES+=	lonesome
+# override parallel
+DPB_PROPERTIES=		lonesome
 .endif
 
 COMMENT=		Iridium browser
 
-V=			2019.04.73
-REVISION=		3
+V=			2019.11.78
 
 DISTNAME=		iridium-browser-${V}
 PKGNAME=		iridium-${V}
@@ -30,8 +30,7 @@ FLAVORS=		debug component
 FLAVOR?=
 
 # BSD-like
-PERMIT_PACKAGE_CDROM=	patents
-PERMIT_PACKAGE_FTP =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES=		https://downloads.iridiumbrowser.de/source/ \
 			http://nerd.hu/distfiles/
@@ -112,7 +111,7 @@ BUILDTYPE=	Debug
 BUILDTYPE=	Release
 .endif
 
-SUBST_VARS+=	WRKSRC
+SUBST_VARS+=	WRKSRC WRKDIR
 
 ALL_TARGET=	chrome
 TEST_TARGET=	base_unittests
@@ -165,7 +164,6 @@ GN_ARGS+=	google_api_key=\"AIzaSyA015yecfJyWi8UQpneQVrNzIKlxjv4MhI\" \
 		proprietary_codecs=true
 
 .if ${FLAVOR:Mdebug}
-GN_ARGS+=	remove_webcore_debug_symbols=true
 MAKE_ENV+=	V=1
 .endif
 
@@ -193,6 +191,8 @@ pre-configure:
 	@cp ${FILESDIR}/audio_manager_openbsd.{cc,h} ${WRKSRC}/media/audio/openbsd
 	@mkdir -p ${WRKSRC}/third_party/node/openbsd/node-openbsd/bin
 	@ln -sf ${TRUEPREFIX}/bin/node ${WRKSRC}/third_party/node/openbsd/node-openbsd/bin/node
+	${SUBST_CMD} ${WRKSRC}/build/gn_run_binary.py ${WRKSRC}/v8/tools/run.py \
+		${WRKSRC}/tools/protoc_wrapper/protoc_wrapper.py
 
 # Configuration consists of three steps:
 # 1. replace the specified bundled libraries with hooks to use the system libs
@@ -249,7 +249,7 @@ do-install:
 	cp -Rp ${BUILDDIR}/*.so ${PREFIX}/iridium/
 .endif
 
-.for s in 22 24 48 64 128 256
+.for s in 22_mono 24 48 64 128 256
 	${INSTALL_DATA_DIR} ${PREFIX}/share/icons/hicolor/${s}x${s}/apps
 	${INSTALL_DATA} ${WRKSRC}/chrome/app/theme/chromium/product_logo_${s}.png \
 		${PREFIX}/share/icons/hicolor/${s}x${s}/apps/iridium.png
@@ -259,7 +259,8 @@ do-install:
 		${PREFIX}/share/applications/iridium-browser.desktop
 
 	${INSTALL_DATA_DIR} ${PREFIX}/share/examples/iridium
-.for f in pledge.main unveil.gpu unveil.main unveil.plugin unveil.renderer unveil.utility
+.for f in pledge.main pledge.utility_audio pledge.utility_network unveil.gpu unveil.main \
+    unveil.plugin unveil.renderer unveil.utility unveil.utility_audio unveil.utility_network
 	${INSTALL_DATA} ${FILESDIR}/${f} ${PREFIX}/share/examples/iridium
 .endfor
 

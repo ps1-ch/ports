@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.49 2018/11/02 23:37:03 naddy Exp $
+# $OpenBSD: Makefile,v 1.53 2019/10/19 16:59:33 visa Exp $
 
 COMMENT=	free H.264/MPEG-4 AVC encoder
 
-V=		20180908
+V=		20190720
 DISTNAME=	x264-snapshot-${V}-2245
 PKGNAME=	x264-${V}
 REVISION=	0
@@ -10,19 +10,18 @@ CATEGORIES=	multimedia
 MASTER_SITES=	https://downloads.videolan.org/pub/videolan/x264/snapshots/
 EXTRACT_SUFX=	.tar.bz2
 
-SHARED_LIBS=	x264	19.0
+SHARED_LIBS=	x264	20.0
 
 HOMEPAGE=	https://www.videolan.org/developers/x264.html
 
 MAINTAINER=	Brad Smith <brad@comstyle.com>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	patents
-PERMIT_PACKAGE_FTP=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c m pthread
 
-COMPILER=	base-clang base-gcc
+COMPILER=	base-clang ports-gcc
 COMPILER_LANGS=	c
 
 .if ${MACHINE_ARCH} == "amd64"
@@ -42,7 +41,8 @@ CONFIGURE_ARGS+=--prefix=${PREFIX} \
 		--disable-lavf \
 		--disable-swscale
 
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "powerpc"
+.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "mips64" || \
+    ${MACHINE_ARCH} == "mips64el" || ${MACHINE_ARCH} == "powerpc"
 CONFIGURE_ARGS+=--disable-asm
 .endif
 

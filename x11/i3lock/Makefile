@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.4 2018/10/21 12:07:30 jasper Exp $
+# $OpenBSD: Makefile,v 1.6 2019/07/21 10:26:40 jasper Exp $
 
 COMMENT =		improved screen locker
 
 GH_ACCOUNT =		i3
 GH_PROJECT =		i3lock
-GH_TAGNAME =		2.11.1
+GH_TAGNAME =		2.12
 
 CATEGORIES =		x11
 
@@ -13,7 +13,7 @@ HOMEPAGE =		https://i3wm.org/i3lock/
 MAINTAINER =		Jasper Lievisse Adriaanse <jasper@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		https://i3wm.org/i3lock/
 EXTRACT_SUFX =		.tar.bz2

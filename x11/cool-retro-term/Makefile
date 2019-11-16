@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.18 2019/03/08 20:00:51 cwen Exp $
+# $OpenBSD: Makefile,v 1.20 2019/07/12 20:51:09 sthen Exp $
 
 COMMENT =	good looking terminal emulator which mimics old CRT displays
 
@@ -7,7 +7,7 @@ CATEGORIES =	x11
 GH_ACCOUNT =	Swordfish90
 GH_PROJECT =	cool-retro-term
 GH_TAGNAME =	1.1.1
-REVISION =	0
+REVISION =	1
 
 QMLTERMWIDGET =	48274c75660e28d44af7c195e79accdf1bd44963
 MASTER_SITES0 =	https://github.com/Swordfish90/qmltermwidget/archive/
@@ -19,7 +19,7 @@ USE_WXNEEDED =	Yes
 HOMEPAGE =	https://github.com/Swordfish90/cool-retro-term
 
 # GPLv3 only
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += GL Qt5Core Qt5Gui Qt5Network Qt5Qml Qt5Quick Qt5Sql
 WANTLIB += Qt5Widgets c m pthread

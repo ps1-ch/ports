@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.87 2019/05/20 22:15:26 naddy Exp $
+# $OpenBSD: Makefile,v 1.89 2019/07/30 16:57:41 landry Exp $
 
 COMMENT =	lightweight web browser
 
-V =	8.0
+V =	9.0
 DISTNAME =	midori-v${V}
 PKGNAME =	midori-${V}
 
@@ -12,7 +12,7 @@ CATEGORIES =	www
 SHARED_LIBS +=	midori-core 1.0 # 0.0
 
 # LGPLv2.1
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	devel/cmake \
 		textproc/intltool

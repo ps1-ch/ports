@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.24 2019/06/13 08:02:37 bentley Exp $
+# $OpenBSD: Makefile,v 1.27 2019/07/26 05:49:39 feinerer Exp $
 
 COMMENT =		minimalistic Mumble server
 
-GH_ACCOUNT =		fatbob313
+GH_ACCOUNT =		umurmur
 GH_PROJECT =		umurmur
-GH_TAGNAME =		0.2.16a
-REVISION =		6
+GH_TAGNAME =		0.2.17
+REVISION =		0
 CATEGORIES =		audio
 
 HOMEPAGE =		https://umurmur.net/
@@ -13,7 +13,7 @@ HOMEPAGE =		https://umurmur.net/
 MAINTAINER =		Jonathon Sisson <sisson.j@gmail.com>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB = 		c config crypto protobuf-c>=1.0 ssl
 

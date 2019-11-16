@@ -1,9 +1,10 @@
-# $OpenBSD: Makefile,v 1.2 2019/03/04 12:51:15 chrisz Exp $
+# $OpenBSD: Makefile,v 1.5 2019/09/26 09:46:10 chrisz Exp $
 
 COMMENT =	library for arithmetic on big integers and rationals
 CATEGORIES =	math
 
 V =		1.1
+REVISION =	1
 GH_ACCOUNT =	ocaml
 GH_PROJECT =	num
 #GH_TAGNAME =	v${V}
@@ -18,7 +19,7 @@ MAINTAINER =	Christopher Zimmermann <chrisz@openbsd.org>
 
 
 # LGPL 2.1
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 MODULES =	lang/ocaml
 

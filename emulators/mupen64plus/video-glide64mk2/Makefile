@@ -1,9 +1,11 @@
-# $OpenBSD: Makefile,v 1.18 2019/02/26 22:10:55 bentley Exp $
+# $OpenBSD: Makefile,v 1.20 2019/11/11 02:01:07 bentley Exp $
 
 COMMENT =		n64 emulator video plugin
 
+REVISION =		0
+
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 COMPILER =		base-clang ports-gcc
 

@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.24 2019/05/18 00:20:59 pvk Exp $
+# $OpenBSD: Makefile,v 1.26 2019/11/06 10:27:36 pvk Exp $
 
 COMMENT =	Really Awesome New Cisco confIg Differ
 
-DISTNAME =	rancid-3.9
+DISTNAME =	rancid-3.10
 EPOCH = 	0
 CATEGORIES =	sysutils
 
@@ -11,8 +11,7 @@ HOMEPAGE =	https://www.shrubbery.net/rancid/
 MAINTAINER =	Pavel Korovin <pvk@openbsd.org>
 
 # Custom
-PERMIT_PACKAGE_CDROM =	not for commercial use
-PERMIT_PACKAGE_FTP =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =	c util
 

@@ -1,6 +1,6 @@
-# $OpenBSD: Makefile,v 1.34 2019/06/11 04:34:23 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.36 2019/09/27 12:17:12 rsadowski Exp $
 
-VERSION =	2.164.3
+VERSION =	2.190.1
 MASTER_SITES =	http://mirrors.jenkins-ci.org/war-stable/${VERSION}/
 DIST_SUBDIR =	jenkins-stable
 

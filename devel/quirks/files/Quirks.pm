@@ -1,7 +1,7 @@
 #! /usr/bin/perl
 
 # ex:ts=8 sw=4:
-# $OpenBSD: Quirks.pm,v 1.784 2019/06/06 15:58:30 sthen Exp $
+# $OpenBSD: Quirks.pm,v 1.826 2019/11/13 14:50:45 fcambus Exp $
 #
 # Copyright (c) 2009 Marc Espie <espie@openbsd.org>
 #
@@ -332,6 +332,12 @@ my $stem_extensions = {
 	'Xonotic-server' => 'xonotic-server',
 	'gettext' => 'gettext-runtime',
 	'kwebapp' => 'openradtool',
+	'py-xmldiff' => 'py3-xmldiff',
+	'bro' => 'zeek',
+	'filter-rspamd' => 'opensmtpd-filter-rspamd',
+	'filter-senderscore' => 'opensmtpd-filter-senderscore',
+	'ilmbase' => 'OpenEXR',
+	'openexr-viewers' => 'OpenEXR-tools',
 };
 
 my $obsolete_reason = {
@@ -1033,7 +1039,6 @@ my $obsolete_reason = {
 	'vomit' => 0,
 	'p5-WWW-YouTube-Download' => 6,
 	'oggtag' => 6,
-	'tacacs+' => 0,
 	'aimsniff' => 6,
 	'pork' => 6,
 	'ntimed' => 3,
@@ -1257,6 +1262,82 @@ my $obsolete_reason = {
 	'voice_tll_di' => 5,
 	'proxy-suite' => 3,
 	'py-amf' => 6,
+	'lam' => 3,
+	'gxml' => 6,
+	'nulib' => 3,
+	'py-turbocheetah' => 3,
+	'py-turbokid' => 3,
+	'py-addons' => 3,
+	'py-peak-rules' => 3,
+	'py-prioritized_methods' => 3,
+	'py-extremes' => 3,
+	'py-kid' => 3,
+	'py-Chart' => 3,
+	'py-id3' => 3,
+	'py-tagger' => 3,
+	'py-zhCodecs' => 3,
+	'py-iconvcodec' => 3,
+	'py-cjkcodecs' => 3,
+	'py-cdb' => 3,
+	'py-pgsql' => 3,
+	'pgworksheet' => 3,
+	'py-HappyDoc' => 3,
+	'py-Rijndael' => 3,
+	'py-adns' => 3,
+	'py-cherrypy2' => 3,
+	'py-clientform' => 3,
+	'py-crack' => 3,
+	'py-cryptkit' => 3,
+	'py-epydoc' => 3,
+	'py-flowd' => 3,
+	'py-flowtools' => 3,
+	'py-gnuplot' => 3,
+	'py-htmltmpl' => 3,
+	'py-jaxml' => 3,
+	'py-kiwi' => 3,
+	'py-medusa' => 3,
+	'py-monthdelta' => 3,
+	'py-optik' => 3,
+	'py-osd' => 3,
+	'py-probstat' => 3,
+	'py-protocols' => 3,
+	'py-rtf' => 3,
+	'py-ruledispatch' => 3,
+	'py-silc' => 3,
+	'py-tpg' => 3,
+	'py-unit' => 3,
+	'pybugz' => 3,
+	'pymissile' => 3,
+	'arm-elf-binutils' => 6,
+	'arm-elf-gcc' => 6,
+	'arm-elf-gdb' => 6,
+	'arm-elf-newlib' => 6,
+	'py-mastodon.py' => 14,
+	'g77' => 5,
+	'libf2c' => 5,
+	'p5-WWW-Curl' => 3,
+	'java-tanukiwraper' => 5,
+	'opencv-docs' => 6,
+	'p5-Device-USB' => 6,
+	'p5-Crypt-GpgME' => 0,
+	'p5-HTTP-BrowserDetect' => 6,
+# 6.7
+	'awless' => 3,
+	'mousetweaks' => 3,
+	'py-ioflo' => 6,
+	'py3-ioflo' => 6,
+	'postgresql-plv8' => 5,
+	'py-GeoIP' => 6,
+	'cvsync' => 3,
+	'py-bokeh' => 14,
+	'pecl-geoip' => 6,
+	'clive' => 5,
+	'aws-shell' => 6,
+	'aqsis' => 5,
+	'py-algorithm-munkres' => 14,
+	'gtk-xfce-engine' => 3,
+	'py-pdfminer' => 14,
+	'firewalk' => 0,
 };
 
 # reasons for obsolete packages
@@ -1275,6 +1356,7 @@ my @msg = (
 	"no longer packageable", #11
 	"replace with IMAPSieve, see https://wiki.dovecot.org/HowTo/AntispamWithSieve", #12
 	"has a dependency on obsolete software", #13
+	"python2 port superseded by python3 version", #14
 );
 
 # ->is_base_system($handle, $state):
@@ -1285,7 +1367,17 @@ sub is_base_system
 {
 	my ($self, $handle, $state) = @_;
 
-	my $stem = OpenBSD::PackageName::splitstem($handle->pkgname);
+	my $pkgname = $handle->pkgname;
+	my $stem = OpenBSD::PackageName::splitstem($pkgname);
+
+	if ($stem eq 'ghc') {
+		require OpenBSD::PkgSpec;
+		my $spec = OpenBSD::PkgSpec->new('ghc-<8.2.2p5');
+		if ($spec->match_ref([$pkgname])) {
+			require OpenBSD::Quirks::ghc;
+			OpenBSD::Quirks::ghc::unfuck($handle, $state);
+		}
+	}
 
 	my $test = $base_exceptions->{$stem};
 	if (defined $test) {
@@ -1315,7 +1407,7 @@ sub filter_obsolete
 	for my $pkgname (@in) {
 		my $stem = OpenBSD::PackageName::splitstem($pkgname);
 		my $reason = $obsolete_reason->{$stem};
-		$reason = 3 if (!defined $reason && $pkgname =~ m/^(drupal(-6|6-)|ruby(19|2[0-3])-|ruby-[^0-9])/);
+		$reason = 3 if (!defined $reason && $pkgname =~ m/^(drupal(-6|6-)|ruby(19|2[0-4])-|ruby-[^0-9])/);
 		if (defined $reason) {
 			$state->say("Obsolete package: #1 (#2)", $pkgname, 
 			    $msg[$reason]);
@@ -1393,12 +1485,13 @@ my $cve = {
 	'net/dhcpcd' => 'dhcpcd-<7.2.2',
 	'net/haproxy' => 'haproxy-<1.8.17',
 	'net/icecast' => 'icecast-<2.4.4',
+	'net/irssi' => 'irssi-<1.2.1',
 	'net/isc-bind' => 'isc-bind-<9.11.5pl4v0',
 	'net/libssh2' => 'libssh2-<1.8.2',
 	'net/lldpd' => 'lldpd-<0.7.18p0',
 	'net/mosquitto' => 'mosquitto-<1.5.6',
 	'net/ntp' => 'ntp-<4.2.8pl7',
-	'net/openconnect' => 'openconnect-<8.01',
+	'net/openconnect' => 'openconnect-<8.05',
 	'net/powerdns,-main' => 'powerdns-<4.1.5',
 	'net/powerdns,-mysql' => 'powerdns-mysql-<4.1.5',
 	'net/powerdns,-pgsql' => 'powerdns-pgsql-<4.1.5',
@@ -1438,6 +1531,8 @@ my $cve = {
 	'www/py-django/stable' => 'py-django-<2.1.6',
 	'www/py-requests' => 'py-requests-<2.20.0',
 	'www/py-requests,python3' => 'py3-requests-<2.20.0',
+	'www/py-urllib3' => 'py-urllib3-<1.24.3',
+	'www/py-urllib3,python3' => 'py3-urllib3-<1.24.3',
 	'www/ruby-rack,ruby24' => 'ruby24-rack-<2.0.6',
 	'www/ruby-rack,ruby25' => 'ruby25-rack-<2.0.6',
 	'www/webkitgtk4' => 'webkitgtk4-<2.20.5',

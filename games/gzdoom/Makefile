@@ -1,4 +1,6 @@
-# $OpenBSD: Makefile,v 1.5 2019/04/02 13:56:40 jca Exp $
+# $OpenBSD: Makefile,v 1.9 2019/07/12 20:46:19 sthen Exp $
+
+BROKEN-i386 =		various always_inline functions require sse2, but would be inlined into function 'Loop' that is compiled without support for sse2
 
 # asmjit in gzdoom-3.7.2 supports only x86 and arm/arm64
 # arm/arm64 are only supported on Windows and Linux
@@ -6,9 +8,10 @@ ONLY_FOR_ARCHS =	i386 amd64
 
 COMMENT =		OpenGL engine for idTech 1 games like doom,hexen,heretic...
 
-V =			3.7.2
+V =			4.1.2
 PKGNAME =		gzdoom-${V}
 DISTNAME =		gzdoom-src-g${V}
+REVISION =		0
 
 CATEGORIES=		games
 
@@ -20,7 +23,7 @@ MASTER_SITES =		https://zdoom.org/files/gzdoom/src/
 EXTRACT_SUFX =		.zip
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=		${COMPILER_LIBCXX} SDL2 bz2 c execinfo jpeg m mpg123
 WANTLIB +=		openal sndfile z

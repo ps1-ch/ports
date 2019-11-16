@@ -1,18 +1,16 @@
-# $OpenBSD: Makefile,v 1.19 2018/05/12 09:41:31 espie Exp $
+# $OpenBSD: Makefile,v 1.21 2019/07/17 14:49:19 danj Exp $
 
 COMMENT=	Differential GPS over IP communication device
 
 DISTNAME=	dgpsip-1.35
 CATEGORIES=	astro
 MASTER_SITES=	http://www.wsrcc.com/wolfgang/ftp/
-REVISION =	0
+REVISION =	1
 
 HOMEPAGE=	http://www.wsrcc.com/wolfgang/gps/dgps-ip.html
 
-MAINTAINER=	Wolfgang Rupprecht <wsr+dgpsip@wsrcc.com>
-
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=		c m
 

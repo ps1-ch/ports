@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.43 2019/06/14 20:11:07 bcallah Exp $
+# $OpenBSD: Makefile,v 1.50 2019/11/10 16:50:32 bcallah Exp $
 
 COMMENT =	LLVM Fortran compiler passes and runtime library
-DISTNAME =	flang-7.0.1.20190613
+DISTNAME =	flang-8.0.1.20191107
 
-SHARED_LIBS +=	flang                     1.5 # 6.0
-SHARED_LIBS +=	flangrti                  3.0 # 6.0
-SHARED_LIBS +=	ompstub                   0.0 # 6.0
+SHARED_LIBS +=	flang                     2.1 # 8.0
+SHARED_LIBS +=	flangrti                  5.0 # 8.0
+SHARED_LIBS +=	ompstub                   0.0 # 8.0
 
 GH_PROJECT =	flang
-GH_COMMIT =	5c2ddf0ad6a0ca22e60978259455c22d6a680d09
+GH_COMMIT =	cbadb27675c4681c8a77eef73c1fbeafee155602
 
 WANTLIB += ${COMPILER_LIBCXX} aio_compat c execinfo m pgmath z
 
@@ -42,7 +42,7 @@ pre-configure:
 # Don't use the LLVM shared library.
 post-configure:
 	sed -i \
-	"s,-lLLVM-7,`${LOCALBASE}/bin/llvm-config --libs all --link-static --ignore-libllvm` -lz,g" \
+	"s,-lLLVM-8,`${LOCALBASE}/bin/llvm-config --libs all --link-static --ignore-libllvm` -lz,g" \
 	${WRKBUILD}/tools/flang1/flang1exe/CMakeFiles/flang1.dir/link.txt \
 	${WRKBUILD}/tools/flang2/flang2exe/CMakeFiles/flang2.dir/link.txt
 

@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.5 2018/10/24 14:28:02 sthen Exp $
+# $OpenBSD: Makefile,v 1.7 2019/11/05 09:27:29 bentley Exp $
 
 COMMENT =	multi-system Nintendo emulator
 
 V =		106
 DISTNAME =	higan_v$V-source
 PKGNAME =	higan-$V
-REVISION =	3
+REVISION =	4
 
 USE_WXNEEDED =	Yes
 
@@ -16,7 +16,7 @@ HOMEPAGE =	https://byuu.org/emulation/higan/
 MAINTAINER =	Anthony J. Bentley <anthony@anjbe.name>
 
 # GPLv3: https://byuu.org/emulation/higan/licensing
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL SDL X11 Xcomposite Xcursor Xdamage
 WANTLIB += Xext Xfixes Xi Xinerama Xrandr Xrender Xv atk-1.0 c

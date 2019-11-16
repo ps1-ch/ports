@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.61 2019/05/01 19:21:57 landry Exp $
+# $OpenBSD: Makefile,v 1.64 2019/09/14 21:18:18 sthen Exp $
 
 COMMENT=	monitoring and managing daemons utility
 
-DISTNAME=	monit-5.25.3
+DISTNAME=	monit-5.26.0
 
 CATEGORIES=	sysutils
 
@@ -11,7 +11,7 @@ HOMEPAGE=	https://www.mmonit.com/monit/
 MAINTAINER=	Caspar Schutijser <caspar@schutijser.com>
 
 # AGPLv3+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c crypto m kvm pthread ssl z
 

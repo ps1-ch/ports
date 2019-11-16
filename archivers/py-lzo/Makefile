@@ -1,24 +1,24 @@
-# $OpenBSD: Makefile,v 1.9 2015/04/21 18:40:20 sthen Exp $
+# $OpenBSD: Makefile,v 1.11 2019/07/12 20:43:29 sthen Exp $
 
 COMMENT =		Python implementation of the LZO library
 
 MODPY_EGG_VERSION =	1.08
 DISTNAME =		python-lzo-${MODPY_EGG_VERSION}
 PKGNAME =		py-lzo-${MODPY_EGG_VERSION}
-REVISION =		4
+REVISION =		5
 CATEGORIES =		archivers
 
-HOMEPAGE =		http://www.oberhumer.com/opensource/lzo/
+HOMEPAGE =		https://www.oberhumer.com/opensource/lzo/
 
 MAINTAINER =		Benoit Lecocq <benoit@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 WANTLIB += ${MODPY_WANTLIB}
 WANTLIB += lzo pthread
 
-MASTER_SITES =	http://www.oberhumer.com/opensource/lzo/download/LZO-v1/
+MASTER_SITES =	https://www.oberhumer.com/opensource/lzo/download/LZO-v1/
 
 MODULES =	lang/python
 

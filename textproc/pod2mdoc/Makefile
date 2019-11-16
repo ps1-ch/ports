@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.9 2017/07/22 20:33:19 bentley Exp $
+# $OpenBSD: Makefile,v 1.11 2019/11/11 08:14:18 bentley Exp $
 
 COMMENT =		convert POD data to mdoc input
 
@@ -11,8 +11,10 @@ HOMEPAGE =		http://mandoc.bsd.lv/pod2mdoc/
 
 MAINTAINER =		Anthony J. Bentley <anthony@anjbe.name>
 
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+
 # ISC
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c util
 

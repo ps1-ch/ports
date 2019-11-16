@@ -1,26 +1,26 @@
-# $OpenBSD: Makefile,v 1.28 2018/09/04 12:46:19 espie Exp $
+# $OpenBSD: Makefile,v 1.31 2019/09/11 13:42:35 kn Exp $
 
 ONLY_FOR_ARCHS =	amd64 i386 powerpc
 BROKEN-powerpc =	threading issues
 
 COMMENT =		Plan 9 from user space
-REVISION =		3
 
-DISTNAME =		plan9port-20180117
+DISTNAME =		plan9port-20190619
+REVISION =		0
 
 GH_ACCOUNT =		9fans
 GH_PROJECT =		plan9port
-GH_COMMIT =		019be4481fee53a999ccb73c78e40df5f408b24e
+GH_COMMIT =		e995a0c101863688d5f14649ae3de45a7c43789c
 
 CATEGORIES =		plan9
 
-HOMEPAGE =		http://swtch.com/plan9port/
+HOMEPAGE =		https://9fans.github.io/plan9port/
 
 MAINTAINER =		Gleydson Soares <gsoares@openbsd.org>
 
 # mostly LPL (see LICENSE)
 # certain fonts may NOT be redistributed separately
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		X11 Xext c m pthread util fontconfig freetype z
 

@@ -1,13 +1,14 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2019/05/12 22:25:45 kn Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/09 17:17:24 kn Exp $
 
 COMMENT =		forks - emulate threads with fork
 
 DISTNAME =		forks-0.36
+REVISION =		1
 
 CATEGORIES =		devel
 
 # Perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=		c perl
 
@@ -19,5 +20,9 @@ RUN_DEPENDS =		devel/p5-Acme-Damn \
 			devel/p5-Sys-SigAction>=0.11
 
 CPAN_AUTHOR =		RYBSKEJ
+
+CONFIGURE_ENV =		FORKS_SIMULATE_USEITHREADS=1
+
+#FAKE_ENV =		UNINST=1
 
 .include <bsd.port.mk>

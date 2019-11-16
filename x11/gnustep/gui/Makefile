@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.53 2019/05/17 16:45:28 sthen Exp $
+# $OpenBSD: Makefile,v 1.55 2019/10/20 08:03:02 ajacoutot Exp $
 
 COMMENT=	GNUstep gui library
 
 DISTNAME =	gnustep-gui-0.27.0
-REVISION =	0
+REVISION =	2
 
 CATEGORIES=	devel
 

@@ -1,13 +1,12 @@
-# $OpenBSD: Makefile,v 1.13 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.15 2019/10/03 14:37:00 robert Exp $
 
 COMMENT=		MATE power manager
-REVISION=		0
 
 MATE_PROJECT=		mate-power-manager
-MATE_VERSION=		1.22.1
+MATE_VERSION=		1.22.2
 
 # LGPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xau Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender atk-1.0 atk-bridge-2.0 c cairo cairo-gobject

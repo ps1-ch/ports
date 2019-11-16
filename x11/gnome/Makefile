@@ -1,6 +1,7 @@
-# $OpenBSD: Makefile,v 1.278 2019/05/08 21:29:18 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.280 2019/11/01 13:06:42 ajacoutot Exp $
 
      SUBDIR =
+     SUBDIR += accerciser
      SUBDIR += adwaita-icon-theme
      SUBDIR += aisleriot
      SUBDIR += amtk
@@ -72,7 +73,6 @@
      SUBDIR += menus
      SUBDIR += mime-data
      SUBDIR += mono-gnome
-     SUBDIR += mousetweaks
      SUBDIR += music
      SUBDIR += mutter
      SUBDIR += nautilus

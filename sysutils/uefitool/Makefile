@@ -1,4 +1,7 @@
-# $OpenBSD: Makefile,v 1.5 2019/03/17 13:03:48 kn Exp $
+# $OpenBSD: Makefile,v 1.7 2019/10/03 17:51:59 kn Exp $
+
+# ignore A* and t* (pre) releases
+PORTROACH =		limit:^[0-9]
 
 COMMENT =		parse, extract and modify UEFI firmware images
 
@@ -11,7 +14,7 @@ CATEGORIES =		sysutils
 MAINTAINER =		Klemens Nanni <kn@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		${COMPILER_LIBCXX} GL Qt5Core Qt5Gui Qt5Widgets c m
 

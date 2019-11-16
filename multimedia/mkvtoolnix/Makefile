@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.91 2019/05/20 22:15:18 naddy Exp $
+# $OpenBSD: Makefile,v 1.93 2019/11/07 12:57:57 rsadowski Exp $
 
 COMMENT=	create, alter and inspect Matroska files
 
 DISTNAME=	mkvtoolnix-33.0.0
-REVISION=	0
+REVISION=	1
 
 CATEGORIES=	multimedia x11
 
@@ -12,11 +12,11 @@ HOMEPAGE =	https://www.bunkus.org/videotools/mkvtoolnix/
 MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} FLAC boost_filesystem-mt boost_regex-mt
 WANTLIB += boost_system-mt c cmark ebml iconv intl m magic matroska
-WANTLIB += ogg vorbis z
+WANTLIB += ogg pugixml vorbis z
 
 MASTER_SITES=	https://www.bunkus.org/videotools/mkvtoolnix/sources/
 
@@ -39,11 +39,12 @@ LIB_DEPENDS=	audio/flac \
 		audio/libogg \
 		audio/libvorbis \
 		devel/boost \
-		textproc/cmark \
 		devel/gettext,-runtime \
 		devel/libmagic \
 		multimedia/libmatroska>=1.5.0 \
-		textproc/libebml>=1.3.7
+		textproc/cmark \
+		textproc/libebml>=1.3.7 \
+		textproc/pugixml
 
 MAKE_ENV+=	V=1
 

@@ -1,6 +1,7 @@
-# $OpenBSD: Makefile,v 1.116 2019/05/11 03:33:43 jca Exp $
+# $OpenBSD: Makefile,v 1.118 2019/09/19 14:22:32 ajacoutot Exp $
 
      SUBDIR =
+     SUBDIR += aom
      SUBDIR += assimp
      SUBDIR += atomicparsley
      SUBDIR += audiopreview
@@ -17,6 +18,7 @@
      SUBDIR += gnome-twitch
      SUBDIR += gstreamer-0.10
      SUBDIR += gstreamer1
+     SUBDIR += handbrake
      SUBDIR += hdhomerun
      SUBDIR += imagination
      SUBDIR += kguitar

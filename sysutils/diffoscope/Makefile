@@ -1,6 +1,6 @@
-# $OpenBSD: Makefile,v 1.11 2019/05/30 22:03:35 bcallah Exp $
+# $OpenBSD: Makefile,v 1.19 2019/11/13 17:05:34 bcallah Exp $
 
-MODPY_EGG_VERSION =	115
+MODPY_EGG_VERSION =	129
 COMMENT =	in-depth comparison of files, archives, and directories
 DISTNAME =	diffoscope-${MODPY_EGG_VERSION}
 CATEGORIES =	sysutils devel
@@ -9,7 +9,7 @@ HOMEPAGE =	https://diffoscope.org/
 MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/python
 MODPY_VERSION =	${MODPY_DEFAULT_VERSION_3}

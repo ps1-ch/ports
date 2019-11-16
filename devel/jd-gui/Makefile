@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.9 2019/06/11 00:38:34 kurt Exp $
+# $OpenBSD: Makefile,v 1.12 2019/09/13 08:05:44 rpointel Exp $
 
 COMMENT =		yet another fast Java decompiler
 
-VERSION =		1.5.2
-REVISION =		0
+VERSION =		1.6.3
 DISTNAME =		jd-gui-${VERSION}
 
 CATEGORIES =		devel security
@@ -13,7 +12,7 @@ HOMEPAGE =		http://jd.benow.ca/
 MAINTAINER =		Remi Pointel <rpointel@openbsd.org>
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =  Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		https://github.com/java-decompiler/jd-gui/releases/download/v${VERSION}/
 

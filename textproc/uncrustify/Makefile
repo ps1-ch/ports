@@ -1,8 +1,10 @@
-# $OpenBSD: Makefile,v 1.22 2019/05/16 07:58:50 rpointel Exp $
+# $OpenBSD: Makefile,v 1.24 2019/10/26 22:52:56 cwen Exp $
 
 COMMENT =		source code beautifier
 
 DISTNAME =		uncrustify-0.69.0
+
+REVISION =		0
 
 CATEGORIES =		textproc devel
 
@@ -11,13 +13,13 @@ HOMEPAGE =		http://uncrustify.sourceforge.net/
 MAINTAINER =		Remi Pointel <rpointel@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c m ${COMPILER_LIBCXX}
 
 MASTER_SITES =		${MASTER_SITE_SOURCEFORGE:=uncrustify/}
 
-COMPILER =	base-clang ports-clang ports-gcc
+COMPILER =	base-clang ports-gcc
 
 MODULES =	devel/cmake \
 		lang/python

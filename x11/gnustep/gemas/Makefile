@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.16 2018/11/26 14:17:12 sebastia Exp $
+# $OpenBSD: Makefile,v 1.18 2019/10/20 08:03:01 ajacoutot Exp $
 
 COMMENT =	simple code editor for GNUstep
 
-REVISION =	5
+REVISION =	7
 DISTNAME =	Gemas-0.4
 PKGNAME =	gnustep-${DISTNAME:L}
 

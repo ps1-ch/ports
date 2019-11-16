@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.47 2019/06/14 20:19:31 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.51 2019/11/10 18:43:48 kmos Exp $
 
 # Memory hog, stuck for days on the same file (configoptions.cpp) during build.
 # XXX check with different optimizer level? see doc/install.doc
@@ -7,10 +7,9 @@ BROKEN-alpha=	.got subsegment exceeds 64K
 
 COMMENT=	source code documentation generator tool
 
-VERSION=	1.8.14
+VERSION=	1.8.16
 DISTNAME=	doxygen-${VERSION}.src
 PKGNAME=	doxygen-${VERSION}
-REVISION=	1
 
 CATEGORIES=	devel textproc
 
@@ -19,14 +18,13 @@ HOMEPAGE=	http://www.doxygen.org/
 MAINTAINER=	Rafael Sadowski <rsadowski@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c iconv m pthread ${COMPILER_LIBCXX} xapian z
 
-COMPILER =		base-clang ports-gcc base-gcc
+COMPILER =	base-clang ports-gcc base-gcc
 
-MASTER_SITES=	http://ftp.stack.nl/pub/users/dimitri/ \
-		ftp://ftp.stack.nl/pub/users/dimitri/
+MASTER_SITES=	http://doxygen.nl/files/
 
 LIB_DEPENDS=	converters/libiconv \
 		databases/xapian-core
@@ -40,7 +38,8 @@ MODPY_RUNDEP=	No
 CXXFLAGS+=	-mxgot
 .endif
 
-BUILD_DEPENDS+=	devel/bison
+BUILD_DEPENDS+=	devel/bison \
+		devel/git
 
 RUN_DEPENDS+=	print/ghostscript/gnu \
 		math/graphviz
@@ -50,7 +49,5 @@ CONFIGURE_ARGS+=-Dbuild_doc:Bool=ON \
 		-Dbuild_search:Bool=ON
 
 WRKDIST=	${WRKDIR}/doxygen-${VERSION}
-
-NO_TEST=	Yes
 
 .include <bsd.port.mk>

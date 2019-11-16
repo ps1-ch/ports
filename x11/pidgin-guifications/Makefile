@@ -1,17 +1,15 @@
-# $OpenBSD: Makefile,v 1.27 2019/06/13 15:48:55 sthen Exp $
+# $OpenBSD: Makefile,v 1.29 2019/07/17 14:39:44 danj Exp $
 
 COMMENT=	MSN style 'toaster' popups plugin for Pidgin
 
 DISTNAME=	pidgin-guifications-2.16
-REVISION=	14
+REVISION=	15
 CATEGORIES=	x11
 
 HOMEPAGE=	http://plugins.guifications.org/trac/wiki/Guifications
 
-MAINTAINER=	Thomas Wood <grand.edgemaster@gmail.com>
-
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama Xrandr
 WANTLIB += Xrender atk-1.0 cairo dbus-1 dbus-glib-1 expat ffi fontconfig

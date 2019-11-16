@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.4 2015/12/03 21:24:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.6 2019/07/17 14:49:20 danj Exp $
 
 PKG_ARCH=		*
 
@@ -8,16 +8,15 @@ DISTNAME=		AsteriskGuideFree87P
 PKGNAME=		AsteriskGuide-2.0
 EXTRACT_SUFX=		.pdf
 EXTRACT_ONLY=
+REVISION=		0
 
 CATEGORIES=		books telephony
 
 HOMEPAGE=		http://www.asteriskguide.com/
 
-MAINTAINER=		Diego Casati <diego.casati@gmai.com>
-
 # CC-Attribution-NonCommercial-NoDerivs
 # see page vii of the PDF
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		https://spacehopper.org/mirrors/ \
 			${HOMEPAGE}pdf/

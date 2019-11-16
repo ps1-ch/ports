@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.20 2019/05/04 17:09:12 feinerer Exp $
+# $OpenBSD: Makefile,v 1.23 2019/11/04 09:43:31 feinerer Exp $
 
 COMMENT =		libv4l userspace library
 
-VERSION =		1.16.6
+VERSION =		1.18.0
 DISTNAME =		v4l-utils-${VERSION}
 PKGNAME =		libv4l-${VERSION}
 
@@ -18,7 +18,7 @@ HOMEPAGE =		https://git.linuxtv.org/v4l-utils.git
 MAINTAINER =		Ingo Feinerer <feinerer@logic.at>
 
 # LGPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c execinfo jpeg m pthread
 

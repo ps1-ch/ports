@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.7 2019/05/15 12:04:43 kmos Exp $
+# $OpenBSD: Makefile,v 1.9 2019/11/08 23:31:46 kmos Exp $
 
 COMMENT =		terminals served to term.js using Tornado websockets
 
@@ -12,20 +12,17 @@ CATEGORIES =		www
 HOMEPAGE =		https://github.com/takluyver/terminado
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_PI =		Yes
+MODPY_PYTEST =		Yes
+MODPY_PYTEST_ARGS =	terminado
 
 RUN_DEPENDS +=		devel/py-ptyprocess${MODPY_FLAVOR} \
 			www/py-tornado${MODPY_FLAVOR}>=4
-TEST_DEPENDS +=		devel/py-nose${MODPY_FLAVOR}
 
 FLAVORS =		python3
 FLAVOR ?=
-
-# https://github.com/takluyver/terminado/issues/21
-do-test:
-	cd ${WRKSRC}/terminado && ${LOCALBASE}/bin/nosetests${MODPY_BIN_SUFFIX}
 
 .include <bsd.port.mk>

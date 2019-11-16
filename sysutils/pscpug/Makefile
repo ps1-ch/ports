@@ -1,16 +1,16 @@
-# $OpenBSD: Makefile,v 1.10 2014/08/26 14:16:28 naddy Exp $
+# $OpenBSD: Makefile,v 1.12 2019/07/12 20:49:49 sthen Exp $
 
 COMMENT=	draws a graph of CPU usage of a certain process
 
 DISTNAME=	pscpug035
 PKGNAME=	pscpug-0.3.5
-REVISION=	2
+REVISION=	3
 CATEGORIES=	sysutils
 
 HOMEPAGE=	http://www.diablonet.net/~mercadal/projects/pscpug/
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c curses kvm m
 

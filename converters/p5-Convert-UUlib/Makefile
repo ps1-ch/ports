@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.19 2016/03/20 19:56:07 naddy Exp $
+# $OpenBSD: Makefile,v 1.21 2019/07/17 14:49:20 danj Exp $
 
 COMMENT=	interface to the uulib library
 
@@ -6,12 +6,10 @@ DISTNAME =	Convert-UUlib-1.4
 EPOCH =		1
 CATEGORIES=	converters
 MODULES=	cpan
-REVISION =	1
-
-MAINTAINER=	Ibrahim Khalifa <ibo@toontown.org>
+REVISION =	2
 
 # Perl
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c perl
 

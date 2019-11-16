@@ -1,23 +1,22 @@
-# $OpenBSD: Makefile,v 1.22 2018/01/11 19:27:03 rpe Exp $
+# $OpenBSD: Makefile,v 1.25 2019/08/31 15:55:55 sthen Exp $
 
 COMMENT=	postfix greylist daemon
 
-DISTNAME=	postgrey-1.35
+DISTNAME=	postgrey-1.37
 CATEGORIES=	mail
-REVISION=	1
 
-HOMEPAGE=	http://postgrey.schweikert.ch/
+HOMEPAGE=	https://postgrey.schweikert.ch/
 
 MASTER_SITES=	${HOMEPAGE}/pub/ \
 		${HOMEPAGE}/pub/old/
 
-MAINTAINER=     Jakob Schlyter <jakob@openbsd.org>
-
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-NO_BUILD=		Yes
-NO_TEST=		Yes
+NO_BUILD=	Yes
+
+# tests need more work
+NO_TEST=	Yes
 
 BUILD_DEPENDS=		${RUN_DEPENDS}
 RUN_DEPENDS=		devel/p5-Net-Server \

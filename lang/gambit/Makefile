@@ -1,8 +1,9 @@
-# $OpenBSD: Makefile,v 1.35 2019/02/10 18:00:26 juanfra Exp $
+# $OpenBSD: Makefile,v 1.37 2019/09/08 17:40:02 juanfra Exp $
 
 COMMENT=	complete, efficient and reliable implementation of Scheme
 
 V=		4.9.3
+REVISION=	0
 DISTNAME=	gambit-v${V:S/./_/g}
 PKGNAME=	gambit-$V
 API_V=		${V:R:S/./0/}00${V:E}
@@ -15,7 +16,7 @@ HOMEPAGE=	http://dynamo.iro.umontreal.ca/wiki/index.php/Main_Page
 MAINTAINER=	Juan Francisco Cantero Hurtado <juanfra@openbsd.org>
 
 # LGPLv2.1 / Apachev2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	http://www.iro.umontreal.ca/~gambit/download/gambit/v${V:R}/source/
 EXTRACT_SUFX=	.tgz
@@ -48,8 +49,9 @@ do-test:
 
 # alpha: "cc1: out of memory allocating 1608 bytes"
 # hppa: "virtual memory exhausted: Cannot allocate memory" (in a system with 2GB RAM)
+# macppc: cc1: out of memory allocating 808 bytes
 # sparc64: "virtual memory exhausted: Cannot allocate memory" (ports cluster)
-.if ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "hppa" || ${MACHINE_ARCH} == "sparc64"
+.if ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "hppa" || ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64"
 CFLAGS += -O0
 .endif
 

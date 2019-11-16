@@ -1,36 +1,31 @@
-# $OpenBSD: Makefile,v 1.142 2019/05/20 22:15:21 naddy Exp $
+# $OpenBSD: Makefile,v 1.150 2019/11/12 22:03:41 kili Exp $
 
 COMMENT-main=	PDF rendering library
 COMMENT-qt5=	Qt5 interface to PDF rendering library
 COMMENT-utils=	PDF conversion tools and utilities
 
-V=		0.76.1
+V=		0.82.0
 DISTNAME=	poppler-$V
 CATEGORIES=	print
 PKGNAME-main=	poppler-$V
 PKGNAME-utils=	poppler-utils-$V
 PKGNAME-qt5=	poppler-qt5-$V
-REVISION=	1
 
 EXTRACT_SUFX=	.tar.xz
 
-SHARED_LIBS +=	poppler              51.0     # 87.0
-SHARED_LIBS +=	poppler-glib         19.1     # 8.12
-SHARED_LIBS +=	poppler-qt5          7.1      # 1.19
-SHARED_LIBS +=	poppler-cpp          11.0     # 0.7
+SHARED_LIBS +=	poppler              57.0     # 92.0
+SHARED_LIBS +=	poppler-glib         19.4     # 8.15
+SHARED_LIBS +=	poppler-qt5          7.3      # 1.21
+SHARED_LIBS +=	poppler-cpp          12.0     # 0.7
 
 HOMEPAGE=	https://poppler.freedesktop.org/
 
 MAINTAINER=	Matthias Kilian <kili@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	${HOMEPAGE}
-
-PSEUDO_FLAVORS=no_qt5 bootstrap
-# XXX not strictly a bootstrap loop, but on the critical path for libreoffice
-FLAVOR?=no_qt5 bootstrap
 
 NOT_FOR_ARCHS-qt5 = arm
 
@@ -45,16 +40,18 @@ cWANTLIB=	expat freetype fontconfig jpeg m pthread tiff z
 
 MODULES=	devel/cmake
 
-.if ${BUILD_PACKAGES:M-qt5}
 MODULES+=	x11/qt5
-.else
-CONFIGURE_ARGS+=	--disable-poppler-qt5
-.endif
 
-BUILD_DEPENDS+= devel/gobject-introspection
+# devel/boost only as build+run dependency, poppler uses
+# header-only classes (from boost/containers/small_vector.hpp)
+# which are pulled in by installed headers, but does not use
+# boost libraries.
+BUILD_DEPENDS+= devel/boost \
+		devel/gobject-introspection
 
 RUN_DEPENDS-main= \
-		print/poppler-data>=0.4.7
+		print/poppler-data>=0.4.7 \
+		devel/boost
 
 LIB_DEPENDS-main=${MODGCC4_CPPLIBDEP} \
 		converters/libiconv \

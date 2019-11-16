@@ -1,12 +1,12 @@
-# $OpenBSD: Makefile,v 1.14 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.16 2019/10/03 14:36:42 robert Exp $
 
 COMMENT=		MATE notification daemon
 
 MATE_PROJECT=		mate-notification-daemon
-REVISION=		1
+MATE_VERSION=		1.22.1
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 XRes Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender atk-1.0 atk-bridge-2.0 c cairo cairo-gobject

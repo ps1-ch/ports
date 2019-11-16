@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.23 2018/10/24 14:28:10 sthen Exp $
+# $OpenBSD: Makefile,v 1.25 2019/09/29 13:36:28 ajacoutot Exp $
 
 COMMENT=	CUPS drivers for SPL printers
 
@@ -7,7 +7,7 @@ DISTNAME=	splix-${V}svn
 PKGNAME=	splix-${V}
 EXTRACT_SUFX=	.tar.bz2
 WRKDIST=	${WRKDIR}/splix
-REVISION=	3
+REVISION=	4
 
 CATEGORIES=	print
 
@@ -16,11 +16,11 @@ HOMEPAGE=	http://splix.ap2c.org/
 MAINTAINER=	Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB += c cups cupsimage jbig85 m pthread ${COMPILER_LIBCXX}
+WANTLIB += ${COMPILER_LIBCXX} c cups cupsimage jbig85 m
 
-COMPILER =		base-clang ports-gcc base-gcc
+COMPILER=	base-clang ports-gcc base-gcc
 
 # snapshot of SVN (Fedora tarball)
 MASTER_SITES=	http://pkgs.fedoraproject.org/repo/pkgs/splix/${DISTNAME}${EXTRACT_SUFX}/2901e9482dd1a7c44f7b730696868e09/

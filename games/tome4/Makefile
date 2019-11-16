@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.19 2018/10/31 09:48:18 solene Exp $
+# $OpenBSD: Makefile,v 1.21 2019/08/22 10:06:46 kn Exp $
 
 # tome4 ships embedded copy of luajit wich is known to
 # work on the arches listed below.
@@ -27,7 +27,7 @@ MULTI_PACKAGES =-main -data
 MAINTAINER =	Solene Rapenne <solene@perso.pw>
 
 # GPLV3+ and bundled MIT, zlib, BSD in games/thirdparty/licenses/
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB-main =	GL GLU SDL2 SDL2_image SDL2_ttf openal c m \
 		png pthread vorbisfile
@@ -55,6 +55,10 @@ WANTLIB-main += c++abi
 PATCH_LIST =	patch-* lld-linking
 .endif
 
+CONFIGURE_STYLE =	simple
+CONFIGURE_SCRIPT =	${LOCALBASE}/bin/premake4
+CONFIGURE_ARGS =	${MAKE_PROGRAM}
+
 NO_TEST =	Yes
 
 USE_GMAKE =	Yes
@@ -64,18 +68,14 @@ MAKE_ENV =	config=release
 GAMEDIR =	${PREFIX}/share/tome4
 SUBST_VARS +=	GAMEDIR V
 
-# The build system hardcodes the use of the "gcc" command
-do-configure:
+post-patch:
 	sed -i 's/gcc /${CC} /g' ${WRKSRC}/build/te4core.lua
-	${SUBST_CMD} ${WRKSRC}/src/getself.c
-	${SUBST_CMD} ${WRKSRC}/premake4.lua
-	@cd ${WRKSRC} ; premake4 gmake
+	${SUBST_CMD} ${WRKSRC}/src/getself.c ${WRKSRC}/premake4.lua
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/t-engine ${PREFIX}/bin/tome4
+	${INSTALL_PROGRAM} ${WRKBUILD}/t-engine ${PREFIX}/bin/tome4
 	${INSTALL_DATA_DIR} ${GAMEDIR}
-	cd ${WRKSRC}; tar cf - bootstrap game | tar xf - -C ${GAMEDIR}
-	rm -R ${GAMEDIR}/game/modules/example*
-	rm ${GAMEDIR}/bootstrap/boot.lua.orig
+	cd ${WRKSRC} && pax -rw -s,*${PATCHORIG},, \
+	    -s,game/modules/example\*,, bootstrap/ game/ ${GAMEDIR}
 
 .include <bsd.port.mk>

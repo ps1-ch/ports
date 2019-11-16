@@ -1,11 +1,10 @@
-# $OpenBSD: Makefile,v 1.2 2019/04/28 20:51:58 sthen Exp $
+# $OpenBSD: Makefile,v 1.4 2019/10/17 09:31:47 bentley Exp $
 
 COMMENT =	apertium text translation API in Python
 
 DISTNAME =	apertium-apy-${MODPY_EGG_VERSION}
 
-MODPY_EGG_VERSION =	0.11.5
-REVISION =		0
+MODPY_EGG_VERSION =	0.11.6
 
 CATEGORIES =	www
 
@@ -14,7 +13,7 @@ HOMEPAGE =	http://wiki.apertium.org/wiki/Apertium-apy
 MAINTAINER =	Anthony J. Bentley <anthony@anjbe.name>
 
 # GPLv3 only
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_PI =		Yes

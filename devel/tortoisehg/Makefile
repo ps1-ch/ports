@@ -1,9 +1,10 @@
-# $OpenBSD: Makefile,v 1.37 2019/02/24 18:07:10 juanfra Exp $
+# $OpenBSD: Makefile,v 1.40 2019/07/25 16:10:53 juanfra Exp $
 
 COMMENT =		series of applications for Mercurial
 
-# Change also the mercurial version in run_depends
-MODPY_EGG_VERSION =	4.9
+# Change also the mercurial version in *_depends
+MODPY_EGG_VERSION =	5.0.2
+REVISION =		0
 DISTNAME =		tortoisehg-${MODPY_EGG_VERSION}
 
 CATEGORIES =		devel
@@ -13,21 +14,19 @@ HOMEPAGE =		https://tortoisehg.bitbucket.io/
 MAINTAINER =		Juan Francisco Cantero Hurtado <juanfra@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =		https://bitbucket.org/tortoisehg/targz/downloads/
 
 MODULES =		lang/python
-BUILD_DEPENDS =		x11/py-qt4 \
-			editors/qscintilla \
-			devel/py-sip
-
-RUN_DEPENDS =		x11/py-qt4 \
-			editors/qscintilla \
+BUILD_DEPENDS =		devel/mercurial>=5.0,<5.1 \
 			devel/py-sip \
-			editors/py-qscintilla \
-			devel/mercurial>=4.9,<5.0 \
-			devel/py-iniparse
+			editors/qscintilla \
+			x11/py-qt4
+
+RUN_DEPENDS =		${BUILD_DEPENDS} \
+			devel/py-iniparse \
+			editors/py-qscintilla
 
 NO_TEST =		Yes
 

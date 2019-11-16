@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.94 2019/06/03 16:06:53 sthen Exp $
+# $OpenBSD: Makefile,v 1.96 2019/07/18 16:01:05 sthen Exp $
 
 BROKEN-hppa =	needs atomic ops; __sync_add_and_fetch_4
 
@@ -14,6 +14,7 @@ GH_TAGNAME =	v$V
 PKGNAME-main =	icinga2-$V
 PKGNAME-mysql =	icinga2-ido-mysql-$V
 PKGNAME-pgsql =	icinga2-ido-pgsql-$V
+REVISION-main =	0
 
 SHARED_LIBS +=	base                      0.0 # 2.6
 SHARED_LIBS +=	checker                   0.0 # 2.6
@@ -92,7 +93,7 @@ post-install:
 		${PREFIX}/share/doc/icinga2/markdown/*.md
 
 .include <bsd.port.arch.mk>
-.if !${ARCH:Mamd64}
+.if !${ARCH:Mamd64} || defined(DEBUG)
 CONFIGURE_ARGS += -DICINGA2_UNITY_BUILD=OFF
 .endif
 

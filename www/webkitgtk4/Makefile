@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.103 2019/05/20 22:15:27 naddy Exp $
+# $OpenBSD: Makefile,v 1.113 2019/11/12 20:20:35 ajacoutot Exp $
 
 # patches/patch-Source_JavaScriptCore_javascriptcoregtk_pc_in
 # patches/patch-Source_WebKit_gtk_webkit2gtk-web-extension_pc_in
@@ -12,16 +12,17 @@ PORTROACH =		limitw:1,even
 
 COMMENT =		GTK+ port of the WebKit rendering engine
 
-V =			2.24.2
+V =			2.26.2
 DISTNAME =		webkitgtk-${V}
 PKGNAME =		webkitgtk4-${V}
 EXTRACT_SUFX =		.tar.xz
 API =			4.0
 SUBST_VARS =		API
 DPB_PROPERTIES =	parallel
+REVISION =		0
 
-SHARED_LIBS +=  javascriptcoregtk-${API}     3.0 # 18.13.3
-SHARED_LIBS +=  webkit2gtk-${API}            3.0 # 37.37.2
+SHARED_LIBS +=  javascriptcoregtk-${API}     3.1 # 18.13.3
+SHARED_LIBS +=  webkit2gtk-${API}            3.1 # 37.37.2
 
 CATEGORIES =		www
 
@@ -30,7 +31,7 @@ HOMEPAGE =		https://webkitgtk.org/
 MAINTAINER =		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # LGPLv2 and BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} EGL GL X11 Xcomposite Xdamage Xrender
 WANTLIB += Xt atk-1.0 c cairo cairo-gobject enchant-2 fontconfig
@@ -56,6 +57,8 @@ MODRUBY_RUNDEP =	No
 MODPY_RUNDEP =		No
 MODPY_ADJ_FILES =	Tools/glib/generate-inspector-gresource-manifest.py
 MODGNOME_TOOLS =	gobject-introspection
+
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
 
 NO_TEST =		Yes
 USE_GMAKE =		Yes
@@ -97,6 +100,9 @@ CONFIGURE_ARGS +=	-DENABLE_PLUGIN_PROCESS_GTK2=OFF
 CONFIGURE_ARGS +=	-DENABLE_JIT=OFF
 CONFIGURE_ARGS +=	-DENABLE_LLINT_C_LOOP=ON
 .endif
+
+# XXX fatal error: 'X11/Xlib.h' file not found
+CXXFLAGS +=		-I${X11BASE}/include
 
 .include <bsd.port.arch.mk>
 

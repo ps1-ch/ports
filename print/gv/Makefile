@@ -1,16 +1,17 @@
-# $OpenBSD: Makefile,v 1.42 2016/09/13 18:52:05 naddy Exp $
+# $OpenBSD: Makefile,v 1.44 2019/07/16 21:29:41 sthen Exp $
 
 COMMENT= 	PostScript and PDF previewer
 
 DISTNAME=	gv-3.7.4
 CATEGORIES=	print
+REVISION=	0
 
 HOMEPAGE=	https://www.gnu.org/software/gv/
 
 MASTER_SITES=	${MASTER_SITE_GNU:=gv/}
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ICE SM X11 Xext Xmu Xpm Xt c iconv m Xaw3d Xinerama
 

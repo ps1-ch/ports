@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.289 2019/06/13 17:01:11 landry Exp $
+# $OpenBSD: Makefile,v 1.305 2019/11/14 19:02:50 landry Exp $
 
 ONLY_FOR_ARCHS =	amd64 i386
 COMMENT-main =		Mozilla e-mail, rss and usenet client
@@ -6,21 +6,22 @@ COMMENT-lightning =	Mozilla Thunderbird calendar extension
 
 # Don't forget to bump mail/thunderbird-i18n after updates.
 
-MOZILLA_VERSION =	60.7.1
+MOZILLA_VERSION =	68.2.2
 MOZILLA_BRANCH =	release
 MOZILLA_PROJECT =	thunderbird
 MOZILLA_CODENAME =	comm/mail
 EXTRACT_SUFX =		.tar.xz
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+REVISION =		0
 
 MULTI_PACKAGES =	-main -lightning
 PKGNAME-main =		${PKGNAME}
-# version = (TB+2)/10
-PKGNAME-lightning =	lightning-6.2.7.1
+PKGNAME-lightning =	lightning-${MOZILLA_VERSION}
 EPOCH-lightning =	0
 
 HOMEPAGE =	http://www.mozilla.org/thunderbird/
 
-SO_VERSION =	33.0
+SO_VERSION =	34.0
 # NOTE: Must bump minor version if any shlib's are removed from the
 # components dir to avoid pkg_add -r issues.
 
@@ -29,7 +30,7 @@ MOZILLA_LIBS = ldap60 ldif60 lgpllibs mozgtk mozsqlite3 prldap60 xul
 CATEGORIES=	mail news
 
 # MPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES =	www/mozilla lang/python
 MODPY_RUNDEP =	No
@@ -46,8 +47,21 @@ MOZILLA_USE_BUNDLED_SQLITE =	Yes
 MOZILLA_USE_BUNDLED_ICU =	Yes
 # 59 is broken with system cairo and the option is being dropped
 MOZILLA_USE_BUNDLED_CAIRO = Yes
+# #1460600
+MOZILLA_USE_BUNDLED_HUNSPELL = Yes
+
 # 53 needs rust
 BUILD_DEPENDS +=	lang/rust
+# stylo build needs LLVM
+BUILD_DEPENDS +=	devel/llvm
+# 61 requires both versions of python
+BUILD_DEPENDS +=	lang/python/${MODPY_DEFAULT_VERSION_3}
+# 63 requires node because why not #1483595
+BUILD_DEPENDS +=	lang/node
+# 63 requires cbindgen #1478813
+BUILD_DEPENDS +=	devel/cbindgen
+# 67 requires nasm for bundled libav1d
+BUILD_DEPENDS +=	devel/nasm
 
 WRKDIST =	${WRKDIR}/${MOZILLA_DIST}-${MOZILLA_DIST_VERSION:C/b[0-9]*//}
 
@@ -55,6 +69,11 @@ NO_TEST =	Yes
 
 CONFIGURE_STYLE =	simple
 CONFIGURE_ARGS +=	--prefix=${PREFIX}
+# pledge strings to be defined, and no multiprocess anyway..
+CONFIGURE_ARGS +=	--disable-sandbox
+# --enable-debug does too much, this defaults to -g (which is 3 times larger than using -ggdb1)
+DEBUG_CONFIGURE_ARGS +=	--enable-debug-symbols \
+			--disable-install-strip
 
 # SQLITE_CFLAGS is set from pkgconfig, but it's not used for all files that need it, e.g.
 # mailnews/build/nsMailModule.cpp pulls in mailnews/extensions/fts3/src/nsFts3Tokenizer.h
@@ -68,34 +87,9 @@ WANTLIB-main += ${WANTLIB} X11-xcb Xcursor Xi intl xcb xcb-shm
 # build lightning xpi
 CONFIGURE_ARGS +=	--enable-calendar
 
-# bug 1341234
-CONFIGURE_ARGS +=	--disable-stylo
-
-# bug 857628
-CONFIGURE_ARGS +=	--enable-pie
-
 ALL_TARGET =	default
 
-GNU_ARCH =	${MACHINE_ARCH:S/amd64/x86_64/}
-# guid for gdata-provider comes from em:id in install.rdf
-GUIDS =	gdata-provider {a62ef8ec-5fdc-40c2-873c-223b8a6925cc} #\
-#	lightning {e2fda1a4-762b-4020-b5ad-a41df1933103}
-
-.if ${MACHINE_ARCH} == "i386"
-CONFIGURE_ARGS +=	--disable-debug-symbols		#maybe also needed
-DPB_PROPERTIES +=	lonesome
-.endif
-
-EXTDIR =	${PREFIX}/lib/${MOZILLA_PROJECT}/extensions/
-
 post-install:
-#.for xpi guid in ${GUIDS}
-#	cp ${WRKBUILD}/dist/xpi-stage/${xpi}*.xpi ${EXTDIR}/${guid}.xpi
-#.endfor
-
-	mv ${PREFIX}/lib/${MOZILLA_PROJECT}/distribution/extensions/{e2fda1a4-762b-4020-b5ad-a41df1933103}.xpi \
-		${EXTDIR}
-	rmdir ${PREFIX}/lib/${MOZILLA_PROJECT}/distribution/extensions/
 	# install prefs
 	${SUBST_DATA} ${FILESDIR}/all-openbsd.js \
 		${PREFIX}/lib/${MOZILLA_PROJECT}/defaults/pref/all-openbsd.js

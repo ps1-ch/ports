@@ -1,18 +1,20 @@
-# $OpenBSD: Makefile,v 1.20 2018/06/02 12:01:59 jasper Exp $
+# $OpenBSD: Makefile,v 1.23 2019/11/10 15:58:51 sthen Exp $
+
+FIX_EXTRACT_PERMISSIONS = Yes
 
 COMMENT =		Python classes providing access to network packets
 
 MODPY_EGG_VERSION =	0.9.15
 DISTNAME =		impacket-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
-REVISION =		2
+REVISION =		3
 EPOCH =			0
-CATEGORIES =   		net security
+CATEGORIES =		net security
 
-HOMEPAGE =		https://www.coresecurity.com/corelabs-research/open-source-tools/impacket
+HOMEPAGE =		https://www.secureauth.com/labs/open-source-tools/impacket
 
 # Apache modified
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODPY_PI =		Yes
 

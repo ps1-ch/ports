@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: Port.pm,v 1.192 2019/06/03 23:10:57 espie Exp $
+# $OpenBSD: Port.pm,v 1.200 2019/11/08 17:47:01 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -82,7 +82,8 @@ sub handle_output
 {
 	my ($self, $job) = @_;
 	$self->redirect_fh($job->{logfh}, $job->{log});
-	print ">>> Running $self->{phase} in $job->{path} at ", time(), "\n";
+	print ">>> Running $self->{phase} in $job->{path} at ", 
+	    DPB::Util->current_ts, "\n";
 }
 
 sub tweak_args
@@ -354,7 +355,7 @@ sub try_lock
 	if ($lock) {
 		$lock->write("path", $job->{path});
 		print {$job->{logfh}} "(Junk lock obtained for ",
-		    $core->hostname, " at ", time(), ")\n";
+		    $core->hostname, " at ", DPB::Util->current_ts, ")\n";
 		$job->{locked} = 1;
 	}
 }
@@ -366,7 +367,7 @@ sub junk_unlock
 	if ($core->job->{locked}) {
 		$core->job->{builder}->locker->unlock($core);
 		print {$core->job->{logfh}} "(Junk lock released for ", 
-		    $core->hostname, " at ", time(), ")\n";
+		    $core->hostname, " at ", DPB::Util->current_ts, ")\n";
 		delete $core->job->{locked};
 		$core->job->wake_others($core);
 	}
@@ -403,19 +404,20 @@ sub run
 	my ($self, $core) = @_;
 	my $job = $core->job;
 	$SIG{IO} = sub { print {$job->{logfh}} "Received IO\n"; };
-	my $date = time;
+	my $start = Time::HiRes::time();
 	use POSIX;
 
 	while (1) {
 		$self->try_lock($core);
+		my $now = Time::HiRes::time();
 		if ($job->{locked}) {
 			print {$job->{builder}{lockperf}} 
-			    time(), ":", $core->hostname, 
-			    ": $self->{phase}: ", time() - $date, " seconds\n";
+			    $now, ":", $core->hostname, 
+			    ": $self->{phase}: ", $now - $start, " seconds\n";
 			exit(0);
 		}
 		print {$job->{logfh}} "(Junk lock failure for ",
-		    $core->hostname, " at ", time(), ")\n";
+		    $core->hostname, " at ", $now, ")\n";
 		pause;
 	}
 }
@@ -693,7 +695,17 @@ sub run
 			$opt .= 'q';
 		}
 		my @cmd = ('/usr/sbin/pkg_delete', $opt, sort keys %$h);
-		print join(' ', @cmd, "\n");
+		my $s = join(' ', @cmd)."\n";
+		print $s;
+		if (!$core->prop->{silentjunking}) {
+			for my $j ($core->same_host_jobs) {
+				next if $j eq $job;
+				$j->silent_log(
+				    ">> JUNKING in $job->{path}:\n",
+				    ">>    $s");
+
+			}
+		}
 		$core->shell->as_root->exec(@cmd);
 		exit(1);
 	} else {
@@ -707,7 +719,15 @@ sub finalize
 
 	# did we really run ? then clean up stuff
 	if ($core->{status} == 0) {
-		$core->prop->{last_junk} = $core->job->{v};
+		my $job = $core->job;
+		if (!$core->prop->{silentjunking}) {
+			for my $j ($core->same_host_jobs) {
+				next if $j eq $job;
+				$j->silent_log(
+				    ">> JUNKING end in $job->{path}\n");
+			}
+		}
+		$core->prop->{last_junk} = $job->{v};
 		$core->prop->{junk_count} = 0;
 		$core->prop->{ports_count} = 0;
 		$core->prop->{depends_count} = 0;
@@ -760,8 +780,7 @@ sub finalize
 			my $info = DPB::Serialize::Size->write({
 			    pkgpath => $job->{path},
 			    pkname => $job->{v}->fullpkgname,
-			    size => $sz,
-			    ts => CORE::time });
+			    size => $sz });
 			print {$job->{builder}{logsize}} $info, "\n";
 			# XXX the rolling log might be shared with other dpb
 			# so it can be rewritten and sorted
@@ -921,7 +940,13 @@ sub close
 package DPB::Job::BasePort;
 our @ISA = qw(DPB::Job::Watched);
 
-use Time::HiRes qw(time);
+use Time::HiRes;
+
+sub killinfo
+{
+	my $self = shift;
+	return "$self->{path} $self->{current}";
+}
 
 sub new
 {
@@ -934,6 +959,7 @@ sub new
 	my $e = $job->{endcode};
 
 	$job->{endcode} = sub {
+	    print {$job->{logfh}} ">>> Ended at ", DPB::Util->current_ts, "\n";
 	    close($job->{logfh});
 	    &$e;
 	};
@@ -1070,13 +1096,13 @@ sub totaltime
 		$t += $plus->elapsed;
     	}
 	$t *= $self->{parallel} if $self->{parallel};
-	return sprintf("%.2f", $t);
+	return DPB::Util->ts2string($t);
 }
 
 sub timings
 {
 	my $self = shift;
-	return join('/', "max_stuck=".$self->{watched}{max}, map {sprintf("%s=%.2f", $_->{phase}, $_->elapsed)} @{$self->{done}});
+	return join('/', "max_stuck=".DPB::Util->ts2string($self->{watched}{max}), map {sprintf("%s=%.2f", $_->{phase}, $_->elapsed)} @{$self->{done}});
 }
 
 sub equates
@@ -1172,6 +1198,18 @@ sub new
 		    $core);
 	}
 	return $job;
+}
+
+sub silent_log
+{
+	my $job = shift;
+	my $msg = join(@_);
+	my $old = $job->{logfh}->autoflush(1);
+	print {$job->{logfh}} $msg;
+	$job->{logfh}->autoflush($old);
+	if (defined $job->{watched}) {
+		$job->{watched}->adjust_by(length($msg));
+	}
 }
 
 sub new_junk_only

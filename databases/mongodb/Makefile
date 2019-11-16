@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.36 2019/02/20 17:58:04 sthen Exp $
+# $OpenBSD: Makefile,v 1.38 2019/07/12 20:43:54 sthen Exp $
 
 PORTROACH =	limitw:1,even
 USE_WXNEEDED =	Yes
@@ -12,12 +12,13 @@ COMMENT =	scalable, high-performance document-oriented database
 DISTNAME =	mongodb-src-r3.2.22
 PKGNAME =	${DISTNAME:S/src-r//}
 CATEGORIES =	databases
+REVISION =	0
 
 HOMEPAGE =	https://www.mongodb.com/
 
 # mongodb itself: AGPLv3
 # client/utils:   Apache 2.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += boost_chrono-mt boost_filesystem-mt boost_program_options-mt
 WANTLIB += boost_regex-mt boost_system-mt boost_thread-mt c crypto

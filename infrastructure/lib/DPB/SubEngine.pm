@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: SubEngine.pm,v 1.28 2019/05/12 12:12:53 espie Exp $
+# $OpenBSD: SubEngine.pm,v 1.33 2019/11/08 13:06:00 espie Exp $
 #
 # Copyright (c) 2010 Marc Espie <espie@openbsd.org>
 #
@@ -253,6 +253,7 @@ sub end
 		}
 	} else {
 		if ($self->is_done_or_enqueue($v)) {
+			$v->log_as_built($self->{engine});
 			$self->{engine}{locker}->unlock($v);
 		} else {
 			push(@{$self->{engine}{nfslist}}, $v);
@@ -261,7 +262,7 @@ sub end
 		$core->success;
 	}
 	$self->done($v);
-	$self->{engine}->flush;
+	$self->{engine}->flush_log;
 }
 
 sub dump
@@ -272,6 +273,11 @@ sub dump
 
 sub remove_stub
 {
+}
+
+sub is_dummy
+{
+	return 0;
 }
 
 package DPB::SubEngine::BuildBase;
@@ -308,8 +314,8 @@ sub preempt_core
 	return 0;
 }
 
-# for fetch-only, the engine is *very* abreviated
-package DPB::SubEngine::NoBuild;
+# for parts of dpb that won't run
+package DPB::SubEngine::Dummy;
 our @ISA = qw(DPB::SubEngine::BuildBase);
 sub non_empty
 {
@@ -331,4 +337,8 @@ sub start_wipe
 	return 0;
 }
 
+sub is_dummy
+{
+	return 1;
+}
 1;

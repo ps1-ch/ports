@@ -1,0 +1,34 @@
+$OpenBSD: patch-docs_docsite_rst_conf_py,v 1.2 2019/11/07 13:33:20 pvk Exp $
+
+Do not set URL prefixes in html docs
+
+Index: docs/docsite/rst/conf.py
+--- docs/docsite/rst/conf.py.orig
++++ docs/docsite/rst/conf.py
+@@ -143,9 +143,9 @@ html_context = {
+     'github_version': 'devel/docs/docsite/rst/',
+     'github_module_version': 'devel/lib/ansible/modules/',
+     'current_version': version,
+-    'latest_version': '2.8',
++    'latest_version': '2.9',
+     # list specifically out of order to make latest work
+-    'available_versions': ('latest', '2.7', '2.6', 'devel'),
++    'available_versions': ('latest', '2.9'),
+     'css_files': ('_static/ansible.css',  # overrides to the standard theme
+                   ),
+ }
+@@ -219,12 +219,12 @@ htmlhelp_basename = 'Poseidodoc'
+ # the extension builds 404.rst into a location-agnostic 404 page
+ #
+ # default is `en` - using this for the sub-site:
+-notfound_default_language = "ansible"
++notfound_default_language = "_prefix_start_"
+ # default is `latest`:
+ # setting explicitly - docsite serves up /ansible/latest/404.html
+ # so keep this set to `latest` even on the `devel` branch
+ # then no maintenance is needed when we branch a new stable_x.x
+-notfound_default_version = "latest"
++notfound_default_version = "_prefix_end_"
+ # makes default setting explicit:
+ notfound_no_urls_prefix = False
+ 

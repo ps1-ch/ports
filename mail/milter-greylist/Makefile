@@ -1,19 +1,17 @@
-# $OpenBSD: Makefile,v 1.19 2018/01/11 19:27:03 rpe Exp $
+# $OpenBSD: Makefile,v 1.21 2019/07/17 14:46:33 danj Exp $
 
 COMMENT=	greylist milter
 
 DISTNAME=	milter-greylist-4.2.7
-REVISION=	4
+REVISION=	5
 CATEGORIES=	mail
 HOMEPAGE=	http://hcpnet.free.fr/milter-greylist/
 
 MASTER_SITES=	ftp://ftp.espci.fr/pub/milter-greylist/
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	Jakob Schlyter <jakob@openbsd.org>
-
 # BSD license
-PERMIT_PACKAGE_CDROM=		Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB=	c pthread milter spf2
 

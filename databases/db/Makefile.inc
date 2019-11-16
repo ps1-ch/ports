@@ -1,16 +1,16 @@
-# $OpenBSD: Makefile.inc,v 1.38 2019/03/26 15:18:27 sthen Exp $
+# $OpenBSD: Makefile.inc,v 1.42 2019/09/23 16:55:57 kurt Exp $
 
 COMMENT-main=	Berkeley DB package, revision ${REV}
 COMMENT-tcl=	TCL bindings for Berkeley DB, revision ${REV}
 
 DISTNAME=	db-${VERSION}
 CATEGORIES=	databases
-HOMEPAGE=	http://www.oracle.com/technology/products/berkeley-db/
-MASTER_SITES=	http://download.oracle.com/berkeley-db/
+HOMEPAGE=	https://www.oracle.com/database/technologies/related/berkeleydb.html
+MASTER_SITES=	https://download.oracle.com/berkeley-db/
 
 # License: BSD + SleepyCat's additions.
 # Must purchase license to redistribute if not distributing the source.
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 
 CONFIGURE_SCRIPT=	../dist/configure
@@ -37,7 +37,7 @@ MULTI_PACKAGES += -main -tcl
 LIB_DEPENDS-main?=
 RUN_DEPENDS-main?=
 #ONLY_FOR_ARCHS = ${ALL_ARCHS}
-ONLY_FOR_ARCHS-java = amd64 i386
+ONLY_FOR_ARCHS-java = aarch64 amd64 i386
 
 .include <bsd.port.arch.mk>
 

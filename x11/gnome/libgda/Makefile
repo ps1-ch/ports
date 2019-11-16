@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.132 2019/05/08 22:04:51 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.134 2019/11/01 19:25:28 jasper Exp $
 
 PORTROACH=		skipv:5.90.1
 
@@ -20,6 +20,8 @@ PKGNAME-mysql=		libgda-mysql-${GNOME_VERSION}
 PKGNAME-pgsql=		libgda-pgsql-${GNOME_VERSION}
 PKGNAME-ui=		libgda-ui-${GNOME_VERSION}
 
+REVISION-main =		0
+
 EPOCH-main=		2
 EPOCH-ldap=		0
 EPOCH-mysql=		0
@@ -36,7 +38,7 @@ HOMEPAGE=		http://www.gnome-db.org/
 
 # library: LGPLv2
 # tools: GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB += m pcre z gio-2.0 glib-2.0 gmodule-2.0 gobject-2.0 lzma
 WANTLIB += gthread-2.0 xml2 gcrypt secret-1 gpg-error ffi pthread
@@ -83,7 +85,7 @@ CONFIGURE_ARGS=		--enable-gdaui-gi \
 			--with-postgres="${LOCALBASE}"
 
 # XXX sync with API_V in lang/vala
-CONFIGURE_ENV +=	VALA_API_VERSION=0.44
+CONFIGURE_ENV +=	VALA_API_VERSION=0.46
 
 FAKE_FLAGS=		configdir="${PREFIX}/share/examples/libgda"
 

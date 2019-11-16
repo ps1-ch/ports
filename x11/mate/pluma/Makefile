@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.24 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.26 2019/10/03 14:36:53 robert Exp $
 
 USE_WXNEEDED=		Yes
 
@@ -8,10 +8,10 @@ REVISION=		0
 CATEGORIES=		textproc
 
 MATE_PROJECT=		pluma
-MATE_VERSION=		1.22.1
+MATE_VERSION=		1.22.2
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ICE SM X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender aspell atk-1.0 atk-bridge-2.0 c cairo

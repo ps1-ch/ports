@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.83 2019/05/10 12:45:30 kirby Exp $
+# $OpenBSD: Makefile,v 1.88 2019/10/21 14:54:39 kirby Exp $
 
 PORTROACH = 	limitw:1,even
 
 COMMENT-main =	flexible network host monitoring, client
 COMMENT-server =flexible network host monitoring, server
 
-V =		2.0.49
+V =		2.0.51
 DISTNAME =	munin-$V
 PKGNAME-main =	munin-node-$V
 PKGNAME-server =munin-server-$V
@@ -16,7 +16,7 @@ MASTER_SITES =	http://downloads.munin-monitoring.org/munin/stable/$V/
 
 # Mostly GPLv2.
 # DejaVuSans.ttf and DejaVuSansMono.ttf has a non-restrictive license.
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MAINTAINER =		Kirill Bychkov <kirby@openbsd.org>
 
@@ -43,6 +43,7 @@ RUN_DEPENDS-server +=	converters/p5-DateManip \
 			devel/p5-File-Copy-Recursive \
 			net/p5-IO-Socket-INET6 \
 			net/rrdtool \
+			security/p5-Net_SSLeay \
 			www/fcgi \
 			www/p5-HTML-Template \
 			www/p5-URI \

@@ -1,4 +1,4 @@
-@comment $OpenBSD: PLIST,v 1.80 2019/05/21 16:51:12 landry Exp $
+@comment $OpenBSD: PLIST,v 1.82 2019/10/31 22:52:20 landry Exp $
 @conflict firefox3-*
 @conflict firefox35-*
 @conflict firefox36-*
@@ -30,7 +30,6 @@ lib/${MOZILLA_PROJECT}/browser/defaults/preferences/
 lib/${MOZILLA_PROJECT}/browser/defaults/preferences/all-openbsd.js
 lib/${MOZILLA_PROJECT}/browser/features/
 lib/${MOZILLA_PROJECT}/browser/features/formautofill@mozilla.org.xpi
-lib/${MOZILLA_PROJECT}/browser/features/fxmonitor@mozilla.org.xpi
 lib/${MOZILLA_PROJECT}/browser/features/screenshots@mozilla.org.xpi
 lib/${MOZILLA_PROJECT}/browser/features/webcompat-reporter@mozilla.org.xpi
 lib/${MOZILLA_PROJECT}/browser/features/webcompat@mozilla.org.xpi
@@ -64,6 +63,4 @@ lib/${MOZILLA_PROJECT}/removed-files
 @man man/man1/mozilla-${MOZILLA_PROJECT}.1
 share/applications/${MOZILLA_PROJECT}.desktop
 share/doc/pkg-readmes/${PKGSTEM}
-share/pixmaps/
-share/pixmaps/${MOZILLA_PROJECT}.png
 @tag update-desktop-database

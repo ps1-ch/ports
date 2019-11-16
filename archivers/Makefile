@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.93 2019/03/08 17:02:43 sthen Exp $
+# $OpenBSD: Makefile,v 1.95 2019/11/07 21:47:11 kmos Exp $
 
      SUBDIR =
      SUBDIR += arc
@@ -35,7 +35,6 @@
      SUBDIR += lzop
      SUBDIR += macutil
      SUBDIR += makeself
-     SUBDIR += nulib
      SUBDIR += p5-Archive-Extract
      SUBDIR += p5-Archive-Zip
      SUBDIR += p5-Compress-Bzip2
@@ -55,6 +54,8 @@
      SUBDIR += py-libarchive-c
      SUBDIR += py-libarchive-c,python3
      SUBDIR += py-lzo
+     SUBDIR += py-rarfile
+     SUBDIR += py-rarfile,python3
      SUBDIR += quazip
      SUBDIR += quazip,qt5
      SUBDIR += ripole

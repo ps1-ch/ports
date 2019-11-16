@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.110 2019/05/06 21:09:52 steven Exp $
+# $OpenBSD: Makefile,v 1.114 2019/08/10 19:41:08 naddy Exp $
 
 COMMENT =	high-level language for numerical computations
 
 VERSION =	5.1.0
 DISTNAME =	octave-${VERSION}
 CATEGORIES =	math
+REVISION =	2
 
 SHARED_LIBS +=	octave		12.0
 SHARED_LIBS +=	octgui		6.0
@@ -15,7 +16,7 @@ HOMEPAGE =	https://www.gnu.org/software/octave/
 MAINTAINER =	Steven Mestdagh <steven@openbsd.org>
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${MODFORTRAN_WANTLIB}
 WANTLIB += FLAC GL GLU GraphicsMagick GraphicsMagick++ ICE

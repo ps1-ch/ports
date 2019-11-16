@@ -1,52 +1,55 @@
-# $OpenBSD: Makefile,v 1.47 2019/05/12 15:26:07 edd Exp $
+# $OpenBSD: Makefile,v 1.56 2019/10/30 13:13:59 kn Exp $
 
 COMMENT =		movie player based on MPlayer/mplayer2
 
 GH_ACCOUNT =		mpv-player
 GH_PROJECT =		mpv
-GH_TAGNAME =		v0.29.1
-
+GH_TAGNAME =		v0.30.0
 REVISION =		0
+
+SHARED_LIBS +=		mpv		0.1 # 1.106
 
 CATEGORIES =		multimedia x11
 
 HOMEPAGE =		https://mpv.io/
 
-WAF =			${WRKSRC}/waf-2.0.14
+WAF =			${WRKSRC}/waf-2.0.18
 MASTER_SITES0 =		https://waf.io/
 DISTFILES =		${DISTNAME}{${GH_TAGNAME}}${EXTRACT_SUFX} ${WAF:T}:0
 EXTRACT_ONLY =		${DISTNAME}${EXTRACT_SUFX}
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	patents
-PERMIT_PACKAGE_FTP =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += EGL GL SDL2 X11 X11-xcb Xau Xdamage Xdmcp Xext Xfixes
 WANTLIB += Xinerama Xrandr Xrender Xss Xv Xxf86vm ass avcodec
 WANTLIB += avdevice avfilter avformat avresample avutil bluray
 WANTLIB += c cdio cdio_cdda cdio_paranoia drm dvdnav dvdread expat
 WANTLIB += fontconfig freetype fribidi gbm iconv jpeg lcms2 m
-WANTLIB += postproc pthread sndio swresample swscale v4l2
-WANTLIB += v4lconvert xcb xcb-dri2 xcb-glx z ${MODLUA_WANTLIB}
+WANTLIB += postproc pthread sndio swresample swscale xcb xcb-dri2
+WANTLIB += xcb-glx z ${MODLUA_WANTLIB}
 
 MODULES =		lang/lua \
 			lang/python
 
+MODPY_VERSION =		${MODPY_DEFAULT_VERSION_3}
+
+COMPILER =		base-clang ports-gcc
+COMPILER_LANGS =	c
+
 BUILD_DEPENDS =		audio/ladspa \
-			textproc/py-docutils
+			textproc/py-docutils${MODPY_FLAVOR}
 
 LIB_DEPENDS =		audio/libcdio \
 			audio/libcdio-paranoia \
 			converters/libiconv \
-			devel/libdvdread \
 			devel/sdl2 \
 			graphics/ffmpeg>=4.1.1 \
 			graphics/jpeg \
 			graphics/lcms2 \
 			multimedia/libass \
 			multimedia/libbluray \
-			multimedia/libdvdnav \
-			multimedia/libv4l
+			multimedia/libdvdnav
 
 MODPY_RUNDEP =		No
 RUN_DEPENDS =		devel/desktop-file-utils \
@@ -60,11 +63,9 @@ CONFIGURE_ARGS =	--confloaddir=${SYSCONFDIR}/mpv \
 			--zshdir=${LOCALBASE}/share/zsh/vendor-completions \
 			--enable-cdda \
 			--enable-dvdnav \
-			--enable-dvdread \
+			--enable-libmpv-shared \
 			--enable-sndio \
 			--enable-sdl2 \
-			--enable-tv \
-			--enable-zsh-comp \
 			--disable-alsa \
 			--disable-caca \
 			--disable-cuda-hwaccel \
@@ -82,20 +83,19 @@ CONFIGURE_ARGS =	--confloaddir=${SYSCONFDIR}/mpv \
 			--disable-uchardet \
 			--disable-vaapi \
 			--disable-vaapi-drm \
-			--disable-vaapi-glx \
 			--disable-vaapi-x-egl \
 			--disable-vaapi-x11 \
 			--disable-vaapi-wayland \
 			--disable-vapoursynth \
-			--disable-vapoursynth-lazy \
 			--disable-vdpau \
 			--disable-vdpau-gl-x11 \
 			--disable-videotoolbox-gl \
 			--disable-vulkan \
 			--disable-wayland
 
-MAKE_ENV +=		LDFLAGS="-L${LOCALBASE}/lib -L${X11BASE}/lib"
-MAKE_ENV +=		CPPFLAGS="-I${LOCALBASE}/include -I${X11BASE}/include"
+MAKE_ENV =		CPPFLAGS="-I${LOCALBASE}/include -I${X11BASE}/include" \
+			LDFLAGS="-L${LOCALBASE}/lib -L${X11BASE}/lib" \
+			RST2MAN=rst2man${MODPY_BIN_SUFFIX}
 MAKE_FLAGS =		-o "${WRKBUILD}" -t "${WRKSRC}" --destdir="${DESTDIR}"
 
 NO_TEST =		Yes
@@ -107,8 +107,15 @@ CFLAGS +=		-march=i586
 DO_WAF =		cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MODPY_BIN} \
 				${WAF} ${MAKE_FLAGS}
 
+LMAJ =			${LIBmpv_VERSION:R}
+LMIN =			${LIBmpv_VERSION:E}
+UPDATE_PLIST_ARGS +=	-i LMAJ -i LMIN
+SUBST_VARS +=		LMAJ \
+			LMIN
+
 post-patch:
 	cp ${DISTDIR}/${WAF:T} ${WAF}
+	${SUBST_CMD} ${WRKSRC}/libmpv/client.h
 
 do-configure:
 	${DO_WAF} configure ${CONFIGURE_ARGS}

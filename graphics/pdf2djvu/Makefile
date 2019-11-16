@@ -1,10 +1,9 @@
-# $OpenBSD: Makefile,v 1.32 2019/05/20 22:15:13 naddy Exp $
+# $OpenBSD: Makefile,v 1.36 2019/11/06 12:31:08 kili Exp $
 
 COMMENT =		creates DjVu files from PDF files
 
-V =			0.9.12
+V =			0.9.14
 DISTNAME =		pdf2djvu-${V}
-REVISION =		1
 
 CATEGORIES =		graphics
 
@@ -13,7 +12,7 @@ HOMEPAGE =		http://jwilk.net/software/pdf2djvu
 MAINTAINER =		Juan Francisco Cantero Hurtado <juanfra@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += GraphicsMagick GraphicsMagick++ c djvulibre exiv2 iconv intl m
 WANTLIB += poppler pthread ${LIBCXX}

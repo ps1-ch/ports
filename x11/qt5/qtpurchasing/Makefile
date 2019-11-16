@@ -1,8 +1,7 @@
-# $OpenBSD: Makefile,v 1.7 2019/03/08 20:00:49 cwen Exp $
+# $OpenBSD: Makefile,v 1.9 2019/11/05 10:18:54 rsadowski Exp $
 
 QT5NAME =		QtPurchasing
 COMMENT-main =		in-app purchases in Qt5 and Qt5 Quick applications
-REVISION-main =		0
 
 MULTI_PACKAGES =	-main -examples
 

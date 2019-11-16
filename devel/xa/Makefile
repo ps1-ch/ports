@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.2 2019/02/04 09:42:01 fcambus Exp $
+# $OpenBSD: Makefile,v 1.4 2019/11/10 10:28:53 fcambus Exp $
 
 COMMENT =	portable cross-assembler for MOS 6502 processors
 
-DISTNAME =	xa-2.3.9
+DISTNAME =	xa-2.3.10
 
 CATEGORIES =	devel
 
@@ -11,7 +11,7 @@ HOMEPAGE =	https://www.floodgap.com/retrotech/xa/
 MAINTAINER =	Frederic Cambus <fcambus@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB +=	c
 

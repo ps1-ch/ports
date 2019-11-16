@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.48 2017/08/20 10:26:27 jasper Exp $
+# $OpenBSD: Makefile,v 1.50 2019/07/30 02:55:48 bcallah Exp $
 
 COMMENT=	performance test of sequential file I/O
 
-V =		3.465
+V =		3.487
 DISTNAME=	iozone${V:S/./_/}
 PKGNAME=	iozone-$V
 CATEGORIES=	benchmarks
@@ -11,9 +11,8 @@ EXTRACT_SUFX=	.tar
 
 HOMEPAGE=	http://www.iozone.org/
 
-PERMIT_PACKAGE_CDROM=	incomplete/bad license
-PERMIT_PACKAGE_FTP=	incomplete/bad license
-PERMIT_DISTFILES_FTP=	incomplete/bad license
+PERMIT_PACKAGE=		incomplete/bad license
+PERMIT_DISTFILES=	incomplete/bad license
 
 WANTLIB += c pthread
 

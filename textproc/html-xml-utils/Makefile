@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.15 2018/04/29 18:19:33 bentley Exp $
+# $OpenBSD: Makefile,v 1.17 2019/10/17 08:56:35 bentley Exp $
 
 COMMENT =		simple utilities for manipulating HTML and XML files
 
-DISTNAME =		html-xml-utils-7.7
+DISTNAME =		html-xml-utils-7.8
 
 CATEGORIES =		textproc
 
@@ -11,7 +11,7 @@ HOMEPAGE =		https://www.w3.org/Tools/HTML-XML-utils/
 MAINTAINER =		Anthony J. Bentley <anthony@anjbe.name>
 
 # W3C license
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c crypto curl iconv idn nghttp2 ssl z
 

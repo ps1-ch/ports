@@ -1,17 +1,16 @@
-# $OpenBSD: Makefile,v 1.4 2019/04/16 20:19:01 sthen Exp $
+# $OpenBSD: Makefile,v 1.6 2019/11/03 12:11:07 jasper Exp $
 
 COMMENT=	create MusicBrainz DiscIDs from audio CDs
 
-DISTNAME=	libdiscid-0.6.1
+DISTNAME=	libdiscid-0.6.2
 CATEGORIES=	audio
-REVISION=	0
 
 SHARED_LIBS +=	discid 0.0      # 0.0
 
 HOMEPAGE=	https://musicbrainz.org/doc/libdiscid/
 
 # LGPLv2.1+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/
 

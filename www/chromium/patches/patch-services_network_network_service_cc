@@ -1,4 +1,4 @@
-$OpenBSD: patch-services_network_network_service_cc,v 1.8 2019/05/24 19:09:15 robert Exp $
+$OpenBSD: patch-services_network_network_service_cc,v 1.11 2019/11/05 22:30:28 robert Exp $
 
 Index: services/network/network_service.cc
 --- services/network/network_service.cc.orig

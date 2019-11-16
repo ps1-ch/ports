@@ -1,26 +1,25 @@
-# $OpenBSD: Makefile,v 1.7 2019/04/28 21:08:26 naddy Exp $
+# $OpenBSD: Makefile,v 1.15 2019/10/30 06:08:15 daniel Exp $
 
-ONLY_FOR_ARCHS =	amd64 i386
+ONLY_FOR_ARCHS =	aarch64 amd64 i386 powerpc
 
 COMMENT =		high assurance C compiler
 
-V=			3.5
-REVISION =		1
+V =			3.6
 GH_ACCOUNT =		AbsInt
 GH_PROJECT =		CompCert
 GH_TAGNAME =		v${V}
-DISTNAME =              ${GH_PROJECT}-${V}
+DISTNAME =		${GH_PROJECT}-${V}
 PKGNAME =		${DISTNAME:L}
+REVISION =		1
 
 HOMEPAGE =		http://compcert.inria.fr/
 
 CATEGORIES =		lang
 
-MAINTAINER = Daniel Dickman <daniel@openbsd.org>
+MAINTAINER =		Daniel Dickman <daniel@openbsd.org>
 
 # INRIA Non-Commercial License Agreement.
-PERMIT_PACKAGE_CDROM =	no commercial use
-PERMIT_PACKAGE_FTP =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB	+= c m
 
@@ -29,13 +28,12 @@ COMPILER	= ports-gcc
 USE_GMAKE	= Yes
 
 CONFIGURE_STYLE = simple
-CONFIGURE_ARGS  = -prefix ${WRKINST}${PREFIX} \
-		  -no-standard-headers \
+CONFIGURE_ARGS  = -no-standard-headers \
 		  ${MACHINE_ARCH}-bsd
 
 BUILD_DEPENDS =	lang/ocaml>=4.02 \
-		math/coq>=8.6.1 \
-		devel/ocaml-menhir>=20181113p0
+		math/coq>=8.7.0 \
+		devel/ocaml-menhir>=20190626
 
 RUN_DEPENDS =	lang/gcc/${MODGCC4_VERSION}
 

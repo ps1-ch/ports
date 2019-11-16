@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.24 2019/04/17 08:01:01 bket Exp $
+# $OpenBSD: Makefile,v 1.29 2019/11/06 10:19:14 bket Exp $
 
 COMMENT =		zstandard fast real-time compression algorithm
 
-V =			1.4.0
+V =			1.4.4
 DISTNAME =		zstd-${V}
 
-SHARED_LIBS =		zstd	3.0	# 1.4.0
+SHARED_LIBS =		zstd	3.1	# 1.4.4
 
 CATEGORIES =		archivers
 
@@ -14,7 +14,7 @@ HOMEPAGE =		https://facebook.github.io/zstd/
 MAINTAINER =		Bjorn Ketelaars <bket@openbsd.org>
 
 # BSD 3 clauses + GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		c lz4 lzma pthread z
 
@@ -22,6 +22,7 @@ MASTER_SITES =		https://github.com/facebook/zstd/releases/download/v${V}/
 
 LIB_DEPENDS =		archivers/lz4 \
 			archivers/xz
+BUILD_DEPENDS =		sysutils/ggrep
 
 COMPILER =		base-clang ports-gcc
 
@@ -43,5 +44,8 @@ FAKE_FLAGS =		PREFIX="${PREFIX}"
 USE_GMAKE =		Yes
 
 TEST_TARGET =		check
+
+post-extract:
+	 sed -i 's,grep,ggrep,g' ${WRKSRC}/contrib/single_file_decoder/combine.sh
 
 .include <bsd.port.mk>

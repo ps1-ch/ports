@@ -1,5 +1,5 @@
 # ex:ts=8 sw=4:
-# $OpenBSD: Engine.pm,v 1.128 2019/05/12 12:12:53 espie Exp $
+# $OpenBSD: Engine.pm,v 1.142 2019/11/08 13:06:00 espie Exp $
 #
 # Copyright (c) 2010-2013 Marc Espie <espie@openbsd.org>
 #
@@ -21,6 +21,8 @@ use warnings;
 use DPB::Limiter;
 use DPB::SubEngine;
 use DPB::ErrorList;
+use DPB::Queue;
+use Time::HiRes;
 
 package DPB::Engine;
 our @ISA = qw(DPB::Limiter);
@@ -28,24 +30,21 @@ our @ISA = qw(DPB::Limiter);
 use DPB::Heuristics;
 use DPB::Util;
 
-sub subengine_class
-{
-	my ($class, $state) = @_;
-	if ($state->{fetch_only}) {
-		return "DPB::SubEngine::NoBuild";
-	} else {
-		require DPB::SubEngine::Build;
-		return "DPB::SubEngine::Build";
-	}
-}
+# this is the main dpb engine, responsible for moving stuff that can
+# be built to the right location, and starting the actual builds
+
+# - it delegates to a subengine class for actually doing stuff
+# (e.g., build/fetch/roach)
+
+# - it's responsible for (more or less) monitoring locks and errors
 
 sub new
 {
 	my ($class, $state) = @_;
-	my $o = bless {built => {},
-	    tobuild => {},
+	my $o = bless {built => DPB::HashQueue->new,
+	    tobuild => DPB::HashQueue->new,
 	    state => $state,
-	    installable => {},
+	    installable => DPB::HashQueue->new,
 	    heuristics => $state->heuristics,
 	    sizer => $state->sizer,
 	    locker => $state->locker,
@@ -54,19 +53,52 @@ sub new
 	    errors => DPB::ErrorList->new,
 	    locks => DPB::LockList->new,
 	    nfslist => DPB::NFSList->new,
-	    ts => time(),
-	    requeued => [],
-	    ignored => []}, $class;
-	$o->{buildable} = $class->subengine_class($state)->new($o, $state->builder);
-	if ($state->{want_fetchinfo}) {
-		require DPB::SubEngine::Fetch;
-		$o->{tofetch} = DPB::SubEngine::Fetch->new($o);
-	}
+	    ts => Time::HiRes::time(),
+	    requeued => DPB::ListQueue->new,
+	    ignored => DPB::ListQueue->new}, $class;
+	$o->{buildable} = $class->build_subengine_class($state)->new($o, 
+	    $state->builder);
+	$o->{tofetch} = $class->fetch_subengine_class($state)->new($o);
+	$o->{toroach} = $class->roach_subengine_class($state)->new($o);
 	$o->{log} = $state->logger->append("engine");
 	$o->{stats} = DPB::Stats->new($state);
 	return $o;
 }
 
+sub build_subengine_class
+{
+	my ($class, $state) = @_;
+	if ($state->{fetch_only}) {
+		return "DPB::SubEngine::Dummy";
+	} else {
+		require DPB::SubEngine::Build;
+		return "DPB::SubEngine::Build";
+	}
+}
+
+sub fetch_subengine_class
+{
+	my ($class, $state) = @_;
+	if ($state->{want_fetchinfo}) {
+		require DPB::SubEngine::Fetch;
+		return "DPB::SubEngine::Fetch";
+	} else {
+		return "DPB::SubEngine::Dummy";
+	}
+}
+
+sub roach_subengine_class
+{
+	my ($class, $state) = @_;
+	if ($state->{roach}) {
+		require DPB::SubEngine::Roach;
+		return "DPB::SubEngine::Roach";
+	} else {
+		return "DPB::SubEngine::Dummy";
+	}
+}
+
+# forwarder for the wipe external command
 sub wipe
 {
 	my $o = shift;
@@ -76,16 +108,10 @@ sub wipe
 sub status
 {
 	my ($self, $v) = @_;
-	for my $k (qw(built tobuild installable)) {
-		if ($self->{$k}{$v}) {
-			return $k;
-		}
-	}
-	if ($self->{buildable}->contains($v)) {
-		return "buildable";
-	}
-	for my $k (qw(errors locks nfslist)) {
-		if (grep {$_ == $v} @{$self->{$k}}) {
+	# each path is in one location only
+	# this is not efficient but we don't care, as this is user ui
+	for my $k (qw(built tobuild installable buildable errors locks nfslist)) {
+		if ($self->{$k}->contains($v)) {
 			return $k;
 		}
 	}
@@ -100,15 +126,18 @@ sub recheck_errors
 	$self->{nfslist}->recheck($self);
 }
 
-sub log_no_ts
+sub log_same_ts
 {
 	my ($self, $kind, $v, $extra) = @_;
 	$extra //= '';
 	my $fh = $self->{log};
-	my $ts = int($self->{ts});
+	my $ts = DPB::Util->ts2string($self->{ts});
 	print $fh "$$\@$ts: $kind";
 	if (defined $v) {
-		print $fh ": ", $v->logname, $extra;
+		print $fh ": ", $v->logname;
+		if (defined $extra) {
+			print $fh " ", $extra;
+		}
 	}
 	print $fh "\n";
 }
@@ -116,33 +145,33 @@ sub log_no_ts
 sub log
 {
 	my $self = shift;
-	$self->{ts} = time();
-	$self->log_no_ts(@_);
+	$self->{ts} = Time::HiRes::time();
+	$self->log_same_ts(@_);
 }
 
-sub flush
+sub log_as_built
+{
+	my ($self, $v) = @_;
+	my $n = $v->fullpkgname;
+	my $fh = $self->{logger}->append("built-packages");
+	print $fh "$n.tgz\n";
+}
+
+sub flush_log
 {
 	my $self = shift;
 	$self->{log}->flush;
 }
 
-sub count
-{
-	my ($self, $field) = @_;
-	my $r = $self->{$field};
-	if (ref($r) eq 'HASH') {
-		return scalar keys %$r;
-	} elsif (ref($r) eq 'ARRAY') {
-		return scalar @$r;
-	} else {
-		return "?";
-    	}
-}
-
+# returns the number of distfiles to fetch
+# XXX side-effect: changes the heuristics based
+# on actual Q number, e.g., tries harder to
+# fetch if the queue is "low" (30, not tweakable)
+# and doesn't really caret otherwise
 sub fetchcount
 {
-	my ($self, $q, $t)= @_;
-	return () unless defined $self->{tofetch};
+	my ($self, $q)= @_;
+	return () if $self->{tofetch}->is_dummy;
 	if ($self->{state}{fetch_only}) {
 		$self->{tofetch}{queue}->set_fetchonly;
 	} elsif ($q < 30) {
@@ -157,15 +186,15 @@ sub statline
 {
 	my $self = shift;
 	my $q = $self->{buildable}->count;
-	my $t = $self->count("tobuild");
 	return join(" ",
-	    "I=".$self->count("installable"),
-	    "B=".$self->count("built"),
+	    "I=".$self->{installable}->count,
+	    "B=".$self->{built}->count,
 	    "Q=$q",
-	    "T=$t",
-	    $self->fetchcount($q, $t));
+	    "T=".$self->{tobuild}->count,
+	    $self->fetchcount($q));
 }
 
+# see next method, don't bother adding stuff if not needed.
 sub may_add
 {
 	my ($self, $prefix, $s) = @_;
@@ -176,14 +205,14 @@ sub may_add
 	}
 }
 
-sub report
+sub report_tty
 {
-	my $self = shift;
+	my ($self, $state) = @_;
 	my $q = $self->{buildable}->count;
-	my $t = $self->count("tobuild");
+	my $t = $self->{tobuild}->count;
 	return join(" ",
 	    $self->statline,
-	    "!=".$self->count("ignored"))."\n".
+	    "!=".$self->{ignored}->count)."\n".
 	    $self->may_add("L=", $self->{locks}->stringize).
 	    $self->may_add("E=", $self->{errors}->stringize). 
 	    $self->may_add("H=", $self->{nfslist}->stringize);
@@ -195,13 +224,15 @@ sub stats
 	$self->{stats}->log($self->{ts}, $self->statline);
 }
 
-sub important
+sub report_notty
 {
-	my $self = shift;
+	my ($self, $state) = @_;
 	$self->{lasterrors} //= 0;
 	if (@{$self->{errors}} != $self->{lasterrors}) {
 		$self->{lasterrors} = @{$self->{errors}};
 		return "Error in ".join(' ', map {$_->fullpkgpath} @{$self->{errors}})."\n";
+	} else {
+		return undef;
 	}
 }
 
@@ -262,7 +293,7 @@ sub should_ignore
 {
 	my ($self, $v, $kind) = @_;
 	if (my $d = $self->missing_dep($v, $kind)) {
-		$self->log_no_ts('!', $v, " because of ".$d->fullpkgpath);
+		$self->log_same_ts('!', $v, " because of ".$d->fullpkgpath);
 		$self->stub_out($v);
 		return 1;
 	} else {
@@ -336,7 +367,7 @@ sub adjust_built
 			# okay, thanks to equiv, some other path was marked
 			# as stub, and obviously we lost our deps
 			if ($v->{info}->is_stub) {
-				$self->log_no_ts('!', $v, 
+				$self->log_same_ts('!', $v, 
 				    " equivalent to an ignored path");
 				# just drop it, it's already ignored as
 				# an equivalent path
@@ -346,7 +377,7 @@ sub adjust_built
 			if ($v->{wantinstall}) {
 				$self->{buildable}->will_install($v);
 			}
-			$self->log_no_ts('I', $v,' # '.$v->fullpkgname);
+			$self->log_same_ts('I', $v,' # '.$v->fullpkgname);
 			$changes++;
 		} elsif ($self->should_ignore($v, 'RDEPENDS')) {
 			delete $self->{built}{$v};
@@ -375,7 +406,7 @@ sub adjust_depends2
 		# okay, thanks to equiv, some other path was marked
 		# as stub, and obviously we lost our deps
 		if ($v->{info}->is_stub) {
-			$self->log_no_ts('!', $v, 
+			$self->log_same_ts('!', $v, 
 			    " equivalent to an ignored path");
 			# just drop it, it's already ignored as
 			# an equivalent path
@@ -399,7 +430,7 @@ sub adjust_depends2
 				$self->{buildable}->remove($v);
 			} else {
 				$self->{buildable}->add($v);
-				$self->log_no_ts('Q', $v);
+				$self->log_same_ts('Q', $v);
 			}
 		} 
 	}
@@ -430,28 +461,32 @@ sub check_buildable
 {
 	my ($self, $forced) = @_;
 	my $r = $self->limit($forced, 50, "ENG", 1,
-#	    $self->{buildable}->count > 0,
 	    sub {
 		$self->log('+');
 		1 while $self->adjust_built;
 		$self->adjust_tobuild;
-		$self->flush;
+		$self->flush_log;
 	    });
 	$self->stats;
 	return $r;
+}
+sub new_roach
+{
+	my ($self, $r) = @_;
+	$self->{toroach}->add($r);
 }
 
 sub new_path
 {
 	my ($self, $v) = @_;
 	if (defined $v->{info}{IGNORE} && 
-	    !$self->{state}->{fetch_only}) {
-		$self->log('!', $v, " ".$v->{info}{IGNORE}->string);
+	    !$self->{state}{fetch_only}) {
+		$self->log('!', $v, $v->{info}{IGNORE}->string);
 		$self->stub_out($v);
 		return;
 	}
 	if (defined $v->{info}{MISSING_FILES}) {
-		$self->add_fatal($v, "fetch manually", 
+		$self->add_fatal($v, ["fetch manually"], 
 		    "Missing distfiles: ".
 		    $v->{info}{MISSING_FILES}->string, 
 		    $v->{info}{FETCH_MANUALLY}->string);
@@ -507,9 +542,13 @@ sub rescan
 
 sub add_fatal
 {
-	my ($self, $v, $error, @messages) = @_;
+	my ($self, $v, $l, @messages) = @_;
 	push(@{$self->{errors}}, $v);
-	$self->log('!', $v, " $error");
+	my $error = join(' ', @$l);
+	if (length $error > 60) {
+		$error = substr($error, 0, 58)."...";
+	}
+	$self->log('!', $v, $error);
 	if ($self->{heldlocks}{$v}) {
 		print {$self->{heldlocks}{$v}} "error=$error\n";
 		delete $self->{heldlocks}{$v};
@@ -517,7 +556,7 @@ sub add_fatal
 		my $lock = $self->{locker}->lock($v);
 		$lock->write("error", $error) if $lock;
 	}
-	$self->{logger}->log_error($v, $error, @messages);
+	$self->{logger}->log_error($v, @$l, @messages);
 	$self->stub_out($v);
 }
 
@@ -554,7 +593,7 @@ sub start_new_job
 {
 	my $self = shift;
 	my $r = $self->{buildable}->start;
-	$self->flush;
+	$self->flush_log;
 	return $r;
 }
 
@@ -562,7 +601,15 @@ sub start_new_fetch
 {
 	my $self = shift;
 	my $r = $self->{tofetch}->start;
-	$self->flush;
+	$self->flush_log;
+	return $r;
+}
+
+sub start_new_roach
+{
+	my $self = shift;
+	my $r = $self->{toroach}->start;
+	$self->flush_log;
 	return $r;
 }
 
@@ -577,6 +624,12 @@ sub can_fetch
 {
 	my $self = shift;
 	return $self->{tofetch}->non_empty;
+}
+
+sub can_roach
+{
+	my $self = shift;
+	return $self->{toroach}->non_empty;
 }
 
 sub dump_category
@@ -705,8 +758,7 @@ sub dump
 # namely, scan the most important ports first.
 #
 # use case: when we restart dpb after a few hours, we want the listing job
-# to get to groff very quickly, as the queue will stay desperately empty
-# otherwise...
+# to get to gettext/iconv/gmake very quickly.
 
 sub dump_dependencies
 {
@@ -759,7 +811,7 @@ sub new
 	my ($class, $state) = @_;
 	my $o = bless { 
 	    fh => DPB::Util->make_hot($state->logger->append("stats")),
-	    lost_time => 0,
+	    delta => $state->{starttime},
 	    statline => ''},
 	    	$class;
 	DPB::Clock->register($o);
@@ -772,14 +824,14 @@ sub log
 	return if $line eq $self->{statline};
 
 	$self->{statline} = $line;
-	print {$self->{fh}} join(' ', $$, int($ts), 
-	    int($ts-$self->{lost_time}), $line), "\n";
+	print {$self->{fh}} join(' ', $$, DPB::Util->ts2string($ts), 
+	    DPB::Util->ts2string($ts-$self->{delta}), $line), "\n";
 }
 
 sub stopped_clock
 {
 	my ($self, $gap) = @_;
-	$self->{lost_time} += $gap;
+	$self->{delta} += $gap;
 }
 
 1;

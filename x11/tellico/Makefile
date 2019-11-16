@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.49 2019/06/06 06:08:56 rsadowski Exp $
+# $OpenBSD: Makefile,v 1.54 2019/11/10 15:02:21 rsadowski Exp $
 
 COMMENT =	organizer for book/dvd/music collections
 
-DISTNAME =	tellico-3.2
-REVISION =	0
+DISTNAME =	tellico-3.2.2
 
 CATEGORIES =	x11
 
@@ -12,7 +11,7 @@ HOMEPAGE =	http://tellico-project.org
 MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
 
 # GPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} KF5Archive KF5Attica KF5Auth KF5Bookmarks
 WANTLIB += KF5Cddb KF5Codecs KF5Completion KF5ConfigCore KF5ConfigGui
@@ -26,21 +25,21 @@ WANTLIB += KF5WindowSystem KF5XmlGui Qt5Concurrent Qt5Core Qt5DBus
 WANTLIB += Qt5Gui Qt5Network Qt5Widgets Qt5Xml c cdio exempi exslt
 WANTLIB += iconv iso9660 m poppler poppler-qt5 tag xml2 xslt yaz
 
-MASTER_SITES =		http://tellico-project.org/files/
-EXTRACT_SUFX =		.tar.xz
+MASTER_SITES =	http://tellico-project.org/files/
+EXTRACT_SUFX =	.tar.xz
 
-MODULES +=		devel/kf5 \
-			lang/python
+MODULES +=	devel/kf5 \
+		lang/python
 
-BUILD_DEPENDS +=devel/gettext,-tools \
+BUILD_DEPENDS =	devel/gettext,-tools \
 		devel/kf5/kdoctools
 
-RUN_DEPENDS +=	devel/desktop-file-utils \
+RUN_DEPENDS =	devel/desktop-file-utils \
 		misc/shared-mime-info \
 		devel/kf5/kdoctools \
 		x11/gtk+3,-guic
 
-LIB_DEPENDS +=	audio/libcdio \
+LIB_DEPENDS =	audio/libcdio \
 		audio/taglib \
 		devel/kf5/attica \
 		devel/kf5/karchive \
@@ -71,14 +70,12 @@ LIB_DEPENDS +=	audio/libcdio \
 		devel/kf5/solid \
 		devel/kf5/sonnet \
 		net/yaz \
-		print/poppler,,-qt5 \
+		print/poppler,-qt5 \
 		textproc/exempi \
 		textproc/libxml \
 		textproc/libxslt \
 		x11/kde-applications/libkcddb \
 		x11/kde-applications/libksane
-
-CONFIGURE_ARGS +=	-DCMAKE_DISABLE_FIND_PACKAGE_QImageBlitz=ON
 
 TEST_IS_INTERACTIVE =	X11
 

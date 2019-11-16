@@ -1,21 +1,19 @@
-# $OpenBSD: Makefile,v 1.5 2015/04/02 14:21:16 jasper Exp $
+# $OpenBSD: Makefile,v 1.7 2019/07/17 14:46:33 danj Exp $
 
 COMMENT =		powerful curses interface python file manager
 
 MODPY_EGG_VERSION =	2.3
 DISTNAME =		lfm-${MODPY_EGG_VERSION}
-REVISION=		0
+REVISION=		1
 
 CATEGORIES =		misc
 
 HOMEPAGE =		http://katxi.org/devel/lfm/
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	 Yes
+PERMIT_PACKAGE =	Yes
 
 MODPY_PI =		Yes
-
-MAINTAINER =		Patrikas Kugrinas <pkugrinas@gmail.com>
 
 MODULES =		lang/python
 

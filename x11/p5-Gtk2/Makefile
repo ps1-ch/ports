@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.43 2017/04/28 16:52:41 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.45 2019/11/08 21:42:42 ajacoutot Exp $
 
 COMMENT=	set of modules to use Gtk+2 libraries from Perl
 
-DISTNAME=	Gtk2-1.24992
+DISTNAME=	Gtk2-1.24993
 CPAN_AUTHOR=	XAOC
 
 CATEGORIES=	x11
 
 # LGPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender atk-1.0 c cairo fontconfig freetype gdk-x11-2.0

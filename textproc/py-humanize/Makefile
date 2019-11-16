@@ -1,20 +1,20 @@
-# $OpenBSD: Makefile,v 1.2 2019/04/28 20:51:56 sthen Exp $
+# $OpenBSD: Makefile,v 1.4 2019/09/09 21:36:14 kmos Exp $
 
 COMMENT =		python number humanization utilities
 
 MODPY_EGG_VERSION =	0.5.1
 DISTNAME =		humanize-${MODPY_EGG_VERSION}
 PKGNAME =		py-humanize-${MODPY_EGG_VERSION}
-REVISION =		0
+REVISION =		1
 
 CATEGORIES =		textproc
 
 HOMEPAGE =		https://github.com/jmoiron/humanize
 
-MAINTAINER =		Kurt Mosiejczuk <kurt@cranky.work>
+MAINTAINER =		Kurt Mosiejczuk <kmos@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_SETUPTOOLS =	Yes

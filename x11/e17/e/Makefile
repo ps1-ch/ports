@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.76 2019/02/28 01:52:37 naddy Exp $
+# $OpenBSD: Makefile,v 1.79 2019/09/07 13:16:47 naddy Exp $
 
 COMMENT =		the enlightened window manager
 
 VERSION =		0.17.6
 DISTNAME =		enlightenment-${VERSION}
 EPOCH =			1
-REVISION =		17
+REVISION =		19
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =  ${MODLUA_WANTLIB}
 WANTLIB += X11 Xau Xcomposite Xcursor Xdamage Xdmcp Xext Xfixes Xi

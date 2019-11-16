@@ -1,30 +1,33 @@
-# $OpenBSD: Makefile,v 1.16 2019/05/20 20:52:34 sthen Exp $
+# $OpenBSD: Makefile,v 1.19 2019/10/17 01:09:22 daniel Exp $
 
 COMMENT=	number theory-oriented computer algebra system
 
-DISTNAME=	pari-2.1.7
-REVISION=	1
-EXTRACT_SUFX=	.tgz
+V=		2.11.2
+DISTNAME=	pari-$V
 CATEGORIES=	math
 
-HOMEPAGE=	http://pari.math.u-bordeaux.fr/
+HOMEPAGE=	https://pari.math.u-bordeaux.fr/
 
-# GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+# GPLv2+
+PERMIT_PACKAGE=	Yes
 
-WANTLIB=		X11 c m curses readline
+WANTLIB +=		X11 c gmp m readline
 
-MASTER_SITES=		http://pari.math.u-bordeaux.fr/pub/pari/unix/OLD/2.1/
+MASTER_SITES=		http://pari.math.u-bordeaux.fr/pub/pari/unix/ \
+			http://pari.math.u-bordeaux.fr/pub/pari/OLD/${V:R}/
 
 BUILD_DEPENDS=		print/texlive/base
+LIB_DEPENDS=		devel/gmp
+
+USE_GMAKE=		Yes
 
 CONFIGURE_SCRIPT=	Configure
 CONFIGURE_STYLE=	simple
 CONFIGURE_ENV=		CFLAGS="${CFLAGS}"
 CONFIGURE_ARGS+=	--datadir=${PREFIX}/share/pari \
-			--miscdir=${PREFIX}/share/pari \
+			--mandir=${PREFIX}/man/man1 \
 			--prefix=${PREFIX} \
-			--host=${ARCH}
+			--with-gmp=${PREFIX}
 
 TEST_TARGET=		dobench
 

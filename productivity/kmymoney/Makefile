@@ -1,11 +1,10 @@
-# $OpenBSD: Makefile,v 1.30 2019/05/20 22:15:22 naddy Exp $
+# $OpenBSD: Makefile,v 1.32 2019/07/17 14:46:34 danj Exp $
 COMMENT =		accounting for KDE 4
 CATEGORIES =		productivity x11
 HOMEPAGE =		https://kmymoney.org/
-MAINTAINER =		Vadim Zhukov <zhuk@openbsd.org>
 VERSION =		4.8.1.1
 DISTNAME =		kmymoney-${VERSION}
-REVISION =		10
+REVISION =		11
 
 SHARED_LIBS += kmm_kdchart                      1.1 # 0.0
 SHARED_LIBS += kmm_mymoney                      1.1 # 0.0
@@ -17,7 +16,7 @@ SHARED_LIBS += payeeidentifier_iban_bic_widgets 0.0 # 4.14
 SHARED_LIBS += payeeidentifier_nationalAccount  0.0 # 4.14
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =  c m pthread z
 WANTLIB += ${COMPILER_LIBCXX}

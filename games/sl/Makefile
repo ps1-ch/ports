@@ -1,18 +1,16 @@
-# $OpenBSD: Makefile,v 1.8 2019/05/20 20:52:33 sthen Exp $
+# $OpenBSD: Makefile,v 1.10 2019/07/17 14:49:22 danj Exp $
 
 COMMENT =			Steam Locomotive
 
 GH_ACCOUNT =			mtoyoda
 GH_PROJECT =			sl
 GH_TAGNAME =			5.02
-REVISION =			0
+REVISION =			1
 
 CATEGORIES =			games
 
-MAINTAINER =			Gallon Sylvestre <ccna.syl@gmail.com>
-
 # BSD-like
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 WANTLIB =			c curses
 

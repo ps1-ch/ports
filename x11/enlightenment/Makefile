@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.73 2019/02/24 07:42:16 feinerer Exp $
+# $OpenBSD: Makefile,v 1.75 2019/08/10 08:39:48 feinerer Exp $
 
 COMMENT=	themed window manager
 
-V=		1.0.19
+V=		1.0.20
 DISTNAME=	e16-$V
 PKGNAME=	enlightenment-$V
 DOCS=		e16-docs-0.16.8.0.2
@@ -13,7 +13,7 @@ CATEGORIES=	x11
 HOMEPAGE=	https://www.enlightenment.org/e16
 
 # X11
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB =  FLAC ICE Imlib2 SM X11 Xcomposite Xdamage Xext Xfixes Xft
 WANTLIB += Xinerama Xrandr Xrender audiofile c expat ffi fontconfig

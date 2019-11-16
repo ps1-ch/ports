@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.402 2019/06/15 20:54:03 bcallah Exp $
+# $OpenBSD: Makefile,v 1.410 2019/11/15 15:25:57 fcambus Exp $
 
      SUBDIR =
      SUBDIR += 0ad
@@ -68,6 +68,8 @@
      SUBDIR += dangerdeep
      SUBDIR += dd2
      SUBDIR += defendguin
+     SUBDIR += depotdownloader
+     SUBDIR += devilutionx
      SUBDIR += dhewm3
      SUBDIR += dmagnetic
      SUBDIR += doomdata
@@ -92,6 +94,7 @@
      SUBDIR += ezquake
      SUBDIR += f1spirit
      SUBDIR += falconseye
+     SUBDIR += fallingtime
      SUBDIR += fifechan
      SUBDIR += fifengine
      SUBDIR += fillets-ng
@@ -111,6 +114,7 @@
      SUBDIR += freedroidrpg
      SUBDIR += freeorion
      SUBDIR += freeserf
+     SUBDIR += freesynd
      SUBDIR += fretsonfire
      SUBDIR += frotz
      SUBDIR += frozen-bubble
@@ -193,6 +197,7 @@
      SUBDIR += netris
      SUBDIR += neverball
      SUBDIR += newvox
+     SUBDIR += nudoku
      SUBDIR += numptyphysics
      SUBDIR += oilwar
      SUBDIR += omega
@@ -200,6 +205,7 @@
      SUBDIR += openarena
      SUBDIR += openclonk
      SUBDIR += openfodder
+     SUBDIR += openjazz
      SUBDIR += openjk
      SUBDIR += openmw
      SUBDIR += openomf
@@ -281,6 +287,7 @@
      SUBDIR += tbftss
      SUBDIR += teeworlds
      SUBDIR += tetrinetx
+     SUBDIR += thedarkmod
      SUBDIR += tome4
      SUBDIR += tong
      SUBDIR += toppler
@@ -303,6 +310,7 @@
      SUBDIR += vectoroids
      SUBDIR += vegastrike
      SUBDIR += vitetris
+     SUBDIR += vkquake
      SUBDIR += vms-empire
      SUBDIR += vodovod
      SUBDIR += wanderer

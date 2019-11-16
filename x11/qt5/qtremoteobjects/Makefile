@@ -1,8 +1,7 @@
-# $OpenBSD: Makefile,v 1.6 2019/03/08 20:00:49 cwen Exp $
+# $OpenBSD: Makefile,v 1.8 2019/11/05 10:18:54 rsadowski Exp $
 
 QT5NAME =		QtRemoteObjects
 COMMENT-main =		inter-process communication using Qt5 objects
-REVISION-main =		0
 
 MULTI_PACKAGES =	-main -examples
 

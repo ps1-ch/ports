@@ -1,19 +1,19 @@
-# $OpenBSD: Makefile,v 1.4 2018/01/22 21:42:27 kili Exp $
+# $OpenBSD: Makefile,v 1.7 2019/09/30 12:58:10 kili Exp $
 
 COMMENT =		Unicode support version of Text.Regex
 
 DISTNAME =		regex-compat-tdfa-0.95.1.4
-REVISION =		2
+REVISION =		4
 CATEGORIES =		devel
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/ghc
 
 MODGHC_BUILD =		cabal hackage haddock register
 
-MODGHC_PACKAGE_KEY =	JndgHkiSvqkF8EA3cAzjcB
+MODGHC_PACKAGE_KEY =	LEgCDcFzCOu8j8alaEwgs6
 
 BUILD_DEPENDS =		${RUN_DEPENDS}
 

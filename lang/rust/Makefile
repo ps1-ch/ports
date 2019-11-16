@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.97 2019/05/24 04:28:24 semarie Exp $
+# $OpenBSD: Makefile,v 1.102 2019/09/29 08:23:17 semarie Exp $
 
 ONLY_FOR_ARCHS =	${RUST_ARCHS}
 
@@ -13,16 +13,17 @@ COMMENT-gdb =		Rust debugger through gdb
 COMMENT-clippy =	Rust linter
 COMMENT-rustfmt =	Rust code formatter
 
-V =			1.35.0
-CARGO_V =		0.36.0
+V =			1.38.0
+CARGO_V =		0.39.0
 CLIPPY_V =		0.0.212
-RUSTFMT_V =		1.2.0
+RUSTFMT_V =		1.4.4
 DISTNAME =		rustc-${V}-src
 
 # rustc bootstrap version
-BV-aarch64 =		1.35.0-20190523
-BV-amd64 =		1.35.0-20190521
-BV-i386 =		1.35.0-20190521
+BV-aarch64 =		1.38.0-20190926
+BV-amd64 =		1.38.0-20190924
+BV-i386 =		1.38.0-20190924
+BV-sparc64 =		1.37.0-20190813
 BV =			${BV-${MACHINE_ARCH}}
 
 PKGNAME =		rust-${V}
@@ -40,15 +41,12 @@ MAINTAINER =		Sebastien Marie <semarie@online.fr>
 
 # both MIT and Apache2.0
 # with portions covered by various BSD-like licenses
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB-main =		${COMPILER_LIBCXX} c crypto curl git2 m pthread ssh2 ssl z
 WANTLIB-gdb =
 WANTLIB-clippy =	c c++abi m pthread
 WANTLIB-rustfmt =	c c++abi m pthread
-
-# XXX should this actually just be ports-clang?
-COMPILER =		base-clang
 
 MASTER_SITES =		https://static.rust-lang.org/dist/ \
 			https://dev-static.rust-lang.org/dist/
@@ -80,10 +78,17 @@ TRIPLE_ARCH =		aarch64-unknown-openbsd
 TRIPLE_ARCH =		x86_64-unknown-openbsd
 .elif "${MACHINE_ARCH}" == "i386"
 TRIPLE_ARCH =		i686-unknown-openbsd
+.elif "${MACHINE_ARCH}" == "sparc64"
+TRIPLE_ARCH =		sparc64-unknown-openbsd
 .endif
 
 SUBST_VARS +=		TRIPLE_ARCH \
 			V
+
+# on arches where the base compiler is clang: base-clang or ports-clang should be fine,
+# as we need devel/llvm only for libs.
+# on others archs, use ports-gcc as llvm libraries depends on libestdc++.so and libgcc.a.
+COMPILER =		base-clang ports-gcc
 
 MODULES +=		lang/python \
 			gnu
@@ -95,7 +100,8 @@ BUILD_DEPENDS +=	devel/llvm
 BUILD_DEPENDS +=	devel/ninja
 BUILD_DEPENDS +=	devel/gdb
 
-LIB_DEPENDS-main +=	devel/libgit2/libgit2 \
+LIB_DEPENDS-main +=	${LIB_DEPENDS} \
+			devel/libgit2/libgit2 \
 			net/curl \
 			security/libssh2
 
@@ -105,6 +111,7 @@ RUN_DEPENDS-clippy +=	lang/rust,-main
 RUN_DEPENDS-rustfmt +=	lang/rust,-main
 
 MAKE_ENV +=	OPENBSD_PORTS_LANG_RUST_VERSION=${V:C/\.[0-9]*$//} \
+		CARGO_HOME=${WRKBUILD}/cargo-home \
 		LIBGIT2_SYS_USE_PKG_CONFIG=1 \
 		LIBSSH2_SYS_USE_PKG_CONFIG=1
 TEST_ENV +=	RUST_BACKTRACE=0

@@ -1,13 +1,12 @@
-# $OpenBSD: Makefile,v 1.6 2018/01/22 21:43:45 kili Exp $
+# $OpenBSD: Makefile,v 1.9 2019/09/30 12:18:46 kili Exp $
 
 COMMENT =		data encoding library
 
-DISTNAME =		sandi-0.4.1
-REVISION =		0
+DISTNAME =		sandi-0.5
 CATEGORIES =		devel
 
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/ghc
 
@@ -17,8 +16,7 @@ MODGHC_PACKAGE_KEY =	IzshKkho05BGGpyRzAGPU7
 
 BUILD_DEPENDS =		${RUN_DEPENDS}
 
-RUN_DEPENDS =		devel/hs-conduit>=1.2,<1.3 \
-			devel/hs-exceptions>=0.6,<0.9 \
-			textproc/hs-stringsearch>=0.3,<0.4
+RUN_DEPENDS =		devel/hs-conduit>=1.2,<1.4 \
+			devel/hs-exceptions>=0.10,<0.11
 
 .include <bsd.port.mk>

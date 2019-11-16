@@ -1,16 +1,16 @@
-# $OpenBSD: Makefile,v 1.10 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.12 2019/10/03 14:36:19 robert Exp $
 
 COMMENT=		weather library for MATE
-REVISION=		0
 
 SHARED_LIBS +=  mateweather               7.9 # 7.9
 
 MATE_PROJECT=		libmateweather
+MATE_VERSION=		1.22.1
 
 CATEGORIES=		net
 
 # LGPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama Xrandr
 WANTLIB += Xrender atk-1.0 atk-bridge-2.0 cairo cairo-gobject epoxy

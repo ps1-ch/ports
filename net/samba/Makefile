@@ -1,6 +1,6 @@
-# $OpenBSD: Makefile,v 1.273 2019/05/20 22:15:20 naddy Exp $
+# $OpenBSD: Makefile,v 1.280 2019/10/30 13:03:11 jca Exp $
 
-VERSION =		4.8.12
+VERSION =		4.9.15
 DISTNAME =		samba-${VERSION}
 
 COMMENT-main =		SMB and CIFS client and server for UNIX
@@ -17,19 +17,17 @@ PKGNAME-docs =		samba-docs-${VERSION}
 
 PKG_ARCH-docs =		*
 
-LDB_V =			1.3.8
-TEVENT_V =		0.9.36
+LDB_V =			1.4.8
+TEVENT_V =		0.9.37
 
-REVISION-main =		0
-REVISION-ldb =		0
-REVISION-tevent =	6
+REVISION-tevent =	0
 
 SHARED_LIBS =		asn1-samba4		0.0 \
 			com_err-samba4		0.0 \
 			dcerpc			0.0 \
 			dcerpc-binding		1.1 \
 			dcerpc-samr		0.0 \
-			dcerpc-server		4.0 \
+			dcerpc-server		5.0 \
 			gssapi-samba4		0.0 \
 			hcrypto-samba4		0.0 \
 			hdb-samba4		0.0 \
@@ -38,7 +36,7 @@ SHARED_LIBS =		asn1-samba4		0.0 \
 			hx509-samba4		0.0 \
 			kdc-samba4		0.0 \
 			krb5-samba4		0.1 \
-			ldb			0.8 \
+			ldb			0.9 \
 			ndr			0.3 \
 			ndr-krb5pac		0.1 \
 			ndr-nbt			0.1 \
@@ -48,20 +46,20 @@ SHARED_LIBS =		asn1-samba4		0.0 \
 			roken-samba4		0.0 \
 			samba-credentials	0.2 \
 			samba-errors		1.0 \
-			samba-hostconfig	4.0 \
+			samba-hostconfig	4.1 \
 			samba-passdb		2.1 \
 			samba-policy		0.0 \
-			samba-util		3.2 \
-			samdb			0.1 \
-			smbclient		4.2 \
-			smbconf			5.1 \
+			samba-util		4.0 \
+			samdb			0.2 \
+			smbclient		4.3 \
+			smbconf			6.0 \
 			smbldap			0.1 \
-			tevent			0.4 \
-			tevent-util		1.0 \
+			tevent			0.5 \
+			tevent-util		1.1 \
 			wbclient		3.2 \
 			wind-samba4		0.0 \
-			replace			8.0 \
-			util-setid		8.0
+			replace			9.0 \
+			util-setid		9.0
 
 CATEGORIES =		net sysutils security
 
@@ -71,7 +69,7 @@ MAINTAINER =		Ian McWilliam <kaosagnt@gmail.com>, \
 			Jeremie Courreges-Anglas <jca@wxcvbn.org>
 
 # GPLv3, LGPLv3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 UTIL_LIBS =		replace util-setid
 # TODO WAF scripts link to those without version info, but those are
@@ -97,7 +95,8 @@ WANTLIB-util =		${WANTLIB-common}
 
 WANTLIB-docs =
 
-MASTER_SITES =		https://download.samba.org/pub/samba/stable/ \
+MASTER_SITES =		https://filedump.se.rit.edu/pub/distfiles/ \
+			https://download.samba.org/pub/samba/stable/ \
 			https://download.samba.org/pub/samba/old-versions/
 
 MULTI_PACKAGES =	-main -ldb -tevent -util -docs
@@ -167,7 +166,8 @@ CONFIGURE_ARGS =	--enable-fhs \
 			--without-libarchive \
 			--disable-rpath \
 			--with-ntvfs-fileserver \
-			--without-gpgme
+			--without-gpgme \
+			--without-ldb-lmdb
 
 # XXX Remember to remove --enable-developer, it prints passwords in logs.
 #CONFIGURE_ARGS +=	--enable-developer

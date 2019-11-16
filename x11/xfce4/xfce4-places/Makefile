@@ -1,19 +1,17 @@
-# $OpenBSD: Makefile,v 1.30 2019/06/07 18:20:59 landry Exp $
+# $OpenBSD: Makefile,v 1.32 2019/08/15 07:03:35 landry Exp $
 
 COMMENT=	Xfce4 places panel plugin
 
-XFCE_VERSION=	1.8.0
+XFCE_VERSION=	1.8.1
 XFCE_PLUGIN=	places
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=	x11/xfce4
 
 LIB_DEPENDS +=	devel/libnotify \
-		x11/xfce4/xfce4-panel \
 		x11/xfce4/xfconf
-MODXFCE_WANTLIB=	xfce4panel-2.0
 
 WANTLIB += ICE SM X11 X11-xcb Xcomposite Xcursor Xdamage Xext
 WANTLIB += Xfixes Xi Xinerama Xrandr Xrender atk-1.0 atk-bridge-2.0

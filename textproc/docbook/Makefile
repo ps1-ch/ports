@@ -1,17 +1,18 @@
-# $OpenBSD: Makefile,v 1.33 2018/06/29 09:58:56 espie Exp $
+# $OpenBSD: Makefile,v 1.35 2019/07/12 20:49:57 sthen Exp $
 
 PKG_ARCH=	*
 
 COMMENT=	technical documentation XML/SGML definitions
 
 DISTNAME=	docbook-4.5
-REVISION=	2
+REVISION=	3
 DIST_SUBDIR=	docbook
 CATEGORIES=	textproc
 
-HOMEPAGE=	http://www.oasis-open.org/docbook/
+HOMEPAGE=	https://www.oasis-open.org/docbook/
 
-MASTER_SITES=	${HOMEPAGE} http://www.docbook.org/
+MASTER_SITES=	${HOMEPAGE} \
+		https://www.docbook.org/
 MASTER_SITES0=	https://spacehopper.org/mirrors/
 
 DISTFILES=	sgml/2.4.1/docbk241.zip \
@@ -28,7 +29,7 @@ DISTFILES=	sgml/2.4.1/docbk241.zip \
 		examples.zip:0
 
 # permission granted in dtd copyright notice
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 NO_BUILD=       Yes
 NO_TEST=	Yes

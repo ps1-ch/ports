@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.16 2019/05/20 04:47:01 naddy Exp $
+# $OpenBSD: Makefile,v 1.19 2019/08/24 07:27:20 rsadowski Exp $
 
 COMMENT =		P2P payment system
 
 GH_ACCOUNT =		bitcoin
 GH_PROJECT =		bitcoin
-GH_TAGNAME =		v0.18.0
+GH_TAGNAME =		v0.18.1
 
 SHARED_LIBS +=  bitcoinconsensus          2.0 # 0.0
 SHARED_LIBS +=  secp256k1                 0.0 # 0.0
@@ -17,7 +17,7 @@ HOMEPAGE =		https://www.bitcoin.org/
 MAINTAINER =		Rafael Sadowski <rsadowski@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} boost_chrono-mt boost_filesystem
 WANTLIB += boost_system boost_system-mt boost_thread-mt c crypto

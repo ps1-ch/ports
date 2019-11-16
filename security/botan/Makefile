@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.29 2018/11/02 18:48:39 naddy Exp $
+# $OpenBSD: Makefile,v 1.31 2019/07/12 20:49:00 sthen Exp $
 
 COMMENT =	portable, easy to use, and efficient C++ crypto library
 
@@ -6,7 +6,7 @@ PORTROACH =	limit:^1\.10\.
 VERSION =	1.10.17
 DISTNAME =	Botan-${VERSION}
 PKGNAME =	botan-${VERSION}
-REVISION =	1
+REVISION =	2
 
 SHARED_LIBS =	botan-1.10	1.1
 
@@ -17,7 +17,7 @@ HOMEPAGE =	https://botan.randombit.net/
 MAINTAINER =		Alexander Bluhm <bluhm@openbsd.org>
 
 # BSD 2-Clause
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		bz2 crypto gmp m pthread ${COMPILER_LIBCXX} z
 
@@ -50,8 +50,12 @@ CONFIGURE_ARGS =	--cpu=${MACHINE_ARCH} \
 			--with-zlib \
 			--without-sphinx
 
-.if ${MACHINE_ARCH} == "amd64"
+# The sha1 i386 assembler implementation uses esp as regular register.
+# This does not work well with the opportunistic stack-register protection,
+# the process may be aborted.  Fall back to C implementation.
 CONFIGURE_ARGS +=	--disable-asm
+
+.if ${MACHINE_ARCH} == "amd64"
 PKG_ARGS +=		-Damd64=1
 .else
 PKG_ARGS +=		-Damd64=0

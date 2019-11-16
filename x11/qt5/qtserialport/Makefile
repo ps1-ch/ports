@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.8 2019/03/08 20:00:39 cwen Exp $
+# $OpenBSD: Makefile,v 1.10 2019/11/05 10:18:54 rsadowski Exp $
 
 QT5NAME =		QtSerialPort
 COMMENT-main =		Qt5 serial ports access components
 PKGSPEC-main =		qtserialport->=5.6
-REVISION-main =		0
 
 MULTI_PACKAGES =	-main -examples
 

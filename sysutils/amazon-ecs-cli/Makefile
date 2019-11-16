@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.28 2019/04/26 21:21:54 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.32 2019/10/06 00:34:07 ajacoutot Exp $
 
 COMMENT=		CLI for AWS ECS
 
-GH_TAGNAME=		v1.14.1
+GH_TAGNAME=		v1.17.0
 GH_ACCOUNT=		aws
 GH_PROJECT=		amazon-ecs-cli
 PKGNAME=		${DISTNAME:S/amazon-//}
@@ -14,7 +14,7 @@ HOMEPAGE=		https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI.h
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # Apache 2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c pthread
 

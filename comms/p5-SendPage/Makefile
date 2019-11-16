@@ -1,20 +1,18 @@
-# $OpenBSD: Makefile,v 1.12 2014/04/07 14:51:25 sthen Exp $
+# $OpenBSD: Makefile,v 1.14 2019/07/17 14:49:20 danj Exp $
 
 
 COMMENT=		SNPP, TAP, email notification application
 
 V=			1.000003
-REVISION=		0
+REVISION=		1
 DISTNAME=		sendpage-${V}
 PKGNAME=		p5-SendPage-${V}
 CATEGORIES=		comms
 
 HOMEPAGE=		http://sendpage.org/
 
-MAINTAINER=		Todd T. Fries <todd@openbsd.org>
-
 # GPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=sendpage/}
 

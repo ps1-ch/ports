@@ -1,13 +1,14 @@
-# $OpenBSD: Makefile,v 1.12 2017/04/09 11:53:44 jasper Exp $
+# $OpenBSD: Makefile,v 1.14 2019/07/12 20:47:53 sthen Exp $
 
 COMMENT=		generic readline wrapper for various programs
 
 V =			0.43
 DISTNAME=		rlwrap-$V
 CATEGORIES=		misc
+REVISION=		0
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=		https://github.com/hanslub42/rlwrap/releases/download/v$V/
 

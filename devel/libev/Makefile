@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.23 2019/04/24 16:26:55 sthen Exp $
+# $OpenBSD: Makefile,v 1.25 2019/08/31 17:21:33 sthen Exp $
 
 COMMENT =	high-performance event loop library
 
-DISTNAME =	libev-4.24
-REVISION =	1
+# p5-EV should probably be kept in sync
+DISTNAME =	libev-4.27
 CATEGORIES =	devel
 
 SHARED_LIBS=	ev 3.1 # 4.0
@@ -13,7 +13,7 @@ MASTER_SITES =	http://dist.schmorp.de/libev/ \
 		http://dist.schmorp.de/libev/Attic/
 
 # BSD / GPL
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB =		m
 

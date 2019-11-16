@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2019/03/15 07:29:48 sebastia Exp $
+# $OpenBSD: Makefile,v 1.3 2019/09/26 06:34:02 sebastia Exp $
 
 COMMENT=		parse and decompose a domain names
 
-DISTNAME=		public_suffix-3.0.3
+DISTNAME=		public_suffix-4.0.1
 CATEGORIES=		net
 HOMEPAGE=		https://simonecarletti.com/code/publicsuffix-ruby/
 MAINTAINER=		Sebastian Reitenbach <sebastia@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES=		lang/ruby
 

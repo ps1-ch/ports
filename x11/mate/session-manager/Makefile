@@ -1,15 +1,14 @@
-# $OpenBSD: Makefile,v 1.16 2019/05/17 16:45:29 sthen Exp $
+# $OpenBSD: Makefile,v 1.18 2019/10/03 14:37:13 robert Exp $
 
 COMMENT=		MATE session manager
-REVISION=		0
 
 MATE_PROJECT=		mate-session-manager
-MATE_VERSION=		1.22.1
+MATE_VERSION=		1.22.2
 
 CATEGORIES=		x11
 
 # GPLv2/LGPLv2/GFDLv1.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += ICE SM X11 Xau Xcomposite Xcursor Xdamage Xext Xfixes Xi
 WANTLIB += Xinerama Xrandr Xrender Xtst atk-1.0 atk-bridge-2.0 c cairo

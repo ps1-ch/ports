@@ -1,15 +1,13 @@
-# $OpenBSD: Makefile,v 1.14 2015/11/24 09:11:05 jasper Exp $
+# $OpenBSD: Makefile,v 1.16 2019/11/03 14:07:43 jasper Exp $
 
 COMMENT=	lightweight scripting language with C-like syntax
 
 DISTNAME=	arena-0.9.13
-REVISION=	2
+REVISION=	3
 CATEGORIES=	lang
 
-MAINTAINER=	Jasper Lievisse Adriaanse <jasper@openbsd.org>
-
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 WANTLIB=		c m
 
 MASTER_SITES=	https://distfiles.nl/

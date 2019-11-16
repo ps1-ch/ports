@@ -1,14 +1,14 @@
-# $OpenBSD: Makefile,v 1.11 2019/03/27 18:13:39 robert Exp $
+# $OpenBSD: Makefile,v 1.13 2019/08/19 13:25:25 robert Exp $
 
 COMMENT=		standard MATE themes
 
 MATE_PROJECT=		mate-themes
-MATE_VERSION=		3.22.19
+MATE_VERSION=		3.22.20
 
 MASTER_SITES=		http://pub.mate-desktop.org/releases/themes/${MATE_VERSION:C/^([0-9]+\.[0-9]+).*/\1/}/
 
 # LGPLv2.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES=		x11/gnome
 

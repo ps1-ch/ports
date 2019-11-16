@@ -1,13 +1,13 @@
-# $OpenBSD: Makefile,v 1.2 2018/05/18 02:28:42 bcallah Exp $
+# $OpenBSD: Makefile,v 1.4 2019/07/30 02:59:12 bcallah Exp $
 
 COMMENT =	Data functionality for Shire calendars
-DISTNAME =	Date-Tolkien-Shire-Data-0.005
+DISTNAME =	Date-Tolkien-Shire-Data-0.006
 CATEGORIES =	converters
 
 MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # Perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		cpan
 

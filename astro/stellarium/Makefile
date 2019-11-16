@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.61 2019/03/25 17:25:12 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.63 2019/10/01 10:13:31 ajacoutot Exp $
 
 COMMENT=		free open source planetarium
 
-GH_TAGNAME=		v0.19.0
+GH_TAGNAME=		v0.19.2
 GH_ACCOUNT=		Stellarium
 GH_PROJECT=		stellarium
 
@@ -13,7 +13,7 @@ HOMEPAGE=		http://www.stellarium.org/
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB += Qt5Concurrent Qt5Core Qt5Gui Qt5Multimedia Qt5MultimediaWidgets
 WANTLIB += Qt5Network Qt5PrintSupport Qt5Script Qt5SerialPort Qt5Widgets

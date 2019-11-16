@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.12 2018/10/24 14:28:02 sthen Exp $
+# $OpenBSD: Makefile,v 1.14 2019/08/04 02:47:10 bcallah Exp $
 
 COMMENT =		3D light cycle game
 
 DISTNAME =		armagetronad-0.2.8.3.4.src
 PKGNAME =		${DISTNAME:S/.src//}
-REVISION =		2
+REVISION =		3
 
 CATEGORIES =		games
 
@@ -12,7 +12,7 @@ HOMEPAGE =		http://armagetronad.org/
 MAINTAINER =		Brian Callahan <bcallah@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =		Yes
+PERMIT_PACKAGE =		Yes
 
 WANTLIB += GL GLU SDL SDL_image c iconv jpeg lzma m png pthread ${COMPILER_LIBCXX}
 WANTLIB += xml2 z

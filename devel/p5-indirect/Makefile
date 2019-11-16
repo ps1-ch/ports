@@ -1,16 +1,15 @@
-# $OpenBSD: Makefile,v 1.10 2019/05/08 21:36:07 danj Exp $
+# $OpenBSD: Makefile,v 1.12 2019/11/03 01:40:53 afresh1 Exp $
 
 COMMENT=	lexically warn about using the indirect method call syntax
 
 MODULES=	cpan
-DISTNAME=	indirect-0.37
+DISTNAME=	indirect-0.39
 CATEGORIES=	devel
-REVISION=	1
 
 CPAN_AUTHOR=	VPIT
 
 # Perl
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c perl
 

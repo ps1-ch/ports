@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.15 2019/05/15 12:04:38 kmos Exp $
+# $OpenBSD: Makefile,v 1.18 2019/09/05 15:01:17 landry Exp $
 
 COMMENT =	GIS WMTS/TMS tile caching server
 
-MODPY_EGG_VERSION =	1.11.0
+MODPY_EGG_VERSION =	1.12.0
 DISTNAME =		MapProxy-${MODPY_EGG_VERSION}
 PKGNAME =		${DISTNAME:L}
 
@@ -10,7 +10,7 @@ CATEGORIES =	geo www
 
 HOMEPAGE =	http://www.mapproxy.org/
 # apache v2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 

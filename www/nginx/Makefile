@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.133 2019/05/19 19:37:09 danj Exp $
+# $OpenBSD: Makefile,v 1.139 2019/11/06 13:05:49 sthen Exp $
 
 BROKEN-hppa=	src/core/ngx_rwlock.c:116:2: error: \#error ngx_atomic_cmp_set() is not defined!
 
 COMMENT-main=		robust and small HTTP server and mail proxy server
 COMMENT-image_filter=	nginx image filter module
 COMMENT-geoip=		nginx GeoIP module
+COMMENT-geoip2=		nginx GeoIP2 module
 COMMENT-xslt=		nginx XSLT filter module
 COMMENT-mailproxy=	nginx mail proxy module
 COMMENT-stream=		nginx TCP/UDP proxy module
@@ -14,14 +15,19 @@ COMMENT-lua=		nginx lua scripting module
 COMMENT-headers_more=	nginx module for setting/adding/clearing headers
 COMMENT-perl=		nginx perl scripting module
 COMMENT-passenger=	nginx passenger (ruby/python/nodejs) integration module
+COMMENT-rtmp=		nginx module for RTMP streaming
 
-VERSION=	1.16.0
+VERSION=	1.16.1
 DISTNAME=	nginx-${VERSION}
 CATEGORIES=	www
+
+REVISION=	1
+VERSION-rtmp=	1.2.1
 
 PKGNAME-main=		${DISTNAME}
 PKGNAME-image_filter=	nginx-image_filter-${VERSION}
 PKGNAME-geoip=		nginx-geoip-${VERSION}
+PKGNAME-geoip2=		nginx-geoip2-${VERSION}
 PKGNAME-xslt=		nginx-xslt-${VERSION}
 PKGNAME-mailproxy=	nginx-mailproxy-${VERSION}
 PKGNAME-stream=		nginx-stream-${VERSION}
@@ -31,34 +37,36 @@ PKGNAME-lua=		nginx-lua-${VERSION}
 PKGNAME-headers_more=	nginx-headers-more-${VERSION}
 PKGNAME-perl=		nginx-perl-${VERSION}
 PKGNAME-passenger=	nginx-passenger-${VERSION}
-
-REVISION-passenger=	0
-REVISION-stream=	0
+PKGNAME-rtmp=		nginx-rtmp-${VERSION}
 
 MASTER_SITES=	https://nginx.org/download/
-MASTER_SITES0=	https://github.com/simpl/ngx_devel_kit/archive/
-MASTER_SITES1=	https://github.com/nbs-system/naxsi/archive/
-MASTER_SITES2=	https://github.com/openresty/lua-nginx-module/archive/
-MASTER_SITES3=	https://raw.githubusercontent.com/rnagy/nginx_chroot_patch/master/
-MASTER_SITES4=	https://github.com/openresty/headers-more-nginx-module/archive/
-MASTER_SITES5=	https://github.com/kvspb/nginx-auth-ldap/archive/
+MASTER_SITES0=	https://github.com/
+MASTER_SITES1=	https://raw.githubusercontent.com/rnagy/nginx_chroot_patch/master/
 
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX} \
-		ngx_devel_kit-{}v0.3.0.tar.gz:0 \
-		naxsi-{}0.55.3.tar.gz:1 \
-		lua-nginx-module-{}v0.10.11.tar.gz:2 \
-		headers-more-nginx-module-{}v0.33.tar.gz:4 \
-		nginx-auth-ldap-0.20170725{42d195d7a7575ebab1c369ad3fc5d78dc2c2669c}.tar.gz:5
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 
-HOMEPAGE=	http://nginx.org/
+_GH_MODS=	\
+	openresty	headers-more-nginx-module	v0.33 \
+	openresty	lua-nginx-module		v0.10.11 \
+	nbs-system	naxsi				0.55.3 \
+	kvspb		nginx-auth-ldap			42d195d7a7575ebab1c369ad3fc5d78dc2c2669c \
+	arut		nginx-rtmp-module		v${VERSION-rtmp} \
+	simpl		ngx_devel_kit			v0.3.0 \
+	leev		ngx_http_geoip2_module		3.3
+
+.for _a _p _c in ${_GH_MODS}
+DISTFILES+=	${_p}-{${_a}/${_p}/archive/}${_c}.tar.gz:0
+.endfor
+
+HOMEPAGE=	https://nginx.org/
 
 MAINTAINER=	Robert Nagy <robert@openbsd.org>
 
 # BSD-like
-PERMIT_PACKAGE_CDROM=	yes
+PERMIT_PACKAGE=	Yes
 
-MULTI_PACKAGES =	-main -image_filter -geoip -xslt -mailproxy -stream \
-			-naxsi -perl -passenger -headers_more -ldap_auth -lua
+MULTI_PACKAGES =	-main -image_filter -geoip -geoip2 -xslt -mailproxy -stream \
+			-naxsi -perl -passenger -headers_more -ldap_auth -lua -rtmp
 
 FLAVOR ?=
 PSEUDO_FLAVORS =	no_lua no_passenger
@@ -72,9 +80,10 @@ WANTLIB-mailproxy=
 WANTLIB-stream=
 WANTLIB-image_filter=	gd
 WANTLIB-geoip=		GeoIP
+WANTLIB-geoip2=		maxminddb
 WANTLIB-xslt=		exslt xml2 xslt
 WANTLIB-naxsi=
-WANTLIB-ldap_auth=	ldap-2.4
+WANTLIB-ldap_auth=	ldap
 WANTLIB-lua=		${MODLUA_WANTLIB} m
 WANTLIB-headers_more=
 WANTLIB-perl=		c m perl
@@ -85,8 +94,11 @@ LIB_DEPENDS-xslt=	textproc/libxml \
 			textproc/libxslt
 LIB_DEPENDS-image_filter=graphics/gd
 LIB_DEPENDS-geoip=	net/GeoIP
+LIB_DEPENDS-geoip2=	net/libmaxminddb
 LIB_DEPENDS-ldap_auth=	databases/openldap
 LIB_DEPENDS-lua=	${MODLUA_LIB_DEPENDS}
+LIB_DEPENDS-rtmp=	textproc/libxml \
+			textproc/libxslt
 
 MODLUA_RUNDEP=		No
 RUN_DEPENDS=		www/nginx,-main=${VERSION}
@@ -104,18 +116,21 @@ PREFIX-mailproxy=	${NGINX_MODULES_DIR}
 PREFIX-stream=		${NGINX_MODULES_DIR}
 PREFIX-image_filter=	${NGINX_MODULES_DIR}
 PREFIX-geoip=		${NGINX_MODULES_DIR}
+PREFIX-geoip2=		${NGINX_MODULES_DIR}
 PREFIX-xslt=		${NGINX_MODULES_DIR}
 PREFIX-ldap_auth=	${NGINX_MODULES_DIR}
 PREFIX-lua=		${NGINX_MODULES_DIR}
 PREFIX-headers_more=	${NGINX_MODULES_DIR}
 PREFIX-passenger=	${NGINX_MODULES_DIR}
+PREFIX-rtmp=		${NGINX_MODULES_DIR}
 
 CFLAGS+=	-Wall -Wpointer-arith \
 		-I "${LOCALBASE}/include/libxml2" \
-		-I "${LOCALBASE}/include" \
-		-L "${X11BASE}/lib"
+		-I "${LOCALBASE}/include"
+LDFLAGS+=	-L ${LOCALBASE}/lib -L ${X11BASE}/lib
+CONFIGURE_ENV+=	LDFLAGS="${LDFLAGS}"
 
-PATCHFILES+=		nginx-1.14.0-chroot.patch:3
+PATCHFILES+=		nginx-1.16.1-chroot.patch:1
 PATCH_DIST_STRIP=	-p1
 
 CONFIGURE_STYLE=	simple
@@ -136,6 +151,10 @@ BUILD_DEPENDS+=		${MODRUBY_PKG_PREFIX}-passenger-*:www/ruby-passenger
 CONFIGURE_ARGS+=	--add-dynamic-module=${LOCALBASE}/lib/phusion-passenger${GEM_BIN_SUFFIX}/src/nginx_module
 .endif
 
+.if ${BUILD_PACKAGES:M-rtmp}
+CONFIGURE_ARGS+=	--add-dynamic-module=${WRKDIR}/nginx-rtmp-module-${VERSION-rtmp}/
+.endif
+
 CONFIGURE_ARGS+=	--prefix=${NGINX_DIR} \
 			--conf-path=${SYSCONFDIR}/nginx/nginx.conf \
 			--sbin-path=${PREFIX}/sbin/nginx \
@@ -151,6 +170,7 @@ CONFIGURE_ARGS+=	--prefix=${NGINX_DIR} \
 			--user=www \
 			--group=www \
 			--with-http_auth_request_module \
+			--with-http_dav_module \
 			--with-http_image_filter_module=dynamic \
 			--with-http_geoip_module=dynamic \
 			--with-http_gzip_static_module \
@@ -168,23 +188,19 @@ CONFIGURE_ARGS+=	--prefix=${NGINX_DIR} \
 			--add-dynamic-module=${WRKSRC}/naxsi/naxsi_src/ \
 			--add-dynamic-module=${WRKSRC}/ngx_devel_kit \
 			--add-dynamic-module=${WRKSRC}/headers-more-nginx-module \
-			--add-dynamic-module=${WRKSRC}/nginx-auth-ldap
+			--add-dynamic-module=${WRKSRC}/nginx-auth-ldap \
+			--add-dynamic-module=${WRKSRC}/ngx_http_geoip2_module
 
-SUBSTFILES=		conf/nginx.conf \
-			lua-nginx-module/config \
-			nginx-auth-ldap/config
+SUBSTFILES=		conf/nginx.conf */config
 
 NO_TEST=		Yes
 ALL_TARGET=
 
 pre-patch:
-	cd ${WRKSRC} && \
-	    mv ../naxsi-* naxsi
-	cd ${WRKSRC} && \
-	    mv ../ngx_devel_kit-* ngx_devel_kit && \
-	    mv ../lua-nginx-module-* lua-nginx-module && \
-	    mv ../headers-more-nginx-module-* headers-more-nginx-module && \
-	    mv ../nginx-auth-ldap-* nginx-auth-ldap
+.for i in headers-more-nginx-module lua-nginx-module naxsi \
+	nginx-auth-ldap ngx_devel_kit ngx_http_geoip2_module
+	cd ${WRKSRC} && mv ../$i-* $i
+.endfor
 
 pre-configure:
 	@cd ${WRKSRC} && ${SUBST_CMD} ${SUBSTFILES}

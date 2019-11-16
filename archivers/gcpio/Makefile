@@ -1,17 +1,17 @@
-# $OpenBSD: Makefile,v 1.27 2019/05/20 22:15:00 naddy Exp $
+# $OpenBSD: Makefile,v 1.30 2019/11/15 21:44:39 naddy Exp $
 
 COMMENT=	GNU cpio copies files to and from archives
 
-DISTNAME=	cpio-2.12
+DISTNAME=	cpio-2.13
 PKGNAME=	g${DISTNAME}
-REVISION=	1
+REVISION=	0
 CATEGORIES=	archivers
 HOMEPAGE=	https://www.gnu.org/software/cpio/
 
 MAINTAINER=	Christian Weisgerber <naddy@openbsd.org>
 
 # GPLv3
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MASTER_SITES=	${MASTER_SITE_GNU:=cpio/}
 EXTRACT_SUFX=	.tar.bz2

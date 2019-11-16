@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.5 2019/03/08 20:00:56 cwen Exp $
+# $OpenBSD: Makefile,v 1.7 2019/08/01 19:40:31 rsadowski Exp $
 
 COMMENT =	Qt-based directory statistics
 
 GH_ACCOUNT =	shundhammer
 GH_PROJECT =	qdirstat
-GH_TAGNAME =	1.5
-REVISION =	0
+GH_TAGNAME =	1.6
 
 CATEGORIES =	x11
 
 MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL Qt5Core Qt5Gui Qt5Widgets c m
 WANTLIB += z

@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.38 2019/02/14 09:44:26 jca Exp $
+# $OpenBSD: Makefile,v 1.40 2019/07/18 06:47:58 ajacoutot Exp $
 
 COMMENT=	Google VP8/VP9 video codec
 
-VER=		1.8.0
+VER=		1.8.1
 CATEGORIES=	multimedia
 EPOCH=		0
 GH_ACCOUNT=	webmproject
@@ -16,7 +16,7 @@ HOMEPAGE=	https://www.webmproject.org/
 MAINTAINER=	Brad Smith <brad@comstyle.com>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB=	c m pthread ${COMPILER_LIBCXX}
 

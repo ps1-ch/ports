@@ -1,9 +1,8 @@
-# $OpenBSD: Makefile,v 1.7 2019/06/11 00:38:34 kurt Exp $
+# $OpenBSD: Makefile,v 1.9 2019/09/13 08:25:06 rpointel Exp $
 
 COMMENT =	dex to java decompiler
 
-VERSION =	0.9.0
-REVISION =	1
+VERSION =	1.0.0
 DISTNAME =	jadx-${VERSION}
 
 CATEGORIES =	devel security
@@ -13,7 +12,7 @@ HOMEPAGE =	https://github.com/skylot/jadx
 MAINTAINER =	Remi Pointel <rpointel@openbsd.org>
 
 # Apachev2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	https://github.com/skylot/jadx/releases/download/v${VERSION}/
 

@@ -1,10 +1,12 @@
-# $OpenBSD: Makefile,v 1.32 2019/05/01 17:36:30 landry Exp $
+# $OpenBSD: Makefile,v 1.37 2019/10/01 04:39:32 semarie Exp $
 # Some of this comes from www/firefox-esr as apropos, since Tor
 # browser is a fork of ESR.  It is a good idea to look at that
 # Makefile when editing this one (ESR versions not always the same).
 
 COMMENT =		modified version of Firefox ESR for browsing over Tor
 ONLY_FOR_ARCHS =	amd64 i386
+
+BROKEN =		(unintentionally) broken by lang/rust 1.38.0
 
 MOZILLA_VERSION =	${TB_VERSION}
 MOZILLA_PROJECT =	${BROWSER_NAME}
@@ -15,6 +17,7 @@ PATCHORIG =		.pat.orig
 
 PKGNAME =		${TB_PREFIX}-browser-${TB_VERSION}
 DISTNAME =		${BROWSER_NAME}-${TB_VERSION}
+REVISION =		1
 
 SO_VERSION =		4.0
 MOZILLA_LIBS =		xul clearkey lgpllibs mozavcodec mozavutil mozgtk
@@ -23,7 +26,7 @@ MOZILLA_LIBS +=		nssutil3 smime3 softokn3 ssl3
 MOZILLA_LIBS +=		nspr4 mozsqlite3 plc4 plds4
 
 # mozilla public license
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES =		www/mozilla lang/python
 
@@ -79,11 +82,6 @@ CONFIGURE_ARGS +=	--enable-pie
 CONFIGURE_ARGS +=	--enable-release #1386371
 # rust-simd doesn't work with lang/rust>=1.33
 #CONFIGURE_ARGS +=	--enable-rust-simd #1261841
-.if ${MACHINE_ARCH} == "i386"
-CONFIGURE_ARGS +=	--disable-debug-symbols
-MAKE_ENV +=		RUSTFLAGS="-C target-cpu=pentium4 --cfg target_feature=\"sse2\""
-DPB_PROPERTIES =	lonesome
-.endif
 
 post-patch:
 	# hack config/baseconfig.mk to not use MOZ_APP_VERSION in a few places

@@ -1,16 +1,15 @@
-# $OpenBSD: Makefile,v 1.11 2019/04/28 20:51:28 sthen Exp $
+# $OpenBSD: Makefile,v 1.13 2019/08/20 11:47:33 landry Exp $
 
 COMMENT =		schema migration tools for SQLAlchemy
 
-MODPY_EGG_VERSION =	0.11.0
+MODPY_EGG_VERSION =	0.12.0
 DISTNAME =		sqlalchemy-migrate-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
-REVISION =	2
 
 CATEGORIES =		databases
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_SETUPTOOLS =	Yes

@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.3 2019/05/19 19:13:46 naddy Exp $
+# $OpenBSD: Makefile,v 1.5 2019/11/07 10:33:52 robert Exp $
 
 COMMENT=		read and convert TNEF files
 
 SHARED_LIBS +=  ytnef                     0.0 # 0.0
 
 DISTNAME=		libytnef-1.9.3
+REVISION=		0
 
 GH_ACCOUNT=		Yeraze
 GH_PROJECT=		ytnef
@@ -19,7 +20,7 @@ RUN_DEPENDS=		mail/p5-MIME-tools
 WANTLIB+=		c
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 AUTOCONF_VERSION=	2.68
 AUTOMAKE_VERSION=	1.15

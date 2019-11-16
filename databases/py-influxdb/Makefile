@@ -1,18 +1,17 @@
-# $OpenBSD: Makefile,v 1.5 2019/05/15 12:04:34 kmos Exp $
+# $OpenBSD: Makefile,v 1.7 2019/08/27 10:34:13 bket Exp $
 
 COMMENT =		Python client for interacting with InfluxDB
 
-MODPY_EGG_VERSION =	5.2.2
+MODPY_EGG_VERSION =	5.2.3
 DISTNAME =		influxdb-${MODPY_EGG_VERSION}
 PKGNAME =		py-${DISTNAME}
-REVISION =		0
 
 CATEGORIES =		databases
 
 MAINTAINER =		Bjorn Ketelaars <bket@openbsd.org>
 
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 MODPY_PI =		Yes

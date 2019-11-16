@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.30 2019/04/30 20:44:32 jca Exp $
+# $OpenBSD: Makefile,v 1.32 2019/07/12 20:47:42 sthen Exp $
 
 COMMENT=	library of Fortran linear algebra subroutines
 
@@ -16,11 +16,11 @@ HOMEPAGE=	http://www.netlib.org/lapack/
 MAINTAINER=	Steven Mestdagh <steven@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-MASTER_SITES=	http://www.netlib.org/lapack/ \
-		http://www.netlib.no/netlib/lapack/
-MASTER_SITES0=	http://www.netlib.org/lapack/
+MASTER_SITES=	https://www.netlib.org/lapack/ \
+		https://www.netlib.no/netlib/lapack/
+MASTER_SITES0=	https://www.netlib.org/lapack/
 DIST_SUBDIR=	${DISTNAME}
 
 LIB_DEPENDS =	math/blas

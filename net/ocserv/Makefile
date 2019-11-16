@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.36 2019/03/14 04:20:18 bket Exp $
+# $OpenBSD: Makefile,v 1.38 2019/10/18 05:07:04 bket Exp $
 
 COMMENT=	server implementing the AnyConnect SSL VPN protocol
 
-DISTNAME=	ocserv-0.12.3
+DISTNAME=	ocserv-0.12.5
 EXTRACT_SUFX=	.tar.xz
 
 CATEGORIES=	net
@@ -12,13 +12,18 @@ HOMEPAGE=	https://ocserv.gitlab.io/www/
 MAINTAINER=	Bjorn Ketelaars <bket@openbsd.org>
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB+=	c curses ev gnutls lz4 m nettle oath pam protobuf-c
 WANTLIB+=	radcli readline talloc
 
 MASTER_SITES=	ftp://ftp.infradead.org/pub/ocserv/
 
+MODULES=	lang/ruby
+
+BUILD_DEPENDS=	textproc/groff \
+		textproc/gsed \
+		textproc/ruby-ronn
 LIB_DEPENDS=	archivers/lz4 \
 		devel/libev \
 		devel/libtalloc \
@@ -44,19 +49,17 @@ CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
 AUTOCONF_VERSION=	2.69
 
 post-extract:
-	sed -i 's,#!/bin/bash,#!${LOCALBASE}/bin/bash,' \
-	    ${WRKSRC}/tests/test-{iroute,append-routes,user-config} \
-	    ${WRKSRC}/tests/haproxy-connect \
-	    ${WRKSRC}/tests/multiple-routes
+	find ${WRKSRC}/tests -type f -perm -+x -exec \
+	    sed -i 's,#!/bin/bash,#!${LOCALBASE}/bin/bash,' {} +
 	sed -i 's,/usr/sbin/openconnect,${LOCALBASE}/sbin/openconnect,' \
 	    ${WRKSRC}/tests/common.sh
 	sed -i 's,/etc/ocserv,${SYSCONFDIR}/ocserv,' \
+	    ${WRKSRC}/doc/ocserv.8.md \
+	    ${WRKSRC}/doc/sample.config \
 	    ${WRKSRC}/src/ocpasswd/ocpasswd.c
 	sed -i 's,/usr/bin/ocserv-fw,${SYSCONFDIR}/ocserv/ocserv-fw,g' \
 	    ${WRKSRC}/src/main-user.c \
 	    ${WRKSRC}/doc/sample.config
-	sed -i 's,/usr/bin/ocserv\\-fw,${SYSCONFDIR}/ocserv/ocserv\\-fw,g' \
-	    ${WRKSRC}/doc/ocserv.8
 
 post-install:
 	${INSTALL_DATA_DIR} ${PREFIX}/share/examples/ocserv
@@ -66,6 +69,9 @@ post-install:
 	${SUBST_CMD} -c -m ${SHAREMODE} -o ${SHAREOWN} -g ${SHAREGRP} \
 	    ${WRKSRC}/doc/sample.config \
 	    ${PREFIX}/share/examples/ocserv/sample.config
+	cd ${WRKSRC}/doc; \
+	    gsed -i -e '/@CONFIGFILE@/{r sample.config' -e 'd}' ocserv.8.md; \
+	    for i in *.8.md; do ronn${MODRUBY_BINREV} -r $$i; done
 	${INSTALL_MAN} ${WRKSRC}/doc/*.8 ${PREFIX}/man/man8/
 
 # XXX server-cert-ed25519, and server-cert-rsa-pss are known to fail. These

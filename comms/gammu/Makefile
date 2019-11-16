@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.12 2019/05/20 22:15:02 naddy Exp $
+# $OpenBSD: Makefile,v 1.14 2019/11/06 02:44:12 kirby Exp $
 
 COMMENT =		Gnu All Mobile Management Utilities
 
-DISTNAME =		gammu-1.40.0
+DISTNAME =		gammu-1.41.0
 
 SHARED_LIBS += 		Gammu 1.0 # 8.1
 SHARED_LIBS += 		gsmsd 1.0 # 8.1
@@ -14,7 +14,7 @@ HOMEPAGE =		https://wammu.eu/
 MAINTAINER =		Kirill Bychkov <kirby@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c curl dbi glib-2.0 gobject-2.0 iconv intl m pthread usb-1.0
 
@@ -48,7 +48,7 @@ RUN_DEPENDS += 		databases/libdbi-drivers,-sqlite3
 CONFIGURE_ARGS += 	-DMYSQL_BACKEND=ON
 LIB_DEPENDS += 		databases/mariadb
 RUN_DEPENDS +=		databases/libdbi-drivers
-WANTLIB += 		mysqlclient
+WANTLIB += 		mariadb
 .endif
 
 .if ${FLAVOR:Mpgsql}

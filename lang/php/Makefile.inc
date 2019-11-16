@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile.inc,v 1.139 2019/06/03 16:06:51 sthen Exp $
+# $OpenBSD: Makefile.inc,v 1.143 2019/08/01 20:20:38 sthen Exp $
 
 BROKEN-hppa=	no __sync_bool_compare_and_swap support nor asm fallback
 
 COMMENT-main=		server-side HTML-embedded scripting language
 
 PKGNAME-main?=		php-${V}
+PKGSTEM=		php-${PV}
 PKGSTEM-main=		php-${PV}
 
 DISTFILES+=		php-${V}.tar.bz2
@@ -13,12 +14,9 @@ DISTNAME?=		php-${V}
 CATEGORIES=		lang www
 
 MAINTAINER=		Stuart Henderson <sthen@openbsd.org>
-HOMEPAGE=		https://secure.php.net/
 
-MASTER_SITES=		http://se.php.net/distributions/ \
-			http://us.php.net/distributions/ \
-			http://no.php.net/distributions/ \
-			http://uk.php.net/distributions/
+HOMEPAGE=		https://www.php.net/
+MASTER_SITES=		https://www.php.net/distributions/
 
 # UPGRADERS: please read BOTH the PHP and Zend licenses
 # and make sure they are safe before an upgrade
@@ -238,7 +236,7 @@ CONFIGURE_ARGS+=	--with-imap=shared,${LOCALBASE} \
 # ldap
 COMMENT-ldap=		ldap protocol extensions for php
 LIB_DEPENDS-ldap=	databases/openldap
-WANTLIB-ldap=		crypto lber-2.4 ldap-2.4 pthread sasl2 ssl
+WANTLIB-ldap=		crypto lber ldap pthread sasl2 ssl
 .if ${BUILD_PACKAGES:M-ldap}
 CONFIGURE_ARGS+=	--with-ldap=shared,${LOCALBASE}
 .endif

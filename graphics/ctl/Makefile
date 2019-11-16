@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.14 2018/10/24 14:28:05 sthen Exp $
+# $OpenBSD: Makefile,v 1.17 2019/11/10 15:32:56 ajacoutot Exp $
 
 COMMENT =		Color Transformation Language interpreter
 
@@ -6,7 +6,7 @@ GH_ACCOUNT =		ampas
 GH_PROJECT =		CTL
 GH_TAGNAME =		ctl-1.5.2
 DISTNAME =		${GH_TAGNAME}
-REVISION =		2
+REVISION =		4
 
 SHARED_LIBS +=  IlmCtl               1.0      # .2.0
 SHARED_LIBS +=  IlmCtlMath           1.0      # .2.0
@@ -17,10 +17,10 @@ CATEGORIES =		graphics lang
 HOMEPAGE =		https://github.com/ampas/CTL/
 
 # 3-clause BSD license
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
-WANTLIB += Half Iex IexMath IlmImf IlmThread Imath c m pthread
-WANTLIB += ${COMPILER_LIBCXX} tiff
+WANTLIB += ${COMPILER_LIBCXX} Half-2_4 Iex-2_4 IexMath-2_4 IlmImf-2_4
+WANTLIB += IlmThread-2_4 Imath-2_4 c m tiff
 
 COMPILER =		base-clang ports-gcc base-gcc
 

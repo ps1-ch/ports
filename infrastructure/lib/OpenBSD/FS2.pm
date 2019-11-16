@@ -1,4 +1,4 @@
-# $OpenBSD: FS2.pm,v 1.29 2018/08/06 09:36:32 espie Exp $
+# $OpenBSD: FS2.pm,v 1.33 2019/11/13 11:38:48 espie Exp $
 # Copyright (c) 2018 Marc Espie <espie@openbsd.org>
 #
 # Permission to use, copy, modify, and distribute this software for any
@@ -15,6 +15,8 @@
 
 use strict;
 use warnings;
+
+use OpenBSD::BaseFS;
 
 package OpenBSD::FS::File;
 
@@ -63,12 +65,15 @@ sub classes
 	return (qw(OpenBSD::FS::File::Directory OpenBSD::FS::File::Rc
 		OpenBSD::FS::File::Desktop
 		OpenBSD::FS::File::Glib2Schema
+		OpenBSD::FS::File::PkgConfig
 		OpenBSD::FS::File::MimeInfo
+		OpenBSD::FS::File::GhcConf
 		OpenBSD::FS::File::Icon
 		OpenBSD::FS::File::IconTheme
 		OpenBSD::FS::File::Subinfo OpenBSD::FS::File::Info
 		OpenBSD::FS::File::Dirinfo OpenBSD::FS::File::Manpage
 		OpenBSD::FS::File::Library OpenBSD::FS::File::Plugin
+		OpenBSD::FS::File::StaticLibrary
 		OpenBSD::FS::File::Binary OpenBSD::FS::File::Font
 		OpenBSD::FS::File));
 }
@@ -97,6 +102,23 @@ sub tweak_other_paths
 {
 }
 
+sub can_have_debug
+{
+	return 0;
+}
+
+sub is_dir
+{
+	return 0;
+}
+
+package OpenBSD::FS::File::WithDebugInfo;
+our @ISA = qw(OpenBSD::FS::File);
+
+sub can_have_debug
+{
+	return 1;
+}
 package OpenBSD::FS::File::Directory;
 our @ISA = qw(OpenBSD::FS::File);
 sub recognize
@@ -108,6 +130,11 @@ sub recognize
 sub element_class
 {
 	'OpenBSD::PackingElement::Dir';
+}
+
+sub is_dir
+{
+	return 1;
 }
 
 package OpenBSD::FS::File::ManDirectory;
@@ -172,6 +199,28 @@ sub element_class
 	'OpenBSD::PackingElement::Glib2Schema';
 }
 
+package OpenBSD::FS::File::PkgConfig;
+our @ISA = qw(OpenBSD::FS::File);
+sub recognize
+{
+	my ($class, $filename, $fs) = @_;
+	if ($filename =~ m,(.*lib/pkgconfig/)(.*)\.pc$,) {
+		my ($dir, $f) = ($1, $2);
+		my $state = $fs->{state};
+		
+		if ($state->system(
+		    sub {
+			$ENV{PKG_CONFIG_PATH}="$fs->{destdir}/$dir"; }, 
+		    'pkg-config', '--validate', $f) != 0) {
+		    	$state->errsay(
+			    "WARNING: file #1 is not a valid .pc file", 
+			    $filename);
+		}
+	}
+
+	return 0;
+}
+
 package OpenBSD::FS::File::MimeInfo;
 our @ISA = qw(OpenBSD::FS::File);
 sub recognize
@@ -183,6 +232,19 @@ sub recognize
 sub element_class
 {
 	'OpenBSD::PackingElement::MimeInfo';
+}
+
+package OpenBSD::FS::File::GhcConf;
+our @ISA = qw(OpenBSD::FS::File);
+sub recognize
+{
+	my ($class, $filename, $fs) = @_;
+	return $filename =~ m,lib/ghc/package\.conf\.d/.*\.conf$,;
+}
+
+sub element_class
+{
+	'OpenBSD::PackingElement::GhcConf';
 }
 
 package OpenBSD::FS::File::IconThemeDirectory;
@@ -230,7 +292,7 @@ sub tweak_other_paths
 }
 
 package OpenBSD::FS::File::Binary;
-our @ISA = qw(OpenBSD::FS::File);
+our @ISA = qw(OpenBSD::FS::File::WithDebugInfo);
 
 sub element_class
 {
@@ -388,7 +450,7 @@ sub tweak_other_paths
 }
 
 package OpenBSD::FS::File::Library;
-our @ISA = qw(OpenBSD::FS::File);
+our @ISA = qw(OpenBSD::FS::File::WithDebugInfo);
 
 sub recognize
 {
@@ -398,8 +460,11 @@ sub recognize
 	$filename = $fs->resolve_link($filename);
 	return 0 if -l $filename;
 	$class->fill_objdump($filename, $fs, $data);
-	if ($data->{objdump} =~ m/ .note.openbsd.ident / && 
-	    $data->{objdump} !~ m/ .interp /) {
+	if ($data->{objdump} =~ m/ .note.openbsd.ident /) {
+		if ($data->{objdump} =~ m/ .interp /) {
+			print STDERR 
+    "WARNING: likely library $filename linked with -dynamic-linker\n";
+		}
 	    	return 1;
 	} else {
 		return 0;
@@ -412,7 +477,12 @@ sub element_class
 }
 
 package OpenBSD::FS::File::Plugin;
-our @ISA = qw(OpenBSD::FS::File);
+our @ISA = qw(OpenBSD::FS::File::WithDebugInfo);
+
+sub element_class
+{
+	return 'OpenBSD::PackingElement::SharedObject';
+}
 
 sub recognize
 {
@@ -424,6 +494,28 @@ sub recognize
 	if ($data->{objdump} =~ m/ .note.openbsd.ident / && 
 	    $data->{objdump} !~ m/ .interp /) {
 	    	return 1;
+	} else {
+		return 0;
+	}
+}
+
+package OpenBSD::FS::File::StaticLibrary;
+our @ISA = qw(OpenBSD::FS::File::WithDebugInfo);
+
+sub element_class
+{
+	return 'OpenBSD::PackingElement::StaticLib';
+}
+
+sub recognize
+{
+	my ($class, $filename, $fs, $data) = @_;
+
+	return 0 unless $filename =~ m/\/lib[^\/]+\.a$/;
+	$filename = $fs->resolve_link($filename);
+	my $check = `/usr/bin/ar t \Q$filename\E >/dev/null 2>/dev/null`;
+	if ($? == 0) {
+		return 1;
 	} else {
 		return 0;
 	}
@@ -453,6 +545,7 @@ sub tweak_other_paths
 }
 
 package OpenBSD::FS2;
+our @ISA = qw(OpenBSD::BaseFS);
 
 use OpenBSD::Mtree;
 use File::Find;
@@ -475,8 +568,10 @@ sub ignore_parents
 # we look under a destdir, and we do ignore a hash of files
 sub new
 {
-	my ($class, $destdir, $ignored) = @_;
-	my $o = bless {destdir => $destdir, ignored => {}}, $class;
+	my ($class, $destdir, $ignored, $state) = @_;
+	my $o = $class->SUPER::new($destdir, $state);
+
+	$o->{ignored} = {};
 	# this allows _FAKE_TREE_LIST to be used
 	for my $d (keys %$ignored) {
 		for my $path (glob $d) {
@@ -484,40 +579,6 @@ sub new
 		}
 	}
 	return $o;
-}
-
-sub destdir
-{
-	my $self = shift;
-	if (@_ == 0) {
-		return $self->{destdir};
-	} else {
-		return $self->{destdir}."/".shift;
-	}
-}
-
-# we are given a filename which actually lives under destdir.
-# but if it's a symlink, we WILL follow through, because the
-# link is meant relative to destdir
-sub resolve_link
-{
-	my ($self, $filename, $level) = @_;
-	$level //= 0;
-	my $solved = $self->destdir($filename);
-	if (-l $solved) {
-		my $l = readlink($solved);
-		if ($level++ > 14) {
-			print STDERR "Symlink too deep: $solved\n";
-			return $solved;
-		}
-		if ($l =~ m|^/|) {
-			return $self->resolve_link($l, $level);
-		} else {
-			return $self->resolve_link(File::Spec->catfile(dirname($filename),$l), $level);
-		}
-	} else {
-		return $solved;
-	}
 }
 
 sub mtree
@@ -536,14 +597,6 @@ sub mtree
 		$mtree->{dirname($Config{installarchlib})} = 1;
 	}
 	return $self->{mtree};
-}
-
-sub undest
-{
-	my ($self, $filename) = @_;
-	$filename =~ s/^\Q$self->{destdir}\E//;
-	$filename='/' if $filename eq '';
-	return $filename;
 }
 
 sub create
@@ -639,8 +692,8 @@ sub parse_logfile
 # build a hash of files needing registration
 sub fill
 {
-	my ($class, $destdir, $ignored, $logfile) = @_;
-	my $self = $class->new($destdir, $ignored);
+	my ($class, $destdir, $ignored, $logfile, $state) = @_;
+	my $self = $class->new($destdir, $ignored, $state);
 
 	if (defined $logfile) {
 		$self->{ignored}{$logfile} = 1;

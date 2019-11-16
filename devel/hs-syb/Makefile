@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.18 2018/01/22 22:04:30 kili Exp $
+# $OpenBSD: Makefile,v 1.21 2019/09/30 12:58:10 kili Exp $
 
 COMMENT =		Scrap Your Boilerplate library for generic programming
 
@@ -7,17 +7,18 @@ COMMENT =		Scrap Your Boilerplate library for generic programming
 PORTROACH =		ignore:1
 
 DISTNAME =		syb-0.7
+REVISION =		1
 CATEGORIES =		devel
 
 MAINTAINER =		Matthias Kilian <kili@openbsd.org>
 
 # BSD3
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/ghc
 
 MODGHC_BUILD =		cabal hackage haddock register
 
-MODGHC_PACKAGE_KEY =	3Lq8MQxmYP07qktjI1jxu0
+MODGHC_PACKAGE_KEY =	KRW1LCxdMiCJrmhxCvzo37
 
 .include <bsd.port.mk>

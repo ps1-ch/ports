@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.46 2019/03/07 07:50:38 giovanni Exp $
+# $OpenBSD: Makefile,v 1.48 2019/09/16 06:54:43 giovanni Exp $
 
 # keep in synch with mozilla.port.mk
 ONLY_FOR_ARCHS =	i386 amd64 powerpc sparc64
 COMMENT-main =		GnuPG extension for Thunderbird
 COMMENT-seamonkey =	GnuPG extension for Seamonkey
 
-V =		2.0.9
+V =		2.1.2
 DISTNAME =	enigmail-${V}
 PKGNAME-main =	${PKGNAME}
 PKGNAME-seamonkey =	enigmail-seamonkey-${V}
@@ -17,7 +17,7 @@ CATEGORIES =	mail
 MULTI_PACKAGES =	-main -seamonkey
 
 # MPL
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MODULES =	lang/python
 MODPY_RUNDEP =	No

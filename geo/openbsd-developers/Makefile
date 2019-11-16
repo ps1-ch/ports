@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.165 2019/04/16 15:30:30 kmos Exp $
+# $OpenBSD: Makefile,v 1.167 2019/07/12 20:46:29 sthen Exp $
 
 CATEGORIES=		geo
 COMMENT=		geographic location of past and present OpenBSD developers
 
 DISTNAME=		openbsd-developers-2.0
-REVISION=		32
+REVISION=		33
 
 DISTFILES=
 HOMEPAGE=		https://www.openbsd.org/
@@ -23,6 +23,6 @@ do-install:
 where-am-i:
 	@echo "$$(sysctl -n hw.sensors.nmea0.angle0 | cut -d' ' -f1)\t\t$$(sysctl -n hw.sensors.nmea0.angle1 | cut -d' ' -f1)\t\t\"$$(whoami)\"\\t\t#$$(finger $$(whoami) | head -1 | cut -d\: -f3-)"
 
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 .include <bsd.port.mk>

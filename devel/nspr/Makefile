@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.72 2019/03/08 07:05:47 landry Exp $
+# $OpenBSD: Makefile,v 1.76 2019/10/23 19:28:36 landry Exp $
 
 ONLY_FOR_ARCHS=	aarch64 alpha amd64 arm i386 mips64 mips64el powerpc sparc64 hppa
 
 COMMENT =		Netscape Portable Runtime
 
-VER=			4.21
+VER=			4.23
 DISTNAME=		nspr-${VER}
 
 SO_VERSION=		24.0
@@ -21,9 +21,9 @@ MAINTAINER=		Landry Breuil <landry@openbsd.org>
 WANTLIB=		c pthread
 
 # MPL - Mozilla Public License
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-MASTER_SITES =		http://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v${VER}/src/
+MASTER_SITES =		https://ftp.mozilla.org/pub/mozilla.org/nspr/releases/v${VER}/src/
 
 USE_GMAKE=		Yes
 AUTOCONF_VERSION=	2.69

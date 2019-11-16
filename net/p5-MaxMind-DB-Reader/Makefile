@@ -1,15 +1,15 @@
-# $OpenBSD: Makefile,v 1.1.1.1 2019/02/19 09:05:32 fcambus Exp $
+# $OpenBSD: Makefile,v 1.3 2019/07/12 20:48:36 sthen Exp $
 
 COMMENT =	read MaxMind DB files and look up IP addresses
 
-DISTNAME =	MaxMind-DB-Reader-1.000013
+DISTNAME =	MaxMind-DB-Reader-1.000014
 
 CATEGORIES =	net
 
 MAINTAINER =	Frederic Cambus <fcambus@openbsd.org>
 
 # Artistic 2.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	cpan
 

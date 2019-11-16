@@ -1,4 +1,4 @@
-# $OpenBSD: gnustep.port.mk,v 1.32 2018/11/27 21:46:25 sebastia Exp $
+# $OpenBSD: gnustep.port.mk,v 1.34 2019/10/20 08:03:00 ajacoutot Exp $
 
 # until tested on others
 ONLY_FOR_ARCHS ?=	alpha i386 amd64 macppc

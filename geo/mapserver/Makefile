@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.65 2019/05/27 20:26:48 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.69 2019/09/26 21:59:30 sthen Exp $
 
 MULTI_PACKAGES=	-utils -main -perl -php -python
 
@@ -8,7 +8,7 @@ COMMENT-php=	PHP Mapscript extension
 COMMENT-perl=	Perl Mapscript binding
 COMMENT-python=	Python Mapscript binding
 
-V =		7.4.0
+V =		7.4.2
 DISTNAME=	mapserver-${V}
 PKGNAME-main=	${DISTNAME}
 PKGNAME-utils=	mapserver-utils-${V}
@@ -16,11 +16,7 @@ PKGNAME-php=	php-mapscript-${V}
 PKGNAME-perl=	p5-mapscript-${V}
 PKGNAME-python=	py3-mapscript-${V}
 
-REVISION-main=		0
-REVISION-perl=		0
-REVISION-php=		0
-REVISION-python=	0
-REVISION-utils=		0
+REVISION-php=	0
 
 SHARED_LIBS +=	mapserver 4.0
 
@@ -29,7 +25,7 @@ CATEGORIES=	geo www
 HOMEPAGE=	http://www.mapserver.org/
 
 # MIT
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 MAINTAINER=	Landry Breuil <landry@openbsd.org>
 
@@ -40,6 +36,7 @@ COMPILER =		base-clang ports-gcc base-gcc
 MODULES=	lang/php lang/python devel/cmake
 MODPHP_RUNDEP=	No
 MODPY_SETUPTOOLS=	Yes
+MODPY_EGG_VERSION=	${V}
 MODPY_VERSION=	${MODPY_DEFAULT_VERSION_3}
 CONFIGURE_STYLE=cmake
 

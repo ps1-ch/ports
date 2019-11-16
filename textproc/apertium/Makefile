@@ -1,16 +1,18 @@
-# $OpenBSD: Makefile,v 1.12 2019/03/05 05:19:31 bentley Exp $
+# $OpenBSD: Makefile,v 1.14 2019/11/11 08:49:10 bentley Exp $
 
 COMMENT =		rule-based machine translation platform
 
 V =			3.5
 VER =			3.5.2
 DISTNAME =		apertium-${VER}
-REVISION =		0
+REVISION =		1
 
 SHARED_LIBS +=  apertium3-$V              0.0 # 0.0
 SHARED_LIBS +=  apertium3                 0.0 # 0.0
 
 CATEGORIES =		textproc
+
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
 
 HOMEPAGE =		https://www.apertium.org/
 
@@ -19,7 +21,7 @@ MAINTAINER =		Anthony J. Bentley <anthony@anjbe.name>
 USE_GMAKE =		Yes
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # uses pledge()
 

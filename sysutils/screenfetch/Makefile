@@ -1,19 +1,18 @@
-# $OpenBSD: Makefile,v 1.3 2018/08/28 20:05:18 bcallah Exp $
+# $OpenBSD: Makefile,v 1.5 2019/10/22 20:10:22 cwen Exp $
 
 COMMENT =	display system information in the terminal for screenshots
 PKGNAME =	${DISTNAME:L}
-REVISION =	1
 
 GH_ACCOUNT =	KittyKatt
 GH_PROJECT =	screenFetch
-GH_TAGNAME =	v3.8.0
+GH_TAGNAME =	v3.9.0
 
 CATEGORIES =	sysutils misc
 
-MAINTAINER =	Charlene Wendling <julianaito@posteo.jp>
+MAINTAINER =	Charlene Wendling <cwen@openbsd.org>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 RUN_DEPENDS =	graphics/scrot \
 		net/curl \

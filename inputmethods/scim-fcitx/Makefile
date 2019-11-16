@@ -1,22 +1,22 @@
-# $OpenBSD: Makefile,v 1.16 2019/02/20 06:16:07 kevlo Exp $
+# $OpenBSD: Makefile,v 1.18 2019/08/17 19:07:20 cwen Exp $
 
 COMMENT=	scim input method module for fcitx
 
 V=		3.1.1
 DISTNAME=	scim-fcitx.$V
 PKGNAME=	scim-fcitx-$V
-REVISION=	7
+REVISION=	8
 
 CATEGORIES=	inputmethods chinese
 
 HOMEPAGE=	https://github.com/scim-im/scim-fcitx
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
-WANTLIB=	c iconv intl m ${COMPILER_LIBCXX} scim-1.0 pthread
+WANTLIB +=	${COMPILER_LIBCXX} c iconv intl m scim-1.0
 
-COMPILER =		base-clang ports-gcc base-gcc
+COMPILER=	base-clang ports-gcc
 
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=scim/}
 EXTRACT_SUFX=	.tar.bz2

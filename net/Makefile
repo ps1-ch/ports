@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.1137 2019/06/16 22:14:18 sthen Exp $
+# $OpenBSD: Makefile,v 1.1151 2019/11/13 14:49:29 fcambus Exp $
 
      SUBDIR =
      SUBDIR += GeoIP
@@ -13,6 +13,7 @@
      SUBDIR += argus
      SUBDIR += argus-clients
      SUBDIR += arp-scan
+     SUBDIR += arouteserver
      SUBDIR += arpcatch
      SUBDIR += arpd
      SUBDIR += arping
@@ -46,14 +47,12 @@
      SUBDIR += cjc
      SUBDIR += clic
      SUBDIR += climm
-     SUBDIR += clive
      SUBDIR += cnupm
      SUBDIR += coccinella
      SUBDIR += cppzmq
      SUBDIR += crawl
      SUBDIR += ctrace
      SUBDIR += curl
-     SUBDIR += cvsync
      SUBDIR += czmq
      SUBDIR += daq
      SUBDIR += darkstat
@@ -78,7 +77,9 @@
      SUBDIR += dnstop
      SUBDIR += dnstracer
      SUBDIR += doc
+     SUBDIR += doh
      SUBDIR += dsocks
+     SUBDIR += dsvpn
      SUBDIR += dxpc
      SUBDIR += echoping
      SUBDIR += ejabberd
@@ -92,7 +93,6 @@
      SUBDIR += ezstream
      SUBDIR += fastnetmon
      SUBDIR += filezilla
-     SUBDIR += firewalk
      SUBDIR += flickcurl
      SUBDIR += flow-tools
      SUBDIR += flowd
@@ -179,6 +179,7 @@
      SUBDIR += jabberd,mysql,ldap
      SUBDIR += jftpgw
      SUBDIR += jnettop
+     SUBDIR += kdeconnect-kde
      SUBDIR += kea
      SUBDIR += kismet
      SUBDIR += kissd
@@ -435,6 +436,7 @@
      SUBDIR += p5-Net-Twitter-Lite
      SUBDIR += p5-Net-UPnP
      SUBDIR += p5-Net-Wake
+     SUBDIR += p5-Net-WebSocket-Server
      SUBDIR += p5-Net-Whois
      SUBDIR += p5-Net-Whois-RIPE
      SUBDIR += p5-Net-Whois-Raw
@@ -463,6 +465,7 @@
      SUBDIR += p5-POE-Filter-DNS-TCP
      SUBDIR += p5-POE-Filter-IRCD
      SUBDIR += p5-PlRPC
+     SUBDIR += p5-Protocol-WebSocket
      SUBDIR += p5-RPC-XML
      SUBDIR += p5-Regexp-Common-net-CIDR
      SUBDIR += p5-SNMP-BridgeQuery
@@ -539,12 +542,10 @@
      SUBDIR += pure-ftpd,virtual_chroot
      SUBDIR += purple-rocketchat
      SUBDIR += putty
-     SUBDIR += py-GeoIP
      SUBDIR += py-IOSXR
      SUBDIR += py-IOSXR,python3
      SUBDIR += py-IP
      SUBDIR += py-IP,python3
-     SUBDIR += py-adns
      SUBDIR += py-aiodns
      SUBDIR += py-aiodns,python3
      SUBDIR += py-ripe.atlas.cousteau
@@ -572,8 +573,6 @@
      SUBDIR += py-dpkt
      SUBDIR += py-eapi
      SUBDIR += py-eapi,python3
-     SUBDIR += py-flowd
-     SUBDIR += py-flowtools
      SUBDIR += py-ftpdlib
      SUBDIR += py-ftpdlib,python3
      SUBDIR += py-geventhttpclient
@@ -590,7 +589,8 @@
      SUBDIR += py-libcloud
      SUBDIR += py-libcloud,python3
      SUBDIR += py-libpcap
-     SUBDIR += py-medusa
+     SUBDIR += py-minimalmodbus
+     SUBDIR += py-minimalmodbus,python3
      SUBDIR += py-msgpack
      SUBDIR += py-msgpack,python3
      SUBDIR += py-nbxmpp
@@ -651,6 +651,7 @@
      SUBDIR += rabbitmq-c
      SUBDIR += radcli
      SUBDIR += rbldnsd
+     SUBDIR += routinator
      SUBDIR += rrdtool
      SUBDIR += rsnapshot
      SUBDIR += rsync
@@ -705,8 +706,10 @@
      SUBDIR += ssvnc
      SUBDIR += strongswan
      SUBDIR += supybot
+     SUBDIR += swirc
      SUBDIR += syncthing
      SUBDIR += synergy
+     SUBDIR += tacacs+
      SUBDIR += tcl-snmptools
      SUBDIR += tclcurl
      SUBDIR += tcludp

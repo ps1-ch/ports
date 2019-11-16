@@ -1,21 +1,20 @@
-# $OpenBSD: Makefile,v 1.20 2019/05/20 22:15:02 naddy Exp $
+# $OpenBSD: Makefile,v 1.22 2019/10/19 18:23:33 bcallah Exp $
 
 COMMENT=	convert DOS/MAC files to UNIX (line-endings/charset)
 
-DISTNAME =	dos2unix-7.4.0
-REVISION =	0
+DISTNAME =	dos2unix-7.4.1
 
 CATEGORIES=	converters
 
-HOMEPAGE=	http://waterlan.home.xs4all.nl/dos2unix.html
+HOMEPAGE=	https://waterlan.home.xs4all.nl/dos2unix.html
 MAINTAINER=	Brian Callahan <bcallah@openbsd.org>
 
 # BSD
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c intl
 
-MASTER_SITES=	http://waterlan.home.xs4all.nl/dos2unix/
+MASTER_SITES=	https://waterlan.home.xs4all.nl/dos2unix/
 
 BUILD_DEPENDS=	devel/gettext,-tools
 

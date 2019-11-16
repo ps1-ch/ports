@@ -1,15 +1,15 @@
-# $OpenBSD: Makefile,v 1.4 2019/05/20 22:15:16 naddy Exp $
+# $OpenBSD: Makefile,v 1.6 2019/07/16 21:29:41 sthen Exp $
 
 COMMENT =	program for statistical analysis of sampled data
 DISTNAME =	pspp-1.2.0
-REVISION =	1
+REVISION =	2
 CATEGORIES =	math x11
 
 HOMEPAGE =	https://www.gnu.org/software/pspp/
 MAINTAINER =	Brian Callahan <bcallah@openbsd.org>
 
 # GPLv3+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama Xrandr
 WANTLIB += Xrender atk-1.0 atk-bridge-2.0 atspi c cairo cairo-gobject

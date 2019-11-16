@@ -1,26 +1,25 @@
-# $OpenBSD: Makefile,v 1.176 2019/05/23 08:48:23 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.181 2019/11/03 18:59:28 jasper Exp $
 
 USE_WXNEEDED=		Yes
 
 COMMENT=		next generation GNOME shell
 
 GNOME_PROJECT=		gnome-shell
-GNOME_VERSION=		3.32.2
+GNOME_VERSION=		3.34.1
+REVISION=		1
 
 # GPLv2+
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
-WANTLIB += EGL GL X11 Xfixes Xi atk-1.0 atk-bridge-2.0 c cairo
-WANTLIB += cairo-gobject croco-0.6 ecal-1.2 edataserver-1.2 gck-1
-WANTLIB += gcr-base-3 gdk-3 gdk_pixbuf-2.0 gio-2.0 girepository-1.0
-WANTLIB += gjs glib-2.0 gmodule-2.0 gobject-2.0 gstbase-1.0 gstreamer-1.0
-WANTLIB += gtk-3 ical intl json-glib-1.0 m mutter-4 p11-kit pango-1.0
-WANTLIB += pangocairo-1.0 polkit-agent-1 polkit-gobject-1 pthread
-WANTLIB += pulse pulse-mainloop-glib secret-1 soup-2.4 startup-notification-1
-WANTLIB += xml2
-WANTLIB += lib/mutter-4/mutter-clutter-4
-WANTLIB += lib/mutter-4/mutter-cogl-4
-WANTLIB += lib/mutter-4/mutter-cogl-pango-4
+WANTLIB += X11 Xfixes atk-1.0 atk-bridge-2.0 c cairo croco-0.6
+WANTLIB += ecal-2.0 edataserver-1.2 gcr-base-3 gdk-3 gdk_pixbuf-2.0
+WANTLIB += gio-2.0 girepository-1.0 gjs glib-2.0 gobject-2.0 gstbase-1.0
+WANTLIB += gstreamer-1.0 gtk-3 ical-glib intl json-glib-1.0 m
+WANTLIB += mutter-5 pango-1.0 pangocairo-1.0 polkit-agent-1 polkit-gobject-1
+WANTLIB += pulse pulse-mainloop-glib gnome-autoar-0
+WANTLIB += lib/mutter-5/mutter-clutter-5
+WANTLIB += lib/mutter-5/mutter-cogl-5
+WANTLIB += lib/mutter-5/mutter-cogl-pango-5
 
 MODULES=		devel/dconf \
 			devel/meson \
@@ -35,6 +34,7 @@ MODPY_VERSION=		${MODPY_DEFAULT_VERSION_3}
 MODGNOME_TOOLS +=	desktop-file-utils docbook gobject-introspection
 
 BUILD_DEPENDS +=	devel/gsettings-desktop-schemas \
+			textproc/asciidoc \
 			www/sassc
 RUN_DEPENDS +=		devel/gsettings-desktop-schemas
 
@@ -43,6 +43,7 @@ LIB_DEPENDS=		audio/pulseaudio \
 			multimedia/gstreamer1/core \
 			sysutils/polkit \
 			www/libcroco \
+			x11/gnome/autoar \
 			x11/gnome/gcr \
 			x11/gnome/gjs \
 			x11/gnome/mutter>=3.32.0

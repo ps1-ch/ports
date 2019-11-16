@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.54 2019/05/30 14:16:13 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.64 2019/11/06 15:21:39 ajacoutot Exp $
 
 # i386: pty_openbsd.go:24:10: undefined: ptmget
 ONLY_FOR_ARCHS=		amd64
 
 COMMENT=		AWS SSM agent
 
-GH_TAGNAME=		2.3.634.0
+GH_TAGNAME=		2.3.756.0
 GH_ACCOUNT=		aws
 GH_PROJECT=		amazon-ssm-agent
 
@@ -14,7 +14,7 @@ CATEGORIES=		sysutils
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # Amazon Software License
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 WANTLIB += c pthread
 
@@ -22,11 +22,7 @@ BUILD_DEPENDS=		lang/go
 
 NO_TEST=		Yes
 
-.if ${MACHINE_ARCH} == "amd64"
 ALL_TARGET=		build-openbsd
-.elif ${MACHINE_ARCH} == "i386"
-ALL_TARGET=		build-openbsd-386
-.endif
 
 USE_GMAKE=		Yes
 MAKE_ENV=		SKIP_CHECKSTYLE=Yes GOCACHE=${WRKDIR}/go-cache

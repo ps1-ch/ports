@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.7 2019/03/10 12:40:35 rpointel Exp $
+# $OpenBSD: Makefile,v 1.10 2019/10/26 08:41:48 rpointel Exp $
 
 COMMENT =	parse a PDF document
 
-MODPY_EGG_VERSION =	0.7.1
+MODPY_EGG_VERSION =	0.7.3
 DISTNAME =	pdf-parser_V${MODPY_EGG_VERSION:S/./_/g}
 PKGNAME =	pdf-parser-${MODPY_EGG_VERSION}
 
@@ -13,7 +13,7 @@ HOMEPAGE =	http://blog.didierstevens.com/programs/pdf-tools/
 MAINTAINER =	Remi Pointel <rpointel@openbsd.org>
 
 # public domain
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	https://didierstevens.com/files/software/
 

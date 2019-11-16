@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.8 2016/03/04 10:11:22 kirby Exp $
+# $OpenBSD: Makefile,v 1.10 2019/07/17 14:46:33 danj Exp $
 
 PKG_ARCH =	*
 COMMENT =	lightweight C++ template library for linear algebra
@@ -9,12 +9,10 @@ VERSION =	3.2.2
 DISTNAME =	${VERSION}
 PKGNAME =	eigen3-${VERSION}
 WRKDIST =	${WRKDIR}/eigen-eigen-1306d75b4a21
-REVISION =	3
-
-MAINTAINER =	Vadim Zhukov <zhuk@openbsd.org>
+REVISION =	4
 
 # Mostly MPLv2, also LGPLv2.1, LGPLv2.1+ and BSDL
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MASTER_SITES =	http://bitbucket.org/eigen/eigen/get/ \
 		https://spacehopper.org/mirrors/eigen/

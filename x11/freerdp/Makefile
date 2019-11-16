@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.37 2019/02/17 21:34:01 sthen Exp $
+# $OpenBSD: Makefile,v 1.39 2019/11/04 10:30:20 sthen Exp $
 
 # Also:  __sync_fetch_and_add_4 __sync_add_and_fetch_4 __sync_sub_and_fetch_4
 BROKEN-hppa =		undefined reference to __sync_val_compare_and_swap_4
@@ -9,6 +9,11 @@ PKGNAME =		freerdp-2.0.0rc1
 REVISION =		4
 CATEGORIES =		x11 net
 
+# XXX This version has known security issues.
+
+# XXX Can't be updated without either timer_create() and friends or
+#     an alternative timer implementation (as was done for OSX)
+
 SHARED_LIBS +=  freerdp-client2           0.0 # 2.0
 SHARED_LIBS +=  freerdp2                  0.0 # 2.0
 SHARED_LIBS +=  winpr-tools2              0.0 # 2.0
@@ -18,7 +23,7 @@ HOMEPAGE =		https://www.freerdp.com/
 MASTER_SITES =		https://pub.freerdp.com/releases/
 
 # Apache 2.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += X11 Xcursor Xext Xfixes Xi Xinerama Xrender Xv avcodec
 WANTLIB += avutil c crypto cups execinfo m pthread ssl xkbfile

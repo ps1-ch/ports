@@ -1,13 +1,12 @@
-# $OpenBSD: Makefile,v 1.73 2019/05/21 09:34:30 sthen Exp $
+# $OpenBSD: Makefile,v 1.75 2019/11/08 23:29:56 pirofti Exp $
 
 COMMENT =	command-driven interactive function plotting program
 
 V =		5.2
-PATCHLEVEL =	5
+PATCHLEVEL =	7
 DISTNAME =	gnuplot-${V}.${PATCHLEVEL}
 CATEGORIES =	math graphics
 MASTER_SITES =	${MASTER_SITE_SOURCEFORGE:=gnuplot/}
-REVISION =	1
 
 HOMEPAGE =	http://www.gnuplot.info/
 
@@ -15,7 +14,7 @@ MAINTAINER =	Paul Irofti <pirofti@openbsd.org>
 
 # see Copyright in source
 # http://gnuplot.cvs.sourceforge.net/gnuplot/gnuplot/Copyright
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c cerf m curses ereadline ${COMPILER_LIBCXX} z
 

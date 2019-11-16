@@ -1,9 +1,9 @@
-# $OpenBSD: Makefile,v 1.51 2019/03/27 12:49:48 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.55 2019/08/03 22:58:42 tb Exp $
 
 COMMENT=	utilities for dot.desktop entries
 
-DISTNAME=	desktop-file-utils-0.23
-REVISION =	10
+DISTNAME=	desktop-file-utils-0.24
+REVISION=	0
 
 EXTRACT_SUFX=	.tar.xz
 
@@ -14,12 +14,12 @@ HOMEPAGE=	http://freedesktop.org/wiki/Software/desktop-file-utils
 MAINTAINER=	Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 # uses pledge()
 WANTLIB += c glib-2.0 intl
 
-MASTER_SITES=	http://freedesktop.org/software/desktop-file-utils/releases/
+MASTER_SITES=	https://freedesktop.org/software/desktop-file-utils/releases/
 
 LIB_DEPENDS=	devel/glib2
 

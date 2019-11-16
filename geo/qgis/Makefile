@@ -1,24 +1,26 @@
-# $OpenBSD: Makefile,v 1.106 2019/05/23 06:50:18 landry Exp $
+# $OpenBSD: Makefile,v 1.114 2019/11/15 09:08:13 landry Exp $
 
 COMMENT =	desktop geographical information system
 
-DISTNAME =	qgis-3.6.3
+DISTNAME =	qgis-3.10.0
 EXTRACT_SUFX =	.tar.bz2
 CATEGORIES =	geo x11
+DEBUG_PACKAGES =${BUILD_PACKAGES}
+REVISION =	0
 
-SHARED_LIBS =	qgis_core	32.0 \
-		qgis_app	16.1 \
-		qgis_gui	24.2 \
-		qgis_analysis	12.2 \
-		qgis_server	10.1 \
+SHARED_LIBS =	qgis_core	37.0 \
+		qgis_app	20.0 \
+		qgis_gui	27.0 \
+		qgis_analysis	14.0 \
+		qgis_server	11.2 \
 		qgispython	6.0 \
-		qgis_3d		4.0 \
+		qgis_3d		5.1 \
 		qgis_native	0.3
 
 HOMEPAGE =	http://www.qgis.org/
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MAINTAINER =	Landry Breuil <landry@openbsd.org>
 
@@ -33,6 +35,7 @@ COMPILER =	base-clang ports-gcc
 MODPY_VERSION =	${MODPY_DEFAULT_VERSION_3}
 
 BUILD_DEPENDS =	x11/py-qt5${MODPY_FLAVOR} \
+		devel/py-sip${MODPY_FLAVOR}>=4.19.4 \
 		geo/gdal,-python${MODPY_FLAVOR} \
 		devel/py-six${MODPY_FLAVOR} \
 		editors/py-qscintilla,qt5 \
@@ -90,7 +93,8 @@ CONFIGURE_ARGS =-DPYTHON_EXECUTABLE=${MODPY_BIN} \
 		-DWITH_3D=TRUE \
 		-DWITH_SERVER=TRUE -DWITH_SERVER_PLUGINS=TRUE -DWITH_QSPATIALITE=TRUE
 
-#CONFIGURE_ARGS += -DCMAKE_BUILD_TYPE:String=RelWithDebInfo
+# does more than just debug pkgs
+#DEBUG_CONFIGURE_ARGS += -DCMAKE_BUILD_TYPE:String=RelWithDebInfo
 
 # https://issues.qgis.org/issues/17696
 #.ifdef  "${BUILD_OSG}"

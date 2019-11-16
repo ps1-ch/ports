@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.29 2019/05/20 22:15:29 naddy Exp $
+# $OpenBSD: Makefile,v 1.34 2019/11/05 10:18:53 rsadowski Exp $
 
 DISTNAME =		qtbase-opensource-src-${DIST_VERSION}
 QT5NAME =		Qt5 core
@@ -11,17 +11,10 @@ COMMENT-sqlite2 =	SQLite 2.x plugin for Qt5
 COMMENT-tds =		TDS plugin for Qt5
 
 PKGNAME-mysql =		qt5-mysql-${VERSION}
-PKGNAME-global = 	qt5-global-${VERSION}
+PKGNAME-global =	qt5-global-${VERSION}
 PKGNAME-psql =		qt5-postgresql-${VERSION}
 PKGNAME-sqlite2 =	qt5-sqlite2-${VERSION}
 PKGNAME-tds =		qt5-tds-${VERSION}
-REVISION-global =       0
-REVISION-mysql =	0
-REVISION-psql =		0
-REVISION-sqlite2 =	0
-REVISION-tds =		0
-
-REVISION-main =		4
 
 PKG_ARCH-global =	*
 PKG_ARCH-examples =	*
@@ -44,10 +37,10 @@ SHARED_LIBS +=	Qt5XcbQpa			1.2
 SHARED_LIBS +=	Qt5EglFsKmsSupport		0.1
 
 WANTLIB-main += ${COMPILER_LIBCXX} EGL GL ICE SM X11 X11-xcb Xext Xi
-WANTLIB-main += atk-1.0 c cairo cairo-gobject cups dbus-1 drm execinfo
-WANTLIB-main += fontconfig freetype gbm gdk-3 gdk_pixbuf-2.0 gio-2.0
-WANTLIB-main += glib-2.0 gobject-2.0 gthread-2.0 gtk-3 harfbuzz icudata
-WANTLIB-main += icui18n icuuc iodbc jpeg m pango-1.0 pangocairo-1.0
+WANTLIB-main += atk-1.0 c cairo cairo-gobject cups dbus-1 double-conversion
+WANTLIB-main += drm execinfo fontconfig freetype gbm gdk-3 gdk_pixbuf-2.0
+WANTLIB-main += gio-2.0 glib-2.0 gobject-2.0 gthread-2.0 gtk-3 harfbuzz
+WANTLIB-main += icudata icui18n icuuc iodbc jpeg m pango-1.0 pangocairo-1.0
 WANTLIB-main += pcre2-16 png sqlite3 xcb xcb-glx xcb-icccm xcb-image
 WANTLIB-main += xcb-keysyms xcb-randr xcb-render xcb-render-util xcb-shape
 WANTLIB-main += xcb-shm xcb-sync xcb-xfixes xcb-xinerama xcb-xkb xkbcommon
@@ -59,7 +52,7 @@ WANTLIB-main += ssl crypto
 WANTLIB-global =
 
 WANTLIB-mysql =		${COMPILER_LIBCXX} Qt5Core Qt5Sql
-WANTLIB-mysql +=	m pthread mysqlclient_r
+WANTLIB-mysql +=	m pthread mariadb
 
 WANTLIB-psql =		${COMPILER_LIBCXX} Qt5Core Qt5Sql
 WANTLIB-psql +=		m pthread pq
@@ -79,6 +72,7 @@ MODQMAKE_PROJECTS =	tests/tests.pro
 
 # no leveldb dependency, requires -lmemenv; QtWebKit uses internal version
 LIB_DEPENDS-main =	${LIB_DEPENDS} \
+			math/double-conversion \
 			databases/iodbc \
 			databases/sqlite3 \
 			devel/atk \
@@ -217,12 +211,13 @@ MAKE_ENV +=		${MODQMAKE_ENV}
 # See qtbase/tests/README for details
 TEST_IS_INTERACTIVE =	X11
 TEST_DEPENDS =		audio/sox
-#			kde4-minimal-*|kdebase-*:meta/kde4,-minimal
 
 post-extract:
 	mkdir -p ${WRKDIST}/mkspecs/openbsd-clang
-	cp ${FILESDIR}/clang-qmake.conf ${WRKDIST}/mkspecs/openbsd-clang/qmake.conf
-	cp ${WRKDIST}/mkspecs/openbsd-g++/qplatformdefs.h ${WRKDIST}/mkspecs/openbsd-clang/
+	cp ${FILESDIR}/clang-qmake.conf \
+		${WRKDIST}/mkspecs/openbsd-clang/qmake.conf
+	cp ${WRKDIST}/mkspecs/openbsd-g++/qplatformdefs.h \
+		${WRKDIST}/mkspecs/openbsd-clang/
 
 pre-configure:
 	@gccbasedir=`ecpp -print-search-dirs | awk '/^install:/{print $$2}'`; \

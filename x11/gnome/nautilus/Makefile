@@ -1,24 +1,21 @@
-# $OpenBSD: Makefile,v 1.191 2019/05/09 13:53:09 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.194 2019/11/01 22:39:57 ajacoutot Exp $
 
 COMMENT=		GNOME file manager
 
 GNOME_PROJECT=		nautilus
-GNOME_VERSION=		3.32.1
-REVISION=		0
+GNOME_VERSION=		3.34.1
 
-SHARED_LIBS += nautilus-extension        3.0 # 1.4.0
+SHARED_LIBS += nautilus-extension        3.0 # 1.5.0
 
 CATEGORIES=		x11
 
 # GPLv2 - LGPLv2 - GFPLv1.1
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
-WANTLIB += X11 archive atk-1.0 c cairo cairo-gobject gdk-3 gdk_pixbuf-2.0
+WANTLIB += atk-1.0 c cairo cairo-gobject gdk-3 gdk_pixbuf-2.0
 WANTLIB += gexiv2 gio-2.0 glib-2.0 gmodule-2.0 gnome-autoar-0
-WANTLIB += gobject-2.0 gstaudio-1.0 gstbase-1.0 gstpbutils-1.0
-WANTLIB += gstreamer-1.0 gsttag-1.0 gstvideo-1.0 gtk-3 intl m
-WANTLIB += pango-1.0 pangocairo-1.0 pthread tracker-sparql-2.0
-WANTLIB += xml2
+WANTLIB += gnome-desktop-3 gobject-2.0 gstpbutils-1.0 gstreamer-1.0
+WANTLIB += gtk-3 intl m pango-1.0 pangocairo-1.0 tracker-sparql-2.0
 
 COMPILER=		base-clang ports-gcc
 COMPILER_LANGS=		c
@@ -35,6 +32,7 @@ RUN_DEPENDS=		x11/gnome/gvfs \
 LIB_DEPENDS=		graphics/libgexiv2 \
 			multimedia/gstreamer1/plugins-base \
 			x11/gnome/autoar \
+			x11/gnome/desktop \
 			x11/gnome/tracker
 
 MODGNOME_TOOLS=		desktop-file-utils gobject-introspection \

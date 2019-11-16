@@ -1,9 +1,11 @@
-# $OpenBSD: Makefile,v 1.42 2018/09/28 09:03:49 pirofti Exp $
+# $OpenBSD: Makefile,v 1.47 2019/10/17 06:32:20 robert Exp $
 
 COMMENT=		industrial-grade ticketing system
 
-DISTNAME=		rt-4.4.3
+DISTNAME=		rt-4.4.4
 CATEGORIES=		www
+
+REVISION=		1
 
 MAINTAINER=		Robert Nagy <robert@openbsd.org>
 
@@ -72,7 +74,6 @@ RUN_DEPENDS=		converters/p5-Convert-ASN1 \
 			textproc/p5-Regexp-Common \
 			textproc/p5-String-ShellQuote \
 			textproc/p5-Text-Quoted \
-			textproc/p5-Text-Quoted \
 			textproc/p5-Text-Template \
 			textproc/p5-Text-WikiFormat \
 			textproc/p5-Text-Wrapper \
@@ -100,7 +101,7 @@ RUN_DEPENDS=		converters/p5-Convert-ASN1 \
 			www/p5-libwww
 
 # GPL
-PERMIT_PACKAGE_CDROM=   Yes
+PERMIT_PACKAGE=	Yes
 
 NO_BUILD=		Yes
 
@@ -115,10 +116,6 @@ CONFIGURE_ARGS=		--with-rt-group=bin \
 			--enable-gpg \
 			--enable-graphviz \
 			--enable-gd
-
-RUN_DEPENDS+=		security/gnupg \
-			graphics/gd \
-			math/graphviz,-main
 
 BUILD_DEPENDS+=		security/gnupg \
 			graphics/gd \

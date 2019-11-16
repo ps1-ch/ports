@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.4 2019/06/05 14:27:02 landry Exp $
+# $OpenBSD: Makefile,v 1.7 2019/11/12 22:31:23 rsadowski Exp $
 
 COMMENT =	plugin-driven server agent for collecting metrics
 
@@ -6,16 +6,17 @@ BROKEN-i386 =	build fails, no error message
 
 GH_ACCOUNT =	influxdata
 GH_PROJECT =	telegraf
-GH_TAGNAME =	1.9.0
-REVISION =	0
+GH_TAGNAME =	1.12.3
 HOMEPAGE =	https://influxdata.com
 # selfhosted because we bundle go deps
-MASTER_SITES =	https://rhaalovely.net/stuff/
+MASTER_SITES =	https://sizeofvoid.org/pub/OpenBSD/distfiles/
 
 CATEGORIES =		sysutils
 
+MAINTAINER =	Rafael Sadowski <rsadowski@openbsd.org>
+
 # MIT
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =	lang/go
 
@@ -38,11 +39,11 @@ do-build:
 
 ## convenience hackish target to bundle/vendor dependencies
 tarball: clean distclean
+	@if ! [ -x ${LOCALBASE}/bin/dep ]; then echo 'run "pkg_add dep" to use this target'; exit 1; fi
 	mkdir -p ${WRKDIR}/go/src/github.com/influxdata/
 	ftp -o ${WRKDIR}/${DISTFILES} https://github.com/influxdata/telegraf/archive/${GH_TAGNAME}/${DISTFILES}
 	tar -C ${WRKDIR}/go/src/github.com/influxdata/ -xzf ${WRKDIR}/${DISTFILES}
-	${SETENV} ${MAKE_ENV} go get github.com/golang/dep/cmd/dep
-	cd ${WRKDIR}/go/src/github.com/influxdata/${DISTNAME} && ${SETENV} ${MAKE_ENV} ${WRKDIR}/go/bin/dep ensure
+	cd ${WRKDIR}/go/src/github.com/influxdata/${DISTNAME} && ${SETENV} ${MAKE_ENV} dep ensure
 	rm -Rf ${WRKDIR}/go/{bin,pkg} ${WRKDIR}/go/src/github.com/influxdata/${DISTNAME}/vendor/github.com/influxdata/telegraf ${WRKDIR}/${DISTFILES}
 	cd ${WRKDIR}/go/src/github.com/influxdata/ && tar -czf /usr/ports/distfiles/${DISTFILES} ${DISTNAME}
 

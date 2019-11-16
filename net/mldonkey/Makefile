@@ -1,16 +1,16 @@
-# $OpenBSD: Makefile,v 1.30 2019/05/20 22:15:19 naddy Exp $
+# $OpenBSD: Makefile,v 1.35 2019/11/09 12:19:15 ajacoutot Exp $
 
 COMMENT =	e-donkey client
 
 VER =		3.1.6
 DISTNAME =	mldonkey-${VER}
-REVISION =	5
+REVISION =	7
 CATEGORIES =	net
 
 HOMEPAGE =	http://mldonkey.sourceforge.net/Main_Page
 
 # GPLv2
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += X11 Xcomposite Xcursor Xdamage Xext Xfixes Xi Xinerama
 WANTLIB += Xrandr Xrender atk-1.0 bz2 c cairo charset fontconfig

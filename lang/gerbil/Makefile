@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile,v 1.6 2019/02/10 18:01:30 juanfra Exp $
+# $OpenBSD: Makefile,v 1.8 2019/08/05 18:27:32 juanfra Exp $
 
 # Gambit doesn't have thread-local storage support on GCC platforms
 ONLY_FOR_ARCHS = ${CLANG_ARCHS}
@@ -16,7 +16,7 @@ HOMEPAGE =	https://cons.io/
 MAINTAINER = 	Timo Myyra <timo.myyra@bittivirhe.fi>
 
 # LGPLv2.1/Apache 2.0
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += c m pthread util z
 WANTLIB += crypto iconv lzma sqlite3 ssl xml2
@@ -34,8 +34,6 @@ MAKE_ENV +=	CPPFLAGS=-I${LOCALBASE}/include \
 		GERBIL_PATH=${WRKINST}${PREFIX}/gerbil \
 		GAMBCOMP_VERBOSE=1
 
-NO_TEST =	Yes
-
 GERBIL_ROOT =	${PREFIX}/gerbil
 
 do-build:
@@ -48,5 +46,8 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/etc/gerbil.el ${PREFIX}/share/emacs/site-lisp
 	${INSTALL_DATA} ${WRKSRC}/*.md ${GERBIL_ROOT}
 	${INSTALL_DATA} ${WRKSRC}/*.txt ${GERBIL_ROOT}
+
+do-test:
+	${SETENV} ${MAKE_ENV} ${WRKSRC}/bin/gxi ${WRKSRC}/src/std/run-tests.ss
 
 .include <bsd.port.mk>

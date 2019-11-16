@@ -1,21 +1,21 @@
-# $OpenBSD: Makefile,v 1.5 2016/03/20 19:56:35 naddy Exp $
+# $OpenBSD: Makefile,v 1.7 2019/10/31 14:40:33 cwen Exp $
 
 COMMENT = 	object for running system commands
 
 MODULES =	cpan
 PKG_ARCH =	*
-DISTNAME =	System-Command-1.07
+DISTNAME =	System-Command-1.119
 CATEGORIES =	devel
 
-REVISION =	0
-
 # perl
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
-CONFIGURE_STYLE =	modbuild
+RUN_DEPENDS =	devel/p5-IPC-Run
 
-MAKE_ENV +=		TEST_POD=yes
+TEST_DEPENDS =	devel/p5-Test-Command \
+		devel/p5-Test-Output
 
-TEST_DEPENDS =	devel/p5-Test-Output
+# Requires Pod::Coverage::TrustPod that we don't have in ports
+MAKE_ENV +=	TEST_POD= AUTHOR_TESTING=
 
 .include <bsd.port.mk>

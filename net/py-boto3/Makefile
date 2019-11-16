@@ -1,8 +1,8 @@
-# $OpenBSD: Makefile,v 1.173 2019/06/15 08:53:58 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.197 2019/11/10 12:54:34 ajacoutot Exp $
 
 COMMENT=		AWS SDK for Python
 
-MODPY_EGG_VERSION=	1.9.169
+MODPY_EGG_VERSION=	1.10.14
 DISTNAME=		boto3-${MODPY_EGG_VERSION}
 PKGNAME=		py-${DISTNAME}
 
@@ -13,7 +13,7 @@ HOMEPAGE=		https://github.com/boto/boto3
 MAINTAINER=		Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # Apache 2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=		Yes
 
 MODULES=		lang/python
 
@@ -24,8 +24,7 @@ FLAVORS=		python3
 FLAVOR ?=
 
 RUN_DEPENDS=		devel/py-jmespath${MODPY_FLAVOR} \
-			devel/py-six${MODPY_FLAVOR} \
-			net/py-botocore${MODPY_FLAVOR} \
+			net/py-botocore${MODPY_FLAVOR}=1.13.${MODPY_EGG_VERSION:E} \
 			net/py-s3transfer${MODPY_FLAVOR}
 
 .if !${FLAVOR:Mpython3}

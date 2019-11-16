@@ -1,11 +1,11 @@
-# $OpenBSD: Makefile,v 1.14 2019/03/05 05:19:31 bentley Exp $
+# $OpenBSD: Makefile,v 1.18 2019/11/12 20:18:55 espie Exp $
 
 COMMENT =		finite-state lexical processing toolkit
 
 V =			3.5
 VER =			3.5.0
 DISTNAME =		lttoolbox-${VER}
-REVISION =		0
+REVISION =		1
 
 SHARED_LIBS +=		lttoolbox3-$V             2.0 # 0.0
 SHARED_LIBS +=		lttoolbox3                2.0 # 0.0
@@ -16,8 +16,10 @@ HOMEPAGE =		http://wiki.apertium.org/wiki/Lttoolbox
 
 MAINTAINER =		Anthony J. Bentley <anthony@anjbe.name>
 
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+
 # GPLv2+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 # uses pledge()
 

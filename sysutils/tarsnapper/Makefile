@@ -1,33 +1,27 @@
-# $OpenBSD: Makefile,v 1.4 2019/05/15 12:04:41 kmos Exp $
+# $OpenBSD: Makefile,v 1.7 2019/11/08 22:40:35 kmos Exp $
 
 COMMENT =		tarsnap wrapper which automatically expires backups
 
 MODPY_EGG_VERSION =	0.4.0
 DISTNAME =		tarsnapper-${MODPY_EGG_VERSION}
-REVISION =		1
+REVISION =		2
 
 CATEGORIES =		sysutils
 
-MAINTAINER =		Michael Reed <michael@michaelreed.io>
-
 # BSD
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 MODULES =		lang/python
 
 MODPY_PI =		Yes
 MODPY_SETUPTOOLS =	Yes
 MODPY_VERSION =		${MODPY_DEFAULT_VERSION_3}
+MODPY_PYTEST =		Yes
 
 RUN_DEPENDS =		devel/py-dateutil${MODPY_FLAVOR} \
 			devel/py-pexpect${MODPY_FLAVOR} \
 			textproc/py-yaml${MODPY_FLAVOR} \
 			sysutils/tarsnap
-
-TEST_DEPENDS =		devel/py-nose${MODPY_FLAVOR}
-
-do-test:
-	cd ${WRKSRC} && \
-		${SETENV} ${MAKE_ENV} ${LOCALBASE}/bin/nosetests${MODPY_BIN_SUFFIX}
+TEST_DEPENDS =	 	devel/py-nose${MODPY_FLAVOR}
 
 .include <bsd.port.mk>

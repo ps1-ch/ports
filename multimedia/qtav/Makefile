@@ -1,10 +1,11 @@
-# $OpenBSD: Makefile,v 1.2 2019/05/03 08:18:03 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.6 2019/11/06 08:57:30 naddy Exp $
 
 COMMENT =	FFmpeg-based Qt multimedia framework
 
 GH_ACCOUNT =	wang-bin
 GH_PROJECT =	QtAV
 GH_TAGNAME =	v1.12.0
+REVISION =	2
 
 PKGNAME =	${DISTNAME:L}
 
@@ -17,7 +18,7 @@ CATEGORIES =	multimedia
 HOMEPAGE =	https://www.qtav.org/
 
 # LGPLv2.1+
-PERMIT_PACKAGE_CDROM =	Yes
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL Qt5Core Qt5Gui Qt5Network Qt5OpenGL
 WANTLIB += Qt5Qml Qt5Quick Qt5Widgets X11 Xext Xv ass avcodec
@@ -37,6 +38,8 @@ LIB_DEPENDS =		audio/openal \
 			x11/qt5/qtdeclarative
 
 MODQMAKE_ENV +=		TRUEPREFIX=${TRUEPREFIX}
+
+SUBST_VARS =		QT5_VERSION
 
 # The examples are GLPv3 licencensed and have too generic names, like 'Player',
 # so don't install them.

@@ -1,4 +1,4 @@
-@comment $OpenBSD: PLIST,v 1.6 2019/05/03 16:32:28 rsadowski Exp $
+@comment $OpenBSD: PLIST,v 1.10 2019/11/10 15:01:58 rsadowski Exp $
 @conflict kde-l10n-*
 @conflict kde-i18n-*
 @pkgpath x11/kde4/kstars
@@ -473,7 +473,6 @@ share/doc/HTML/en/kstars/wut.docbook
 share/doc/HTML/en/kstars/wut.png
 share/doc/HTML/en/kstars/zenith.docbook
 share/doc/HTML/es/kstars/
-share/doc/HTML/es/kstars/aavso.png
 share/doc/HTML/es/kstars/ai-contents.docbook
 share/doc/HTML/es/kstars/altvstime.docbook
 share/doc/HTML/es/kstars/altvstime.png
@@ -604,6 +603,7 @@ share/doc/HTML/it/kstars/details.docbook
 share/doc/HTML/it/kstars/devicemanager.png
 share/doc/HTML/it/kstars/dumpmode.docbook
 share/doc/HTML/it/kstars/ecliptic.docbook
+share/doc/HTML/it/kstars/ekos-logs.docbook
 share/doc/HTML/it/kstars/ellipticalgalaxies.docbook
 share/doc/HTML/it/kstars/epoch.docbook
 share/doc/HTML/it/kstars/equinox.docbook
@@ -1737,7 +1737,6 @@ share/kstars/venus.R3.vsop
 share/kstars/venus.R4.vsop
 share/kstars/venus.R5.vsop
 share/kstars/venus.orbit
-share/kstars/windi.png
 share/kstars/wzdownload.png
 share/kstars/wzekos.png
 share/kstars/wzgeo.png

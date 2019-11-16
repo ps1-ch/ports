@@ -1,19 +1,18 @@
-# $OpenBSD: Makefile,v 1.138 2019/05/08 12:14:57 jasper Exp $
+# $OpenBSD: Makefile,v 1.140 2019/09/15 12:48:35 ajacoutot Exp $
 
 COMMENT=	archive manager utility for GNOME
 
 GNOME_PROJECT=	file-roller
-GNOME_VERSION=	3.32.1
+GNOME_VERSION=	3.32.2
 
 CATEGORIES=	archivers
 
 # GPLv2
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += archive c cairo gdk-3 gdk_pixbuf-2.0 gio-2.0 glib-2.0
 WANTLIB += gobject-2.0 gtk-3 intl json-glib-1.0 m nautilus-extension
-WANTLIB += notify pango-1.0 atk-1.0 cairo-gobject pangocairo-1.0
-WANTLIB += pthread
+WANTLIB += notify pango-1.0
 
 MODULES=	devel/dconf \
 		devel/meson \

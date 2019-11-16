@@ -1,10 +1,10 @@
-# $OpenBSD: Makefile,v 1.29 2019/05/19 15:01:25 ajacoutot Exp $
+# $OpenBSD: Makefile,v 1.33 2019/10/19 10:17:07 ajacoutot Exp $
 
 COMMENT=	PDF transformation and inspection utility
 
-DISTNAME=	qpdf-8.4.2
+DISTNAME=	qpdf-9.0.2
 
-SHARED_LIBS +=  qpdf                 6.3      # 25.2
+SHARED_LIBS +=  qpdf                 7.0      # 26.2
 
 CATEGORIES=	print graphics
 
@@ -13,7 +13,7 @@ HOMEPAGE=	http://qpdf.sourceforge.net/
 MAINTAINER=	Antoine Jacoutot <ajacoutot@openbsd.org>
 
 # Artistic License 2.0
-PERMIT_PACKAGE_CDROM=	Yes
+PERMIT_PACKAGE=	Yes
 
 WANTLIB += c jpeg m ${COMPILER_LIBCXX} z
 
@@ -26,6 +26,7 @@ USE_GMAKE=	Yes
 LIB_DEPENDS=	graphics/jpeg
 
 CONFIGURE_STYLE=gnu
+
 CONFIGURE_ENV=	CPPFLAGS="-I${LOCALBASE}/include" \
 		LDFLAGS="-L${LOCALBASE}/lib" \
 		ac_cv_prog_FOP= \

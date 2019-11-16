@@ -1,9 +1,10 @@
-# $OpenBSD: Makefile,v 1.302 2019/06/03 16:06:57 sthen Exp $
+# $OpenBSD: Makefile,v 1.309 2019/11/11 21:25:19 sthen Exp $
 
 COMMENT-main=	open source multi-protocol PBX and telephony toolkit
 
-VER=		16.4.0
-PJ_V=		2.8
+VER=		16.6.1
+PJ_V=		2.9
+REVISION=	0
 DISTNAME=	asterisk-${VER:S/beta/-beta/:S/rc/-rc/}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} pjproject-${PJ_V}.tar.bz2:0
 PKGNAME-main=	asterisk-${VER}
@@ -32,6 +33,8 @@ WANTLIB-main += c crypto curl curses edit execinfo gsm iconv iksemel
 WANTLIB-main += jansson lzma m nghttp2 ogg portaudio pthread radcli
 WANTLIB-main += spandsp sqlite3 srtp2 ssl tiff uriparser unbound uuid
 WANTLIB-main += vorbis vorbisenc vorbisfile xml2 xslt z
+
+DEBUG_PACKAGES=	${BUILD_PACKAGES}
 
 # Asterisk requires either nested functions (gcc extension), or -fblocks (clang).
 # However -fblocks fails:
@@ -194,7 +197,7 @@ CONFIGURE_ARGS+=	--with-gmime=no
 # ldap
 COMMENT-ldap=		LDAP support for Asterisk
 LIB_DEPENDS-ldap=	databases/openldap,-main
-WANTLIB-ldap=		ldap-2.4 pthread
+WANTLIB-ldap=		ldap pthread
 .if !${BUILD_PACKAGES:M-ldap}
 CONFIGURE_ARGS+=	--with-ldap=no
 .endif
@@ -271,6 +274,8 @@ post-extract:
 pre-patch:
 	@perl -i -pe 's/\r$$//' ${WRKSRC}/third-party/pjproject/patches/*patch \
 	    ${WRKSRC}/third-party/pjproject/source/pjlib/build/*vc*proj*
+
+post-patch:
 	cd ${WRKSRC}/third-party/pjproject/source; ../../apply_patches ../patches .
 	touch ${WRKSRC}/third-party/pjproject/source/.unpacked
 
